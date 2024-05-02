@@ -37,6 +37,6 @@ export const withNeuron = (cb: any) => {
       );
     }
 
-    return await cb({ req, user, neuron });
+    return await cb({ req, user, neuron, body });
   });
 };

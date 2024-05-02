@@ -36,3 +36,20 @@ export const withUser = (cb: any) => {
     return await cb({ req, user: user });
   };
 };
+
+export const withAdmin = (cb: any) => {
+  return withUser(async function ({ req, user }: any) {
+    if (user.rol != "admin") {
+      return NextResponse.json(
+        {
+          data: {
+            message: "Icorrect rol",
+          },
+        },
+        { status: 401 }
+      );
+    }
+
+    return await cb({ req, user });
+  });
+};

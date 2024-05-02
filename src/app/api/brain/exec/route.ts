@@ -7,9 +7,12 @@ let db = new Models();
 
 const { Datasource, NeuronExecution }: any = db;
 
-export const POST = withNeuron(async function ({ req, user, neuron }: any) {
-  const body = await req.json();
-
+export const POST = withNeuron(async function ({
+  req,
+  user,
+  neuron,
+  body,
+}: any) {
   let { form } = body.data;
 
   let d1 = Date.now();

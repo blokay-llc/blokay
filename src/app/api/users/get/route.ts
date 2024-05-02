@@ -39,5 +39,3 @@ export const POST = withUser(async function ({ user, req }: any) {
     },
   });
 });
-
-console.log(POST);

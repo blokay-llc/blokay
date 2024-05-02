@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { transpileModule } from "./ts-js";
 import { withNeuron } from "@/lib/withNeuron";
 
-export const POST = withNeuron(async function ({ req, neuron }: any) {
-  const body = await req.json();
+export const POST = withNeuron(async function ({ body, neuron }: any) {
   const data = body.data;
 
   let js = transpileModule(data.synapse);

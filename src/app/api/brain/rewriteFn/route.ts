@@ -7,8 +7,7 @@ import { transpileModule } from "../updateNeuron/ts-js";
 let db = new Models();
 const { Neuron, Datasource, Business }: any = db;
 
-export const POST = withNeuron(async function ({ req, user, neuron }: any) {
-  const body = await req.json();
+export const POST = withNeuron(async function ({ user, neuron, body }: any) {
   const data = body.data;
 
   let business = await Business.findById(user.businessId);
