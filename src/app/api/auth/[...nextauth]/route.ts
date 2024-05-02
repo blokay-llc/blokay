@@ -28,15 +28,15 @@ export const authOptions: any = {
           email: user.email,
         };
       },
-    }),
+    } as any),
     GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
-    }),
+    } as any),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-    }),
+    } as any),
   ],
   callbacks: {
     async session({ session }: { session: Session }) {
