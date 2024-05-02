@@ -1,25 +1,18 @@
-import { withUser } from "@/lib/withUser";
 import { NextResponse } from "next/server";
 import fetch from "node-fetch";
 import Models from "@/db/index";
 import { getConnection } from "@/db/connection";
+import { withNeuron } from "@/lib/withNeuron";
 let db = new Models();
 
-const { Neuron, Datasource, NeuronExecution }: any = db;
+const { Datasource, NeuronExecution }: any = db;
 
-export const POST = withUser(async function ({ req, user }: any) {
+export const POST = withNeuron(async function ({ req, user, neuron }: any) {
   const body = await req.json();
 
-  let { neuronId, format, form } = body.data;
+  let { form } = body.data;
 
   let d1 = Date.now();
-
-  const neuron = await Neuron.findOne({
-    where: {
-      id: neuronId,
-      businessId: user.businessId,
-    },
-  });
 
   // find by type
   const datasource = await Datasource.findOne({

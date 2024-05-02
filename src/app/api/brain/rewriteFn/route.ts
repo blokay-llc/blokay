@@ -1,4 +1,4 @@
-import { withUser } from "@/lib/withUser";
+import { withNeuron } from "@/lib/withNeuron";
 import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import CoreAPI from "@/app/services/core";
@@ -7,7 +7,7 @@ import { transpileModule } from "../updateNeuron/ts-js";
 let db = new Models();
 const { Neuron, Datasource, Business }: any = db;
 
-export const POST = withUser(async function ({ req, user }: any) {
+export const POST = withNeuron(async function ({ req, user, neuron }: any) {
   const body = await req.json();
   const data = body.data;
 
@@ -17,13 +17,6 @@ export const POST = withUser(async function ({ req, user }: any) {
 
   const datasource = await Datasource.findOne({
     where: {
-      businessId: user.businessId,
-    },
-  });
-
-  let neuron = await Neuron.findOne({
-    where: {
-      id: data.neuronId,
       businessId: user.businessId,
     },
   });

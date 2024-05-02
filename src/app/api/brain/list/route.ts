@@ -6,8 +6,6 @@ let db = new Models();
 const { Neuron }: any = db;
 
 export const POST = withUser(async function ({ req, user }: any) {
-  const body = await req.json();
-
   const result = await Neuron.findAll({
     where: {
       businessId: user.businessId,

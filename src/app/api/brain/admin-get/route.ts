@@ -1,23 +1,7 @@
-import { withUser } from "@/lib/withUser";
 import { NextResponse } from "next/server";
-import Models from "@/db/index";
+import { withNeuron } from "@/lib/withNeuron";
 
-let db = new Models();
-
-const { Neuron }: any = db;
-
-export const POST = withUser(async function ({ req, user }: any) {
-  const body = await req.json();
-
-  let { neuronId } = body.data;
-
-  const neuron = await Neuron.findOne({
-    where: {
-      id: neuronId,
-      businessId: user.businessId,
-    },
-  });
-
+export const POST = withNeuron(async function ({ neuron }: any) {
   return NextResponse.json({
     data: {
       Neuron: {
