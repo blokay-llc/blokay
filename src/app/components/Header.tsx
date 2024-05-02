@@ -14,9 +14,9 @@ export default function Header({ view, save, isAdmin }: any) {
     modalRef.current.showModal();
   };
 
-  const names = ["Jessica Jimenez", "Juan Restrepo"];
+  const names = view?.Users ? view.Users.map((u: any) => u.name) : [];
   const namesComputed = () => {
-    return names.map((n) => {
+    return names.map((n: string) => {
       let short = n.split(" ");
       let n1 = short?.[0]?.[0] || "";
       let n2 = short?.[1]?.[0] || "";
@@ -55,7 +55,7 @@ export default function Header({ view, save, isAdmin }: any) {
       </div>
 
       <div className="hidden lg:flex gap-1 items-center select-none ">
-        {namesComputed().map((obj, index) => (
+        {namesComputed().map((obj: any, index: any) => (
           <div
             key={"people-" + index}
             className={`group  text-sm relative size-8 rounded-full flex items-center justify-center ${colors[index].bg} ${colors[index].text}`}

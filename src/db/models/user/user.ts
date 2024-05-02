@@ -11,6 +11,7 @@ export default (sequelize: any, DataTypes: any) => {
       cellphone: { type: DataTypes.STRING, allowNull: true },
       rol: { type: DataTypes.STRING, allowNull: true },
       businessId: { type: DataTypes.INTEGER, allowNull: true },
+      currentViewId: { type: DataTypes.INTEGER, allowNull: true },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -21,6 +22,11 @@ export default (sequelize: any, DataTypes: any) => {
         },
       },
       blockedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: false,
+      },
+      lastActionAt: {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: false,
