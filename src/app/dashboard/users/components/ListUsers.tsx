@@ -122,7 +122,7 @@ export default function Users() {
                   className="px-5 py-2 rounded-lg hover:bg-stone-100 flex items-center gap-3"
                 >
                   <div className="size-10 bg-stone-200 flex items-center justify-center rounded-full">
-                    <img src="/logo.svg" className="w-full h-full" />
+                    <img src="/logo-sm.svg" className="w-full h-full" />
                   </div>
                   <div>
                     <div>{user.name}</div>

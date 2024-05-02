@@ -135,7 +135,7 @@ const ViewBrain = ({ slug }: any) => {
                       <div
                         className={`px-2 py-1 text-sm  rounded-md ${
                           editMode == "functions"
-                            ? "bg-white"
+                            ? "bg-white shadow-md"
                             : "hover:bg-stone-200"
                         }`}
                         onClick={() => setEditMode("functions")}
@@ -144,7 +144,9 @@ const ViewBrain = ({ slug }: any) => {
                       </div>
                       <div
                         className={`px-2 py-1 text-sm rounded-md ${
-                          editMode == "grid" ? "bg-white" : "hover:bg-stone-200"
+                          editMode == "grid"
+                            ? "bg-white shadow-md"
+                            : "hover:bg-stone-200"
                         }`}
                         onClick={() => setEditMode("grid")}
                       >

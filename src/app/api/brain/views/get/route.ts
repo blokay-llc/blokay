@@ -1,23 +1,12 @@
-import { withUser } from "@/lib/withUser";
+import { withView } from "@/lib/withView";
 import { NextResponse } from "next/server";
 import Models from "@/db/index";
 
 let db = new Models();
 
-const { View, User, UserPermission }: any = db;
+const { User, UserPermission }: any = db;
 
-export const POST = withUser(async function ({ req, user }: any) {
-  const body = await req.json();
-
-  let { slug } = body.data;
-
-  const view = await View.findOne({
-    where: {
-      businessId: user.businessId,
-      slug,
-    },
-  });
-
+export const POST = withView(async function ({ user, view }: any) {
   // set currentId
   await User.update(
     {
