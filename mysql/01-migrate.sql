@@ -109,7 +109,6 @@ CREATE TABLE IF NOT EXISTS `user_permissions` (
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
-  `username` varchar(100) DEFAULT NULL,
   `cellphone` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,

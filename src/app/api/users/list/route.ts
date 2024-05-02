@@ -15,7 +15,7 @@ export const POST = withUser(async function ({ user }: any) {
   const list = result.map((n: any) => ({
     id: n.id,
     name: n.name,
-    username: n.username,
+    email: n.email,
     rol: n.rol,
   }));
 

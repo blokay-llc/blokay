@@ -7,7 +7,6 @@ export default (sequelize: any, DataTypes: any) => {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       name: { type: DataTypes.STRING, allowNull: true },
       email: { type: DataTypes.STRING, allowNull: true },
-      username: { type: DataTypes.STRING, allowNull: true },
       cellphone: { type: DataTypes.STRING, allowNull: true },
       rol: { type: DataTypes.STRING, allowNull: true },
       businessId: { type: DataTypes.INTEGER, allowNull: true },
@@ -131,7 +130,7 @@ export default (sequelize: any, DataTypes: any) => {
     return session?.User;
   };
   /**
-   *Find user by her username
+   *Find user by her email
    *@return corresponfing user
    */
   User.findByEmail = async function (email: string) {
@@ -154,15 +153,6 @@ export default (sequelize: any, DataTypes: any) => {
     return user;
   };
 
-  User.findByUsername = async function (username: string) {
-    let queryBuilder = {
-      where: {
-        username,
-      },
-    };
-    let user = await User.findOne(queryBuilder);
-    return user;
-  };
   /**
    *Compare two passwords
    *@return if they correspond or not

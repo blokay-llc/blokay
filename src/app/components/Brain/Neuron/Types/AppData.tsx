@@ -8,7 +8,6 @@ import {
 } from "@/app/components/DS/Index";
 import { money } from "@/app/helpers/functions";
 import Neuron from "../Neuron";
-// import { useSelector } from "react-redux";
 
 function AppData({
   data,
@@ -252,8 +251,7 @@ function AppData({
                       setFilters({ ...filters, search: val });
                       search(val);
                     }}
-                    label="Buscar"
-                    placeholder="Buscar"
+                    label="Search"
                     mb="0"
                     icon="search"
                     className="input-search-main "
@@ -396,7 +394,7 @@ function AppData({
 
                     {!table.header?.length && !table.data?.length && (
                       <div className=" text-center py-10 text-2xl text-stone-700 ">
-                        Sin resultados para mostrar
+                        No results to display.
                       </div>
                     )}
                   </div>
@@ -453,8 +451,7 @@ function AppData({
                     )}
 
                     <span>
-                      {" "}
-                      Página: {page} - {pagesCount()}{" "}
+                      Page: {page} - {pagesCount()}{" "}
                     </span>
 
                     {page < pagesCount() && (

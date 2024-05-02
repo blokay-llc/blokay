@@ -1,31 +1,12 @@
 "use client";
 import { useState, useRef } from "react";
 import { AppInput, AppButton, AppModal } from "@/app/components/DS/Index";
-// import { fetchLogin } from "@/app/services/users";
 import UpgradePlan from "@/app/components/UI/UpgradePlan";
 
 export default function BillingView() {
   const modalRef: any = useRef();
   const [form, setForm]: any = useState({});
   const [loading, setLoading] = useState(false);
-
-  // const login = () => {
-  //   setLoading(true);
-  //   fetchLogin(form.username, form.password)
-  //     .then((result) => {
-  //       if (result.User) {
-  //         setForm({});
-  //         if (typeof window != "undefined") {
-  //           window.localStorage.setItem("token", result.User.token);
-  //           window.localStorage.setItem("user", JSON.stringify(result.User));
-  //           window.location.href = "/dashboard";
-  //         }
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
 
   const formAction = () => {};
 

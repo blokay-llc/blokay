@@ -4,7 +4,7 @@ import Models from "@/db/index";
 
 let db = new Models();
 
-const { View, User }: any = db;
+const { View, User, UserPermission }: any = db;
 
 export const POST = withUser(async function ({ req, user }: any) {
   const body = await req.json();
@@ -37,6 +37,26 @@ export const POST = withUser(async function ({ req, user }: any) {
     },
   });
 
+  let sharedUsers: any = [];
+  if (user.rol == "admin") {
+    let results = await UserPermission.findAll({
+      include: [
+        {
+          model: User,
+          required: true,
+        },
+      ],
+      where: {
+        viewId: view.id,
+      },
+    });
+
+    sharedUsers = results.map((u: any) => ({
+      id: u.id,
+      name: u.name,
+    }));
+  }
+
   return NextResponse.json({
     data: {
       View: {
@@ -49,6 +69,7 @@ export const POST = withUser(async function ({ req, user }: any) {
           id: user.id,
           name: user.name,
         })),
+        SharedUsers: sharedUsers,
       },
     },
   });

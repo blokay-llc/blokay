@@ -28,7 +28,7 @@ export const POST = withUser(async function ({ user, req }: any) {
   const userMap = {
     id: result.id,
     name: result.name,
-    username: result.username,
+    email: result.email,
     rol: result.rol,
     permissions,
   };

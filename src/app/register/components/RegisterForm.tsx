@@ -7,18 +7,22 @@ import {
   AppSelect,
 } from "@/app/components/DS/Index";
 import { fetchRegister } from "@/app/services/auth";
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const { data: session } = useSession();
+  const router = useRouter();
   const [form, setForm]: any = useState({
     companySize: "1-5",
   });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (typeof window != "undefined" && window.localStorage.getItem("token")) {
-      window.location.href = "/dashboard";
+    if (session?.user) {
+      router.push("/dashboard");
     }
-  }, []);
+  }, [session]);
 
   const register = () => {
     setLoading(true);
@@ -26,12 +30,7 @@ export default function RegisterForm() {
       .then((result) => {
         if (result.User) {
           setForm({});
-          if (typeof window != "undefined") {
-            window.localStorage.setItem("token", result.User.token);
-            window.localStorage.setItem("user", JSON.stringify(result.User));
-            window.localStorage.setItem("rol", result.User.rol);
-            window.location.href = "/dashboard";
-          }
+          router.push("/login");
         }
       })
       .finally(() => {
@@ -82,18 +81,9 @@ export default function RegisterForm() {
         <AppInput
           type="text"
           value={form.email}
-          label="Your email"
+          label="Your Email"
           onChange={(val: string) => {
             setForm({ ...form, email: val });
-          }}
-        />
-
-        <AppInput
-          type="text"
-          value={form.username}
-          label="Username"
-          onChange={(val: string) => {
-            setForm({ ...form, username: val });
           }}
         />
 
