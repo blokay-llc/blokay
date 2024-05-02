@@ -1,14 +1,9 @@
 import { postRequest } from "./_base";
 
-let token: string | null = null;
-if (typeof window != "undefined") {
-  token = window.localStorage.getItem("token");
-}
-
 export const fetchUsers = async function () {
   let data = {};
 
-  let result = await postRequest("users/list", data, { token });
+  let result = await postRequest("users/list", data);
 
   return result.data;
 };
@@ -16,7 +11,7 @@ export const fetchUsers = async function () {
 export const fetchUser = async function (userId: number) {
   let data = { userId };
 
-  let result = await postRequest("users/get", data, { token });
+  let result = await postRequest("users/get", data);
 
   return result.data;
 };
@@ -24,7 +19,7 @@ export const fetchUser = async function (userId: number) {
 export const fetchAddUser = async function (form: any) {
   let data = { ...form };
 
-  let result = await postRequest("users/add", data, { token });
+  let result = await postRequest("users/add", data);
 
   return result.data;
 };
@@ -32,7 +27,7 @@ export const fetchAddUser = async function (form: any) {
 export const fetchUpdateUser = async function (form: any) {
   let data = { ...form };
 
-  let result = await postRequest("users/edit", data, { token });
+  let result = await postRequest("users/edit", data);
 
   return result.data;
 };

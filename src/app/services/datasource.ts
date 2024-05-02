@@ -1,14 +1,9 @@
 import { postRequest } from "./_base";
 
-let token: string | null = null;
-if (typeof window != "undefined") {
-  token = window.localStorage.getItem("token");
-}
-
 export const fetchDatasources = async function () {
   let data = {};
 
-  let result = await postRequest("datasources/list", data, { token });
+  let result = await postRequest("datasources/list", data);
 
   return result.data;
 };
@@ -16,7 +11,7 @@ export const fetchDatasources = async function () {
 export const fetchUpdateDatasources = async function (form = {}) {
   let data = { ...form };
 
-  let result = await postRequest("datasources/update", data, { token });
+  let result = await postRequest("datasources/update", data);
 
   return result.data;
 };
@@ -24,7 +19,7 @@ export const fetchUpdateDatasources = async function (form = {}) {
 export const fetchCreateDatasource = async function (form = {}) {
   let data = { ...form };
 
-  let result = await postRequest("datasources/create", data, { token });
+  let result = await postRequest("datasources/create", data);
 
   return result.data;
 };
