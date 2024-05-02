@@ -72,7 +72,9 @@ export default function Header({ view, save, isAdmin }: any) {
             <AppButton
               icon="close"
               text="Close"
-              // onClick={() => handleClickCreateNew()}
+              onClick={() => {
+                modalRef.current.hideModal();
+              }}
               variant="secondary"
               size="md"
             />
