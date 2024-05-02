@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { AppIcon, AppModal, AppButton } from "@/app/components/DS/Index";
-
+import ShareView from "@/app/components/UI/ShareView";
+import AvatarName from "./UI/AvatarName";
 export default function Header({ view, save, isAdmin }: any) {
   const modalRef: any = useRef();
   const [title, setTitle] = useState("Untitled view");
@@ -15,21 +16,6 @@ export default function Header({ view, save, isAdmin }: any) {
   };
 
   const names = view?.Users ? view.Users.map((u: any) => u.name) : [];
-  const namesComputed = () => {
-    return names.map((n: string) => {
-      let short = n.split(" ");
-      let n1 = short?.[0]?.[0] || "";
-      let n2 = short?.[1]?.[0] || "";
-      return { name: n, short: n1 + n2 };
-    });
-  };
-
-  let colors = [
-    { bg: "bg-rose-500", text: "text-rose-900" },
-    { bg: "bg-yellow-500", text: "text-yellow-900" },
-    { bg: "bg-indigo-500", text: "text-indigo-900" },
-    { bg: "bg-lime-500", text: "text-lime-900" },
-  ];
 
   return (
     <div className="flex justify-between items-center mb-8 lg:mb-16">
@@ -57,16 +43,8 @@ export default function Header({ view, save, isAdmin }: any) {
       </div>
 
       <div className="hidden lg:flex gap-1 items-center select-none ">
-        {namesComputed().map((obj: any, index: any) => (
-          <div
-            key={"people-" + index}
-            className={`group  text-sm relative size-8 rounded-full flex items-center justify-center ${colors[index].bg} ${colors[index].text}`}
-          >
-            {obj.short.toUpperCase()}
-            <div className="group-hover:block absolute -bottom-7 -left-10  w-26 text-center hidden  bg-stone-900 text-stone-100 rounded-sm py-1 px-2 text-xs">
-              <div className="truncate">{obj.name}</div>
-            </div>
-          </div>
+        {names.map((name: string, index: any) => (
+          <AvatarName key={"people-" + index} name={name} colorIndex={index} />
         ))}
 
         <div
@@ -86,11 +64,13 @@ export default function Header({ view, save, isAdmin }: any) {
           <div className="flex items-center justify-between">
             <AppButton
               text="Copy link"
+              icon="copy"
               // onClick={() => handleClickCreateNew()}
               variant="primary"
               size="md"
             />
             <AppButton
+              icon="close"
               text="Close"
               // onClick={() => handleClickCreateNew()}
               variant="secondary"
@@ -99,7 +79,9 @@ export default function Header({ view, save, isAdmin }: any) {
           </div>
         }
       >
-        <div>{JSON.stringify(view?.SharedUsers)}</div>
+        {view?.SharedUsers?.length > 0 && (
+          <ShareView SharedUsers={view.SharedUsers} />
+        )}
       </AppModal>
     </div>
   );

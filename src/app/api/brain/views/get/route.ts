@@ -53,7 +53,7 @@ export const POST = withUser(async function ({ req, user }: any) {
 
     sharedUsers = results.map((u: any) => ({
       id: u.id,
-      name: u.name,
+      name: u.User.name,
     }));
   }
 
