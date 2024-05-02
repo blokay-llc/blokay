@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/auth";
 import { getServerSession } from "next-auth/next";
 import Models from "@/db/index";
 let db = new Models();
