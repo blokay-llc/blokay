@@ -38,18 +38,18 @@ const NeuronEdit = ({
       </div>
 
       <AppModal
-        title="Eliminar de la vista"
+        title="Delete from this view"
         footer={
           <div className="flex items-center gap-5">
             <AppButton
-              text="No, cancelar"
+              text="No, cancel"
               onClick={() => modalDeleteRef.current.hideModal()}
               variant="secondary"
               className="w-full"
               size="md"
             />
             <AppButton
-              text="Si, eliminar"
+              text="Yes, delete"
               onClick={() => {
                 modalDeleteRef.current.hideModal();
                 deleteFromLayout(neuronId);
@@ -64,7 +64,7 @@ const NeuronEdit = ({
         ref={modalDeleteRef}
       >
         <p className="font-light text-stone-900">
-          Esta acción es irreversible, ¿Estás seguro de realizarla?
+          This action is irreversible. Are you sure you want to proceed?
         </p>
       </AppModal>
     </div>

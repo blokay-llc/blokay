@@ -49,8 +49,9 @@ export default function Header({ view, save, isAdmin }: any) {
 
         <div
           onClick={clickShare}
-          className="border-2 border-stone-600 rounded-lg text-sm text-stone-600 px-5 py-2 ml-3 hover:bg-white"
+          className="flex items-center gap-2 border-2 border-stone-600 rounded-lg text-sm text-stone-600 px-3 py-2 ml-3 hover:bg-white"
         >
+          <AppIcon icon="share" className="size-4" />
           Share
         </div>
       </div>
