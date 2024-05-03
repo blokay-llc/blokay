@@ -15,13 +15,14 @@ import AddToView from "./AddToView";
 import Neuron from "../Neuron/Neuron";
 import NeuronAdmin from "../Neuron/Admin/NeuronAdmin";
 import { useScreenDetector } from "@/app/hooks/user-screen-detector";
+import { useSession } from "next-auth/react";
 
 const ViewBrain = ({ slug }: any) => {
   const { isMobile } = useScreenDetector();
-  const isAdmin =
-    typeof localStorage != "undefined"
-      ? localStorage.getItem("rol") === "admin"
-      : null;
+
+  const { data: session }: any = useSession();
+  const isAdmin = session?.user?.rol == "admin";
+
   const modalRef: any = useRef();
   const containerRef: any = useRef(null);
   const [view, setView]: any = useState(null);
@@ -58,6 +59,10 @@ const ViewBrain = ({ slug }: any) => {
     fetchView();
     fetchListNeurons();
   }, []);
+
+  useEffect(() => {
+    setEditMode(!isMobile && isAdmin ? "functions" : "");
+  }, [session]);
 
   const saveView = (form: any) => {
     setView({

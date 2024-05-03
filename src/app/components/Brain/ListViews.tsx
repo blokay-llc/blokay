@@ -7,12 +7,12 @@ import {
   AppInput,
   AppLoader,
 } from "@/app/components/DS/Index";
+import { useSession } from "next-auth/react";
 
 function ListViews({}) {
-  const isAdmin =
-    typeof localStorage != "undefined"
-      ? localStorage.getItem("rol") === "admin"
-      : null;
+  const { data: session }: any = useSession();
+  const isAdmin = session?.user?.rol == "admin";
+
   const modalRef: any = useRef();
   const [views, setViews] = useState([]);
   const [form, setForm]: any = useState({ search: "" });

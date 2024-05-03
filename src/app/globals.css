@@ -136,7 +136,7 @@
 }
 
 body {
-  @apply bg-stone-100;
+  @apply bg-stone-100 text-stone-950;
   color: rgb(var(--foreground-rgb));
 }
 

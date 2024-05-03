@@ -3,6 +3,8 @@ import { useState } from "react";
 import { AppInput, AppIcon } from "@/app/components/DS/Index";
 import Tree from "./Tree";
 
+import { useSession } from "next-auth/react";
+
 export default function Menu({
   views = [],
   view = null,
@@ -10,10 +12,9 @@ export default function Menu({
   editMode = null,
   neurons = [],
 }: any) {
-  const isAdmin =
-    typeof localStorage != "undefined"
-      ? localStorage.getItem("rol") === "admin"
-      : null;
+  const { data: session }: any = useSession();
+
+  const isAdmin = session?.user?.rol == "admin";
   const [search, setSearch] = useState("");
 
   return (
