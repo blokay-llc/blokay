@@ -6,7 +6,6 @@ const DropItem = function ({
   editMode = "",
   level = 1,
   item,
-  keyNeuron = null,
   defaultOpen = false,
   onClickNeuron = null,
 }: any) {
@@ -57,7 +56,7 @@ const DropItem = function ({
             </div>
           </div>
           <div>
-            {keyNeuron && (
+            {item.key && (
               <AppIcon icon="component" className={`size-4 fill-indigo-600`} />
             )}
           </div>
@@ -70,7 +69,6 @@ const DropItem = function ({
                 level={level + 1}
                 item={item}
                 key={item.id}
-                keyNeuron={item.key}
                 onClickNeuron={onClickNeuron}
               />
             ))}
@@ -119,10 +117,37 @@ const TreeMenu = function ({
     }
     return views;
   };
+
+  const nonUse = function () {
+    let list = neurons.slice(0);
+
+    let use = new Set();
+    // add subneurons
+    for (let n of neurons) {
+      for (let neuronId of n.childrenIds) {
+        use.add(+neuronId);
+      }
+    }
+
+    for (let cat of views) {
+      for (let view of cat.Views) {
+        for (let neuron of view.children) {
+          let id = neuron?.id || neuron;
+          use.add(+id);
+        }
+      }
+    }
+
+    let arr = Array.from(use);
+    return list.filter((n: any) => !arr.includes(+n.id));
+  };
   const inLayout = (n: any) => {
     if (!view?.layout?.length) return false;
     return view.layout.find((l: any) => l.i == n.id);
   };
+
+  const nonUsed = nonUse();
+
   return (
     <div>
       <div className="px-2 select-none flex flex-col">
@@ -137,6 +162,24 @@ const TreeMenu = function ({
           />
         ))}
       </div>
+
+      {nonUsed.length > 0 && (
+        <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200">
+          <h2 className="text-stone-600 mb-3 text-base font-bold">
+            Unused yet
+          </h2>
+          {nonUsed.map((item: any) => (
+            <DropItem
+              onClickNeuron={onClickNeuron}
+              defaultOpen={false}
+              level={0}
+              item={item}
+              key={item.id}
+              editMode={editMode}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
