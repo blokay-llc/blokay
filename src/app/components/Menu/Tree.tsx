@@ -7,9 +7,26 @@ const DropItem = function ({
   level = 1,
   item,
   defaultOpen = false,
+  onFound = null,
   onClickNeuron = null,
+  search = "",
 }: any) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const [isFound, setIsFound] = useState(false);
+
+  useEffect(() => {
+    if (search && item?.name) {
+      let s = search.toLowerCase();
+      let name = item.name.toLowerCase();
+      let found = name.includes(s);
+      setIsOpen(found);
+      setIsFound(found);
+      onFound && onFound(found);
+    } else {
+      setIsOpen(defaultOpen);
+      setIsFound(false);
+    }
+  }, [search]);
 
   return (
     <div>
@@ -18,23 +35,21 @@ const DropItem = function ({
           className={`flex items-center justify-between py-1 ${
             item.key ? "bg-stone-100 hover:bg-stone-200" : ""
           }`}
+          onClick={() => {
+            if (item.key) {
+              onClickNeuron(item);
+            }
+          }}
+          draggable={editMode === "grid" && !!item.key}
+          unselectable="on"
+          onDragStart={(e) => {
+            if (item.key) {
+              e.dataTransfer.setData("text/plain", "" + item?.id);
+            }
+          }}
           style={{ paddingLeft: level * 15 }}
         >
-          <div
-            className="flex items-center gap-1"
-            onClick={() => {
-              if (item.key) {
-                onClickNeuron(item);
-              }
-            }}
-            draggable={editMode === "grid" && !!item.key}
-            unselectable="on"
-            onDragStart={(e) => {
-              if (item.key) {
-                e.dataTransfer.setData("text/plain", "" + item?.id);
-              }
-            }}
-          >
+          <div className="flex items-center gap-1">
             {item?.children?.length > 0 && (
               <div
                 onClick={(e) => {
@@ -51,8 +66,14 @@ const DropItem = function ({
                 />
               </div>
             )}
-            <div className={`text-sm ${level == 0 ? "font-bold" : ""}`}>
-              {item?.name}
+            <div
+              className={`text-sm text-stone-600 ${
+                level == 0 ? "font-medium" : "font-light"
+              }`}
+            >
+              <span className={`${isFound ? "font-bold text-indigo-600" : ""}`}>
+                {item?.name}
+              </span>
             </div>
           </div>
           <div>
@@ -63,14 +84,22 @@ const DropItem = function ({
         </div>
         {isOpen && item?.children?.length > 0 && (
           <div className="flex flex-col ">
-            {item.children.map((item: any) => (
-              <DropItem
-                editMode={editMode}
-                level={level + 1}
-                item={item}
-                key={item.id}
-                onClickNeuron={onClickNeuron}
-              />
+            {item.children.map((child: any) => (
+              <>
+                {child?.id && (
+                  <DropItem
+                    editMode={editMode}
+                    level={level + 1}
+                    item={child}
+                    key={"child+" + child.id}
+                    onClickNeuron={onClickNeuron}
+                    search={search}
+                    onFound={(found: boolean) => {
+                      onFound && onFound(found);
+                    }}
+                  />
+                )}
+              </>
             ))}
           </div>
         )}
@@ -87,6 +116,8 @@ const TreeMenu = function ({
   editMode,
 }: any) {
   const buildStructure = function () {
+    if (!neurons.length) return [];
+    if (!views.length) return [];
     const map: any = {};
     for (let neuron of neurons) {
       map[neuron.id] = neuron;
@@ -150,7 +181,7 @@ const TreeMenu = function ({
 
   return (
     <div>
-      <div className="px-2 select-none flex flex-col">
+      <div className="px-2 select-none flex flex-col pt-3 border-t border-stone-200">
         {buildStructure().map((item: any) => (
           <DropItem
             onClickNeuron={onClickNeuron}
@@ -159,13 +190,14 @@ const TreeMenu = function ({
             item={item}
             key={item.id}
             editMode={editMode}
+            search={search}
           />
         ))}
       </div>
 
       {nonUsed.length > 0 && (
         <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200">
-          <h2 className="text-stone-600 mb-3 text-base font-bold">
+          <h2 className="text-stone-600 mb-3 text-sm font-medium">
             Unused yet
           </h2>
           {nonUsed.map((item: any) => (
@@ -176,6 +208,7 @@ const TreeMenu = function ({
               item={item}
               key={item.id}
               editMode={editMode}
+              search={search}
             />
           ))}
         </div>
