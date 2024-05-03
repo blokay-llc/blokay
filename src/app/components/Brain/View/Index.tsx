@@ -6,6 +6,7 @@ import {
   viewGet,
   saveView as saveViewApi,
   brainList,
+  viewList,
 } from "@/app/services/brain";
 import { AppModal } from "@/app/components/DS/Index";
 import Header from "@/app/components/Header";
@@ -30,6 +31,13 @@ const ViewBrain = ({ slug }: any) => {
   const [editMode, setEditMode] = useState(
     !isMobile && isAdmin ? "functions" : ""
   );
+  const [views, setViews] = useState([]);
+
+  const listViews = () => {
+    viewList().then((result: any) => {
+      setViews(result.Views);
+    });
+  };
 
   const fetchListNeurons = () => {
     brainList().then((l: any) => {
@@ -46,6 +54,7 @@ const ViewBrain = ({ slug }: any) => {
     });
   };
   useEffect(() => {
+    listViews();
     fetchView();
     fetchListNeurons();
   }, []);
@@ -110,6 +119,7 @@ const ViewBrain = ({ slug }: any) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         <div className="lg:col-span-3">
           <Menu
+            views={views}
             view={view}
             onClickNeuron={clickNeuron}
             editMode={editMode}

@@ -46,6 +46,7 @@ export const POST = withUser(async function ({ req, user }: any) {
       name: n.name,
       icon: n.icon,
       slug: n.slug,
+      children: n.layout.map((n: any) => n.i),
     });
 
     return ac;

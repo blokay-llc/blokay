@@ -4,6 +4,7 @@ import { AppInput, AppIcon } from "@/app/components/DS/Index";
 import Tree from "./Tree";
 
 export default function Menu({
+  views = [],
   view = null,
   onClickNeuron = null,
   editMode = null,
@@ -91,6 +92,7 @@ export default function Menu({
           <div className="lg:block hidden">
             {editMode && neurons?.length > 0 && (
               <Tree
+                views={views}
                 onClickNeuron={onClickNeuron}
                 view={view}
                 search={search}

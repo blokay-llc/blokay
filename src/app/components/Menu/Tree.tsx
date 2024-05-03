@@ -1,139 +1,142 @@
 "use client";
 import { useState, useEffect } from "react";
 import { AppIcon } from "@/app/components/DS/Index";
-import {
-  Tree,
-  getBackendOptions,
-  MultiBackend,
-} from "@minoru/react-dnd-treeview";
-import { DndProvider } from "react-dnd";
 
-const createTreeList = (neurons: any[]) => {
-  let arr = neurons.slice(0).map((n: any) => {
-    return {
-      id: n.id,
-      parent: n.parentId || "default",
-      droppable: true,
-      text: n.key,
-      data: n,
-    };
-  });
+const DropItem = function ({
+  editMode = "",
+  level = 1,
+  item,
+  keyNeuron = null,
+  defaultOpen = false,
+  onClickNeuron = null,
+}: any) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
-  return [
-    {
-      id: "default",
-      parent: "",
-      droppable: false,
-      text: "Blocks",
-      data: {},
-    },
-    ...arr,
-  ];
+  return (
+    <div>
+      <div className="flex flex-col ">
+        <div
+          className={`flex items-center justify-between py-1 ${
+            item.key ? "bg-stone-100 hover:bg-stone-200" : ""
+          }`}
+          style={{ paddingLeft: level * 15 }}
+        >
+          <div
+            className="flex items-center gap-1"
+            onClick={() => {
+              if (item.key) {
+                onClickNeuron(item);
+              }
+            }}
+            draggable={editMode === "grid" && !!item.key}
+            unselectable="on"
+            onDragStart={(e) => {
+              if (item.key) {
+                e.dataTransfer.setData("text/plain", "" + item?.id);
+              }
+            }}
+          >
+            {item?.children?.length > 0 && (
+              <div
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsOpen(!isOpen);
+                }}
+              >
+                <AppIcon
+                  icon="right"
+                  className={`fill-stone-600 size-4 ${
+                    isOpen ? "rotate-90" : ""
+                  }`}
+                />
+              </div>
+            )}
+            <div className={`text-sm ${level == 0 ? "font-bold" : ""}`}>
+              {item?.name}
+            </div>
+          </div>
+          <div>
+            {keyNeuron && (
+              <AppIcon icon="component" className={`size-4 fill-indigo-600`} />
+            )}
+          </div>
+        </div>
+        {isOpen && item?.children?.length > 0 && (
+          <div className="flex flex-col ">
+            {item.children.map((item: any) => (
+              <DropItem
+                editMode={editMode}
+                level={level + 1}
+                item={item}
+                key={item.id}
+                keyNeuron={item.key}
+                onClickNeuron={onClickNeuron}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
+const TreeMenu = function ({
+  views = [],
+  onClickNeuron,
+  view,
+  search,
+  neurons,
+  editMode,
+}: any) {
+  const buildStructure = function () {
+    const map: any = {};
+    for (let neuron of neurons) {
+      map[neuron.id] = neuron;
+    }
 
-const TreeMenu = ({ onClickNeuron, view, search, neurons, editMode }: any) => {
-  const [treeData, setTreeData] = useState(createTreeList(neurons));
+    for (let neuron of neurons) {
+      neuron.children = [];
+      for (let childId of neuron.childrenIds) {
+        neuron.children.push(map[childId]);
+      }
+      map[neuron.id] = neuron;
+    }
 
-  useEffect(() => {
-    setTreeData(createTreeList(neurons));
-  }, [neurons]);
+    for (let viewGroupIndex in views) {
+      let viewGroup = views[viewGroupIndex];
 
-  const handleDrop = (newTreeData: any[]) => {
-    setTreeData(newTreeData);
+      viewGroup.children = viewGroup.Views;
+      for (let viewIndex in viewGroup.children) {
+        let view = viewGroup.children[viewIndex];
+
+        for (let childNeuronIndex in view.children) {
+          let neuronId = view.children[childNeuronIndex];
+          if (map[neuronId]?.id) {
+            view.children[childNeuronIndex] = map[neuronId];
+          }
+        }
+      }
+    }
+    return views;
   };
-
-  //   const neuronsSearch = () => {
-  //     let s = search.toLowerCase();
-  //     return neurons.filter((n) => {
-  //       return n.description.toLowerCase().includes(s);
-  //     });
-  //   };
-
   const inLayout = (n: any) => {
     if (!view?.layout?.length) return false;
     return view.layout.find((l: any) => l.i == n.id);
   };
-
   return (
     <div>
-      {onClickNeuron && (
-        <>
-          <div className="pt-3 border-t border-stone-200 pb-3 px-2">
-            <DndProvider backend={MultiBackend} options={getBackendOptions()}>
-              <Tree
-                classes={{
-                  dropTarget: "preview-drag",
-                }}
-                tree={treeData}
-                enableAnimateExpand={true}
-                rootId={""}
-                onDrop={handleDrop}
-                render={(node, { depth, isOpen, onToggle, hasChild }) => (
-                  <div className="node" style={{ marginLeft: depth * 15 }}>
-                    <div
-                      className="droppable-element"
-                      draggable={editMode === "grid" && !!node.data?.key}
-                      unselectable="on"
-                      onClick={() => {
-                        if (node.data?.key) {
-                          onClickNeuron(node);
-                        }
-                      }}
-                      onDragStart={(e) => {
-                        // console.log(node.id);
-                        if (node.data?.key) {
-                          e.dataTransfer.setData("text/plain", "" + node?.id);
-                        }
-                      }}
-                    >
-                      <div className="py-1 text-sm  hover:bg-stone-100 rounded-lg px-1.5 flex justify-between items-center">
-                        <div
-                          className={` ${
-                            inLayout(node.data)
-                              ? " text-indigo-600"
-                              : "font-light"
-                          }`}
-                        >
-                          <div className="flex items-center gap-1">
-                            {hasChild && (
-                              <div
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  onToggle();
-                                }}
-                              >
-                                <AppIcon
-                                  icon="right"
-                                  className={`fill-stone-600 size-4 ${
-                                    isOpen ? "rotate-90" : ""
-                                  }`}
-                                />
-                              </div>
-                            )}
-                            <span> {node.text || node?.data?.description}</span>
-                          </div>
-                        </div>
-
-                        {node.data?.key && (
-                          <AppIcon
-                            icon="component"
-                            className={`size-4 ${
-                              inLayout(node.data)
-                                ? "fill-indigo-900"
-                                : "fill-indigo-600"
-                            }`}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              />
-            </DndProvider>
-          </div>
-        </>
-      )}
+      <div className="px-2 select-none flex flex-col">
+        {buildStructure().map((item: any) => (
+          <DropItem
+            onClickNeuron={onClickNeuron}
+            defaultOpen={false}
+            level={0}
+            item={item}
+            key={item.id}
+            editMode={editMode}
+          />
+        ))}
+      </div>
     </div>
   );
 };
