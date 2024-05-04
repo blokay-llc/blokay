@@ -9,6 +9,7 @@ const model = (sequelize: any, DataTypes: any) => {
       businessId: { type: DataTypes.INTEGER, allowNull: true },
       timeMs: { type: DataTypes.INTEGER, allowNull: true },
       data: { type: DataTypes.STRING, allowNull: true },
+      error: { type: DataTypes.STRING, allowNull: true },
       finishAt: { type: DataTypes.DATE, allowNull: true },
     },
     {

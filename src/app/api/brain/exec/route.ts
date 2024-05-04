@@ -123,8 +123,21 @@ export const POST = withNeuron(async function ({
   let response: ResponseNeuron;
   try {
     response = await responsePromise(args);
-  } catch (err) {
-    response = { type: "exception", content: err };
+  } catch (err: any) {
+    let error = {
+      name: "Function Error",
+      message: "Unexpected Error",
+      sql: err.sql || "",
+    };
+    if (err instanceof Error) {
+      error.name = error.sql ? "SQL_ERROR" : err.name;
+      error.message = err.message;
+    }
+
+    response = {
+      type: "exception",
+      content: error,
+    };
   }
 
   /*
@@ -172,11 +185,12 @@ export const POST = withNeuron(async function ({
   await neuronLog.update({
     timeMs,
     finishAt: Date.now(),
+    error: response.type == "exception" ? response.content?.name : null,
   });
 
   return NextResponse.json({
     data: {
-      response: response,
+      response,
     },
   });
 });

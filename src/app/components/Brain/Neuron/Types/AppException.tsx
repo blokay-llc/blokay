@@ -17,19 +17,19 @@ function ShowError({ type, message, fullDescription }: any) {
 }
 
 function ErrorDecide({ error }: any) {
-  if (error.name == "SequelizeDatabaseError") {
+  console.error(error);
+
+  if (error.name == "SQL_ERROR") {
     return (
       <ShowError
-        type={error.original.code}
-        message={error.original.sqlMessage}
-        fullDescription={error.original.sql}
+        type={error.name}
+        message={error.message}
+        fullDescription={error.sql}
       />
     );
   }
 
-  return (
-    <ShowError type={error.original.code} message={error.original.message} />
-  );
+  return <ShowError type={error?.name} message={error?.message} />;
 }
 export default function ({ data }: any) {
   const modalRef: any = useRef();

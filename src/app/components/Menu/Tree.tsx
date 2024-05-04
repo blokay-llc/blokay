@@ -10,18 +10,36 @@ const DropItem = function ({
   onFound = null,
   onClickNeuron = null,
   search = "",
+  view = null,
 }: any) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [isFound, setIsFound] = useState(false);
+
+  const propogateOpen = (open = true) => {
+    setIsOpen(open);
+    setIsFound(open);
+    onFound && onFound(open);
+  };
+
+  useEffect(() => {
+    if (view?.id == item.id) {
+      propogateOpen();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (view?.id == item.id) {
+      propogateOpen();
+    }
+  }, [view]);
 
   useEffect(() => {
     if (search && item?.name) {
       let s = search.toLowerCase();
       let name = item.name.toLowerCase();
       let found = name.includes(s);
-      setIsOpen(found);
-      setIsFound(found);
-      onFound && onFound(found);
+
+      propogateOpen(found);
     } else {
       setIsOpen(defaultOpen);
       setIsFound(false);
@@ -82,8 +100,8 @@ const DropItem = function ({
             )}
           </div>
         </div>
-        {isOpen && item?.children?.length > 0 && (
-          <div className="flex flex-col ">
+        {item?.children?.length > 0 && (
+          <div className={`${isOpen ? "flex" : "hidden"} flex-col `}>
             {item.children.map((child: any) => (
               <>
                 {child?.id && (
@@ -91,10 +109,12 @@ const DropItem = function ({
                     editMode={editMode}
                     level={level + 1}
                     item={child}
+                    view={view}
                     key={"child+" + child.id}
                     onClickNeuron={onClickNeuron}
                     search={search}
                     onFound={(found: boolean) => {
+                      setIsOpen(found);
                       onFound && onFound(found);
                     }}
                   />
@@ -107,7 +127,7 @@ const DropItem = function ({
     </div>
   );
 };
-const TreeMenu = function ({
+export default function TreeMenu({
   views = [],
   onClickNeuron,
   view,
@@ -191,6 +211,7 @@ const TreeMenu = function ({
             key={item.id}
             editMode={editMode}
             search={search}
+            view={view}
           />
         ))}
       </div>
@@ -215,6 +236,4 @@ const TreeMenu = function ({
       )}
     </div>
   );
-};
-
-export default TreeMenu;
+}
