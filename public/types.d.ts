@@ -48,6 +48,7 @@ type Args = {
   find: (sql: string, replacements?: QueryReplacements) => Promise<Row>;
   query: (sql: string, replacements?: QueryReplacements) => Promise<Rows>;
   insert: (sql: string, replacements?: QueryReplacements) => Promise<void>;
+  delete: (sql: string, replacements?: QueryReplacements) => Promise<void>;
   update: (sql: string, replacements?: QueryReplacements) => Promise<void>;
   // utils methods
   fetch: (url: string, params: FetchParams) => Promise<any>;
