@@ -81,7 +81,7 @@ function Modal(
 
             <section
               className={`relative z-50 transition-all duration-100 ease-in-out text-black  rounded-3xl   ${sizeClass()} ${positionClass()} ${size} ${classSection}`}
-              style={{ maxHeight: "90vh", backgroundColor: bgColor }}
+              style={{ backgroundColor: bgColor }}
             >
               {title && (
                 <div className="flex justify-between items-center border-b border-gray-200 py-4 px-4">
@@ -131,7 +131,7 @@ function Modal(
                 }`}
                 style={{
                   maxHeight: `calc(100vh - ${
-                    100 + footer ? 65 : 0 + title ? 65 : 0
+                    50 + (footer ? 70 : 0) + (title ? 70 : 0)
                   }px)`,
                 }}
               >

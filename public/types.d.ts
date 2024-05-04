@@ -33,7 +33,7 @@ type FetchParams = {
 
 type ResponseNeuron = {
   type: string;
-  message: string;
+  message?: string;
   content: any;
 };
 

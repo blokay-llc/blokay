@@ -2,6 +2,7 @@
 import AppData from "./Types/AppData";
 import AppLine from "./Types/AppLine";
 import AppValue from "./Types/AppValue";
+import AppException from "./Types/AppException";
 
 const NeuronResponse = ({
   neuron,
@@ -13,6 +14,10 @@ const NeuronResponse = ({
   return (
     <>
       <div className="  h-full overflow-y-auto p-5 ">
+        {response?.type == "exception" && (
+          <AppException data={response.content} />
+        )}
+
         {response?.type == "table" && (
           <AppData
             neuronName={neuron?.description}

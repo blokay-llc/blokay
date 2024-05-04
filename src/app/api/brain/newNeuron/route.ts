@@ -31,7 +31,7 @@ export const POST = withUser(async function ({ req, user }: any) {
     description: data.name,
     key: stringtoKey(data.name),
     filters: [],
-    synapse: "const fn = async (args: Args) => {}",
+    synapse: "const fn = async (args: Args): Promise<ResponseNeuron> => {}",
   });
 
   return NextResponse.json({

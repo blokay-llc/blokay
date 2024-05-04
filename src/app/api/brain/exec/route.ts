@@ -7,6 +7,11 @@ let db = new Models();
 
 const { Datasource, NeuronExecution }: any = db;
 
+type ResponseNeuron = {
+  type: string;
+  content: any;
+};
+
 export const POST = withNeuron(async function ({
   req,
   user,
@@ -16,7 +21,6 @@ export const POST = withNeuron(async function ({
   let { form } = body.data;
 
   let d1 = Date.now();
-
   // find by type
   const datasource = await Datasource.findOne({
     where: {
@@ -64,14 +68,14 @@ export const POST = withNeuron(async function ({
       }
       return rows;
     },
-    error: (message: string) => {
+    error: (message: string): ResponseNeuron => {
       return { type: "error", content: { message } };
     },
-    message: (message: string) => {
+    message: (message: string): ResponseNeuron => {
       return { type: "message", content: { message } };
     },
 
-    table: (result: any[]) => {
+    table: (result: any[]): ResponseNeuron => {
       if (!result || !result.length)
         return { type: "table", content: { data: [], header: [] } };
       let header = Object.keys(
@@ -80,11 +84,12 @@ export const POST = withNeuron(async function ({
       result = result.map((r) => header.map((h) => r[h] || ""));
       return { type: "table", content: { data: result, header } };
     },
-    value: (result: any) => {
+    value: (result: any): ResponseNeuron => {
       return { type: "value", content: result };
     },
-    chartLine: (result: any[]) => {
-      if (!result || !result.length) return { datasets: [], labels: [] };
+    chartLine: (result: any[]): ResponseNeuron => {
+      if (!result || !result.length)
+        return { type: "line", content: { datasets: [], labels: [] } };
 
       let labelKey = Object.keys(result[0])[0];
       let labels = result.map((row) => row[labelKey]);
@@ -109,10 +114,19 @@ export const POST = withNeuron(async function ({
     },
   };
 
-  let content = `${neuron.executable} \n return fn;`;
+  let content = `
+  // declaration of the function
+  ${neuron.executable}
+  return fn;`;
   let responsePromise = new Function("args", content)();
 
-  let responseNeuron = await responsePromise(args);
+  let response: ResponseNeuron;
+  try {
+    response = await responsePromise(args);
+  } catch (err) {
+    response = { type: "exception", content: err };
+  }
+
   /*
   if (format == "excel" && responseNeuron.content.type == "table") {
     let content = responseNeuron.content.content;
@@ -162,8 +176,7 @@ export const POST = withNeuron(async function ({
 
   return NextResponse.json({
     data: {
-      response: responseNeuron,
-      htmlHeader: responseNeuron.htmlHeader,
+      response: response,
     },
   });
 });
