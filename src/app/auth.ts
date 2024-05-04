@@ -39,6 +39,24 @@ export const authOptions: any = {
     } as any),
   ],
   callbacks: {
+    async signIn({ user }: any) {
+      let email = user.email;
+      if (!email) return false;
+
+      const userData = await User.findByEmail(user.email, {
+        include: [
+          {
+            model: Business,
+            required: true,
+          },
+        ],
+      });
+      if (!userData) {
+        return false;
+      }
+
+      return true;
+    },
     async session({ session }: { session: Session }) {
       if (!session.user) return;
       const userData = await User.findByEmail(session.user.email, {
