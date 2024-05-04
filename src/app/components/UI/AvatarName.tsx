@@ -10,7 +10,7 @@ const colors = [
 
 export default function AvatarName({ name, colorIndex = 0 }: any) {
   const getShort = () => {
-    let n = name;
+    let n = name || "";
     let short = n.split(" ");
     let n1 = short?.[0]?.[0] || "";
     let n2 = short?.[1]?.[0] || "";

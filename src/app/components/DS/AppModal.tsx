@@ -2,6 +2,7 @@
 import React, { forwardRef, useState, useImperativeHandle } from "react";
 import { createPortal } from "react-dom";
 import { AppIcon } from "./Index";
+import { CSSTransition } from "react-transition-group";
 
 let container = typeof document != "undefined" ? document.body : null;
 function Modal(
@@ -72,80 +73,99 @@ function Modal(
 
   return container
     ? createPortal(
-        showing && (
-          <div className="fixed z-50 w-full h-screen py-5  top-0 left-0 flex items-center justify-center">
+        <>
+          <CSSTransition
+            mountOnEnter
+            unmountOnExit
+            in={showing}
+            timeout={{ enter: 300, exit: 300 }}
+            classNames="modal-back"
+          >
+            <div className="fixed z-50 backdrop-blur-sm bg-stone-600/40  top-0 left-0 w-full h-screen"></div>
+          </CSSTransition>
+
+          <CSSTransition
+            mountOnEnter
+            unmountOnExit
+            in={showing}
+            timeout={{ enter: 500, exit: 500 }}
+            classNames="modalx"
+          >
             <div
-              className="fixed z-50 backdrop-blur-sm bg-black bg-opacity-60 top-0 left-0 w-full h-screen"
               onClick={hideModal}
-            ></div>
-
-            <section
-              className={`relative z-50 transition-all duration-100 ease-in-out text-black  rounded-3xl   ${sizeClass()} ${positionClass()} ${size} ${classSection}`}
-              style={{ backgroundColor: bgColor }}
+              className="fixed z-50  w-full h-screen py-5  top-0 left-0 flex items-center justify-center"
             >
-              {title && (
-                <div className="flex justify-between items-center border-b border-gray-200 py-4 px-4">
-                  <div className="flex items-center justify-start gap-3">
-                    <div
-                      className="action-icon"
-                      onClick={clickBack}
-                      style={{ display: clickBack ? "block" : "none" }}
-                    >
-                      <svg viewBox="0 0 24 24">
-                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
-                      </svg>
-                    </div>
-                    <h2 className="text-base md:text-base">{title}</h2>
-                    {titleLogo && (
-                      <div>
-                        <img
-                          src="/web/logo.svg"
-                          alt="Sigfre logo"
-                          className="h-10"
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <div
-                    className="hover:bg-gray-100 p-1 rounded-full cursor-pointer"
-                    onClick={hideModal}
-                  >
-                    <AppIcon
-                      className="w-6 h-6"
-                      style={{ fill: "#000" }}
-                      icon={position !== "bottom" ? "close" : "arrow_bottom"}
-                    />
-                  </div>
-                </div>
-              )}
-              {error && (
-                <div className=" w-full  p-3 bg-red-600 items-center text-indigo-100 leading-none flex lg:inline-flex font-light">
-                  <span className="mr-2 text-left flex-auto text-white">
-                    {error}
-                  </span>
-                </div>
-              )}
-              <div
-                className={`py-5 px-4 overflow-y-auto ${
-                  error ? "with-error" : ""
-                }`}
-                style={{
-                  maxHeight: `calc(100vh - ${
-                    50 + (footer ? 70 : 0) + (title ? 70 : 0)
-                  }px)`,
+              <section
+                onClick={(e) => {
+                  e.stopPropagation();
                 }}
+                className={`relative z-50 transition-all duration-100 ease-in-out text-black  rounded-xl   ${sizeClass()} ${positionClass()} ${size} ${classSection}`}
+                style={{ backgroundColor: bgColor }}
               >
-                {children}
-              </div>
-
-              {footer && (
-                <div className="py-5 px-4 border-t border-gray-200">
-                  <div className="footer">{footer}</div>
+                {title && (
+                  <div className="flex justify-between items-center border-b border-gray-200 py-4 px-4">
+                    <div className="flex items-center justify-start gap-3">
+                      <div
+                        className="action-icon"
+                        onClick={clickBack}
+                        style={{ display: clickBack ? "block" : "none" }}
+                      >
+                        <svg viewBox="0 0 24 24">
+                          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+                        </svg>
+                      </div>
+                      <h2 className="text-base md:text-base">{title}</h2>
+                      {titleLogo && (
+                        <div>
+                          <img
+                            src="/web/logo.svg"
+                            alt="Sigfre logo"
+                            className="h-10"
+                          />
+                        </div>
+                      )}
+                    </div>
+                    <div
+                      className="hover:bg-stone-200 p-1 rounded-full cursor-pointer"
+                      onClick={hideModal}
+                    >
+                      <AppIcon
+                        className="w-6 h-6"
+                        style={{ fill: "#000" }}
+                        icon={position !== "bottom" ? "close" : "arrow_bottom"}
+                      />
+                    </div>
+                  </div>
+                )}
+                {error && (
+                  <div className=" w-full  p-3 bg-red-600 items-center text-indigo-100 leading-none flex lg:inline-flex font-light">
+                    <span className="mr-2 text-left flex-auto text-white">
+                      {error}
+                    </span>
+                  </div>
+                )}
+                <div
+                  className={`py-5 px-4 overflow-y-auto ${
+                    error ? "with-error" : ""
+                  }`}
+                  style={{
+                    maxHeight: `calc(100vh - ${
+                      50 + (footer ? 70 : 0) + (title ? 70 : 0)
+                    }px)`,
+                  }}
+                >
+                  {children}
                 </div>
-              )}
-            </section>
-          </div>
-        ),
+
+                {footer && (
+                  <div className="py-5 px-4 border-t border-gray-200">
+                    <div className="footer">{footer}</div>
+                  </div>
+                )}
+              </section>
+            </div>
+          </CSSTransition>
+        </>,
         container
       )
     : null;

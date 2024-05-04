@@ -371,3 +371,37 @@ div.highway-barrier .highway-lane > div:hover {
 .preview-drag > .node {
   @apply border-b-2 border-sky-500;
 }
+
+.modalx-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.modalx-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.modalx-exit {
+  opacity: 1;
+}
+.modalx-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.modal-back-enter {
+  opacity: 0;
+}
+.modal-back-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.modal-back-exit {
+  opacity: 1;
+}
+.modal-back-exit-active {
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}
