@@ -26,16 +26,19 @@ export default function Menu({
               <img src="/logo.svg" className="lg:px-2 lg:py-5" />
             </a>
           </div>
-          <div className="px-2">
-            <AppInput
-              type="text"
-              value={search}
-              label="Search action"
-              onChange={(s: string) => {
-                setSearch(s);
-              }}
-            />
-          </div>
+
+          {view && (
+            <div className="px-2">
+              <AppInput
+                type="text"
+                value={search}
+                label="Search action"
+                onChange={(s: string) => {
+                  setSearch(s);
+                }}
+              />
+            </div>
+          )}
           <ul className="py-3 px-2 lg:block hidden ">
             <li>
               <a

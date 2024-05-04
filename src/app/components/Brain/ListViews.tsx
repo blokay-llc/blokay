@@ -8,6 +8,8 @@ import {
   AppLoader,
 } from "@/app/components/DS/Index";
 import { useSession } from "next-auth/react";
+import AppVideoCard from "../UI/AppVideoCard";
+import AvatarName from "../UI/AvatarName";
 
 function ListViews({}) {
   const { data: session }: any = useSession();
@@ -45,7 +47,7 @@ function ListViews({}) {
     });
   };
 
-  const viewsComputed = () => {
+  const getViewsComputed = () => {
     const s: string = form.search.toLowerCase();
     return views
       .map((view: any) => {
@@ -72,6 +74,8 @@ function ListViews({}) {
     return created >= 10;
   };
 
+  const viewsComputed = getViewsComputed();
+
   return (
     <div className="">
       <div className=" flex items-center justify-between gap-5 mb-10">
@@ -97,10 +101,13 @@ function ListViews({}) {
             className="shrink-0"
           />
         )}
+        <div className="shrink-0">
+          <AvatarName name={session?.user?.name} />
+        </div>
       </div>
       <div className="">
         {loading && <AppLoader size="md" className="mx-auto" />}
-        {!loading && (
+        {!loading && viewsComputed.length > 0 && (
           <div>
             {isAdmin && onLimit() && (
               <div
@@ -122,7 +129,7 @@ function ListViews({}) {
             <h2 className="text-stone-800 text-2xl mb-5 ">My views</h2>
 
             <div className="flex flex-col gap-3 lg:gap-5">
-              {viewsComputed().map((view: any) => (
+              {viewsComputed.map((view: any) => (
                 <div>
                   {view.name && <h2 className="mb-5 font-bold">{view.name}</h2>}
                   <div className="flex flex-wrap items-center gap-3 lg:gap-5">
@@ -132,7 +139,6 @@ function ListViews({}) {
                         key={view.id}
                         className="bg-white shadow-sm border-2 border-transparent transition	 hover:border-stone-600 p-3 lg:p-5 rounded-xl flex items-center gap-3 hover:bg-stone-50"
                       >
-                        {/* <AppIcon icon={view.icon} className="size-8" /> */}
                         <div className="font-light">{view.name}</div>
                       </a>
                     ))}
@@ -140,6 +146,18 @@ function ListViews({}) {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {viewsComputed.length <= 3 && isAdmin && (
+          <div className="mt-10">
+            <AppVideoCard
+              title="Quick intro"
+              subtitle="Introduction by the Founder"
+              name="Introduction"
+              duration="1:09"
+              preview="https://www.relume.io/app/a/adam-video.ece0d5b362faf0b7dfc4.webp"
+            />
           </div>
         )}
       </div>
