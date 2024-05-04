@@ -6,6 +6,7 @@ import {
   AppModal,
   AppInput,
   AppLoader,
+  AppSelect,
 } from "@/app/components/DS/Index";
 import { useSession } from "next-auth/react";
 import AppVideoCard from "../UI/AppVideoCard";
@@ -73,7 +74,7 @@ function ListViews({}) {
   };
   const onLimit = () => {
     if (views.length <= 0) return false;
-    return viewsCount() >= 10;
+    return viewsCount() >= 100;
   };
 
   const viewsComputed = getViewsComputed();
@@ -187,6 +188,26 @@ function ListViews({}) {
           }}
           label={"Name"}
         />
+
+        {viewsComputed.length > 0 && (
+          <div className="mt-3">
+            <AppSelect
+              value={form.categoryId}
+              onChange={(categoryId: string) => {
+                setForm({ ...form, categoryId });
+              }}
+              label={"Category"}
+            >
+              <option value={undefined}>Select an option</option>
+
+              {viewsComputed
+                .filter((x) => x.id)
+                .map((category: any) => (
+                  <option value={category.id}>{category.name}</option>
+                ))}
+            </AppSelect>
+          </div>
+        )}
       </AppModal>
     </div>
   );

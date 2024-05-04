@@ -27,12 +27,16 @@ export const POST = withUser(async function ({ req, user }: any) {
   const body = await req.json();
   const data = body.data;
 
-  let view = await View.create({
+  let dataCreation: any = {
     businessId: user.businessId,
     name: data.name,
     layout: [],
     slug: string_to_slug(data.name),
-  });
+    viewGroupId: data.categoryId || null,
+  };
+
+  console.log(dataCreation);
+  let view = await View.create(dataCreation);
 
   return NextResponse.json({
     View: {

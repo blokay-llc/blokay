@@ -61,7 +61,13 @@ const ViewBrain = ({ slug }: any) => {
   }, []);
 
   useEffect(() => {
-    setEditMode(!isMobile && isAdmin ? "functions" : "");
+    if (isAdmin && !isMobile) {
+      if (view?.layout?.length == 0) {
+        setEditMode("grid");
+      } else {
+        setEditMode("functions");
+      }
+    }
   }, [session]);
 
   const saveView = (form: any) => {
