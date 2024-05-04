@@ -66,12 +66,14 @@ function ListViews({}) {
       });
   };
 
-  const onLimit = () => {
-    if (views.length <= 0) return false;
-    const created = views.reduce((acc: any, view: any) => {
+  const viewsCount = () => {
+    return views.reduce((acc: any, view: any) => {
       return (acc += view.Views.length);
     }, 0);
-    return created >= 10;
+  };
+  const onLimit = () => {
+    if (views.length <= 0) return false;
+    return viewsCount() >= 10;
   };
 
   const viewsComputed = getViewsComputed();
@@ -149,9 +151,10 @@ function ListViews({}) {
           </div>
         )}
 
-        {viewsComputed.length <= 3 && isAdmin && (
+        {!loading && viewsCount() <= 3 && isAdmin && (
           <div className="mt-10">
             <AppVideoCard
+              youtubeUrl=""
               title="Quick intro"
               subtitle="Introduction by the Founder"
               name="Introduction"
@@ -182,7 +185,7 @@ function ListViews({}) {
           onChange={(val: string) => {
             setForm({ ...form, name: val });
           }}
-          label={"Nombre"}
+          label={"Name"}
         />
       </AppModal>
     </div>

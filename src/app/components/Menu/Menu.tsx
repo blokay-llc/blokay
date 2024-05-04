@@ -112,8 +112,8 @@ export default function Menu({
         </div>
 
         <div className="text-xs text-stone-400 mt-3 flex gap-3 px-2">
-          <a href="/contact">Contact</a>
-          <a href="/privacy">Privacy policy</a>
+          <a href="https://blokay.com/contact">Contact</a>
+          <a href="https://blokay.com/privacy">Privacy policy</a>
         </div>
       </div>
     </div>

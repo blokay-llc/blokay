@@ -49,7 +49,7 @@ const AddToView = ({ refresh, save, onCreate = null }: any) => {
           }}
           type="text"
           value={form.name}
-          label="Nombre del bloque"
+          label="Name of the block"
         />
       </AppModal>
     </>
