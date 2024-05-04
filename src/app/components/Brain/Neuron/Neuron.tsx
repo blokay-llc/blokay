@@ -172,13 +172,14 @@ const Neuron = ({
                                   <option value="">
                                     Selecciona una opción
                                   </option>
-                                  {row.options.map(
-                                    (opt: any, index: number) => (
-                                      <option key={index} value={opt.value}>
-                                        {opt.label}
-                                      </option>
-                                    )
-                                  )}
+                                  {row.options?.length > 0 &&
+                                    row.options.map(
+                                      (opt: any, index: number) => (
+                                        <option key={index} value={opt.value}>
+                                          {opt.label}
+                                        </option>
+                                      )
+                                    )}
                                 </AppSelect>
                               )}
                               {!["select", "hidden"].includes(row.type) && (

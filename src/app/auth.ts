@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import Models from "@/db/index";
 
 let db = new Models();
-const { User, Session }: any = db;
+const { User, Session, Business }: any = db;
 
 export const authOptions: any = {
   // Configure one or more authentication providers
@@ -41,7 +41,14 @@ export const authOptions: any = {
   callbacks: {
     async session({ session }: { session: Session }) {
       if (!session.user) return;
-      const userData = await User.findByEmail(session.user.email);
+      const userData = await User.findByEmail(session.user.email, {
+        include: [
+          {
+            model: Business,
+            required: true,
+          },
+        ],
+      });
       if (!userData) {
         return null;
       }

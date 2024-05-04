@@ -56,7 +56,7 @@ const NeuronChat = ({ neuron, reload }: any) => {
   return (
     <div>
       {historyChat.length > 0 && (
-        <div className="h-96 overflow-y-auto">
+        <div className="h-64 overflow-y-auto">
           {historyChat.map((chat: any, k: number) => (
             <div
               key={"chat-" + k}

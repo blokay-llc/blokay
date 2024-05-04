@@ -129,7 +129,11 @@ function Modal(
                 className={`py-5 px-4 overflow-y-auto ${
                   error ? "with-error" : ""
                 }`}
-                style={{ maxHeight: "calc(100vh - 230px)" }}
+                style={{
+                  maxHeight: `calc(100vh - ${
+                    100 + footer ? 65 : 0 + title ? 65 : 0
+                  }px)`,
+                }}
               >
                 {children}
               </div>

@@ -133,13 +133,14 @@ export default (sequelize: any, DataTypes: any) => {
    *Find user by her email
    *@return corresponfing user
    */
-  User.findByEmail = async function (email: string) {
-    let queryBuilder = {
+  User.findByEmail = async function (email: string, queryBuilder: any = {}) {
+    let user = await User.findOne({
+      ...queryBuilder,
       where: {
+        ...queryBuilder.where,
         email,
       },
-    };
-    let user = await User.findOne(queryBuilder);
+    });
     return user;
   };
 

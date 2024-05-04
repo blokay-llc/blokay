@@ -72,17 +72,80 @@ export default function DatasourceForm({
     {
       type: "sqlite",
       name: "SQLite",
-      fields: [],
+      fields: [
+        {
+          type: "text",
+          name: "database",
+          label: "Database",
+        },
+        {
+          type: "text",
+          name: "host",
+          label: "Host",
+        },
+        {
+          type: "text",
+          name: "username",
+          label: "Username",
+        },
+        {
+          type: "password",
+          name: "password",
+          label: "Password",
+        },
+      ],
     },
     {
       type: "postgresql",
       name: "PostgreSQL",
-      fields: [],
+      fields: [
+        {
+          type: "text",
+          name: "database",
+          label: "Database",
+        },
+        {
+          type: "text",
+          name: "host",
+          label: "Host",
+        },
+        {
+          type: "text",
+          name: "username",
+          label: "Username",
+        },
+        {
+          type: "password",
+          name: "password",
+          label: "Password",
+        },
+      ],
     },
     {
       type: "oracle",
       name: "Oracle",
-      fields: [],
+      fields: [
+        {
+          type: "text",
+          name: "database",
+          label: "Database",
+        },
+        {
+          type: "text",
+          name: "host",
+          label: "Host",
+        },
+        {
+          type: "text",
+          name: "username",
+          label: "Username",
+        },
+        {
+          type: "password",
+          name: "password",
+          label: "Password",
+        },
+      ],
     },
   ];
 
@@ -121,11 +184,17 @@ export default function DatasourceForm({
             <div
               key={type.type}
               onClick={() => {
-                setForm({ ...form, type: type.type });
                 setType(type);
+                setForm({
+                  ...form,
+                  config: {
+                    ...form.config,
+                    type: type.type,
+                  },
+                });
               }}
               className={`border-2 flex flex-col gap-3 justify-center items-center px-3 py-2 rounded-xl ${
-                form.type == type.type
+                form.config.type == type.type
                   ? "border-stone-600 "
                   : "border-stone-300"
               }`}
