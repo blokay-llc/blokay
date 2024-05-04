@@ -21,10 +21,16 @@ export default function Menu({
     <div className="lg:pt-0 pt-16">
       <div className="lg:static lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
         <div className="border   bg-white font-light border-stone-300  rounded-lg text-sm shadow py-2  text-stone-800 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
-          <div>
+          <div className="px-2 flex items-center gap-5 py-5">
             <a href="/dashboard">
-              <img src="/logo.svg" className="lg:px-2 lg:py-5" />
+              <img src="/logo.svg" className=" h-8 shrink-0" />
             </a>
+            {session?.business?.logo && (
+              <img
+                src={session?.business?.logo}
+                className=" max-h-8 shrink-0 max-w-32"
+              />
+            )}
           </div>
 
           {view && (

@@ -71,6 +71,11 @@ export const authOptions: any = {
         return null;
       }
       return {
+        business: {
+          id: userData.Business.id,
+          name: userData.Business.name,
+          logo: userData.Business.logo,
+        },
         user: {
           id: userData.id,
           businessId: userData.businessId,
