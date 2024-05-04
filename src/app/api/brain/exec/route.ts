@@ -56,6 +56,10 @@ export const POST = withNeuron(async function ({
       const conn: any = await getConnection(db, datasource, "write");
       return await conn.query(sql, { replacements, type: "INSERT" });
     },
+    delete: async (sql: string, replacements = {}) => {
+      const conn: any = await getConnection(db, datasource, "write");
+      return await conn.query(sql, { replacements, type: "DELETE" });
+    },
     update: async (sql: string, replacements = {}) => {
       const conn: any = await getConnection(db, datasource, "write");
       return await conn.query(sql, { replacements, type: "UPDATE" });
