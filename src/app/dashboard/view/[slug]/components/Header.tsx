@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { AppIcon, AppModal, AppButton } from "@/app/components/DS/Index";
 import ShareView from "@/app/components/UI/ShareView";
-import AvatarName from "../../../../../components/UI/AvatarName";
+import AvatarName from "../../../../components/UI/AvatarName";
 import Toolbar from "./Toolbar";
 
 export default function Header({
@@ -62,9 +62,9 @@ export default function Header({
 
         <div
           onClick={clickShare}
-          className="flex items-center gap-2 border-2 border-stone-600 rounded-lg text-sm text-stone-600 px-3 py-2 ml-3 hover:bg-white"
+          className="flex items-center gap-2 border-2 border-stone-300 rounded-lg text-sm text-stone-500 px-3 py-2 ml-3 hover:bg-white"
         >
-          <AppIcon icon="share" className="size-4" />
+          <AppIcon icon="share" className="size-4 fill-stone-500" />
           Share
         </div>
       </div>

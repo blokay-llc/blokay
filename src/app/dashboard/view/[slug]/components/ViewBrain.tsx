@@ -9,12 +9,13 @@ import {
   viewList,
 } from "@/app/services/brain";
 import { AppModal } from "@/app/components/DS/Index";
-import Header from "@/app/dashboard/view/[slug]/components/Toolbar/Header";
+import Header from "@/app/dashboard/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
-import Neuron from "../../../../../components/Brain/Neuron/Neuron";
-import NeuronAdmin from "../../../../../components/Brain/Neuron/Admin/NeuronAdmin";
+import Neuron from "../../../../components/Brain/Neuron/Neuron";
+import NeuronAdmin from "../../../../components/Brain/Neuron/Admin/NeuronAdmin";
 import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import { useSession } from "next-auth/react";
+import "./styles.css";
 
 const ViewBrain = ({ slug }: any) => {
   const { isMobile } = useScreenDetector();
@@ -153,7 +154,7 @@ const ViewBrain = ({ slug }: any) => {
               {containerWidth && (
                 <GridLayout
                   className="relative"
-                  cols={12}
+                  cols={24}
                   style={{ minHeight: 600 }}
                   rowHeight={15}
                   width={containerWidth}

@@ -136,7 +136,9 @@ const NeuronGeneral = ({ neuron, reload }: any) => {
                   <option value="select">select</option>
                   <option value="date">date</option>
                   <option value="time">time</option>
+                  <option value="number">number</option>
                   <option value="text">text</option>
+                  <option value="email">email</option>
                   <option value="money">money</option>
                   <option value="email">email</option>
                   <option value="hidden">hidden</option>

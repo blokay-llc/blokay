@@ -1,0 +1,33 @@
+.toolbar {
+  @apply rounded-xl  overflow-hidden h-14 items-center flex shrink-0 transition duration-100 border-black/10 border-2 z-20 relative;
+}
+
+.toolbar .item {
+  @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center bg-white hover:bg-stone-200;
+}
+
+.toolbar .item.active {
+  @apply bg-indigo-600;
+}
+
+.toolbar .item.active svg {
+  @apply fill-white;
+}
+
+.toolbar .item.square {
+  @apply aspect-square;
+}
+
+.toolbar .item svg {
+  @apply size-6 fill-stone-900;
+}
+
+.action-box {
+  @apply z-20 overflow-hidden bg-white absolute top-16 mt-2 border-2 border-black/10  lg:w-2/3 rounded-xl left-0 w-full text-stone-600;
+}
+.action-box .item {
+  @apply font-light gap-3 flex items-center px-2 py-2 transition duration-200 hover:bg-stone-100;
+}
+.action-box .item svg {
+  @apply size-6 fill-stone-400;
+}
