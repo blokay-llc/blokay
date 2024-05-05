@@ -9,8 +9,8 @@ import {
   AppSelect,
 } from "@/app/components/DS/Index";
 import { useSession } from "next-auth/react";
-import AppVideoCard from "../UI/AppVideoCard";
-import AvatarName from "../UI/AvatarName";
+import AppVideoCard from "../../../components/UI/AppVideoCard";
+import AvatarName from "../../../components/UI/AvatarName";
 
 function ListViews({}) {
   const { data: session }: any = useSession();

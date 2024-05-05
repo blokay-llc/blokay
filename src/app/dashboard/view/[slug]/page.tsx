@@ -1,4 +1,4 @@
-import ViewBrain from "@/app/components/Brain/View/Index";
+import ViewBrain from "./components/Toolbar/Index";
 import Providers from "@/app/login/components/Providers";
 
 export default function View({ params }: { params: { slug: string } }) {

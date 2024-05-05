@@ -2,8 +2,8 @@
 import { useState, useEffect, useRef } from "react";
 import { AppIcon, AppModal, AppButton } from "@/app/components/DS/Index";
 import ShareView from "@/app/components/UI/ShareView";
-import AvatarName from "./UI/AvatarName";
-import Toolbar from "./Brain/View/components/Toolbar/Toolbar";
+import AvatarName from "../../../../../components/UI/AvatarName";
+import Toolbar from "./Toolbar";
 
 export default function Header({
   view,
