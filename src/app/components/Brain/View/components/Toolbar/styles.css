@@ -1,0 +1,44 @@
+/* .toolbar {
+  @apply rounded-xl overflow-hidden h-14 items-center flex shrink-0;
+}
+
+.toolbar .item {
+  @apply shrink-0 h-full flex items-center justify-center bg-stone-900 hover:bg-black;
+}
+
+.toolbar .item.active {
+  @apply bg-indigo-600;
+}
+
+.toolbar .item.square {
+  @apply aspect-square;
+}
+
+.toolbar .item svg {
+  @apply size-6 fill-stone-100;
+}
+ */
+
+.toolbar {
+  @apply rounded-xl  overflow-hidden h-14 items-center flex shrink-0 transition duration-100 border-stone-200 border-2;
+}
+
+.toolbar .item {
+  @apply shrink-0 h-full transition duration-100 flex items-center justify-center bg-white hover:bg-stone-200;
+}
+
+.toolbar .item.active {
+  @apply bg-indigo-600;
+}
+
+.toolbar .item.active svg {
+  @apply fill-white;
+}
+
+.toolbar .item.square {
+  @apply aspect-square;
+}
+
+.toolbar .item svg {
+  @apply size-6 fill-stone-900;
+}

@@ -91,7 +91,7 @@ const Neuron = ({
 
   return (
     <div className="h-full group relative border-2 border-stone-300 overflow-y-hidden  rounded-2xl pt-0">
-      {editMode == "functions" && !loading && (
+      {editMode == "edit" && !loading && (
         <div className="hidden group-hover:block">
           <NeuronEdit
             onEditNeuron={(n: any) => {
@@ -126,8 +126,8 @@ const Neuron = ({
               !response &&
               (neuron.filters.autoExec == false ||
                 neuron.filters?.fields?.length > 0) && (
-                <div className="py-10 h-full flex items-center justify-center ">
-                  <div className=" lg:max-w-96 lg:min-w-96 min-w-[90%] bg-white shadow-md rounded-3xl px-5 pb-5 pt-10">
+                <div className="py-6 h-full flex items-center justify-center ">
+                  <div className=" lg:max-w-96 lg:min-w-96 min-w-[90%] bg-white rounded-xl px-5 pb-5 pt-10">
                     <div className="flex items-center gap-3">
                       {onBack && (
                         <div
@@ -145,7 +145,7 @@ const Neuron = ({
                           <div></div>
                         </div>
                       )}
-                      <h2 className="text-base md:text-lg font-semibold text-slate-600">
+                      <h2 className="text-base md:text-lg font-medium text-stone-600">
                         {neuron.description}
                       </h2>
                     </div>

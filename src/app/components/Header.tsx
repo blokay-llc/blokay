@@ -3,7 +3,17 @@ import { useState, useEffect, useRef } from "react";
 import { AppIcon, AppModal, AppButton } from "@/app/components/DS/Index";
 import ShareView from "@/app/components/UI/ShareView";
 import AvatarName from "./UI/AvatarName";
-export default function Header({ view, save, isAdmin }: any) {
+import Toolbar from "./Brain/View/components/Toolbar/Toolbar";
+
+export default function Header({
+  view,
+  save,
+  isAdmin,
+  onCreate,
+  refresh,
+  editMode,
+  setEditMode,
+}: any) {
   const modalRef: any = useRef();
   const [title, setTitle] = useState("Untitled view");
 
@@ -20,26 +30,29 @@ export default function Header({ view, save, isAdmin }: any) {
   return (
     <div className="flex justify-between items-center mb-8 lg:mb-16">
       <div className="flex gap-3 items-center w-full">
-        <a className="" href="/dashboard">
-          <div className="size-8 p-1 cursor-pointer border-2 border-stone-50 hover:border-stone-300 rounded-full bg-white">
-            <AppIcon icon="left" className="fill-stone-900 size-full" />
-          </div>
-        </a>
-        {view?.icon && <AppIcon icon={view.icon} className="size-6" />}
-
         {isAdmin && (
-          <div className="w-full flex-1">
-            <input
-              className="text-stone-800 text-2xl bg-transparent focus:outline-none w-full"
-              value={title}
-              onChange={(e) => {
-                setTitle(e.target.value);
-                save({ name: e.target.value });
-              }}
-            />
-          </div>
+          <Toolbar
+            onCreate={onCreate}
+            refresh={refresh}
+            title={title}
+            onSetTitle={(val: any) => {
+              setTitle(val);
+              save({ name: val });
+            }}
+            editMode={editMode}
+            setEditMode={setEditMode}
+          />
         )}
-        {!isAdmin && <h2 className="text-2xl text-stone-800">{title}</h2>}
+        {!isAdmin && (
+          <>
+            <a className="" href="/dashboard">
+              <div className="size-8 p-1 cursor-pointer border-2 border-stone-50 hover:border-stone-300 rounded-full bg-white">
+                <AppIcon icon="left" className="fill-stone-900 size-full" />
+              </div>
+            </a>
+            <h2 className="text-2xl text-stone-800">{title}</h2>
+          </>
+        )}
       </div>
 
       <div className="hidden lg:flex gap-1 items-center select-none ">

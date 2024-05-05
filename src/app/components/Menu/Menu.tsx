@@ -25,7 +25,7 @@ export default function Menu({
             <a href="/dashboard">
               <img src="/logo.svg" className=" h-8 shrink-0" />
             </a>
-            {session?.business?.logo && (
+            {session?.business?.logo && !isAdmin && (
               <img
                 src={session?.business?.logo}
                 className=" max-h-8 shrink-0 max-w-32"

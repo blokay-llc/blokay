@@ -15,7 +15,8 @@ const NeuronEdit = ({
       {neuron?.id && (
         <div
           className="px-3 py-1 cursor-pointer rounded-lg hover:bg-stone-300 bg-stone-100 flex gap-3 items-center text-stone-600 text-sm border-2 border-stone-200"
-          onClick={() => {
+          onMouseDown={(e) => {
+            e.stopPropagation();
             onEditNeuron && onEditNeuron(neuron);
           }}
         >
@@ -28,7 +29,8 @@ const NeuronEdit = ({
 
       <div
         className="px-3 py-1 cursor-pointer rounded-lg hover:bg-stone-300 bg-stone-100 flex gap-3 items-center text-stone-600 text-sm border-2 border-stone-200"
-        onClick={() => {
+        onMouseDown={(e) => {
+          e.stopPropagation();
           modalDeleteRef.current.showModal();
         }}
       >

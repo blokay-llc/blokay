@@ -8,10 +8,9 @@ import {
   brainList,
   viewList,
 } from "@/app/services/brain";
-import { AppModal } from "@/app/components/DS/Index";
+import { AppIcon, AppModal } from "@/app/components/DS/Index";
 import Header from "@/app/components/Header";
 import Menu from "@/app/components/Menu/Menu";
-import AddToView from "./AddToView";
 import Neuron from "../Neuron/Neuron";
 import NeuronAdmin from "../Neuron/Admin/NeuronAdmin";
 import { useScreenDetector } from "@/app/hooks/user-screen-detector";
@@ -30,7 +29,7 @@ const ViewBrain = ({ slug }: any) => {
   const [containerWidth, setContainerWidth] = useState(null);
   const [neuron, setNeuron] = useState(null);
   const [editMode, setEditMode] = useState(
-    !isMobile && isAdmin ? "functions" : ""
+    !isMobile && isAdmin ? "edit" : "user"
   );
   const [views, setViews] = useState([]);
 
@@ -50,7 +49,7 @@ const ViewBrain = ({ slug }: any) => {
     viewGet(slug).then((r) => {
       setView(r.View);
       if (isAdmin && r.View.layout?.length == 0) {
-        setEditMode("grid");
+        setEditMode("edit");
       }
     });
   };
@@ -63,9 +62,7 @@ const ViewBrain = ({ slug }: any) => {
   useEffect(() => {
     if (isAdmin && !isMobile) {
       if (view?.layout?.length == 0) {
-        setEditMode("grid");
-      } else {
-        setEditMode("functions");
+        setEditMode("edit");
       }
     }
   }, [session]);
@@ -139,48 +136,18 @@ const ViewBrain = ({ slug }: any) => {
         </div>
         <div className="lg:col-span-9 pb-10">
           <div className="relative  ">
-            <Header view={view} save={saveView} isAdmin={isAdmin} />
-
-            {!isMobile && isAdmin && (
-              <div className="flex items-center justify-between gap-3 mt-10">
-                <AddToView
-                  view={view}
-                  save={saveView}
-                  refresh={refreshView}
-                  onCreate={onCreateNeuron}
-                />
-
-                {view?.layout?.length > 0 && (
-                  <div className="flex  justify-end ">
-                    <div className="bg-stone-300 flex select-none gap-0.5 items-center text-stone-900 p-1 rounded-lg">
-                      <div
-                        className={`px-2 py-1 text-sm  rounded-md ${
-                          editMode == "functions"
-                            ? "bg-white shadow-md"
-                            : "hover:bg-stone-200"
-                        }`}
-                        onClick={() => setEditMode("functions")}
-                      >
-                        Functions
-                      </div>
-                      <div
-                        className={`px-2 py-1 text-sm rounded-md ${
-                          editMode == "grid"
-                            ? "bg-white shadow-md"
-                            : "hover:bg-stone-200"
-                        }`}
-                        onClick={() => setEditMode("grid")}
-                      >
-                        Grid
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+            <Header
+              view={view}
+              save={saveView}
+              refresh={refreshView}
+              onCreate={onCreateNeuron}
+              isAdmin={isAdmin}
+              editMode={editMode}
+              setEditMode={setEditMode}
+            />
 
             <div
-              className={`lg:mt-10 ${editMode == "grid" ? "select-none" : ""}`}
+              className={`lg:mt-10 ${editMode == "edit" ? "select-none" : ""}`}
               ref={containerRef}
             >
               {containerWidth && (
@@ -194,7 +161,7 @@ const ViewBrain = ({ slug }: any) => {
                   margin={[20, 30]}
                   containerPadding={[0, 0]}
                   onDrop={onDrop}
-                  isDroppable={editMode === "grid"}
+                  isDroppable={editMode === "edit"}
                   onLayoutChange={(layout: any[]) => {
                     if (layout.find((item) => isNaN(item.i))) {
                       return;
@@ -218,7 +185,7 @@ const ViewBrain = ({ slug }: any) => {
                         y: neuron.y,
                         w: neuron.w,
                         h: neuron.h,
-                        static: editMode !== "grid",
+                        static: editMode === "user",
                       }}
                     >
                       <Neuron

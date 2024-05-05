@@ -58,16 +58,18 @@ const DropItem = function ({
               onClickNeuron(item);
             }
           }}
-          draggable={editMode === "grid" && !!item.key}
+          draggable={editMode === "edit" && !!item.key}
           unselectable="on"
           onDragStart={(e) => {
             if (item.key) {
               e.dataTransfer.setData("text/plain", "" + item?.id);
             }
           }}
-          style={{ paddingLeft: level * 15 }}
         >
-          <div className="flex items-center gap-1">
+          <div
+            className="flex items-center gap-1"
+            style={{ paddingLeft: level * 22 }}
+          >
             {item?.children?.length > 0 && (
               <div
                 onClick={(e) => {
@@ -85,18 +87,18 @@ const DropItem = function ({
               </div>
             )}
             <div
-              className={`text-sm text-stone-600 ${
+              className={`text-[13px] text-stone-600 ${
                 level == 0 ? "font-medium" : "font-light"
               }`}
             >
-              <span className={`${isFound ? "font-bold text-indigo-600" : ""}`}>
+              <span className={`${isFound ? "font-bold text-stone-600" : ""}`}>
                 {item?.name}
               </span>
             </div>
           </div>
           <div>
             {item.key && (
-              <AppIcon icon="component" className={`size-4 fill-indigo-600`} />
+              <AppIcon icon="component" className={`size-4 fill-stone-600`} />
             )}
           </div>
         </div>
@@ -192,15 +194,11 @@ export default function TreeMenu({
     let arr = Array.from(use);
     return list.filter((n: any) => !arr.includes(+n.id));
   };
-  const inLayout = (n: any) => {
-    if (!view?.layout?.length) return false;
-    return view.layout.find((l: any) => l.i == n.id);
-  };
 
   const nonUsed = nonUse();
 
   return (
-    <div>
+    <div className={`${editMode == "user" ? "hidden" : ""}`}>
       <div className="px-2 select-none flex flex-col pt-3 border-t border-stone-200">
         {buildStructure().map((item: any) => (
           <DropItem
