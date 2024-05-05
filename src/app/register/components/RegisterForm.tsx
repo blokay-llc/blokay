@@ -27,11 +27,9 @@ export default function RegisterForm() {
   const register = () => {
     setLoading(true);
     fetchRegister(form)
-      .then((result) => {
-        if (result.User) {
-          setForm({});
-          router.push("/login");
-        }
+      .then(() => {
+        setForm({});
+        router.push("/login");
       })
       .finally(() => {
         setLoading(false);
