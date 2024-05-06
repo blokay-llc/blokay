@@ -7,7 +7,7 @@ import {
   AppModal,
 } from "@/app/components/DS/Index";
 import { money } from "@/app/helpers/functions";
-import Neuron from "../Neuron";
+import Events from "../Events";
 
 function AppData({
   data,
@@ -16,20 +16,13 @@ function AppData({
   neuronName = "",
   autoExecuted,
 }: any) {
-  const subneuronDefault: any = {
-    neuronId: null,
-    neuronKey: "",
-    form: {},
-  };
-  const modalRef: any = useRef();
   const modalShowTextRef: any = useRef();
+  const eventsRef: any = useRef();
   const [sort, setSort]: any = useState(null);
   const [filters, setFilters] = useState({ search: "" });
   const [table, setVarTable]: any = useState({ data: [], header: [] });
-  const [originalTable, setOriginalTable] = useState({ header: [], data: [] });
   const [page, setPage] = useState(1);
   const [PER_PAGE, setPerPage] = useState(10);
-  const [subneuron, setSubneuron] = useState(subneuronDefault);
   const [textAll, setTextAll] = useState("");
 
   useEffect(() => {
@@ -44,30 +37,13 @@ function AppData({
     setPage(1);
     if (data) {
       setVarTable(data);
-      setOriginalTable(JSON.parse(JSON.stringify(table)));
     } else {
       setVarTable({ data: [], header: [] });
-      setOriginalTable({ header: [], data: [] });
     }
   };
 
   const init = () => {
     setTable(data);
-  };
-
-  const functions: any = {
-    openNeuron: ({
-      neuronId,
-      neuronKey,
-      form,
-    }: {
-      neuronId: number;
-      neuronKey: string;
-      form: any;
-    }) => {
-      setSubneuron({ neuronId, neuronKey, form });
-      modalRef.current.showModal();
-    },
   };
 
   // const generateExcel = () => {
@@ -337,7 +313,9 @@ function AppData({
                                           <div
                                             onClick={() => {
                                               td.click &&
-                                                functions[td.click](td.args);
+                                                eventsRef.current.functions[
+                                                  td.click
+                                                ](td.args);
                                             }}
                                             dangerouslySetInnerHTML={{
                                               __html: td.html,
@@ -477,26 +455,12 @@ function AppData({
         </div>
       </div>
 
-      <AppModal size="lg" position="center" ref={modalRef}>
-        {(subneuron.neuronKey || subneuron.neuronId) && (
-          <Neuron
-            neuronId={subneuron.neuronId}
-            neuronKey={subneuron.neuronKey}
-            defaultForm={subneuron.form}
-            onExec={(result: any) => {
-              if (
-                !result.type ||
-                result.type == "error" ||
-                result.type == "message"
-              ) {
-                modalRef.current.hideModal();
-                onReload && onReload();
-              }
-            }}
-          />
-        )}
-      </AppModal>
-
+      <Events
+        ref={eventsRef}
+        onExecuted={() => {
+          onReload && onReload();
+        }}
+      />
       <AppModal size="lg" position="center" ref={modalShowTextRef}>
         <div>
           <pre>{textAll}</pre>
