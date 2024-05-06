@@ -5,8 +5,9 @@ import Neuron from "./models/brain/neuron";
 import NeuronGroup from "./models/brain/neuron-group";
 import NeuronExecution from "./models/brain/neuron-execution";
 import View from "./models/brain/view";
-import Datasource from "./models/brain/datasource";
+import ViewItem from "./models/brain/view-item";
 import ViewGroup from "./models/brain/view-group";
+import Datasource from "./models/brain/datasource";
 import Business from "./models/user/business";
 import User from "./models/user/user";
 import UserPermission from "./models/user/user-permission";
@@ -22,6 +23,7 @@ class DB {
     NeuronExecution,
     View,
     ViewGroup,
+    ViewItem,
     Business,
     User,
     UserPermission,

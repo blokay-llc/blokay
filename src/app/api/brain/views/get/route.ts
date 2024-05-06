@@ -4,7 +4,7 @@ import Models from "@/db/index";
 
 let db = new Models();
 
-const { User, UserPermission }: any = db;
+const { User, UserPermission, ViewItem }: any = db;
 
 export const POST = withView(async function ({ user, view }: any) {
   // set currentId
@@ -46,6 +46,12 @@ export const POST = withView(async function ({ user, view }: any) {
     }));
   }
 
+  let viewItems = await ViewItem.findAll({
+    where: {
+      viewId: view.id,
+    },
+  });
+
   return NextResponse.json({
     data: {
       View: {
@@ -53,7 +59,7 @@ export const POST = withView(async function ({ user, view }: any) {
         slug: view.slug,
         name: view.name,
         icon: view.icon,
-        layout: view.layout,
+        ViewItems: viewItems,
         Users: users.map((user: any) => ({
           id: user.id,
           name: user.name,

@@ -30,6 +30,29 @@ export const saveView = async function (form: any) {
 
   return result.data;
 };
+export const saveLayout = async function (form: any) {
+  let data = {
+    ...form,
+  };
+
+  let result = await postRequest("brain/views/saveLayout", data);
+
+  return result.data;
+};
+
+export const deleteFromLayout = async function (
+  viewId: string | number,
+  viewItemId: string | number
+) {
+  let data = {
+    viewId,
+    viewItemId,
+  };
+
+  let result = await postRequest("brain/views/saveLayout", data);
+
+  return result.data;
+};
 
 export const addView = async function (form: any) {
   let data = {

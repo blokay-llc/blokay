@@ -9,14 +9,20 @@ export const withView = (cb: any) => {
   return withUser(async function ({ req, user }: any) {
     const body = await req.json();
 
-    let { slug } = body.data;
+    let { slug, viewId } = body.data;
 
-    const view = await View.findOne({
+    let queryBuilder: any = {
       where: {
         businessId: user.businessId,
-        slug,
       },
-    });
+    };
+
+    if (viewId) {
+      queryBuilder.where.id = viewId;
+    } else if (slug) {
+      queryBuilder.where.slug = slug;
+    }
+    const view = await View.findOne(queryBuilder);
 
     if (!view) {
       return NextResponse.json(
@@ -49,6 +55,6 @@ export const withView = (cb: any) => {
         );
       }
     }
-    return await cb({ req, user, view });
+    return await cb({ body, req, user, view });
   });
 };

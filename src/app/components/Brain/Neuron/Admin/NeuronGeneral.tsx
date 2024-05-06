@@ -160,7 +160,7 @@ const NeuronGeneral = ({ neuron, reload }: any) => {
                 <AppCheckbox
                   type="text"
                   value={fields[index].isRequired}
-                  label="¿obligatorio?"
+                  label="Required?"
                   onChange={() => {
                     let f = fields.slice(0);
                     f[index].isRequired = !!!f[index].isRequired;
@@ -195,7 +195,7 @@ const NeuronGeneral = ({ neuron, reload }: any) => {
             }}
             icon="delete"
             variant="secondary"
-            size="lg"
+            size="md"
           />
 
           <AppButton
@@ -204,7 +204,7 @@ const NeuronGeneral = ({ neuron, reload }: any) => {
             onClick={() => saveChanges()}
             icon="save"
             variant="primary"
-            size="lg"
+            size="md"
           />
         </div>
       </div>

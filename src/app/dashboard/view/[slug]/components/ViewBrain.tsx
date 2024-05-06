@@ -5,8 +5,10 @@ import "/node_modules/react-grid-layout/css/styles.css";
 import {
   viewGet,
   saveView as saveViewApi,
+  saveLayout as saveLayoutApi,
   brainList,
   viewList,
+  deleteFromLayout as deleteFromLayoutApi,
 } from "@/app/services/brain";
 import { AppModal } from "@/app/components/DS/Index";
 import Header from "@/app/dashboard/view/[slug]/components/Header";
@@ -16,6 +18,7 @@ import NeuronAdmin from "../../../../components/Brain/Neuron/Admin/NeuronAdmin";
 import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import { useSession } from "next-auth/react";
 import "./styles.css";
+import { uuidv4 } from "@/app/helpers/functions";
 
 const ViewBrain = ({ slug }: any) => {
   const { isMobile } = useScreenDetector();
@@ -62,9 +65,7 @@ const ViewBrain = ({ slug }: any) => {
 
   useEffect(() => {
     if (isAdmin && !isMobile) {
-      if (view?.layout?.length == 0) {
-        setEditMode("edit");
-      }
+      setEditMode("edit");
     }
   }, [session]);
 
@@ -74,8 +75,15 @@ const ViewBrain = ({ slug }: any) => {
       ...form,
     });
     saveViewApi({
-      id: view.id,
+      viewId: view.id,
       ...form,
+    });
+  };
+
+  const saveLayout = (layout: any = []) => {
+    saveLayoutApi({
+      viewId: view.id,
+      layout,
     });
   };
 
@@ -92,15 +100,20 @@ const ViewBrain = ({ slug }: any) => {
   const onDrop = (layout: any[], layoutItem: any, _event: any) => {
     let i = _event.dataTransfer.getData("text/plain");
 
-    saveView({
-      layout: [
-        ...view.layout,
-        {
-          ...layoutItem,
-          i,
-        },
-      ],
+    const newLayout: any = [
+      ...view.ViewItems,
+      {
+        ...layoutItem,
+        type: "neuron",
+        neuronId: i,
+        id: uuidv4(),
+      },
+    ];
+    setView({
+      ...view,
+      ViewItems: newLayout,
     });
+    saveLayout(newLayout);
   };
 
   const clickNeuron = (neuron: any) => {
@@ -109,18 +122,19 @@ const ViewBrain = ({ slug }: any) => {
   };
 
   const deleteFromLayout = (neuronId: any) => {
-    let index = view.layout.findIndex((k: any) => k.i == neuronId);
-    if (index !== -1) {
-      let newLayout = view.layout.slice(0);
-      newLayout.splice(index, 1);
-      saveView({ layout: newLayout });
-    }
+    // TODO
   };
 
   const onCreateNeuron = (n: any) => {
     fetchListNeurons();
     setNeuron(n);
     modalRef.current.showModal();
+  };
+
+  const layout = () => {
+    if (!view?.ViewItems) return [];
+
+    return view.ViewItems;
   };
 
   return (
@@ -164,40 +178,31 @@ const ViewBrain = ({ slug }: any) => {
                   onDrop={onDrop}
                   isDroppable={editMode === "edit"}
                   onLayoutChange={(layout: any[]) => {
-                    if (layout.find((item) => isNaN(item.i))) {
-                      return;
-                    }
-                    saveView({
-                      layout: layout.map((l) => ({
-                        i: l.i,
-                        x: l.x,
-                        y: l.y,
-                        w: l.w,
-                        h: l.h,
-                      })),
-                    });
+                    saveLayout(layout);
                   }}
                 >
-                  {(view?.layout || []).map((neuron: any) => (
+                  {layout().map((viewItem: any) => (
                     <div
-                      key={neuron.i}
+                      key={viewItem.id}
                       data-grid={{
-                        x: neuron.x,
-                        y: neuron.y,
-                        w: neuron.w,
-                        h: neuron.h,
+                        x: viewItem.x,
+                        y: viewItem.y,
+                        w: viewItem.w,
+                        h: viewItem.h,
                         static: editMode === "user",
                       }}
                     >
-                      <Neuron
-                        onEditNeuron={clickNeuron}
-                        editMode={editMode}
-                        neuronId={neuron.i}
-                        defaultForm={{}}
-                        deleteFromLayout={(neuronId: any) =>
-                          deleteFromLayout(neuronId)
-                        }
-                      />
+                      {viewItem.type == "neuron" && (
+                        <Neuron
+                          onEditNeuron={clickNeuron}
+                          editMode={editMode}
+                          neuronId={viewItem.neuronId}
+                          defaultForm={{}}
+                          deleteFromLayout={(neuronId: any) =>
+                            deleteFromLayout(neuronId)
+                          }
+                        />
+                      )}
                     </div>
                   ))}
                 </GridLayout>

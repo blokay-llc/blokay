@@ -1,15 +1,21 @@
 import { NextResponse } from "next/server";
 import { withView } from "@/lib/withView";
+import Models from "@/db/index";
+
+let db = new Models();
+const { ViewItem }: any = db;
 
 export const POST = withView(async function ({ body, view }: any) {
   const data = body.data;
 
-  const toUpdate: any = {};
+  let item = await ViewItem.findOne({
+    where: {
+      viewId: view.id,
+      id: data.id,
+    },
+  });
 
-  if (data.name) {
-    toUpdate.name = data.name;
-  }
+  item.destroy();
 
-  view.update(toUpdate);
   return NextResponse.json({});
 });

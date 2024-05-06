@@ -39,8 +39,7 @@ const AppButton = function (props: any) {
       else if (variant === "primary") {
         colorClass = ` border-transparent  `;
       } else if (variant === "secondary") {
-        colorClass =
-          " text-gray-500 border-gray-200 bg-gray-100 hover:bg-gray-200 ";
+        colorClass = " text-stone-500 border-stone-300 border-2 ";
       } else if (variant === "third") {
         colorClass =
           "text-black border-black rounded-none border-none hover:bg-gray-100 black-icon";
@@ -57,7 +56,7 @@ const AppButton = function (props: any) {
       }
     }
 
-    return `${sizeClass} ${colorClass} appearance-none border-b-0 rounded-lg md:rounded-lg inline-block focus:outline-none  font-base active:border-b-0  ${extraProps.className}`;
+    return `${sizeClass} ${colorClass} appearance-none rounded-lg md:rounded-lg inline-block focus:outline-none  font-base   ${extraProps.className}`;
   };
 
   const propsComputed = () => {

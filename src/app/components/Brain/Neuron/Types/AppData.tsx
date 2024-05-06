@@ -261,7 +261,7 @@ function AppData({
 
               {table.data.length > 0 && (
                 <AppButton
-                  variant="primary"
+                  variant="secondary"
                   type="button"
                   color="blue"
                   size="lg"
