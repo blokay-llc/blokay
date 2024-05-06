@@ -59,7 +59,16 @@ export const POST = withView(async function ({ user, view }: any) {
         slug: view.slug,
         name: view.name,
         icon: view.icon,
-        ViewItems: viewItems,
+        ViewItems: viewItems.map((vItem: any) => ({
+          id: vItem.id,
+          neuronId: vItem.neuronId,
+          options: vItem.options,
+          type: vItem.type,
+          x: vItem.x,
+          y: vItem.y,
+          w: vItem.w,
+          h: vItem.h,
+        })),
         Users: users.map((user: any) => ({
           id: user.id,
           name: user.name,

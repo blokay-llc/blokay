@@ -31,3 +31,17 @@
 .action-box .item svg {
   @apply size-6 fill-stone-400;
 }
+
+.edit-mode .react-grid-item {
+  @apply border-2 border-transparent hover:border-indigo-500;
+}
+.edit-mode .react-grid-item > .react-resizable-handle::after {
+  @apply group-hover:bg-indigo-600 size-3 -bottom-1.5 -right-1.5 border-transparent;
+}
+.edit-mode .react-grid-item:hover .react-resizable-handle::after {
+  @apply bg-indigo-500;
+}
+
+.edit-mode .react-grid-item.react-grid-placeholder {
+  @apply bg-indigo-300;
+}

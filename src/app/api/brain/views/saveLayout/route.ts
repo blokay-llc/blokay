@@ -29,12 +29,24 @@ export const POST = withView(async function ({ body, view }: any) {
         type: itemLayout.type,
       });
     }
-    await item.update({
-      x: itemLayout.x,
-      y: itemLayout.y,
-      w: itemLayout.w,
-      h: itemLayout.h,
-    });
+
+    let toUpdate: any = {};
+    if (item.x != itemLayout.x) {
+      toUpdate.x = itemLayout.x;
+    }
+    if (item.y != itemLayout.y) {
+      toUpdate.y = itemLayout.y;
+    }
+    if (item.w != itemLayout.w) {
+      toUpdate.w = itemLayout.w;
+    }
+    if (item.h != itemLayout.h) {
+      toUpdate.h = itemLayout.h;
+    }
+
+    if (Object.values(toUpdate).length > 0) {
+      await item.update(toUpdate);
+    }
   }
 
   return NextResponse.json({});

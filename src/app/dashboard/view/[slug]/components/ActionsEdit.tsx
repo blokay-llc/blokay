@@ -1,10 +1,13 @@
 "use client";
 import { useRef, forwardRef } from "react";
-import { AppModal, AppButton, AppIcon } from "@/app/components/DS/Index";
+import { AppModal, AppButton } from "@/app/components/DS/Index";
 import React, { useImperativeHandle } from "react";
 import EditItemOptions from "./EditItemOptions";
 
-function ActionsEdit({ deleteFromLayout, viewItem }: any, ref: any) {
+function ActionsEdit(
+  { view, deleteFromLayout, viewItem, reload }: any,
+  ref: any
+) {
   const modalDeleteRef: any = useRef();
   const modalOptionsItem: any = useRef();
 
@@ -31,31 +34,22 @@ function ActionsEdit({ deleteFromLayout, viewItem }: any, ref: any) {
     >
       <AppModal
         title="Edit options of the item"
-        footer={
-          <div className="flex items-center gap-5">
-            <AppButton
-              text="Cancel"
-              onClick={() => modalOptionsItem.current.hideModal()}
-              variant="secondary"
-              className="w-full"
-              size="md"
-            />
-            <AppButton
-              text="Update"
-              onClick={() => {
-                modalOptionsItem.current.hideModal();
-                // deleteFromLayout(viewItem?.id);
-              }}
-              variant="primary"
-              className="w-full"
-              size="md"
-            />
-          </div>
-        }
         size="sm"
         ref={modalOptionsItem}
       >
-        <EditItemOptions type={viewItem?.type} options={viewItem?.options} />
+        <EditItemOptions
+          viewId={view?.id}
+          id={viewItem?.id}
+          type={viewItem?.type}
+          options={viewItem?.options}
+          onHide={() => {
+            modalOptionsItem.current.hideModal();
+          }}
+          onUpdate={() => {
+            modalOptionsItem.current.hideModal();
+            reload();
+          }}
+        />
       </AppModal>
 
       <AppModal

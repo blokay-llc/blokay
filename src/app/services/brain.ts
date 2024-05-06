@@ -141,3 +141,13 @@ export const brainExec = async function (form: any) {
 
   return result.data;
 };
+
+export const viewItemEdit = async function (form: any) {
+  let data = {
+    ...form,
+  };
+
+  let result = await postRequest("brain/views/viewItemEdit", data);
+
+  return result.data;
+};

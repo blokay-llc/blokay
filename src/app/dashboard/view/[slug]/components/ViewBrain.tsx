@@ -152,7 +152,6 @@ const ViewBrain = ({ slug }: any) => {
 
   const layout = () => {
     if (!view?.ViewItems) return [];
-
     return view.ViewItems;
   };
 
@@ -181,7 +180,9 @@ const ViewBrain = ({ slug }: any) => {
             />
 
             <div
-              className={`lg:mt-10 ${editMode == "edit" ? "select-none" : ""}`}
+              className={`lg:mt-10 ${
+                editMode == "edit" ? "select-none edit-mode" : ""
+              }`}
               ref={containerRef}
             >
               {containerWidth && (
@@ -254,10 +255,14 @@ const ViewBrain = ({ slug }: any) => {
         </div>
       </div>
       <ActionsEdit
+        view={view}
         viewItem={viewItem}
         clickNeuron={clickNeuron}
         deleteFromLayout={deleteFromLayout}
         ref={actionsEditRef}
+        reload={() => {
+          fetchView();
+        }}
       />
       <AppModal size="md" position="center" ref={modalRef}>
         {neuron && (
