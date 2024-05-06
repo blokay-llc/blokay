@@ -7,7 +7,7 @@ import NeuronAPI from "./NeuronAPI";
 import NeuronChat from "./NeuronChat";
 import NeuronGeneral from "./NeuronGeneral";
 
-const NeuronAdmin = ({ neuron, changeColorModal, reload }: any) => {
+const NeuronAdmin = ({ neuron, changeColorModal, reload, onClose }: any) => {
   const [view, setView] = useState("chat");
   const [neuronAdmin, setNeuronAdmin] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -83,7 +83,7 @@ const NeuronAdmin = ({ neuron, changeColorModal, reload }: any) => {
         />
       )}
       {view == "general" && (
-        <NeuronGeneral reload={reload} neuron={neuronAdmin} />
+        <NeuronGeneral reload={reload} neuron={neuronAdmin} onClose={onClose} />
       )}
       {view == "chat" && <NeuronChat reload={reload} neuron={neuronAdmin} />}
 

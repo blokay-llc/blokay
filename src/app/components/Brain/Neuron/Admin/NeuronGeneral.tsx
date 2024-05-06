@@ -10,7 +10,7 @@ import {
 } from "@/app/components/DS/Index";
 import { updateNeuron, deleteNeuron } from "@/app/services/brain";
 
-const NeuronGeneral = ({ neuron, reload }: any) => {
+const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
   const modalDeleteRef: any = useRef();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -57,6 +57,7 @@ const NeuronGeneral = ({ neuron, reload }: any) => {
       .then((result) => {
         modalDeleteRef.current.hideModal();
         reload && reload();
+        onClose && onClose();
       })
       .finally(() => {
         setLoading(false);

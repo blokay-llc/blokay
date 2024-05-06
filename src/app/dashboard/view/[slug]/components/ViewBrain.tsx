@@ -263,7 +263,11 @@ const ViewBrain = ({ slug }: any) => {
         {neuron && (
           <NeuronAdmin
             reload={() => {
-              //TODO
+              fetchView();
+              fetchListNeurons();
+            }}
+            onClose={() => {
+              modalRef.current.hideModal();
             }}
             neuron={neuron}
             changeColorModal={(color: string) => {

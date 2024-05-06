@@ -26,7 +26,7 @@ export const POST = withUser(async function ({ req, user }: any) {
   const data = body.data;
 
   let neuron = await Neuron.create({
-    type: data.type,
+    type: data.type || "function",
     businessId: user.businessId,
     icon: data.icon,
     description: data.name,
