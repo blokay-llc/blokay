@@ -55,7 +55,7 @@ const DropItem = function ({
           }`}
           onClick={() => {
             if (item.key) {
-              onClickNeuron(item);
+              onClickNeuron(item.id);
             }
           }}
           draggable={editMode === "edit" && !!item.key}

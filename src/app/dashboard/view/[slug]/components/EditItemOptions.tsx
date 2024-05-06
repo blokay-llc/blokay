@@ -3,6 +3,7 @@ import { AppInput } from "@/app/components/DS/Index";
 import { useState } from "react";
 
 export default function EditItemOptions({ type, options }: any) {
+  if (!type) return <></>;
   const [form, setForm] = useState({ ...options });
   return (
     <div

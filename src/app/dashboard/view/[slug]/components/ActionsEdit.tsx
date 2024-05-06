@@ -1,16 +1,27 @@
 "use client";
+import { useRef, forwardRef } from "react";
 import { AppModal, AppButton, AppIcon } from "@/app/components/DS/Index";
-import { useRef } from "react";
+import React, { useImperativeHandle } from "react";
 import EditItemOptions from "./EditItemOptions";
 
-export default function ({
-  deleteFromLayout,
-  clickNeuron,
-  viewItem,
-  setViewItem,
-}: any) {
+function ActionsEdit({ deleteFromLayout, viewItem }: any, ref: any) {
   const modalDeleteRef: any = useRef();
   const modalOptionsItem: any = useRef();
+
+  const edit = (e: any) => {
+    e.stopPropagation();
+    modalOptionsItem.current.showModal();
+  };
+
+  const deleteFromView = (e: any) => {
+    e.stopPropagation();
+    modalDeleteRef.current.showModal();
+  };
+
+  useImperativeHandle(ref, () => ({
+    edit,
+    deleteFromView,
+  }));
 
   return (
     <div
@@ -18,47 +29,6 @@ export default function ({
         e.stopPropagation();
       }}
     >
-      <div className="absolute top-2 right-3 z-20">
-        <div className="opacity-0 group-hover:opacity-100 transition duration-100 flex  gap-1 justify-end select-none ">
-          {viewItem.neuronId && (
-            <div
-              className="px-3 py-1 cursor-pointer rounded-lg hover:bg-stone-100 bg-white shadow-sm flex gap-3 items-center text-stone-500 text-sm border-2 border-stone-200"
-              onMouseDown={(e) => {
-                e.stopPropagation();
-                clickNeuron(viewItem.neuronId);
-              }}
-            >
-              <AppIcon icon="edit" className="fill-stone-500 size-5" />
-              <span>Edit</span>
-            </div>
-          )}
-
-          {!viewItem.neuronId && (
-            <div
-              className="px-3 py-1 cursor-pointer rounded-lg hover:bg-stone-100 bg-white shadow-sm flex gap-3 items-center text-stone-500 text-sm border-2 border-stone-200"
-              onMouseDown={(e) => {
-                e.stopPropagation();
-                setViewItem(viewItem);
-                modalOptionsItem.current.showModal();
-              }}
-            >
-              <AppIcon icon="edit" className="fill-stone-500 size-5" />
-            </div>
-          )}
-
-          <div
-            className="px-3 py-1 cursor-pointer rounded-lg hover:bg-stone-100 bg-white shadow-sm flex gap-3 items-center text-stone-500 text-sm border-2 border-stone-200"
-            onMouseDown={(e) => {
-              e.stopPropagation();
-              setViewItem(viewItem);
-              modalDeleteRef.current.showModal();
-            }}
-          >
-            <AppIcon icon="delete" className="fill-stone-500 size-5" />
-          </div>
-        </div>
-      </div>
-
       <AppModal
         title="Edit options of the item"
         footer={
@@ -85,7 +55,7 @@ export default function ({
         size="sm"
         ref={modalOptionsItem}
       >
-        <EditItemOptions type={viewItem.type} options={viewItem.options} />
+        <EditItemOptions type={viewItem?.type} options={viewItem?.options} />
       </AppModal>
 
       <AppModal
@@ -121,3 +91,5 @@ export default function ({
     </div>
   );
 }
+
+export default forwardRef(ActionsEdit);

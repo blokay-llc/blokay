@@ -18,9 +18,7 @@ export const withNeuron = (cb: any) => {
     };
     if (neuronId) {
       queryBuilder.where.id = neuronId;
-    }
-
-    if (neuronKey) {
+    } else if (neuronKey) {
       queryBuilder.where.key = neuronKey;
     }
 

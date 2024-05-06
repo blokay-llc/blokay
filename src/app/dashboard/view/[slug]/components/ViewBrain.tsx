@@ -23,6 +23,7 @@ import ActionsEdit from "./ActionsEdit";
 import Image from "./Types/Image";
 import Button from "./Types/Button";
 import Text from "./Types/Text";
+import ActionsEditButtons from "./ActionsEditButtons";
 
 const ViewBrain = ({ slug }: any) => {
   const { isMobile } = useScreenDetector();
@@ -30,6 +31,7 @@ const ViewBrain = ({ slug }: any) => {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
+  const actionsEditRef: any = useRef();
   const modalRef: any = useRef();
   const containerRef: any = useRef(null);
   const [view, setView]: any = useState(null);
@@ -132,8 +134,8 @@ const ViewBrain = ({ slug }: any) => {
     modalRef.current.showModal();
   };
 
-  const deleteFromLayout = (viteItemId: any) => {
-    deleteFromLayoutApi(view.id, viteItemId).then(() => {
+  const deleteFromLayout = () => {
+    deleteFromLayoutApi(view.id, viewItem.id).then(() => {
       fetchView();
     });
   };
@@ -189,7 +191,7 @@ const ViewBrain = ({ slug }: any) => {
                   style={{ minHeight: 600 }}
                   rowHeight={10}
                   width={containerWidth}
-                  droppingItem={{ i: "__dropping-elem__", h: 10, w: 6 }}
+                  droppingItem={{ i: "__dropping-elem__", h: 10, w: 12 }}
                   margin={[20, 30]}
                   containerPadding={[0, 0]}
                   onDrop={onDrop}
@@ -211,11 +213,18 @@ const ViewBrain = ({ slug }: any) => {
                       }}
                     >
                       {isAdmin && editMode === "edit" && (
-                        <ActionsEdit
+                        <ActionsEditButtons
                           viewItem={vItem}
                           setViewItem={setViewItem}
                           clickNeuron={clickNeuron}
-                          deleteFromLayout={deleteFromLayout}
+                          onAction={(e: any, action: string) => {
+                            e.stopPropagation();
+                            if (action === "delete") {
+                              actionsEditRef.current.deleteFromView(e);
+                            } else if (action === "edit") {
+                              actionsEditRef.current.edit(e);
+                            }
+                          }}
                         />
                       )}
 
@@ -244,7 +253,12 @@ const ViewBrain = ({ slug }: any) => {
           </div>
         </div>
       </div>
-
+      <ActionsEdit
+        viewItem={viewItem}
+        clickNeuron={clickNeuron}
+        deleteFromLayout={deleteFromLayout}
+        ref={actionsEditRef}
+      />
       <AppModal size="md" position="center" ref={modalRef}>
         {neuron && (
           <NeuronAdmin
