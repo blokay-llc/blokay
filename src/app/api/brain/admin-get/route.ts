@@ -6,6 +6,8 @@ export const POST = withNeuron(async function ({ neuron }: any) {
     data: {
       Neuron: {
         id: neuron.id,
+        type: neuron.type,
+        cron: neuron.cron,
         createdAt: neuron.createdAt,
         key: neuron.key,
         description: neuron.description,

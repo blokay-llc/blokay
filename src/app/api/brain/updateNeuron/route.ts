@@ -13,6 +13,12 @@ export const POST = withNeuron(async function ({ body, neuron }: any) {
     toUpdate.executable = js.code;
   }
 
+  if (data.type) {
+    toUpdate.type = data.type;
+  }
+  if (data.cron) {
+    toUpdate.cron = data.cron;
+  }
   if (data.filters) {
     toUpdate.filters = data.filters;
   }

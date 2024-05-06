@@ -58,7 +58,9 @@ const DropItem = function ({
               onClickNeuron(item.id);
             }
           }}
-          draggable={editMode === "edit" && !!item.key}
+          draggable={
+            editMode === "edit" && !!item.key && item.type == "function"
+          }
           unselectable="on"
           onDragStart={(e) => {
             if (item.key) {
@@ -97,8 +99,11 @@ const DropItem = function ({
             </div>
           </div>
           <div>
-            {item.key && (
+            {item.key && item.type == "function" && (
               <AppIcon icon="component" className={`size-4 fill-stone-600`} />
+            )}
+            {item.key && item.type == "cron" && (
+              <AppIcon icon="clock" className={`size-5 fill-yellow-700`} />
             )}
           </div>
         </div>
@@ -171,9 +176,9 @@ export default function TreeMenu({
     return views;
   };
 
-  const nonUse = function () {
-    let list = neurons.slice(0);
-
+  const getOthers = function () {
+    let list = neurons.filter((n: any) => n.type == "function").slice(0);
+    let crons = neurons.filter((n: any) => n.type == "cron").slice(0);
     let use = new Set();
     // add subneurons
     for (let n of neurons) {
@@ -192,10 +197,12 @@ export default function TreeMenu({
     }
 
     let arr = Array.from(use);
-    return list.filter((n: any) => !arr.includes(+n.id));
+    arr = list.filter((n: any) => !arr.includes(+n.id));
+
+    return { nonUsed: arr, crons };
   };
 
-  const nonUsed = nonUse();
+  const { nonUsed, crons } = getOthers();
 
   return (
     <div className={`${editMode == "user" ? "hidden" : ""}`}>
@@ -220,6 +227,23 @@ export default function TreeMenu({
             Unused yet
           </h2>
           {nonUsed.map((item: any) => (
+            <DropItem
+              onClickNeuron={onClickNeuron}
+              defaultOpen={false}
+              level={0}
+              item={item}
+              key={item.id}
+              editMode={editMode}
+              search={search}
+            />
+          ))}
+        </div>
+      )}
+
+      {crons.length > 0 && (
+        <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200">
+          <h2 className="text-stone-600 mb-3 text-sm font-medium">Cron Jobs</h2>
+          {crons.map((item: any) => (
             <DropItem
               onClickNeuron={onClickNeuron}
               defaultOpen={false}

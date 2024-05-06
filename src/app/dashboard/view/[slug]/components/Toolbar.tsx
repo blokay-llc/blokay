@@ -18,7 +18,7 @@ export default function Toolbar({
   editMode,
 }: any) {
   const modalRef: any = useRef();
-  const [form, setForm]: any = useState({});
+  const [form, setForm]: any = useState({ type: "function" });
   const [clickAction, setClickAction]: any = useState("");
 
   const handleClickNew = () => {
