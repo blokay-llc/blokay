@@ -27,12 +27,13 @@ export default function Toolbar({
   const handleClickCreateNewNeuron = () => {
     newNeuron(form).then((neuron) => {
       modalRef.current.hideModal();
-      onCreate && onCreate(neuron);
+      onCreate && onCreate({ neuron });
       setForm({});
     });
   };
 
   const addBlockView = (type: string) => {
+    onCreate && onCreate({ type });
     setClickAction("");
   };
 

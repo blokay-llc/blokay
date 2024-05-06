@@ -97,15 +97,16 @@ const ViewBrain = ({ slug }: any) => {
     );
   }, [containerRef.current]);
 
-  const onDrop = (layout: any[], layoutItem: any, _event: any) => {
-    let i = _event.dataTransfer.getData("text/plain");
-
+  const addViewItem = ({ neuronId = null, x, y, w, h, type }: any) => {
     const newLayout: any = [
       ...view.ViewItems,
       {
-        ...layoutItem,
-        type: "neuron",
-        neuronId: i,
+        x,
+        y,
+        w,
+        h,
+        type,
+        neuronId,
         id: uuidv4(),
       },
     ];
@@ -114,6 +115,11 @@ const ViewBrain = ({ slug }: any) => {
       ViewItems: newLayout,
     });
     saveLayout(newLayout);
+  };
+
+  const onDrop = (layout: any[], layoutItem: any, _event: any) => {
+    let i = _event.dataTransfer.getData("text/plain");
+    addViewItem({ ...layoutItem, type: "neuron", neuronId: i });
   };
 
   const clickNeuron = (neuron: any) => {
@@ -125,10 +131,14 @@ const ViewBrain = ({ slug }: any) => {
     // TODO
   };
 
-  const onCreateNeuron = (n: any) => {
-    fetchListNeurons();
-    setNeuron(n);
-    modalRef.current.showModal();
+  const onCreateNeuron = ({ neuron, type }: any) => {
+    if (neuron) {
+      fetchListNeurons();
+      setNeuron(neuron);
+      modalRef.current.showModal();
+    } else {
+      addViewItem({ type, x: 0, y: 0, w: 4, h: type == "button" ? 2 : 5 });
+    }
   };
 
   const layout = () => {
@@ -203,6 +213,9 @@ const ViewBrain = ({ slug }: any) => {
                           }
                         />
                       )}
+                      {viewItem.type == "button" && <>Button</>}
+                      {viewItem.type == "image" && <>Image</>}
+                      {viewItem.type == "text" && <>Lorem ipsum data</>}
                     </div>
                   ))}
                 </GridLayout>
