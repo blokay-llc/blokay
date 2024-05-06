@@ -10,6 +10,28 @@ const model = (sequelize: any, DataTypes: any) => {
       y: { type: DataTypes.INTEGER, allowNull: true },
       w: { type: DataTypes.INTEGER, allowNull: true },
       h: { type: DataTypes.INTEGER, allowNull: true },
+      options: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        get() {
+          let objThis: any = this;
+          let json = objThis.getDataValue("options");
+          json = json || "{}";
+          try {
+            return JSON.parse(json);
+          } catch (err) {
+            console.error(
+              "viewItem options error parse: " + objThis.getDataValue("id"),
+              err
+            );
+            return {};
+          }
+        },
+        set(value: any) {
+          let objThis: any = this;
+          objThis.setDataValue("options", JSON.stringify(value));
+        },
+      },
     },
     {
       paranoid: true,

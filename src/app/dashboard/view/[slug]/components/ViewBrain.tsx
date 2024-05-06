@@ -20,6 +20,9 @@ import { useSession } from "next-auth/react";
 import "./styles.css";
 import { uuidv4 } from "@/app/helpers/functions";
 import ActionsEdit from "./ActionsEdit";
+import Image from "./Types/Image";
+import Button from "./Types/Button";
+import Text from "./Types/Text";
 
 const ViewBrain = ({ slug }: any) => {
   const { isMobile } = useScreenDetector();
@@ -207,14 +210,14 @@ const ViewBrain = ({ slug }: any) => {
                         static: editMode === "user",
                       }}
                     >
-                      <div className="hidden group-hover:block">
+                      {isAdmin && editMode === "edit" && (
                         <ActionsEdit
                           viewItem={vItem}
                           setViewItem={setViewItem}
                           clickNeuron={clickNeuron}
                           deleteFromLayout={deleteFromLayout}
                         />
-                      </div>
+                      )}
 
                       {vItem.type == "neuron" && (
                         <Neuron
@@ -225,21 +228,14 @@ const ViewBrain = ({ slug }: any) => {
                         />
                       )}
                       {vItem.type == "button" && (
-                        <AppButton
-                          text="Button"
-                          className="w-full"
-                          variant="primary"
-                        />
+                        <Button editMode={editMode} options={vItem.options} />
                       )}
                       {vItem.type == "image" && (
-                        <>
-                          <img
-                            src="https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2022/11/pikachu-pokemon-escarlata-purpura-2888180.jpg?tf=1200x1200"
-                            alt=""
-                          />
-                        </>
+                        <Image editMode={editMode} options={vItem.options} />
                       )}
-                      {vItem.type == "text" && <>Lorem ipsum data</>}
+                      {vItem.type == "text" && (
+                        <Text editMode={editMode} options={vItem.options} />
+                      )}
                     </div>
                   ))}
                 </GridLayout>
