@@ -2,7 +2,6 @@ import Sequelize from "sequelize";
 // Models
 import _QueryExecution from "./models/_query_executions";
 import Neuron from "./models/brain/neuron";
-import NeuronGroup from "./models/brain/neuron-group";
 import NeuronExecution from "./models/brain/neuron-execution";
 import View from "./models/brain/view";
 import ViewItem from "./models/brain/view-item";
@@ -18,7 +17,6 @@ class DB {
   private models: any = {
     _QueryExecution,
     Datasource,
-    NeuronGroup,
     Neuron,
     NeuronExecution,
     View,

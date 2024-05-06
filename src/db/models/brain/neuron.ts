@@ -11,7 +11,6 @@ const model = (sequelize: any, DataTypes: any) => {
       description: { type: DataTypes.STRING, allowNull: true },
       rolPrivilegeId: { type: DataTypes.INTEGER, allowNull: true },
       businessId: { type: DataTypes.INTEGER, allowNull: true },
-      parentId: { type: DataTypes.INTEGER, allowNull: true },
       filters: {
         type: DataTypes.TEXT,
         allowNull: true,
@@ -69,11 +68,9 @@ const model = (sequelize: any, DataTypes: any) => {
     }
   );
 
-  Neuron.associate = function (models: any) {
-    // models.Neuron.belongsTo(models.NeuronGroup);
-    // models.Neuron.hasMany(models.Neuron);
-    // models.Neuron.belongsTo(models.RolPrivilege);
-  };
+  // Neuron.associate = function (models: any) {
+  // models.Neuron.belongsTo(models.RolPrivilege);
+  // };
 
   return Neuron;
 };
