@@ -7,7 +7,6 @@ import {
   AppSelect,
   AppLoader,
 } from "@/app/components/DS/Index";
-import NeuronEdit from "./Admin/NeuronEdit";
 import NeuronResponse from "./NeuronResponse";
 
 const Neuron = ({
@@ -17,8 +16,6 @@ const Neuron = ({
   onExec,
   onBack,
   editMode = "",
-  deleteFromLayout = null,
-  onEditNeuron = null,
 }: any) => {
   const [form, setForm] = useState({ ...defaultForm });
   const [neuron, setNeuron]: any = useState(null);
@@ -91,19 +88,6 @@ const Neuron = ({
 
   return (
     <div className="h-full group relative border-2 border-stone-300 overflow-y-hidden  rounded-2xl pt-0">
-      {editMode == "edit" && !loading && (
-        <div className="hidden group-hover:block">
-          <NeuronEdit
-            onEditNeuron={(n: any) => {
-              onEditNeuron && onEditNeuron(n);
-            }}
-            neuronId={neuronId}
-            neuron={neuron}
-            deleteFromLayout={(neuronId: any) => deleteFromLayout(neuronId)}
-          />
-        </div>
-      )}
-
       <div
         className={`"overflow-y-auto max-h-full h-full flex w-full ${
           !response ? "items-center" : ""

@@ -49,7 +49,7 @@ export const deleteFromLayout = async function (
     viewItemId,
   };
 
-  let result = await postRequest("brain/views/saveLayout", data);
+  let result = await postRequest("brain/views/deleteFromLayout", data);
 
   return result.data;
 };

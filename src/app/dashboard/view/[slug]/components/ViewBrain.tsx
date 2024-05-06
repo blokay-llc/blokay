@@ -10,7 +10,7 @@ import {
   viewList,
   deleteFromLayout as deleteFromLayoutApi,
 } from "@/app/services/brain";
-import { AppModal } from "@/app/components/DS/Index";
+import { AppButton, AppModal } from "@/app/components/DS/Index";
 import Header from "@/app/dashboard/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
 import Neuron from "../../../../components/Brain/Neuron/Neuron";
@@ -19,6 +19,7 @@ import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import { useSession } from "next-auth/react";
 import "./styles.css";
 import { uuidv4 } from "@/app/helpers/functions";
+import ActionsEdit from "./ActionsEdit";
 
 const ViewBrain = ({ slug }: any) => {
   const { isMobile } = useScreenDetector();
@@ -29,9 +30,10 @@ const ViewBrain = ({ slug }: any) => {
   const modalRef: any = useRef();
   const containerRef: any = useRef(null);
   const [view, setView]: any = useState(null);
+  const [viewItem, setViewItem]: any = useState(null);
   const [neurons, setNeurons] = useState([]);
   const [containerWidth, setContainerWidth] = useState(null);
-  const [neuron, setNeuron] = useState(null);
+  const [neuron, setNeuron]: any = useState(null);
   const [editMode, setEditMode] = useState(
     !isMobile && isAdmin ? "edit" : "user"
   );
@@ -122,13 +124,15 @@ const ViewBrain = ({ slug }: any) => {
     addViewItem({ ...layoutItem, type: "neuron", neuronId: i });
   };
 
-  const clickNeuron = (neuron: any) => {
-    setNeuron(neuron);
+  const clickNeuron = (neuronId: any) => {
+    setNeuron({ id: neuronId });
     modalRef.current.showModal();
   };
 
-  const deleteFromLayout = (neuronId: any) => {
-    // TODO
+  const deleteFromLayout = (viteItemId: any) => {
+    deleteFromLayoutApi(view.id, viteItemId).then(() => {
+      fetchView();
+    });
   };
 
   const onCreateNeuron = ({ neuron, type }: any) => {
@@ -180,7 +184,7 @@ const ViewBrain = ({ slug }: any) => {
                   className="relative"
                   cols={24}
                   style={{ minHeight: 600 }}
-                  rowHeight={15}
+                  rowHeight={10}
                   width={containerWidth}
                   droppingItem={{ i: "__dropping-elem__", h: 10, w: 6 }}
                   margin={[20, 30]}
@@ -191,31 +195,51 @@ const ViewBrain = ({ slug }: any) => {
                     saveLayout(layout);
                   }}
                 >
-                  {layout().map((viewItem: any) => (
+                  {layout().map((vItem: any) => (
                     <div
-                      key={viewItem.id}
+                      className="group"
+                      key={vItem.id}
                       data-grid={{
-                        x: viewItem.x,
-                        y: viewItem.y,
-                        w: viewItem.w,
-                        h: viewItem.h,
+                        x: vItem.x,
+                        y: vItem.y,
+                        w: vItem.w,
+                        h: vItem.h,
                         static: editMode === "user",
                       }}
                     >
-                      {viewItem.type == "neuron" && (
+                      <div className="hidden group-hover:block">
+                        <ActionsEdit
+                          viewItem={vItem}
+                          setViewItem={setViewItem}
+                          clickNeuron={clickNeuron}
+                          deleteFromLayout={deleteFromLayout}
+                        />
+                      </div>
+
+                      {vItem.type == "neuron" && (
                         <Neuron
                           onEditNeuron={clickNeuron}
                           editMode={editMode}
-                          neuronId={viewItem.neuronId}
+                          neuronId={vItem.neuronId}
                           defaultForm={{}}
-                          deleteFromLayout={(neuronId: any) =>
-                            deleteFromLayout(neuronId)
-                          }
                         />
                       )}
-                      {viewItem.type == "button" && <>Button</>}
-                      {viewItem.type == "image" && <>Image</>}
-                      {viewItem.type == "text" && <>Lorem ipsum data</>}
+                      {vItem.type == "button" && (
+                        <AppButton
+                          text="Button"
+                          className="w-full"
+                          variant="primary"
+                        />
+                      )}
+                      {vItem.type == "image" && (
+                        <>
+                          <img
+                            src="https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2022/11/pikachu-pokemon-escarlata-purpura-2888180.jpg?tf=1200x1200"
+                            alt=""
+                          />
+                        </>
+                      )}
+                      {vItem.type == "text" && <>Lorem ipsum data</>}
                     </div>
                   ))}
                 </GridLayout>

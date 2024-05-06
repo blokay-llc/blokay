@@ -9,10 +9,14 @@ export const POST = withView(async function ({ body, view }: any) {
   const data = body.data;
 
   for (let itemLayout of data.layout) {
+    let id = itemLayout.id || itemLayout.i;
+    if (!id) {
+      continue;
+    }
     let item = await ViewItem.findOne({
       where: {
         viewId: view.id,
-        id: itemLayout.i || itemLayout.id,
+        id,
       },
     });
 
@@ -20,7 +24,7 @@ export const POST = withView(async function ({ body, view }: any) {
     if (!item) {
       item = await ViewItem.create({
         viewId: view.id,
-        id: itemLayout.id,
+        id,
         neuronId: itemLayout.neuronId || null,
         type: itemLayout.type,
       });

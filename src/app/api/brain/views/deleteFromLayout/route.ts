@@ -11,7 +11,7 @@ export const POST = withView(async function ({ body, view }: any) {
   let item = await ViewItem.findOne({
     where: {
       viewId: view.id,
-      id: data.id,
+      id: data.viewItemId,
     },
   });
 
