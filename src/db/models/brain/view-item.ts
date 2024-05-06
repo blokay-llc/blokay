@@ -39,6 +39,11 @@ const model = (sequelize: any, DataTypes: any) => {
     }
   );
 
+  ViewItem.associate = function (models: any) {
+    models.ViewItem.belongsTo(models.View);
+    models.ViewItem.belongsTo(models.Neuron);
+  };
+
   return ViewItem;
 };
 

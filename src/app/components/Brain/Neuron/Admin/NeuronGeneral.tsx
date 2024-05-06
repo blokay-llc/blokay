@@ -109,7 +109,7 @@ const NeuronGeneral = ({ neuron, reload }: any) => {
           {fields.map((row, index) => (
             <div
               key={"field-" + index}
-              className="grid grid-cols-12 gap-3 mb-3 bg-stone-100 items-center py-2 rounded-lg px-3"
+              className="grid grid-cols-12 gap-3 mb-3 bg-stone-200 items-center py-1 rounded-lg px-3"
             >
               <div className="col-span-3">
                 <AppInput

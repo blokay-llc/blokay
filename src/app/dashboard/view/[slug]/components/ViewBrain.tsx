@@ -10,7 +10,7 @@ import {
   viewList,
   deleteFromLayout as deleteFromLayoutApi,
 } from "@/app/services/brain";
-import { AppButton, AppModal } from "@/app/components/DS/Index";
+import { AppModal } from "@/app/components/DS/Index";
 import Header from "@/app/dashboard/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
 import Neuron from "../../../../components/Brain/Neuron/Neuron";

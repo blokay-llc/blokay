@@ -1,7 +1,7 @@
 "use client";
 import { AppModal, AppButton, AppIcon } from "@/app/components/DS/Index";
 import { useRef } from "react";
-import EditItemOptions from "./Types/EditItemOptions";
+import EditItemOptions from "./EditItemOptions";
 
 export default function ({
   deleteFromLayout,
