@@ -1,4 +1,4 @@
 "use client";
 export default function ({ options }: any) {
-  return <img src={options?.src} alt="" />;
+  return <img src={options?.image} alt="" />;
 }
