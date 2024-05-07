@@ -1,4 +1,4 @@
-import { postRequest } from "./_base";
+import { postRequest, postFile } from "./_base";
 
 export const fetchUsers = async function () {
   let data = {};
@@ -30,4 +30,12 @@ export const fetchUpdateUser = async function (form: any) {
   let result = await postRequest("users/edit", data);
 
   return result.data;
+};
+
+export const downloadUserLogs = async function (form: any) {
+  let data = { ...form };
+
+  let result = await postFile("users/downloadLogs", data);
+
+  return result;
 };

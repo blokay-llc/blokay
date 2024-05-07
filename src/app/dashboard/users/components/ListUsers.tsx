@@ -6,6 +6,7 @@ import {
   fetchUser,
   fetchAddUser,
   fetchUpdateUser,
+  downloadUserLogs,
 } from "@/app/services/users";
 import { viewList } from "@/app/services/brain";
 import {
@@ -41,6 +42,13 @@ export default function Users() {
         setLoading(false);
       });
   };
+
+  // const downloadLogs = (userId: string) => {
+  //   downloadUserLogs({ userId }).then((result) => {
+  //     alert("ok");
+  //     console.log(result);
+  //   });
+  // };
 
   const handleClickSubmitNewUser = () => {
     setLoading(true);
@@ -160,7 +168,17 @@ export default function Users() {
           </div>
         )}
         {!loadingUser && (
-          <div className="flex gap-5 flex-col">
+          <div className="flex gap-3 flex-col">
+            {form.id && (
+              <a
+                target="_blank"
+                href={`/api/users/downloadLogs?userId=${form.id}`}
+                className="underline text-right text-sm font-medium pointer"
+              >
+                Download User logs
+              </a>
+            )}
+
             <AppSelect
               value={form.rol}
               label="Rol"

@@ -21,7 +21,7 @@ export const withUser = (cb: any) => {
     }
 
     // set lastActionAt
-    await User.update(
+    User.update(
       {
         lastActionAt: Date.now(),
       },
@@ -30,7 +30,7 @@ export const withUser = (cb: any) => {
           id: user.id,
         },
         order: [["lastActionAt", "DESC"]],
-        limit: 3,
+        limit: 1,
       }
     );
     return await cb({ req, user: user });

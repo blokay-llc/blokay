@@ -143,11 +143,7 @@ export const postMultimedia = async function (
   return content;
 };
 
-export const postFile = async function (
-  endpoint: string,
-  data: any,
-  user: any
-) {
+export const postFile = async function (endpoint: string, data: any) {
   let opts: any = {
     method: "POST",
     headers: {
@@ -157,21 +153,8 @@ export const postFile = async function (
     body: JSON.stringify({
       data,
       _version: VERSION,
-      _channel: `${getOS()}`,
-      _deviceId: user?.deviceId || null,
-      _geolocation: user
-        ? {
-            lat: user.lat,
-            lon: user.lon,
-            accuracy: user.accuracy,
-          }
-        : null,
     }),
   };
-
-  if (user) {
-    opts.headers.Authorization = "Bearer " + user.token;
-  }
 
   const rawResponse = await fetch(SERVER_URL + endpoint, opts);
 
