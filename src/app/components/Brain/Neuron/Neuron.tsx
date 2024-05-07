@@ -93,9 +93,13 @@ const Neuron = ({
           !response ? "items-center" : ""
         } justify-center `}
       >
-        {loading && <AppLoader size="md" />}
+        {loading && (
+          <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-10 bg-white/50 backdrop-blur-sm ">
+            <AppLoader size="md" />
+          </div>
+        )}
 
-        {!loading && (
+        {(!loading || neuron?.id) && (
           <div
             className={`w-full ${
               editMode === "grid" ? "opacity-70 grayscale" : ""
