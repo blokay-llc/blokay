@@ -57,6 +57,7 @@ type Args = {
   table: (rows: Rows) => ResponseNeuron;
   value: (val: Row) => ResponseNeuron;
   chartLine: (rows: Rows) => ResponseNeuron;
+  chartDoughnut: (rows: Rows) => ResponseNeuron;
   message: (message: string) => ResponseNeuron;
   error: (message: string) => ResponseNeuron;
 };

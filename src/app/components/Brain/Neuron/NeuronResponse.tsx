@@ -3,6 +3,7 @@ import AppData from "./Types/AppData";
 import AppLine from "./Types/AppLine";
 import AppValue from "./Types/AppValue";
 import AppException from "./Types/AppException";
+import AppDoughnut from "./Types/AppDoughnut";
 
 const NeuronResponse = ({
   neuron,
@@ -30,6 +31,13 @@ const NeuronResponse = ({
 
         {response?.type == "line" && (
           <AppLine
+            title={neuron.description}
+            data={response.content}
+            onReload={onReload}
+          />
+        )}
+        {response?.type == "doughnut" && (
+          <AppDoughnut
             title={neuron.description}
             data={response.content}
             onReload={onReload}

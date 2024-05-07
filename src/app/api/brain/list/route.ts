@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import Models from "@/db/index";
 
 let db = new Models();
-const { Neuron, View, ViewGroup }: any = db;
+const { Neuron }: any = db;
 
 function stripText(type: string, text: string) {
   text = text.replaceAll(type, "");

@@ -116,6 +116,31 @@ export const POST = withNeuron(async function ({
       }
       return { type: "line", content: { datasets: datasets, labels } };
     },
+    chartDoughnut: (result: any[]): ResponseNeuron => {
+      if (!result || !result.length)
+        return { type: "line", content: { datasets: [], labels: [] } };
+
+      let labelKey = Object.keys(result[0])[0];
+      let labels = result.map((row) => row[labelKey]);
+      let dataSetsLength = Object.values(result[0]).length - 1;
+      let datasets: any = [...new Array(dataSetsLength)].map(() => ({
+        label: "",
+        vals: [],
+      }));
+      for (let row of result) {
+        let vals = Object.values(row);
+        let keys = Object.keys(row);
+
+        for (let k in vals) {
+          let kIndex = parseInt(k);
+          if (kIndex == 0) continue;
+          let val = vals[kIndex];
+          datasets[kIndex - 1].label = keys[k];
+          datasets[kIndex - 1].vals.push(val);
+        }
+      }
+      return { type: "doughnut", content: { datasets: datasets, labels } };
+    },
   };
 
   let content = `

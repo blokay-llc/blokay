@@ -160,6 +160,7 @@ export default function TreeMenu({
 
     for (let viewGroupIndex in views) {
       let viewGroup = views[viewGroupIndex];
+      viewGroup.name = viewGroup.name || "Views";
 
       viewGroup.children = viewGroup.Views;
       for (let viewIndex in viewGroup.children) {
