@@ -43,7 +43,7 @@ export const GET = withAdmin(async function ({ req, user }: any) {
         e.createdAt
       ).format("YYYY-MM-DD HH:mm:ss")};${e.User.name}`;
       if (e.data) {
-        str += "," + Object.values(e.data).join(",");
+        str += "," + Object.values(e.data).join(";");
       }
       return str;
     })
