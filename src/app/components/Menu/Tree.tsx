@@ -114,25 +114,23 @@ const DropItem = function ({
         </div>
         {item?.children?.length > 0 && (
           <div className={`${isOpen ? "flex" : "hidden"} flex-col `}>
-            {item.children.map((child: any) => (
-              <>
-                {child?.id && (
-                  <DropItem
-                    editMode={editMode}
-                    level={level + 1}
-                    item={child}
-                    view={view}
-                    key={"child+" + child.id}
-                    onClickNeuron={onClickNeuron}
-                    search={search}
-                    onFound={(found: boolean) => {
-                      setIsOpen(found);
-                      onFound && onFound(found);
-                    }}
-                  />
-                )}
-              </>
-            ))}
+            {item.children
+              .filter((c: any) => c?.id)
+              .map((child: any, index: any) => (
+                <DropItem
+                  editMode={editMode}
+                  level={level + 1}
+                  item={child}
+                  view={view}
+                  key={`child-${index}-${item.id}-${child.id}`}
+                  onClickNeuron={onClickNeuron}
+                  search={search}
+                  onFound={(found: boolean) => {
+                    setIsOpen(found);
+                    onFound && onFound(found);
+                  }}
+                />
+              ))}
           </div>
         )}
       </div>
@@ -213,13 +211,13 @@ export default function TreeMenu({
   return (
     <div className={`${editMode == "user" ? "hidden" : ""}`}>
       <div className="px-2 select-none flex flex-col pt-3 border-t border-stone-200 dark:border-black">
-        {buildStructure().map((item: any) => (
+        {buildStructure().map((item: any, index: any) => (
           <DropItem
             onClickNeuron={onClickNeuron}
             defaultOpen={false}
             level={0}
             item={item}
-            key={item.id}
+            key={`s-${index}-${item.id}`}
             editMode={editMode}
             search={search}
             view={view}
@@ -232,13 +230,13 @@ export default function TreeMenu({
           <h2 className="text-stone-600 dark:text-white mb-3 text-sm font-medium">
             Unused yet
           </h2>
-          {nonUsed.map((item: any) => (
+          {nonUsed.map((item: any, index: any) => (
             <DropItem
               onClickNeuron={onClickNeuron}
               defaultOpen={false}
               level={0}
               item={item}
-              key={item.id}
+              key={`non-${index}-${item.id}`}
               editMode={editMode}
               search={search}
             />
@@ -251,13 +249,13 @@ export default function TreeMenu({
           <h2 className="text-stone-600 dark:text-white mb-3 text-sm font-medium">
             Cron Jobs
           </h2>
-          {crons.map((item: any) => (
+          {crons.map((item: any, index: any) => (
             <DropItem
               onClickNeuron={onClickNeuron}
               defaultOpen={false}
               level={0}
               item={item}
-              key={item.id}
+              key={`crons-${index}-${item.id}`}
               editMode={editMode}
               search={search}
             />

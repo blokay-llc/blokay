@@ -87,11 +87,31 @@ const ViewBrain = ({ slug }: any) => {
     });
   };
 
+  useEffect(() => {
+    const fetchData = setTimeout(() => {
+      if (!view?.id) return;
+      saveLayoutApi({
+        viewId: view.id,
+        layout: view.ViewItems,
+      });
+    }, 300);
+
+    return () => clearTimeout(fetchData);
+  }, [view?.ViewItems]);
+
   const saveLayout = (layout: any = []) => {
-    saveLayoutApi({
-      viewId: view.id,
-      layout,
-    });
+    let items = view?.ViewItems.slice(0);
+    for (let item of layout) {
+      let current = items.find((x: any) => item.i == x.id);
+      if (!current) {
+        continue;
+      }
+      current.x = item.x;
+      current.y = item.y;
+      current.w = item.w;
+      current.h = item.h;
+    }
+    setView({ ...view, ViewItems: items });
   };
 
   const refreshView = () => {
@@ -121,7 +141,6 @@ const ViewBrain = ({ slug }: any) => {
       ...view,
       ViewItems: newLayout,
     });
-    saveLayout(newLayout);
   };
 
   const onDrop = (layout: any[], layoutItem: any, _event: any) => {
