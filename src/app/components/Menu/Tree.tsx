@@ -108,7 +108,10 @@ const DropItem = function ({
               />
             )}
             {item.key && item.type == "cron" && (
-              <AppIcon icon="clock" className={`size-5 fill-yellow-700`} />
+              <AppIcon
+                icon="clock"
+                className={`size-5 fill-yellow-700 dark:fill-yellow-500`}
+              />
             )}
           </div>
         </div>
