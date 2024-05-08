@@ -90,6 +90,7 @@ const ViewBrain = ({ slug }: any) => {
   useEffect(() => {
     const fetchData = setTimeout(() => {
       if (!view?.id) return;
+      if (!view?.hasChanges) return;
       saveLayoutApi({
         viewId: view.id,
         layout: view.ViewItems,
@@ -101,17 +102,35 @@ const ViewBrain = ({ slug }: any) => {
 
   const saveLayout = (layout: any = []) => {
     let items = view?.ViewItems.slice(0);
-    for (let item of layout) {
-      let current = items.find((x: any) => item.i == x.id);
-      if (!current) {
+    let hasChanges = false;
+    for (let index in items) {
+      let item = items[index];
+      let lItem = layout.find((x: any) => item.id == x.i);
+      // to add
+      if (!lItem) {
         continue;
       }
-      current.x = item.x;
-      current.y = item.y;
-      current.w = item.w;
-      current.h = item.h;
+      // update
+
+      if (
+        lItem.x != item.x ||
+        lItem.y != item.y ||
+        lItem.w != item.w ||
+        lItem.h != item.h
+      ) {
+        hasChanges = true;
+      }
+      items[index] = {
+        ...item,
+        x: lItem.x,
+        y: lItem.y,
+        w: lItem.w,
+        h: lItem.h,
+      };
     }
-    setView({ ...view, ViewItems: items });
+    if (hasChanges) {
+      setView({ ...view, hasChanges: true, ViewItems: items });
+    }
   };
 
   const refreshView = () => {
@@ -139,6 +158,7 @@ const ViewBrain = ({ slug }: any) => {
     ];
     setView({
       ...view,
+      hasChanges: true,
       ViewItems: newLayout,
     });
   };

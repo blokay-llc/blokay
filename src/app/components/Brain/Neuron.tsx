@@ -7,12 +7,26 @@ import {
   AppSelect,
   AppLoader,
   AppIcon,
+  AppFile,
 } from "@/app/components/DS/Index";
 import NeuronResponse from "./NeuronResponse";
 
 function NeuronField({ row, form, errors, setForm }: any) {
   if (row.type == "hidden") {
     return <></>;
+  }
+
+  if (row.type == "file") {
+    return (
+      <AppFile
+        value={form[row.name]}
+        error={errors[row.name]}
+        onChange={(val: string) => {
+          setForm({ ...form, [row.name]: val });
+        }}
+        label={row.label}
+      />
+    );
   }
 
   if (row.type == "select") {

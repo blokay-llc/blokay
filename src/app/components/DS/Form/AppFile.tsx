@@ -88,19 +88,22 @@ const AppFile = ({
       return (
         <AppIcon
           icon="pdf"
-          style={{ width: "50px", height: "50px", fill: "black" }}
+          className="h-10 fill-stone-800 dark:fill-stone-200"
         />
       );
     } else {
       return (
-        <AppIcon icon="upload" style={{ width: "50px", height: "50px" }} />
+        <AppIcon
+          icon="upload"
+          className="h-10 fill-stone-800 dark:fill-stone-200"
+        />
       );
     }
   };
 
   return (
     <div
-      className={`p-2 rounded-lg inline-block bg-gray-100 border-2 border-gray-200 hover:bg-gray-200 w-full mb-5 ${classSelector} ${size}`}
+      className={`p-2 rounded-lg inline-block bg-stone-100 dark:bg-stone-900 dark:border-stone-900 dark:hover:bg-black border-2 border-stone-200 hover:bg-stone-200 w-full  ${classSelector} ${size}`}
     >
       <input
         type="file"
@@ -115,16 +118,14 @@ const AppFile = ({
 
         <div>
           {label ? (
-            <div className="text-sm block py-1 text-black font-light">
+            <div className="text-sm block py-1 text-stone-800 dark:text-stone-100 font-medium">
               {label}
             </div>
           ) : null}
 
-          <div className="text-left font-light text-xs text-gray-600">
-            <p className="md:hidden block">
-              Pulsa para tomar o ecoger una foto
-            </p>
-            <p className="hidden md:block">Toca aquí para seleccionar</p>
+          <div className="text-left font-light text-xs text-stone-600 dark:text-stone-300">
+            <p className="md:hidden block">Click here to select a file</p>
+            <p className="hidden md:block">Touch here to select.</p>
           </div>
         </div>
       </label>
