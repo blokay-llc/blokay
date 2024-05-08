@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/app/auth";
 import { getServerSession } from "next-auth/next";
 import Models from "@/db/index";
@@ -6,7 +6,7 @@ let db = new Models();
 const { User }: any = db;
 
 export const withUser = (cb: any) => {
-  return async function (req: any, res: any) {
+  return async function (req: NextRequest, res: NextRequest) {
     const { user }: any = await getServerSession(authOptions);
 
     if (!user) {

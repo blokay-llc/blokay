@@ -21,7 +21,8 @@ function NeuronField({ row, form, errors, setForm }: any) {
       <AppFile
         value={form[row.name]}
         error={errors[row.name]}
-        onChange={(val: string) => {
+        onChangeFiles={(val: string) => {
+          console.log(val);
           setForm({ ...form, [row.name]: val });
         }}
         label={row.label}
@@ -72,7 +73,7 @@ function NeuronForm({
 }: any) {
   return (
     <div className="py-6 h-full flex items-center justify-center ">
-      <div className=" lg:max-w-96 lg:min-w-96 min-w-[90%] bg-white dark:bg-stone-800 rounded-xl px-5 pb-5 pt-10">
+      <div className=" lg:max-w-96 lg:min-w-96 min-w-[90%] bg-white border-white/10 dark:border dark:bg-stone-800 rounded-xl px-5 pb-5 pt-10">
         <div className="flex items-center gap-3">
           {onBack && (
             <div className="flex gap-3 items-center" onClick={() => onBack()}>

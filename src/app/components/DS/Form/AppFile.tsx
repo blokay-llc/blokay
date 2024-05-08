@@ -7,8 +7,7 @@ const AppFile = ({
   label,
   preview,
   classSelector,
-  endpoint = "marketplace/uploadAsset",
-  accept = ".pdf,.jpg,.jpeg,.png,.webp",
+  endpoint = "brain/uploadAsset",
   size = "md",
   onError,
   onDone,
@@ -105,13 +104,7 @@ const AppFile = ({
     <div
       className={`p-2 rounded-lg inline-block bg-stone-100 dark:bg-stone-900 dark:border-stone-900 dark:hover:bg-black border-2 border-stone-200 hover:bg-stone-200 w-full  ${classSelector} ${size}`}
     >
-      <input
-        type="file"
-        className="hidden"
-        id={id}
-        onChange={onChange}
-        accept={accept}
-      />
+      <input type="file" className="hidden" id={id} onChange={onChange} />
 
       <label htmlFor={id} className=" items-center gap-3 cursor-pointer flex">
         <div className="prev">{renderImage()}</div>
