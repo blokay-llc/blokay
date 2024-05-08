@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { AppIcon } from "@/app/components/DS/Index";
 import { getNeuronAdmin } from "@/app/services/brain";
-import Editor from "@/app/components/Brain/Neuron/Admin/Editor/Index";
+import Editor from "@/app/components/Brain/Admin/Editor/Index";
 import NeuronAPI from "./NeuronAPI";
 import NeuronChat from "./NeuronChat";
 import NeuronGeneral from "./NeuronGeneral";

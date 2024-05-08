@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, forwardRef, useImperativeHandle } from "react";
-import { AppModal } from "../../DS/Index";
+import { AppModal } from "../DS/Index";
 import Neuron from "./Neuron";
 
 function EventsHandler({ onExecuted }: any, ref: any) {

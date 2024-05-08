@@ -13,8 +13,8 @@ import {
 import { AppModal } from "@/app/components/DS/Index";
 import Header from "@/app/dashboard/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
-import Neuron from "../../../../components/Brain/Neuron/Neuron";
-import NeuronAdmin from "../../../../components/Brain/Neuron/Admin/NeuronAdmin";
+import Neuron from "../../../../components/Brain/Neuron";
+import NeuronAdmin from "../../../../components/Brain/Admin/NeuronAdmin";
 import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import { useSession } from "next-auth/react";
 import "./styles.css";

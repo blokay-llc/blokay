@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import Events from "@/app/components/Brain/Neuron/Events";
+import Events from "@/app/components/Brain/Events";
 import { AppButton } from "@/app/components/DS/Index";
 export default function ({ options, editMode }: any) {
   const eventRef: any = useRef();
