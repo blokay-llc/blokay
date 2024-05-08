@@ -285,13 +285,13 @@ div.highway-barrier .highway-lane > div:hover {
 }
 
 .table {
-  @apply bg-white p-4 z-0 flex flex-col relative justify-between gap-4 overflow-auto rounded-2xl shadow w-full;
+  @apply bg-white dark:bg-stone-800 p-4 z-0 flex flex-col relative justify-between gap-4 overflow-auto rounded-2xl shadow w-full;
 }
 .table table {
-  @apply w-full text-gray-800;
+  @apply w-full text-stone-800 dark:text-stone-300;
 }
 .table table thead tr th {
-  @apply px-3 text-xs text-gray-500 bg-gray-200 uppercase h-10;
+  @apply px-3 text-xs text-stone-500 bg-stone-200 dark:bg-stone-950 dark:text-stone-300 uppercase h-10;
 }
 .table table thead tr th:first-child {
   @apply rounded-l-xl;

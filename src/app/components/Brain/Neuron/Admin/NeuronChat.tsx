@@ -83,7 +83,7 @@ const NeuronChat = ({ neuron, reload }: any) => {
 
       {historyChat.length == 0 && neuron?.id && (
         <div
-          className="font-light border mx-10 mb-10  mt-10 border-transparent rounded-xl px-5 py-10 "
+          className="font-light border mx-10 mb-10  mt-10 border-transparent rounded-xl px-5 py-10 text-black "
           style={{
             backgroundImage: " linear-gradient(45deg, #f4def6, #d7ecf8)",
           }}

@@ -402,14 +402,14 @@ function AppData({
                     </AppSelect>
 
                     <div
-                      className="flex items-center bg-stone-200 hover:bg-stone-300 rounded-xl size-12 justify-center shrink-0 "
+                      className="flex items-center bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 hover:bg-stone-300 rounded-xl size-10 justify-center shrink-0 "
                       onClick={() => {
                         onReload && onReload();
                       }}
                     >
                       <AppIcon
                         icon="refresh"
-                        className="size-8 fill-stone-600"
+                        className="size-6 fill-stone-600"
                       />
                     </div>
                   </div>
