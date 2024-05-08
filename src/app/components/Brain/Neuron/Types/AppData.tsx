@@ -9,6 +9,146 @@ import {
 import { money } from "@/app/helpers/functions";
 import Events from "../Events";
 
+function TableHeaderCell({ setSort, index, sort, th }: any) {
+  return (
+    <th
+      className="th-sortable"
+      onClick={() =>
+        setSort({
+          [index]: sort?.[index] == "DESC" ? "ASC" : "DESC",
+        })
+      }
+    >
+      <div className="flex items-center gap-2">
+        <span>{th}</span>
+        {sort && sort[index] && (
+          <AppIcon
+            icon={sort?.[index] == "ASC" ? "arrow_top" : "arrow_bottom"}
+            className="h-4 w-4 dark:fill-stone-200 fill-stone-900"
+          />
+        )}
+      </div>
+    </th>
+  );
+}
+
+function TableCell({ td, eventsRef, showAll }: any) {
+  return (
+    <td className="text-sm">
+      {typeof td == "object" && (
+        <>
+          {td == null && <strong>NULL</strong>}
+          {(td?.type == "money" || td?.type == "number") && (
+            <span>{money(td.text)}</span>
+          )}
+          {td?.type == "text" && <span>{td.text}</span>}
+
+          {td?.html && (
+            <div
+              onClick={() => {
+                td.click && eventsRef.current.functions[td.click](td.args);
+              }}
+              dangerouslySetInnerHTML={{
+                __html: td.html,
+              }}
+            />
+          )}
+        </>
+      )}
+
+      {typeof td != "object" && (
+        <>
+          {td.length > 50 ? (
+            <div>
+              <div>{("" + td).substring(0, 50)}...</div>
+              <div
+                className="underline font-bold text-stone-600 text-xs cursor-pointer"
+                onClick={showAll(td)}
+              >
+                Show all
+              </div>
+            </div>
+          ) : (
+            td
+          )}
+        </>
+      )}
+    </td>
+  );
+}
+
+function TableFooter({
+  perPage,
+  setPerPage,
+  onReload,
+  setPage,
+  page,
+  pagesCount,
+}: any) {
+  return (
+    <div className="mt-5 flex justify-between items-center">
+      <div className="flex gap-3 items-center">
+        <AppSelect
+          label="Por página"
+          value={perPage}
+          onChange={(val: string) => {
+            setPerPage(+val);
+          }}
+          type="select"
+          mb="0"
+        >
+          <option value="">Selecciona una opción</option>
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
+        </AppSelect>
+
+        <div
+          className="flex items-center bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 hover:bg-stone-300 rounded-xl size-10 justify-center shrink-0 "
+          onClick={() => {
+            onReload && onReload();
+          }}
+        >
+          <AppIcon icon="refresh" className="size-6 fill-stone-600" />
+        </div>
+      </div>
+      <div className="flex ml-auto gap-2 items-center">
+        {page > 1 && (
+          <div
+            className="size-8 p-1 cursor-pointer hover:bg-stone-300 rounded-full bg-stone-50"
+            onClick={() => {
+              setPage(page - 1);
+            }}
+          >
+            <svg viewBox="0 0 24 24" className="fill-stone-900 w-full h-full">
+              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+            </svg>
+          </div>
+        )}
+
+        <span>
+          Page: {page} - {pagesCount}{" "}
+        </span>
+
+        {page < pagesCount && (
+          <div
+            className="size-8 p-1 cursor-pointer hover:bg-stone-300 rounded-full bg-stone-50"
+            onClick={() => {
+              setPage(page + 1);
+            }}
+          >
+            <svg viewBox="0 0 24 24" className="fill-slate-900 w-full h-full">
+              <path d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
+            </svg>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function AppData({
   data,
   onReload,
@@ -162,7 +302,6 @@ function AppData({
     }
 
     if (!actived) return [];
-
     return sumArray.map((item: any, index: number) => {
       if (!item) return null;
       let val = item.val;
@@ -262,33 +401,14 @@ function AppData({
                         {table.header && (
                           <thead>
                             <tr>
-                              {table.header.map((th: any, index: number) => (
-                                <th
-                                  key={index}
-                                  className="th-sortable"
-                                  onClick={() =>
-                                    setSort({
-                                      [index]:
-                                        sort?.[index] == "DESC"
-                                          ? "ASC"
-                                          : "DESC",
-                                    })
-                                  }
-                                >
-                                  <div className="flex items-center gap-2">
-                                    <span>{th}</span>
-                                    {sort && sort[index] && (
-                                      <AppIcon
-                                        icon={
-                                          sort?.[index] == "ASC"
-                                            ? "arrow_top"
-                                            : "arrow_bottom"
-                                        }
-                                        className="h-4 w-4"
-                                      />
-                                    )}
-                                  </div>
-                                </th>
+                              {table.header.map((th: any, i: number) => (
+                                <TableHeaderCell
+                                  key={"cell-" + i}
+                                  setSort={setSort}
+                                  index={i}
+                                  sort={sort}
+                                  th={th}
+                                />
                               ))}
                             </tr>
                           </thead>
@@ -299,57 +419,15 @@ function AppData({
                             {tableContentVals.map((row: any, index: number) => (
                               <tr key={index}>
                                 {row.map((td: any, k: number) => (
-                                  <td key={k} className="text-sm">
-                                    {typeof td == "object" && (
-                                      <>
-                                        {td == null && <strong>NULL</strong>}
-                                        {(td?.type == "money" ||
-                                          td?.type == "number") && (
-                                          <span>{money(td.text)}</span>
-                                        )}
-                                        {td?.type == "text" && (
-                                          <span>{td.text}</span>
-                                        )}
-
-                                        {td?.html && (
-                                          <div
-                                            onClick={() => {
-                                              td.click &&
-                                                eventsRef.current.functions[
-                                                  td.click
-                                                ](td.args);
-                                            }}
-                                            dangerouslySetInnerHTML={{
-                                              __html: td.html,
-                                            }}
-                                          />
-                                        )}
-                                      </>
-                                    )}
-
-                                    {typeof td != "object" && (
-                                      <>
-                                        {td.length > 50 ? (
-                                          <div>
-                                            <div>
-                                              {("" + td).substring(0, 50)}...
-                                            </div>
-                                            <div
-                                              className="underline font-bold text-stone-600 text-xs cursor-pointer"
-                                              onClick={() => {
-                                                setTextAll(td);
-                                                modalShowTextRef.current.showModal();
-                                              }}
-                                            >
-                                              Show all
-                                            </div>
-                                          </div>
-                                        ) : (
-                                          td
-                                        )}
-                                      </>
-                                    )}
-                                  </td>
+                                  <TableCell
+                                    key={"cell-" + k}
+                                    td={td}
+                                    eventsRef={eventsRef}
+                                    showAll={() => {
+                                      setTextAll(td);
+                                      modalShowTextRef.current.showModal();
+                                    }}
+                                  />
                                 ))}
                               </tr>
                             ))}
@@ -382,75 +460,14 @@ function AppData({
               </div>
 
               {table?.data?.length > 10 && (
-                <div className="mt-5 flex justify-between items-center">
-                  <div className="flex gap-3 items-center">
-                    <AppSelect
-                      label="Por página"
-                      value={PER_PAGE}
-                      onChange={(val: string) => {
-                        setPerPage(+val);
-                      }}
-                      type="select"
-                      mb="0"
-                    >
-                      <option value="">Selecciona una opción</option>
-                      <option value={5}>5</option>
-                      <option value={10}>10</option>
-                      <option value={20}>20</option>
-                      <option value={50}>50</option>
-                      <option value={100}>100</option>
-                    </AppSelect>
-
-                    <div
-                      className="flex items-center bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 hover:bg-stone-300 rounded-xl size-10 justify-center shrink-0 "
-                      onClick={() => {
-                        onReload && onReload();
-                      }}
-                    >
-                      <AppIcon
-                        icon="refresh"
-                        className="size-6 fill-stone-600"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex ml-auto gap-2 items-center">
-                    {page > 1 && (
-                      <div
-                        className="size-8 p-1 cursor-pointer hover:bg-stone-300 rounded-full bg-stone-50"
-                        onClick={() => {
-                          setPage(page - 1);
-                        }}
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="fill-stone-900 w-full h-full"
-                        >
-                          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
-                        </svg>
-                      </div>
-                    )}
-
-                    <span>
-                      Page: {page} - {pagesCount()}{" "}
-                    </span>
-
-                    {page < pagesCount() && (
-                      <div
-                        className="size-8 p-1 cursor-pointer hover:bg-stone-300 rounded-full bg-stone-50"
-                        onClick={() => {
-                          setPage(page + 1);
-                        }}
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="fill-slate-900 w-full h-full"
-                        >
-                          <path d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <TableFooter
+                  perPage={PER_PAGE}
+                  setPerPage={setPerPage}
+                  onReload={onReload}
+                  setPage={setPage}
+                  page={page}
+                  pagesCount={pagesCount()}
+                />
               )}
             </div>
           </div>

@@ -82,12 +82,7 @@ const NeuronChat = ({ neuron, reload }: any) => {
       )}
 
       {historyChat.length == 0 && neuron?.id && (
-        <div
-          className="font-light border mx-10 mb-10  mt-10 border-transparent rounded-xl px-5 py-10 text-black "
-          style={{
-            backgroundImage: " linear-gradient(45deg, #f4def6, #d7ecf8)",
-          }}
-        >
+        <div className="font-light border mx-10 mb-10  mt-10 border-transparent rounded-xl px-5 py-10 text-black bg-gradient-to-r from-[#f4def6] to-[#d7ecf8] dark:from-[#362230] dark:to-[#122441] dark:text-white  ">
           <div className="text-sm">
             You can directly request our artificial intelligence to build the
             blocks for you. It's capable of making connections with databases,

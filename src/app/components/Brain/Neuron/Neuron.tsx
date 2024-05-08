@@ -157,9 +157,7 @@ const Neuron = ({
                                   }}
                                   label={row.label}
                                 >
-                                  <option value="">
-                                    Selecciona una opción
-                                  </option>
+                                  <option value="">Select an option</option>
                                   {row.options?.length > 0 &&
                                     row.options.map(
                                       (opt: any, index: number) => (
@@ -189,7 +187,7 @@ const Neuron = ({
 
                     <div className="mt-5 md:mt-5 border-t-2  border-gray-200 dark:border-stone-800 pt-5 text-center flex gap-3 md:gap-5">
                       <AppButton
-                        text={neuron?.filters?.button || "Generar"}
+                        text={neuron?.filters?.button || "Generate"}
                         onClick={() => execNeuron(neuron)}
                         variant="primary"
                         className="w-full"
