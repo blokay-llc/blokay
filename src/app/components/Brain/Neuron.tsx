@@ -10,6 +10,44 @@ import {
 } from "@/app/components/DS/Index";
 import NeuronResponse from "./NeuronResponse";
 
+function NeuronField({ row, form, errors, setForm }: any) {
+  if (row.type == "hidden") {
+    return <></>;
+  }
+
+  if (row.type == "select") {
+    return (
+      <AppSelect
+        value={form[row.name]}
+        error={errors[row.name]}
+        onChange={(val: string) => {
+          setForm({ ...form, [row.name]: val });
+        }}
+        label={row.label}
+      >
+        <option value="">Select an option</option>
+        {row.options?.length > 0 &&
+          row.options.map((opt: any, index: number) => (
+            <option key={index} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+      </AppSelect>
+    );
+  }
+
+  return (
+    <AppInput
+      type={row.type}
+      value={form[row.name]}
+      error={errors[row.name]}
+      onChange={(val: string) => {
+        setForm({ ...form, [row.name]: val });
+      }}
+      label={row.label}
+    />
+  );
+}
 function NeuronForm({
   onBack,
   neuron,
@@ -42,35 +80,12 @@ function NeuronForm({
                 key={index}
                 className={`${row.grid == 6 ? "col-span-1" : "col-span-2"} `}
               >
-                {row.type == "select" && (
-                  <AppSelect
-                    value={form[row.name]}
-                    error={errors[row.name]}
-                    onChange={(val: string) => {
-                      setForm({ ...form, [row.name]: val });
-                    }}
-                    label={row.label}
-                  >
-                    <option value="">Select an option</option>
-                    {row.options?.length > 0 &&
-                      row.options.map((opt: any, index: number) => (
-                        <option key={index} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
-                  </AppSelect>
-                )}
-                {!["select", "hidden"].includes(row.type) && (
-                  <AppInput
-                    type={row.type}
-                    value={form[row.name]}
-                    error={errors[row.name]}
-                    onChange={(val: string) => {
-                      setForm({ ...form, [row.name]: val });
-                    }}
-                    label={row.label}
-                  />
-                )}
+                <NeuronField
+                  row={row}
+                  form={form}
+                  errors={errors}
+                  setForm={setForm}
+                />
               </div>
             ))}
           </div>
