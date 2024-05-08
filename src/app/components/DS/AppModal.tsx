@@ -100,7 +100,7 @@ function Modal(
                   e.stopPropagation();
                 }}
                 className={`relative z-50 transition-all dark:text-stone-200 duration-100 ease-in-out text-black  rounded-xl   ${sizeClass()} ${positionClass()} ${size} ${classSection} ${
-                  bgColor == "white" ? "dark:bg-stone-950" : ""
+                  bgColor == "white" ? "bg-white dark:bg-stone-950" : ""
                 }`}
                 style={{ backgroundColor: bgColor != "white" ? bgColor : "" }}
               >

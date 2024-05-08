@@ -92,7 +92,7 @@ export default function Toolbar({
         {clickAction && (
           <div
             onClick={() => setClickAction("")}
-            className="fixed w-full bg-stone-400/20 min-h-screen top-0 left-0 z-10 backdrop-blur-sm"
+            className="fixed w-full bg-stone-400/20 dark:bg-stone-700/40 min-h-screen top-0 left-0 z-10 backdrop-blur-sm"
           ></div>
         )}
         {clickAction == "new" && (

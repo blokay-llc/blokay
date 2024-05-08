@@ -17,7 +17,14 @@ type Row = {
   [x: string | number | symbol]: Cell | string | number | unknown;
 };
 
+type FieldForm = {
+  fileName: string;
+  ext: string;
+  buffer: Buffer | Uint8Array | Blob | string;
+};
+
 type Form = {
+  getFile: (name: string) => Promise<FieldForm>;
   [x: string | number | symbol]: unknown;
 };
 
