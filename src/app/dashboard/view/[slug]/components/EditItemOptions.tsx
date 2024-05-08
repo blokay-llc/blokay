@@ -113,7 +113,7 @@ export default function EditItemOptions({
         </>
       )}
 
-      <div className="flex items-center gap-5 mt-3 pt-3 border border-stone-200">
+      <div className="flex items-center gap-5 mt-3 pt-3 border-t dark:border-stone-800 border-stone-200">
         <AppButton
           text="Cancel"
           onClick={() => onHide && onHide()}

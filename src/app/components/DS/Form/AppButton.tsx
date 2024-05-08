@@ -39,7 +39,8 @@ const AppButton = function (props: any) {
       else if (variant === "primary") {
         colorClass = ` border-transparent  `;
       } else if (variant === "secondary") {
-        colorClass = " text-stone-500 border-stone-300 border-2 ";
+        colorClass =
+          " text-stone-500 border-stone-300 dark:border-stone-700 border-2 ";
       } else if (variant === "third") {
         colorClass =
           "text-black border-black rounded-none border-none hover:bg-gray-100 black-icon";
@@ -49,7 +50,8 @@ const AppButton = function (props: any) {
       }
 
       if (variant === "primary") {
-        colorClass = " border-black bg-black hover:bg-black text-white ";
+        colorClass =
+          " border-black bg-black dark:text-black dark:bg-white dark:hover:bg-stone-200 hover:bg-black text-white ";
       } else if (color == "green" && variant === "primary") {
         colorClass =
           " border-green-300 bg-green-300 hover:bg-green-500 text-green-900 ";

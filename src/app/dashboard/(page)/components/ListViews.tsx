@@ -129,18 +129,24 @@ function ListViews({}) {
               </div>
             )}
 
-            <h2 className="text-stone-800 text-2xl mb-5 ">My views</h2>
+            <h2 className="text-stone-900 dark:text-white text-2xl mb-5 ">
+              My views
+            </h2>
 
             <div className="flex flex-col gap-3 lg:gap-5">
               {viewsComputed.map((view: any) => (
                 <div>
-                  {view.name && <h2 className="mb-5 font-bold">{view.name}</h2>}
+                  {view.name && (
+                    <h2 className="mb-5 font-bold text-stone-900 dark:text-stone-200">
+                      {view.name}
+                    </h2>
+                  )}
                   <div className="flex flex-wrap items-center gap-3 lg:gap-5">
                     {view.Views.map((view: any) => (
                       <a
                         href={"/dashboard/view/" + view.slug}
                         key={view.id}
-                        className="bg-white shadow-sm border-2 border-transparent transition	 hover:border-stone-600 p-3 lg:p-5 rounded-xl flex items-center gap-3 hover:bg-stone-50"
+                        className="bg-white dark:bg-stone-800 shadow-sm border-2 border-transparent transition	 hover:border-stone-600 text-stone-900 dark:text-stone-200 p-3 lg:p-5 rounded-xl flex items-center gap-3 hover:bg-stone-50 dark:hover:bg-black"
                       >
                         <div className="font-light">{view.name}</div>
                       </a>

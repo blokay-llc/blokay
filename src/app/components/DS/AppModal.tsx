@@ -20,7 +20,7 @@ function Modal(
   ref: any
 ) {
   const [showing, setShowing] = useState(false);
-  const [bgColor, setBackgroundColor] = useState("#fff");
+  const [bgColor, setBackgroundColor] = useState("white");
   const [error, setError] = useState("");
 
   const showModal = () => {
@@ -99,11 +99,13 @@ function Modal(
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
-                className={`relative z-50 transition-all duration-100 ease-in-out text-black  rounded-xl   ${sizeClass()} ${positionClass()} ${size} ${classSection}`}
-                style={{ backgroundColor: bgColor }}
+                className={`relative z-50 transition-all dark:text-stone-200 duration-100 ease-in-out text-black  rounded-xl   ${sizeClass()} ${positionClass()} ${size} ${classSection} ${
+                  bgColor == "white" ? "dark:bg-stone-950" : ""
+                }`}
+                style={{ backgroundColor: bgColor != "white" ? bgColor : "" }}
               >
                 {title && (
-                  <div className="flex justify-between items-center border-b border-gray-200 py-4 px-4">
+                  <div className="flex justify-between items-center border-b dark:border-stone-800 border-stone-200 py-4 px-4">
                     <div className="flex items-center justify-start gap-3">
                       <div
                         className="action-icon"
@@ -126,12 +128,11 @@ function Modal(
                       )}
                     </div>
                     <div
-                      className="hover:bg-stone-200 p-1 rounded-full cursor-pointer"
+                      className="hover:bg-stone-200 dark:hover:bg-stone-800 p-1 rounded-full cursor-pointer"
                       onClick={hideModal}
                     >
                       <AppIcon
-                        className="w-6 h-6"
-                        style={{ fill: "#000" }}
+                        className="w-6 h-6 fill-black dark:fill-stone-200"
                         icon={position !== "bottom" ? "close" : "arrow_bottom"}
                       />
                     </div>
@@ -145,7 +146,7 @@ function Modal(
                   </div>
                 )}
                 <div
-                  className={`py-5 px-4 overflow-y-auto ${
+                  className={`py-5 px-4 overflow-y-auto  ${
                     error ? "with-error" : ""
                   }`}
                   style={{
@@ -158,7 +159,7 @@ function Modal(
                 </div>
 
                 {footer && (
-                  <div className="py-5 px-4 border-t border-gray-200">
+                  <div className="py-5 px-4 border-t dark:border-stone-800 border-stone-200">
                     <div className="footer">{footer}</div>
                   </div>
                 )}

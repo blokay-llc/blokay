@@ -205,17 +205,19 @@ function AppData({
               <div className="flex gap-3 items-center mr-auto">
                 {onBack && !autoExecuted && (
                   <div
-                    className="size-8 p-1 cursor-pointer border-2 border-stone-100 hover:border-stone-300 rounded-full bg-white shrink-0"
+                    className="size-8 p-1 cursor-pointer border-2 border-stone-100 hover:border-stone-300 rounded-full bg-white shrink-0 dark:border-black dark:bg-black"
                     onClick={onBack}
                   >
                     <AppIcon
                       icon="left"
-                      className="fill-stone-800 w-full h-full"
+                      className="fill-stone-800 dark:fill-stone-100 w-full h-full"
                     />
                   </div>
                 )}
 
-                <div>{neuronName}</div>
+                <div className="text-stone-800 dark:text-stone-200">
+                  {neuronName}
+                </div>
               </div>
 
               {data?.data?.length > 10 && (

@@ -87,14 +87,14 @@ const Neuron = ({
   }, []);
 
   return (
-    <div className="h-full group relative border-2 border-stone-300 overflow-y-hidden  rounded-2xl pt-0">
+    <div className="h-full group relative border-2 border-stone-300 dark:border-stone-800 overflow-y-hidden  rounded-2xl pt-0">
       <div
         className={`"overflow-y-auto max-h-full h-full flex w-full ${
           !response ? "items-center" : ""
         } justify-center `}
       >
         {loading && (
-          <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-10 bg-white/50 backdrop-blur-sm ">
+          <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-10 bg-white/50 dark:bg-black/50 backdrop-blur-sm ">
             <AppLoader size="md" />
           </div>
         )}
@@ -115,7 +115,7 @@ const Neuron = ({
               (neuron.filters.autoExec == false ||
                 neuron.filters?.fields?.length > 0) && (
                 <div className="py-6 h-full flex items-center justify-center ">
-                  <div className=" lg:max-w-96 lg:min-w-96 min-w-[90%] bg-white rounded-xl px-5 pb-5 pt-10">
+                  <div className=" lg:max-w-96 lg:min-w-96 min-w-[90%] bg-white dark:bg-stone-800 rounded-xl px-5 pb-5 pt-10">
                     <div className="flex items-center gap-3">
                       {onBack && (
                         <div
@@ -133,7 +133,7 @@ const Neuron = ({
                           <div></div>
                         </div>
                       )}
-                      <h2 className="text-base md:text-lg font-medium text-stone-600">
+                      <h2 className="text-base md:text-lg font-medium text-stone-600 dark:text-stone-300">
                         {neuron.description}
                       </h2>
                     </div>
@@ -187,7 +187,7 @@ const Neuron = ({
                       </div>
                     )}
 
-                    <div className="mt-5 md:mt-5 border-t-2  border-gray-200 pt-5 text-center flex gap-3 md:gap-5">
+                    <div className="mt-5 md:mt-5 border-t-2  border-gray-200 dark:border-stone-800 pt-5 text-center flex gap-3 md:gap-5">
                       <AppButton
                         text={neuron?.filters?.button || "Generar"}
                         onClick={() => execNeuron(neuron)}

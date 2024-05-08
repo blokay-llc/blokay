@@ -67,7 +67,7 @@ export default function Toolbar({
 
           <div className="item aspect-auto">
             <input
-              className="text-stone-900 text-lg px-5 font-medium bg-transparent focus:outline-none w-full "
+              className="text-stone-900 dark:text-stone-100 text-lg px-5 font-medium bg-transparent focus:outline-none w-full "
               value={title}
               disabled={editMode === "user"}
               onChange={(e) => {

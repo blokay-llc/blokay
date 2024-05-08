@@ -136,7 +136,7 @@
 }
 
 body {
-  @apply bg-stone-100 text-stone-950;
+  @apply bg-stone-100 dark:bg-stone-950 text-stone-950 dark:text-stone-200;
   color: rgb(var(--foreground-rgb));
 }
 
@@ -189,10 +189,10 @@ body {
 }
 
 .icon-btn {
-  fill: white;
+  @apply fill-white dark:fill-black;
 }
 .icon-btn.secondary {
-  @apply fill-gray-600;
+  @apply fill-stone-600;
 }
 .tooltip::after {
   content: "";
@@ -335,21 +335,21 @@ div.highway-barrier .highway-lane > div:hover {
 }
 
 .tabs {
-  @apply flex mb-5 justify-center gap-1 p-2 rounded-xl border-2 border-stone-100 font-light text-stone-600;
+  @apply flex mb-5 justify-center gap-1 p-2 rounded-xl border-2 border-stone-100 font-light text-stone-600 dark:text-stone-400 dark:border-stone-800;
 }
 .tabs .tab {
   @apply px-3 py-1 cursor-pointer rounded-lg   flex  items-center gap-3;
 }
 
 .tabs .tab.active {
-  @apply bg-stone-200;
+  @apply bg-stone-200 dark:bg-stone-900 dark:text-stone-200 dark:hover:bg-stone-800;
 }
 .tabs .tab svg {
-  @apply fill-stone-600 size-6;
+  @apply fill-stone-600 dark:fill-stone-400 size-6;
 }
 
 .tabs .tab:not(.active) {
-  @apply hover:bg-stone-100;
+  @apply hover:bg-stone-100 dark:hover:bg-stone-900;
 }
 
 .tabs.dark {
@@ -357,7 +357,7 @@ div.highway-barrier .highway-lane > div:hover {
 }
 
 .tabs.dark .tab.active {
-  @apply bg-gray-700;
+  @apply bg-stone-700;
 }
 
 .tabs.dark .tab svg {

@@ -78,7 +78,7 @@ function ActionsEdit(
         size="sm"
         ref={modalDeleteRef}
       >
-        <p className="font-light text-stone-900">
+        <p className="font-light ">
           This action is irreversible. Are you sure you want to proceed?
         </p>
       </AppModal>

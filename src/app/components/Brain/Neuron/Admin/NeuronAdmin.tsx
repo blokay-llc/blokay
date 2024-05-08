@@ -26,7 +26,7 @@ const NeuronAdmin = ({ neuron, changeColorModal, reload, onClose }: any) => {
 
   const init = (v: string) => {
     fetchNeuron();
-    changeColorModal(["code", "api"].includes(v) ? "#21252b" : "#fff");
+    changeColorModal(["code", "api"].includes(v) ? "#21252b" : "white");
   };
 
   const setViewPage = (v: string) => {

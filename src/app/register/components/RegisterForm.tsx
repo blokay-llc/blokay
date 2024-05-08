@@ -39,7 +39,11 @@ export default function RegisterForm() {
   return (
     <div className="w-96 ">
       <a href="/">
-        <img src="/logo.svg" className="h-10 mb-10 mx-auto" />
+        <img
+          src="/logo-white.svg"
+          className="h-8 mb-10 mx-auto hidden dark:block"
+        />
+        <img src="/logo.svg" className="h-10 mb-10 mx-auto dark:hidden" />
       </a>
 
       <form action={register} className="flex flex-col gap-5">
@@ -94,7 +98,7 @@ export default function RegisterForm() {
           }}
         />
 
-        <div className="text-sm text-stone-500 font-light border-t border-stone-300 mt-3 pt-3">
+        <div className="text-sm text-stone-500 font-light border-t border-stone-300 dark:border-black mt-3 pt-3">
           By using Blokay, you are agreeing to our{" "}
           <a
             href="https://blokay.com/privacy"

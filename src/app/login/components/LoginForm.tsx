@@ -34,7 +34,11 @@ export default function LoginForm() {
   return (
     <div className="w-96 ">
       <a href="/">
-        <img src="/logo.svg" className="h-10 mb-10 mx-auto" />
+        <img
+          src="/logo-white.svg"
+          className="h-8 mb-10 mx-auto hidden dark:block"
+        />
+        <img src="/logo.svg" className="h-10 mb-10 mx-auto dark:hidden" />
       </a>
 
       <form action={login} className="flex flex-col gap-5">
@@ -74,7 +78,7 @@ export default function LoginForm() {
       <div className="mt-5 flex flex-col gap-3">
         {process.env.NEXT_PUBLIC_GOOGLE_LOGIN && (
           <div
-            className="border-2 border-stone-300 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300 "
+            className="border-2 border-stone-300 dark:border-black rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300 dark:hover:bg-stone-900 dark:text-stone-400 "
             onClick={() => {
               loginThird("google");
             }}
@@ -86,7 +90,7 @@ export default function LoginForm() {
 
         {process.env.NEXT_PUBLIC_GITHUB_LOGIN && (
           <div
-            className="border-2 border-stone-300 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300 "
+            className="border-2 border-stone-300 dark:border-black rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300  dark:hover:bg-stone-900 dark:text-stone-400"
             onClick={() => {
               loginThird("github");
             }}

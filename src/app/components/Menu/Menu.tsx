@@ -20,10 +20,17 @@ export default function Menu({
   return (
     <div className="lg:pt-0 pt-16">
       <div className="lg:static lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
-        <div className="border   bg-white font-light border-stone-300  rounded-lg text-sm shadow py-2  text-stone-800 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
+        <div className="border   bg-white dark:bg-stone-800 font-light border-stone-300 dark:border-stone-950  rounded-lg text-sm shadow py-2  text-stone-800 dark:text-stone-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
           <div className="px-2 flex items-center gap-5 py-5">
             <a href="/dashboard">
-              <img src="/logo.svg" className=" h-8 shrink-0" />
+              <img
+                src="/logo.svg"
+                className=" h-8 shrink-0 dark:hidden block"
+              />
+              <img
+                src="/logo-white.svg"
+                className=" h-6 shrink-0 dark:block hidden"
+              />
             </a>
             {session?.business?.logo && !isAdmin && (
               <img
@@ -48,7 +55,7 @@ export default function Menu({
           <ul className="py-3 px-2 lg:block hidden ">
             <li>
               <a
-                className="items-center py-1 text-sm hover:bg-stone-100 rounded-lg px-1.5 flex justify-between"
+                className="items-center py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between"
                 href="/dashboard"
               >
                 <div>Home</div>
@@ -59,7 +66,7 @@ export default function Menu({
             {isAdmin && (
               <li>
                 <a
-                  className="py-1 text-sm hover:bg-stone-100 rounded-lg px-1.5 flex justify-between items-center"
+                  className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
                   href="/dashboard/users"
                 >
                   <div>Users</div>
@@ -71,7 +78,7 @@ export default function Menu({
             {isAdmin && (
               <li>
                 <a
-                  className="py-1 text-sm hover:bg-stone-100 rounded-lg px-1.5 flex justify-between items-center"
+                  className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
                   href="/dashboard/billing"
                 >
                   <div>Billing</div>
@@ -83,7 +90,7 @@ export default function Menu({
             {isAdmin && (
               <li>
                 <a
-                  className="py-1 text-sm hover:bg-stone-100 rounded-lg px-1.5 flex justify-between items-center"
+                  className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
                   href="/dashboard/settings"
                 >
                   <div>Settings</div>
@@ -94,7 +101,7 @@ export default function Menu({
 
             <li>
               <a
-                className="py-1 text-sm hover:bg-stone-100 rounded-lg px-1.5 flex justify-between items-center"
+                className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
                 href="/logout"
               >
                 <div>Logout</div>

@@ -60,7 +60,7 @@ const NeuronChat = ({ neuron, reload }: any) => {
           {historyChat.map((chat: any, k: number) => (
             <div
               key={"chat-" + k}
-              className="font-light pb-3 border-b border-stone-200 mb-3 flex items-center gap-3"
+              className="font-light pb-3 border-b border-stone-200 dark:border-stone-800 mb-3 flex items-center gap-3 dark:text-stone-400"
             >
               <div
                 className={`select-none size-8 flex items-center justify-center rounded-full shrink-0	 ${

@@ -3,7 +3,7 @@
 }
 
 .toolbar .item {
-  @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center bg-white hover:bg-stone-200;
+  @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center bg-white dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-900;
 }
 
 .toolbar .item.active {
@@ -19,29 +19,36 @@
 }
 
 .toolbar .item svg {
-  @apply size-6 fill-stone-900;
+  @apply size-6 fill-stone-900 dark:fill-stone-100;
 }
 
 .action-box {
-  @apply z-20 overflow-hidden bg-white absolute top-16 mt-2 border-2 border-black/10  lg:w-2/3 rounded-xl left-0 w-full text-stone-600;
+  @apply z-20 overflow-hidden bg-white dark:bg-black absolute top-16 mt-2 border-2 border-black/10  lg:w-2/3 rounded-xl left-0 w-full text-stone-600 dark:text-stone-500;
 }
 .action-box .item {
-  @apply font-light gap-3 flex items-center px-2 py-2 transition duration-200 hover:bg-stone-100;
+  @apply font-light gap-3 flex items-center px-2 py-2 transition duration-200 hover:bg-stone-100 dark:hover:bg-stone-800;
 }
 .action-box .item svg {
-  @apply size-6 fill-stone-400;
+  @apply size-6 fill-stone-400 dark:text-stone-500;
 }
 
 .edit-mode .react-grid-item {
-  @apply border-2 border-transparent hover:border-indigo-500;
+  @apply border-2 border-transparent hover:border-indigo-500 dark:hover:border-indigo-400;
 }
 .edit-mode .react-grid-item > .react-resizable-handle::after {
-  @apply group-hover:bg-indigo-600 size-3 -bottom-1.5 -right-1.5 border-transparent;
+  @apply group-hover:bg-indigo-600 dark:group-hover:bg-indigo-400 size-3 -bottom-1.5 -right-1.5 border-transparent;
 }
 .edit-mode .react-grid-item:hover .react-resizable-handle::after {
-  @apply bg-indigo-500;
+  @apply bg-indigo-500 dark:border-indigo-400;
 }
 
 .edit-mode .react-grid-item.react-grid-placeholder {
   @apply bg-indigo-300;
+}
+
+.action-button {
+  @apply px-3 py-1 cursor-pointer rounded-lg hover:bg-stone-100 bg-white shadow-sm flex gap-3 items-center text-stone-500 text-sm border-2 border-stone-200 dark:bg-stone-800 dark:border-stone-800 dark:text-stone-400 dark:hover:bg-stone-700;
+}
+.action-button svg {
+  @apply fill-stone-500 size-5 dark:fill-stone-400;
 }

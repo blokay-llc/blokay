@@ -104,7 +104,7 @@ export default function Users() {
   return (
     <div className="flex flex-col gap-5">
       {loading && (
-        <div className="min-h-screen border-2 border-stone-300 rounded-xl flex items-center justify-center">
+        <div className="min-h-screen border-2 border-stone-300 dark:border-stone-800 rounded-xl flex items-center justify-center">
           <AppLoader size="md" />
         </div>
       )}
@@ -122,19 +122,21 @@ export default function Users() {
           </div>
 
           {users.length > 0 && (
-            <div className="bg-white px-3 py-3 flex flex-col gap-4 rounded-lg shadow-sm border border-stone-300">
+            <div className="bg-white dark:bg-stone-950 px-3 py-3 flex flex-col gap-4 rounded-lg shadow-sm border border-stone-300 dark:border-stone-800">
               {users.map((user: any) => (
                 <div
                   onClick={() => handleClickUser(user)}
                   key={user.id}
-                  className="px-5 py-2 rounded-lg hover:bg-stone-100 flex items-center gap-3"
+                  className="px-5 py-2 rounded-lg hover:bg-stone-100 dark:hover:bg-black flex items-center gap-3"
                 >
                   <div className="size-10 bg-stone-200 flex items-center justify-center rounded-full">
                     <img src="/logo-sm.svg" className="w-full h-full" />
                   </div>
                   <div>
                     <div>{user.name}</div>
-                    <div className="font-light text-sm">{user.rol}</div>
+                    <div className="font-light text-sm dark:text-stone-400 text-stone-700">
+                      {user.rol}
+                    </div>
                   </div>
                 </div>
               ))}

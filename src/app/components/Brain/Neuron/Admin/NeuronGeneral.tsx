@@ -95,7 +95,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
         }}
       />
 
-      <div className="mt-5 pt-5 border-t border-stone-300">
+      <div className="mt-5 pt-5 border-t border-stone-300 dark:border-stone-800">
         <div className="mb-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <AppSelect
@@ -109,7 +109,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
               <option value="cron">Cron Job</option>
             </AppSelect>
 
-            <h2 className="font-bold text-stone-700 ">
+            <h2 className="font-bold text-stone-700 dark:text-stone-400 ">
               {form.type == "cron" ? "Cron Job" : "Input data"}
             </h2>
           </div>
@@ -131,7 +131,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
               {fields.map((row, index) => (
                 <div
                   key={"field-" + index}
-                  className="grid grid-cols-12 gap-3 mb-3 bg-stone-200 items-center py-1 rounded-lg px-3"
+                  className="grid grid-cols-12 gap-3 mb-3 bg-stone-200 dark:bg-stone-800 items-center py-1 rounded-lg px-3"
                 >
                   <div className="col-span-3">
                     <AppInput
@@ -256,7 +256,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
           </>
         )}
 
-        <div className="mt-10 pt-3 border-t flex justify-between border-stone-200">
+        <div className="mt-10 pt-3 border-t flex justify-between border-stone-200 dark:border-stone-800">
           <AppButton
             text="Delete this"
             onClick={() => {

@@ -42,10 +42,10 @@ export default function AppInput({
             if (el) el.focus();
           }}
           htmlFor={id}
-          className={` select-none absolute  text-gray-500 ${
+          className={` select-none absolute  text-stone-500 dark:text-stone-400 ${
             activeLabel || value || extraProps.type === "date"
               ? " top-2 text-xs left-5 font-medium"
-              : " top-3 pt-0.5 left-5 font-light text-gray-600 "
+              : " top-3 pt-0.5 left-5 font-light text-stone-600 dark:text-stone-500 "
           }`}
           style={{ transitionDuration: "0.3s" }}
         >
@@ -67,7 +67,7 @@ export default function AppInput({
               extraProps.onFocus && extraProps.onFocus();
             }}
             value={value || ""}
-            className={`app-input appearance-none ${error ? "error" : ""} ${
+            className={`app-input appearance-none   ${error ? "error" : ""} ${
               extraProps.className
             } `}
             type={extraProps.type}

@@ -51,7 +51,9 @@ const DropItem = function ({
       <div className="flex flex-col ">
         <div
           className={`flex items-center justify-between py-1 ${
-            item.key ? "bg-stone-100 hover:bg-stone-200" : ""
+            item.key
+              ? "bg-stone-100 dark:bg-stone-700 hover:bg-stone-200 dark:hover:bg-stone-900"
+              : ""
           }`}
           onClick={() => {
             if (item.key) {
@@ -82,25 +84,28 @@ const DropItem = function ({
               >
                 <AppIcon
                   icon="right"
-                  className={`fill-stone-600 size-4 ${
+                  className={`fill-stone-600 dark:fill-stone-200 size-4 ${
                     isOpen ? "rotate-90" : ""
                   }`}
                 />
               </div>
             )}
             <div
-              className={`text-[13px] text-stone-600 ${
+              className={`text-[13px] text-stone-600 dark:text-stone-300 ${
                 level == 0 ? "font-medium" : "font-light"
               }`}
             >
-              <span className={`${isFound ? "font-bold text-stone-600" : ""}`}>
+              <span className={`${isFound ? "font-bold " : ""}`}>
                 {item?.name}
               </span>
             </div>
           </div>
           <div>
             {item.key && item.type == "function" && (
-              <AppIcon icon="component" className={`size-4 fill-stone-600`} />
+              <AppIcon
+                icon="component"
+                className={`size-4 fill-stone-600 dark:fill-stone-200`}
+              />
             )}
             {item.key && item.type == "cron" && (
               <AppIcon icon="clock" className={`size-5 fill-yellow-700`} />
@@ -207,7 +212,7 @@ export default function TreeMenu({
 
   return (
     <div className={`${editMode == "user" ? "hidden" : ""}`}>
-      <div className="px-2 select-none flex flex-col pt-3 border-t border-stone-200">
+      <div className="px-2 select-none flex flex-col pt-3 border-t border-stone-200 dark:border-black">
         {buildStructure().map((item: any) => (
           <DropItem
             onClickNeuron={onClickNeuron}
@@ -223,8 +228,8 @@ export default function TreeMenu({
       </div>
 
       {nonUsed.length > 0 && (
-        <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200">
-          <h2 className="text-stone-600 mb-3 text-sm font-medium">
+        <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200 dark:border-black">
+          <h2 className="text-stone-600 dark:text-white mb-3 text-sm font-medium">
             Unused yet
           </h2>
           {nonUsed.map((item: any) => (
@@ -242,8 +247,10 @@ export default function TreeMenu({
       )}
 
       {crons.length > 0 && (
-        <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200">
-          <h2 className="text-stone-600 mb-3 text-sm font-medium">Cron Jobs</h2>
+        <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200 dark:border-black">
+          <h2 className="text-stone-600 dark:text-white mb-3 text-sm font-medium">
+            Cron Jobs
+          </h2>
           {crons.map((item: any) => (
             <DropItem
               onClickNeuron={onClickNeuron}
