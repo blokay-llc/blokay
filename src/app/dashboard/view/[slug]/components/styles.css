@@ -7,7 +7,7 @@
 }
 
 .toolbar .item.active {
-  @apply bg-indigo-600;
+  @apply bg-gradient-to-br from-indigo-600 to-indigo-700;
 }
 
 .toolbar .item.active svg {

@@ -109,7 +109,7 @@ export default function ListUsers() {
         users.length >= session?.business?.limitUsers &&
         !session?.business?.addedCard && (
           <div>
-            <AddCreditCard text="You need to add a credit card to continue building" />
+            <AddCreditCard text="You need to add a credit card to create more users" />
           </div>
         )}
 
