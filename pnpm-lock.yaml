@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@mercadopago/sdk-react':
+    specifier: ^0.0.19
+    version: 0.0.19(react-dom@18.2.0)(react@18.2.0)
   '@monaco-editor/react':
     specifier: ^4.6.0
     version: 4.6.0(monaco-editor@0.47.0)(react-dom@18.2.0)(react@18.2.0)
@@ -162,6 +165,21 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: false
+
+  /@mercadopago/sdk-js@0.0.3:
+    resolution: {integrity: sha512-kO48DNLHdfFAp3on12nuKdqNlEmw1x3+nM6wLd04BdWOXoFcAhkNMQV3AyUIanXdO/bB/dENakdacLT29297EQ==}
+    dev: false
+
+  /@mercadopago/sdk-react@0.0.19(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-TpAACns5tp5geX/fPng7WBmGmnDGv5MGCBdCBTa4uXmen4TYJ+cSgNSgVGpynGRGgw7mNqRSF7pdon+K8BCNbA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@mercadopago/sdk-js': 0.0.3
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@monaco-editor/loader@1.4.0(monaco-editor@0.47.0):

@@ -12,6 +12,7 @@
     "docker:restart": "docker-compose restart"
   },
   "dependencies": {
+    "@mercadopago/sdk-react": "^0.0.19",
     "@monaco-editor/react": "^4.6.0",
     "aws-sdk": "^2.1616.0",
     "bcrypt": "^5.1.1",

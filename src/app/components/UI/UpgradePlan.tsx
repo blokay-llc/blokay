@@ -32,7 +32,7 @@ export default function UpgradePlan({ onClick }: any) {
         <AppButton
           text="add a card"
           onClick={onClick}
-          variant="secondary"
+          variant="primary"
           size="lg"
           className="w-full"
         />

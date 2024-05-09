@@ -39,3 +39,11 @@ export const downloadUserLogs = async function (form: any) {
 
   return result;
 };
+
+export const addCard = async function (token: string, lastFour: string) {
+  let data = { token, lastFour };
+
+  let result = await postFile("users/saveCard", data);
+
+  return result;
+};

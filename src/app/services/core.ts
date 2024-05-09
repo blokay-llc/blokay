@@ -70,4 +70,17 @@ export default class Core {
       coreToken: result.coreToken,
     };
   }
+
+  async saveCard(token: string, lastFour: string) {
+    let result = await this.fetchCore("/api/core/saveCard", {
+      token,
+      lastFour,
+    });
+
+    result = result.data.Result;
+
+    return {
+      coreToken: result.coreToken,
+    };
+  }
 }
