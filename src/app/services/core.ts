@@ -79,8 +79,6 @@ export default class Core {
 
     result = result.data.Result;
 
-    return {
-      coreToken: result.coreToken,
-    };
+    return {};
   }
 }

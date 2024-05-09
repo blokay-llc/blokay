@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { AppIcon, AppModal, AppButton } from "@/app/components/DS/Index";
 import ShareView from "@/app/components/UI/ShareView";
+import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import AvatarName from "../../../../components/UI/AvatarName";
 import Toolbar from "./Toolbar";
 
@@ -14,6 +15,7 @@ export default function Header({
   editMode,
   setEditMode,
 }: any) {
+  const { isMobile } = useScreenDetector();
   const modalRef: any = useRef();
   const [title, setTitle] = useState("Untitled view");
 
@@ -30,7 +32,7 @@ export default function Header({
   return (
     <div className="flex justify-between items-center mb-8 lg:mb-16">
       <div className="flex gap-3 items-center w-full">
-        {isAdmin && (
+        {isAdmin && !isMobile && (
           <Toolbar
             onCreate={onCreate}
             refresh={refresh}

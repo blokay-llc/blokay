@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { AppInput, AppIcon } from "@/app/components/DS/Index";
+import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import Tree from "./Tree";
 
 import { useSession } from "next-auth/react";
@@ -12,6 +13,8 @@ export default function Menu({
   editMode = null,
   neurons = [],
 }: any) {
+  const { isMobile } = useScreenDetector();
+
   const { data: session }: any = useSession();
 
   const isAdmin = session?.user?.rol == "admin";
@@ -40,7 +43,7 @@ export default function Menu({
             )}
           </div>
 
-          {view && (
+          {view && !isMobile && (
             <div className="px-2">
               <AppInput
                 type="text"
@@ -124,7 +127,7 @@ export default function Menu({
           </div>
         </div>
 
-        <div className="text-xs text-stone-400 mt-3 flex gap-3 px-2">
+        <div className="text-xs text-stone-400 mt-3 md:flex gap-3 px-2 hidden">
           <a href="https://blokay.com/contact">Contact</a>
           <a href="https://blokay.com/privacy">Privacy policy</a>
         </div>

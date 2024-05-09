@@ -10,7 +10,7 @@ export default function UpgradePlan({ onClick }: any) {
           "url(https://assets-global.website-files.com/645a9acecda2e0594fac6126/658054b9bde4219f7c818b9b_gradient-noise-purple-azure-p-500.png)",
       }}
     >
-      <div className="lg:w-1/3 min-w-96 rounded-xl bg-slate-900/50 backdrop-blur-md border-slate-800 px-5 py-10 shadow-lg mx-auto">
+      <div className="lg:w-1/3 w-4/5 md:min-w-96 rounded-xl bg-slate-900/50 backdrop-blur-md border-slate-800 px-5 py-10 shadow-lg mx-auto">
         <h2 className="font-bold text-2xl">Add a credit card</h2>
 
         <div className="mb-5 font-light mt-5">
