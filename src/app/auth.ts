@@ -75,6 +75,9 @@ export const authOptions: any = {
           id: userData.Business.id,
           name: userData.Business.name,
           logo: userData.Business.logo,
+          addedCard: !!userData.Business.paymentProviderToken,
+          limitViews: !userData.Business.paymentProviderToken ? 5 : null,
+          limitUsers: !userData.Business.paymentProviderToken ? 2 : null,
         },
         user: {
           id: userData.id,

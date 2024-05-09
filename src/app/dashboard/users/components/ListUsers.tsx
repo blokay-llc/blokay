@@ -6,9 +6,10 @@ import {
   fetchUser,
   fetchAddUser,
   fetchUpdateUser,
-  downloadUserLogs,
 } from "@/app/services/users";
 import { viewList } from "@/app/services/brain";
+import { useSession } from "next-auth/react";
+import AddCreditCard from "@/app/components/UI/AddCreditCard";
 import {
   AppCheckbox,
   AppModal,
@@ -17,7 +18,9 @@ import {
   AppInput,
 } from "@/app/components/DS/Index";
 
-export default function Users() {
+export default function ListUsers() {
+  const { data: session }: any = useSession();
+  const isAdmin = session?.user?.rol == "admin";
   const modalRef: any = useRef();
   const [users, setUsers] = useState([]);
   const [views, setViews] = useState([]);
@@ -42,13 +45,6 @@ export default function Users() {
         setLoading(false);
       });
   };
-
-  // const downloadLogs = (userId: string) => {
-  //   downloadUserLogs({ userId }).then((result) => {
-  //     alert("ok");
-  //     console.log(result);
-  //   });
-  // };
 
   const handleClickSubmitNewUser = () => {
     setLoading(true);
@@ -102,46 +98,54 @@ export default function Users() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 relative">
       {loading && (
-        <div className="min-h-screen border-2 border-stone-300 dark:border-stone-800 rounded-xl flex items-center justify-center">
+        <div className="min-h-screen border-2 border-stone-300 dark:border-stone-800 rounded-xl flex items-center justify-center absolute z-10 top-0 left-0 w-full h-full dark:bg-stone-800/40 bg-stone-200/40 backdrop-blur-sm ">
           <AppLoader size="md" />
         </div>
       )}
-      {!loading && (
-        <div>
-          <div className="justify-end flex items-center gap-2 mb-5">
-            <AppButton
-              text="Add new user"
-              onClick={() => createNewUser()}
-              variant="primary"
-              icon="add"
-              className="ml-auto"
-              size="md"
-            />
-          </div>
 
-          {users.length > 0 && (
-            <div className="bg-white dark:bg-stone-950 px-3 py-3 flex flex-col gap-4 rounded-lg shadow-sm border border-stone-300 dark:border-stone-800">
-              {users.map((user: any) => (
-                <div
-                  onClick={() => handleClickUser(user)}
-                  key={user.id}
-                  className="px-5 py-2 rounded-lg hover:bg-stone-100 dark:hover:bg-black flex items-center gap-3"
-                >
-                  <div className="size-10 bg-stone-200 flex items-center justify-center rounded-full">
-                    <img src="/logo-sm.svg" className="w-full h-full" />
-                  </div>
-                  <div>
-                    <div>{user.name}</div>
-                    <div className="font-light text-sm dark:text-stone-400 text-stone-700">
-                      {user.rol}
-                    </div>
-                  </div>
+      {isAdmin &&
+        users.length >= session?.business?.limitUsers &&
+        !session?.business?.addedCard && (
+          <div>
+            <AddCreditCard text="You need to add a credit card to continue building" />
+          </div>
+        )}
+
+      {!loading &&
+        isAdmin &&
+        (users.length < session?.business?.limitUsers ||
+          session?.business?.addedCard) && (
+          <AppButton
+            text="Add new user"
+            onClick={() => createNewUser()}
+            variant="primary"
+            icon="add"
+            className="ml-auto"
+            size="md"
+          />
+        )}
+
+      {users.length > 0 && (
+        <div className="bg-white dark:bg-stone-950 px-3 py-3 flex flex-col gap-4 rounded-lg shadow-sm border border-stone-300 dark:border-stone-800">
+          {users.map((user: any) => (
+            <div
+              onClick={() => handleClickUser(user)}
+              key={user.id}
+              className="px-5 py-2 rounded-lg hover:bg-stone-100 dark:hover:bg-black flex items-center gap-3"
+            >
+              <div className="size-10 bg-stone-200 flex items-center justify-center rounded-full">
+                <img src="/logo-sm.svg" className="w-full h-full" />
+              </div>
+              <div>
+                <div>{user.name}</div>
+                <div className="font-light text-sm dark:text-stone-400 text-stone-700">
+                  {user.rol}
                 </div>
-              ))}
+              </div>
             </div>
-          )}
+          ))}
         </div>
       )}
 

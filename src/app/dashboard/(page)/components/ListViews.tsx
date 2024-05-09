@@ -11,6 +11,7 @@ import {
 import { useSession } from "next-auth/react";
 import AppVideoCard from "../../../components/UI/AppVideoCard";
 import AvatarName from "../../../components/UI/AvatarName";
+import AddCreditCard from "@/app/components/UI/AddCreditCard";
 
 function ListViews({}) {
   const { data: session }: any = useSession();
@@ -73,10 +74,14 @@ function ListViews({}) {
     }, 0);
   };
   const onLimit = () => {
+    if (session?.business?.addedCard) return false;
     if (views.length <= 0) return false;
-    return viewsCount() >= 100;
+    return viewsCount() >= session?.business?.limitViews;
   };
 
+  const canCreateViews = () => {
+    return isAdmin && !onLimit();
+  };
   const viewsComputed = getViewsComputed();
 
   return (
@@ -94,7 +99,7 @@ function ListViews({}) {
             label="Search"
           />
         </div>
-        {isAdmin && !onLimit() && !loading && (
+        {canCreateViews() && !loading && (
           <AppButton
             icon="wizard"
             text="Add new"
@@ -112,20 +117,9 @@ function ListViews({}) {
         {loading && <AppLoader size="md" className="mx-auto" />}
         {!loading && viewsComputed.length > 0 && (
           <div>
-            {isAdmin && onLimit() && (
-              <div
-                className=" text-purple-900 font-light px-3 py-5 rounded-xl mb-10 flex items-center justify-between gap-5"
-                style={{
-                  background: "linear-gradient(45deg, #d8b4fe, #abb5fc)",
-                }}
-              >
-                <div>You need to add a credit card to continue building</div>
-                <AppButton
-                  href="/dashboard/billing"
-                  text="Upgrade"
-                  variant="primary"
-                  size="sm"
-                />
+            {!canCreateViews() && !session?.business?.addedCard && (
+              <div className="mb-10 ">
+                <AddCreditCard text="You need to add a credit card to continue building" />
               </div>
             )}
 
