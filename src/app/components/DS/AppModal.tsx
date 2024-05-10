@@ -92,10 +92,12 @@ function Modal(
             classNames="modalx"
           >
             <div
+              onMouseDown={(e) => e.stopPropagation()}
               onClick={hideModal}
               className="fixed z-50  w-full h-screen py-5  top-0 left-0 flex items-center justify-center"
             >
               <section
+                onMouseDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                 }}

@@ -38,7 +38,8 @@ export default function ({ data }: any) {
     <>
       <div
         className="absolute top-3 left-3 bg-red-600 hover:bg-red-700 cursor-pointer  text-white px-3 py-1 text-sm rounded-lg z-30 flex items-center gap-1 select-none"
-        onClick={() => {
+        onMouseDown={(e) => {
+          e.stopPropagation();
           modalRef.current.showModal();
         }}
       >
