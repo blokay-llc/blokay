@@ -5,6 +5,21 @@ const s3bucket = new AWS.S3({
   secretAccessKey: process.env.AWS_SECRET,
 });
 
+export const getFile = function (name: string) {
+  return new Promise((resolve, reject) => {
+    s3bucket.getObject(
+      {
+        Bucket: process.env.AWS_BUCKET || "",
+        Key: "blokay/" + name,
+      },
+      (err, data) => {
+        if (err) return reject(err);
+        resolve(data);
+      }
+    );
+  });
+};
+
 export const uploadFile = function (
   name: string,
   buffer: Buffer | Uint8Array | Blob | string
