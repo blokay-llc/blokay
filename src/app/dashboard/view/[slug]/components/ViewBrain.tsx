@@ -195,9 +195,9 @@ const ViewBrain = ({ slug }: any) => {
   };
 
   return (
-    <div className="container mx-auto pt-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        <div className="lg:col-span-3">
+    <div className="lg:px-8 px-5 pt-8">
+      <div className="flex  gap-10">
+        <div className="lg:w-[18rem]">
           <Menu
             views={views}
             view={view}
@@ -206,7 +206,7 @@ const ViewBrain = ({ slug }: any) => {
             neurons={neurons}
           />
         </div>
-        <div className="lg:col-span-9 pb-10">
+        <div className="lg:flex-1 pb-10">
           <div className="relative  ">
             <Header
               view={view}

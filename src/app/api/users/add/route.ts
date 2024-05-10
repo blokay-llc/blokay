@@ -16,6 +16,7 @@ export const POST = withAdmin(async function ({ user, req }: any) {
     name: body.data.name,
     rol: body.data.rol,
     businessId: user.businessId,
+    blockedAt: null,
   });
 
   const viewIds = Object.keys(permissions).filter((v) => permissions[v]);

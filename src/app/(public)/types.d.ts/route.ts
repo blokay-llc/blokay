@@ -11,6 +11,6 @@ export const GET = async function (req: NextRequest, res: NextResponse) {
       encoding: "utf8",
     }
   );
-  const response = new NextResponse(types);
+  const response = new NextResponse(types.replaceAll("export ", ""));
   return response;
 };

@@ -1,9 +1,9 @@
-enum CellClick {
+export enum CellClick {
   openNeuron = "openNeuron",
   closeCurrentNeuron = "closeCurrentNeuron",
 }
 
-type Cell = {
+export type Cell = {
   html: string;
   value: string;
   click: CellClick;
@@ -13,41 +13,40 @@ type Cell = {
   };
 };
 
-type Row = {
+export type Row = {
   [x: string | number | symbol]: Cell | string | number | unknown;
 };
 
-type FieldForm = {
+export type FieldForm = {
   fileName: string;
   ext: string;
-  buffer: Buffer | Uint8Array | Blob | string;
+  buffer: Buffer | Uint8Array | Blob | string | null;
 };
 
-type Form = {
-  getFile: (name: string) => Promise<FieldForm>;
+export type Form = {
+  getFile: (name: string, parser?: string) => Promise<FieldForm>;
   [x: string | number | symbol]: unknown;
 };
 
 type Rows = Row[];
 
-type QueryReplacements = {
+export type QueryReplacements = {
   [x: string | number | symbol]: unknown;
 };
 
-type FetchParams = {
+export type FetchParams = {
   [x: string | number | symbol]: unknown;
 };
 
-type ResponseNeuron = {
+export type ResponseNeuron = {
   type: string;
   message?: string;
   content: any;
 };
 
 // only uses if you need
-type Args = {
+export type Args = {
   // input vars
-  _businessId: number;
   form: Form; // values filled by the user
   files: Array<File>; // files uploaded by the user
 

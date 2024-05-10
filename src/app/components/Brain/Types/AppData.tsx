@@ -63,7 +63,7 @@ function TableCell({ td, eventsRef, showAll }: any) {
               <div>{("" + td).substring(0, 50)}...</div>
               <div
                 className="underline font-bold text-stone-600 text-xs cursor-pointer"
-                onClick={showAll(td)}
+                onClick={() => showAll(td)}
               >
                 Show all
               </div>

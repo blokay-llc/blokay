@@ -12,7 +12,7 @@ export const transpileModule = (code: string): any => {
     }
   );
 
-  code = ` ${types} ${code}`;
+  code = ` ${types.replaceAll("export ", "")} ${code}`;
 
   let d: any = [];
   let result = ts.transpile(
