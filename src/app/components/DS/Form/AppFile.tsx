@@ -25,10 +25,10 @@ const AppFile = ({
   const previewImage = () => {
     let file = prev || preview;
 
-    if (ext() === "pdf") {
-      return null;
+    if (["png", "jpeg", "jpg", "bmp", "webp"].includes(ext())) {
+      return file;
     }
-    return file;
+    return null;
   };
 
   const onChange = () => {
@@ -87,6 +87,13 @@ const AppFile = ({
       return (
         <AppIcon
           icon="pdf"
+          className="h-10 fill-stone-800 dark:fill-stone-200"
+        />
+      );
+    } else if (["csv", "xls", "xlsx"].includes(ext())) {
+      return (
+        <AppIcon
+          icon="excel"
           className="h-10 fill-stone-800 dark:fill-stone-200"
         />
       );

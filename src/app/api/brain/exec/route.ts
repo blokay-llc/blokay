@@ -15,15 +15,31 @@ let db = new Models();
 
 const { Datasource, NeuronExecution }: any = db;
 
-const buildNeuronArgs = ({ req, form, datasource }: any): Args => ({
-  files: req.files,
+const buildNeuronArgs = ({ form, datasource }: any): Args => ({
   form: {
-    getFile(file: string, parser: string): FieldForm {
-      console.log(file);
+    async getFile(file: string, parser: string): Promise<FieldForm> {
+      parser = parser.toLocaleLowerCase();
+      let url = form[file];
+      if (!url && file.includes("http")) {
+        url = file;
+      }
+
+      let res = await fetch(url);
+      let buffer = await res.blob();
+      let content = null;
+
+      let ext = url.split(/[#?]/)[0].split(".").pop().trim();
+
+      if (parser === "csv") {
+        let text = await buffer.text();
+        content = text.split("\n").map((row) => row.split(";"));
+      }
+
       return {
         fileName: "",
-        ext: "",
-        buffer: null,
+        ext,
+        buffer,
+        content,
       };
     },
     ...form,
@@ -153,7 +169,7 @@ export const POST = withNeuron(async function ({
       content,
       {
         console: console,
-        args: buildNeuronArgs({ req, form, datasource }),
+        args: buildNeuronArgs({ form, datasource }),
       },
       {
         displayErrors: false,
@@ -235,7 +251,7 @@ export const POST = withNeuron(async function ({
     businessId: user.businessId,
     data: JSON.stringify(form),
     finishAt: Date.now(),
-    error: response.type == "exception" ? response.content?.name : null,
+    error: response?.type == "exception" ? response.content?.name : null,
   });
 
   return NextResponse.json({

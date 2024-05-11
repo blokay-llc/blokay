@@ -21,9 +21,8 @@ function NeuronField({ row, form, errors, setForm }: any) {
       <AppFile
         value={form[row.name]}
         error={errors[row.name]}
-        onChangeFiles={(val: string) => {
-          console.log(val);
-          setForm({ ...form, [row.name]: val });
+        onChangeFiles={(val: any) => {
+          setForm({ ...form, [row.name]: val.url });
         }}
         label={row.label}
       />

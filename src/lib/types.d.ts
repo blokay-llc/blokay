@@ -19,6 +19,7 @@ export type Row = {
 
 export type FieldForm = {
   fileName: string;
+  content: any;
   ext: string;
   buffer: Buffer | Uint8Array | Blob | string | null;
 };
@@ -42,13 +43,12 @@ export type ResponseNeuron = {
   type: string;
   message?: string;
   content: any;
-};
+} | null;
 
 // only uses if you need
 export type Args = {
   // input vars
   form: Form; // values filled by the user
-  files: Array<File>; // files uploaded by the user
 
   // database methods
   find: (sql: string, replacements?: QueryReplacements) => Promise<Row>;
