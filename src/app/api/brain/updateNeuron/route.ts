@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { transpileModule } from "./ts-js";
 import { withNeuron } from "@/lib/withNeuron";
+import Models from "@/db/index";
 
-export const POST = withNeuron(async function ({ body, neuron }: any) {
+let db = new Models();
+const { NeuronLog }: any = db;
+
+export const POST = withNeuron(async function ({ body, neuron, user }: any) {
   const data = body.data;
 
   let js = transpileModule(data.synapse);
@@ -27,6 +31,14 @@ export const POST = withNeuron(async function ({ body, neuron }: any) {
   }
   if (Object.keys(toUpdate).length > 0) {
     neuron = await neuron.update(toUpdate);
+
+    NeuronLog.create({
+      userId: user.id,
+      neuronId: neuron.id,
+      businessId: user.businessId,
+      filters: neuron.filters,
+      synapse: neuron.synapse,
+    });
   }
   return NextResponse.json({
     data: {

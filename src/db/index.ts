@@ -3,6 +3,7 @@ import Sequelize from "sequelize";
 import _QueryExecution from "./models/_query_executions";
 import Neuron from "./models/brain/neuron";
 import NeuronExecution from "./models/brain/neuron-execution";
+import NeuronLog from "./models/brain/neuron-log";
 import View from "./models/brain/view";
 import ViewItem from "./models/brain/view-item";
 import ViewGroup from "./models/brain/view-group";
@@ -19,6 +20,7 @@ class DB {
     Datasource,
     Neuron,
     NeuronExecution,
+    NeuronLog,
     View,
     ViewGroup,
     ViewItem,

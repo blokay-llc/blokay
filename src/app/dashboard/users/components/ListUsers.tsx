@@ -141,7 +141,7 @@ export default function ListUsers() {
               <div>
                 <div>{user.name}</div>
                 <div className="font-light text-sm dark:text-stone-400 text-stone-700">
-                  {user.rol}
+                  {user.email} - {user.rol}
                 </div>
               </div>
             </div>

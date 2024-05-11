@@ -5,7 +5,7 @@ import CoreAPI from "@/app/services/core";
 import { transpileModule } from "../updateNeuron/ts-js";
 
 let db = new Models();
-const { Neuron, Datasource, Business }: any = db;
+const { Neuron, Datasource, Business, NeuronLog }: any = db;
 
 export const POST = withNeuron(async function ({ user, neuron, body }: any) {
   const data = body.data;
@@ -58,6 +58,14 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
       toUpdate.description = result.description;
     }
     neuron = await neuron.update(toUpdate);
+
+    NeuronLog.create({
+      userId: user.id,
+      neuronId: neuron.id,
+      businessId: user.businessId,
+      filters: neuron.filters,
+      synapse: result.synapse,
+    });
   }
 
   return NextResponse.json({
