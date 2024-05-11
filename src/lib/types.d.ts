@@ -39,6 +39,12 @@ export type FetchParams = {
   [x: string | number | symbol]: unknown;
 };
 
+export type Session = {
+  id: string;
+  email: string;
+  name: string;
+} | null;
+
 export type ResponseNeuron = {
   type: string;
   message?: string;
@@ -47,6 +53,7 @@ export type ResponseNeuron = {
 
 // only uses if you need
 export type Args = {
+  session?: Session;
   // input vars
   form: Form; // values filled by the user
 

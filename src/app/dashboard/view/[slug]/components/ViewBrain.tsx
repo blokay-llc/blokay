@@ -39,9 +39,7 @@ const ViewBrain = ({ slug }: any) => {
   const [neurons, setNeurons] = useState([]);
   const [containerWidth, setContainerWidth] = useState(null);
   const [neuron, setNeuron]: any = useState(null);
-  const [editMode, setEditMode] = useState(
-    !isMobile && isAdmin ? "edit" : "user"
-  );
+  const [editMode, setEditMode] = useState("user");
   const [views, setViews] = useState([]);
 
   const listViews = () => {
@@ -69,12 +67,6 @@ const ViewBrain = ({ slug }: any) => {
     fetchView();
     fetchListNeurons();
   }, []);
-
-  useEffect(() => {
-    if (isAdmin && !isMobile) {
-      setEditMode("edit");
-    }
-  }, [session]);
 
   const saveView = (form: any) => {
     setView({

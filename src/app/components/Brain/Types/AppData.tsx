@@ -228,7 +228,7 @@ function AppData({
     download(csvContent, `${encodeURIComponent(neuronName)}.csv`);
   };
 
-  const tableContent = () => {
+  const getContent = () => {
     let content = table?.data.slice(0);
     if (!content?.length) return [];
     if (sort) {
@@ -258,6 +258,24 @@ function AppData({
         return sortTypes(val1, val2);
       });
     }
+
+    let toSearch = filters.search.toLowerCase();
+    if (toSearch) {
+      content = content.filter((item: any) => {
+        for (var j = 0; j < item.length; j++) {
+          let str = ("" + item[j]).toLowerCase();
+          if (str.includes(toSearch)) {
+            return true;
+          }
+        }
+        return false;
+      });
+    }
+    return content;
+  };
+  const tableContent = () => {
+    let content = getContent();
+
     let arr: any = [];
     let from = (page - 1) * PER_PAGE;
     let until = from + PER_PAGE;
@@ -271,8 +289,9 @@ function AppData({
 
   const pagesCount = () => {
     let pages = 0;
-    if (table.data.length > PER_PAGE) {
-      pages = table.data.length / PER_PAGE;
+    let rows = getContent();
+    if (rows.length > PER_PAGE) {
+      pages = rows.length / PER_PAGE;
     }
     pages = Math.floor(pages);
     return pages + 1;
@@ -313,25 +332,6 @@ function AppData({
     });
   };
 
-  const search = (toSearch = "") => {
-    setPage(1);
-    toSearch = toSearch.toLowerCase();
-    let arr = [];
-    let content = data.data;
-    if (!content?.length) return;
-    for (var i = 0; i < content.length; i++) {
-      for (var j = 0; j < content[i].length; j++) {
-        var str = ("" + content[i][j]).toLowerCase();
-        if (str.includes(toSearch)) {
-          j = content[i].length;
-          arr.push(content[i]);
-        }
-      }
-    }
-
-    setVarTable({ ...table, data: arr });
-  };
-
   const footerRowVals: any = footerRow();
   const tableContentVals = tableContent();
 
@@ -365,8 +365,8 @@ function AppData({
                     type="text"
                     value={filters.search}
                     onChange={(val: string) => {
+                      setPage(1);
                       setFilters({ ...filters, search: val });
-                      search(val);
                     }}
                     label="Search"
                     mb="0"

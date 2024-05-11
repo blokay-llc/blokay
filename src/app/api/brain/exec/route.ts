@@ -15,7 +15,12 @@ let db = new Models();
 
 const { Datasource, NeuronExecution }: any = db;
 
-const buildNeuronArgs = ({ form, datasource }: any): Args => ({
+const buildNeuronArgs = ({ user, form, datasource }: any): Args => ({
+  session: {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+  },
   form: {
     async getFile(file: string, parser: string): Promise<FieldForm> {
       parser = parser.toLocaleLowerCase();
@@ -32,7 +37,7 @@ const buildNeuronArgs = ({ form, datasource }: any): Args => ({
 
       if (parser === "csv") {
         let text = await buffer.text();
-        content = text.split("\n").map((row) => row.split(";"));
+        content = text.split(/\r\n|\n|\r/).map((row) => row.split(";"));
       }
 
       return {
@@ -143,12 +148,7 @@ const buildNeuronArgs = ({ form, datasource }: any): Args => ({
   },
 });
 
-export const POST = withNeuron(async function ({
-  req,
-  user,
-  neuron,
-  body,
-}: any) {
+export const POST = withNeuron(async function ({ user, neuron, body }: any) {
   let { form } = body.data;
 
   let d1 = Date.now();
@@ -169,7 +169,7 @@ export const POST = withNeuron(async function ({
       content,
       {
         console: console,
-        args: buildNeuronArgs({ form, datasource }),
+        args: buildNeuronArgs({ user, form, datasource }),
       },
       {
         displayErrors: false,
