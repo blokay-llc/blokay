@@ -142,8 +142,6 @@ export const POST = withNeuron(async function ({
     },
   });
 
-  const args: Args = buildNeuronArgs({ req, form, datasource });
-
   let content = `
   // declaration of the function
   ${neuron.executable}
@@ -155,7 +153,7 @@ export const POST = withNeuron(async function ({
       content,
       {
         console: console,
-        args,
+        args: buildNeuronArgs({ req, form, datasource }),
       },
       {
         displayErrors: false,
@@ -169,20 +167,22 @@ export const POST = withNeuron(async function ({
       }
     );
   } catch (err: any) {
-    let error = {
-      name: "Function Error",
-      message: "Unexpected Error",
-      sql: err.sql || "",
-    };
-    if (err instanceof Error) {
-      error.name = error.sql ? "SQL_ERROR" : err.name;
-      error.message = err.message;
-    }
-
     response = {
       type: "exception",
-      content: error,
+      content: {
+        name: "Function Error",
+        message: "Unexpected Error",
+        sql: err.sql || "",
+      },
     };
+
+    if (err instanceof Error) {
+      response.content.name = err.name;
+      response.content.message = err.message;
+    }
+    if (response.content.sql) {
+      response.content.name = "SQL_ERROR";
+    }
   }
 
   /*
