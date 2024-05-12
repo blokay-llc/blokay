@@ -124,7 +124,7 @@ export default function RegisterForm() {
       <div className=" mx-auto  mt-10  ">
         <a
           href="/login"
-          className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5"
+          className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-[#7358bf30] to-indigo-100"
         >
           <AppIcon icon="account" className="size-10 fill-stone-500" />
           <div>
