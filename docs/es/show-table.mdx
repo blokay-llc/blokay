@@ -10,6 +10,10 @@ const fn = async function (args: Args) {
 };
 ```
 
+---
+
+## Paso 2
+
 Construir la consulta SQL: Utiliza las fechas proporcionadas para construir la consulta SQL que seleccionará los datos de la base de datos según el rango de fechas.
 
 ```ts
@@ -23,6 +27,10 @@ const fn = async function (args: Args) {
   const replacements = { startDate, endDate }; // Reemplazos para las variables en la consulta
 };
 ```
+
+---
+
+## Paso 3
 
 Ejecutar la consulta y obtener los resultados: Utiliza el método query proporcionado en args para ejecutar la consulta SQL y obtener los datos de la base de datos.
 
@@ -39,6 +47,10 @@ const fn = async function (args: Args) {
   const rows = await args.query(sql, replacements); // Ejecutar la consulta y obtener los resultados
 };
 ```
+
+---
+
+## Paso 4
 
 Mostrar los resultados: Utiliza el método table proporcionado en args para enviar los resultados de la consulta como una respuesta de tabla.
 
