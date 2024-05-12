@@ -16,7 +16,7 @@ const fn = async function (args: Args) {
 
 Construir la consulta SQL: Utiliza las fechas proporcionadas para construir la consulta SQL que seleccionará los datos de la base de datos según el rango de fechas.
 
-```ts
+```ts { 3,4,5,6,7,8 }
 const fn = async function (args: Args) {
   const { startDate, endDate } = args.form;
   const sql = `
@@ -34,7 +34,7 @@ const fn = async function (args: Args) {
 
 Ejecutar la consulta y obtener los resultados: Utiliza el método query proporcionado en args para ejecutar la consulta SQL y obtener los datos de la base de datos.
 
-```ts
+```ts { 10 }
 const fn = async function (args: Args) {
   const { startDate, endDate } = args.form;
   const sql = `
@@ -54,7 +54,7 @@ const fn = async function (args: Args) {
 
 Mostrar los resultados: Utiliza el método table proporcionado en args para enviar los resultados de la consulta como una respuesta de tabla.
 
-```ts
+```ts {12}
 const fn = async function (args: Args) {
   const { startDate, endDate } = args.form;
   const sql = `
