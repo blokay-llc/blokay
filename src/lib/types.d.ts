@@ -45,14 +45,10 @@ export type Session = {
   name: string;
 } | null;
 
-export type ResponseNeuron = {
-  type: string;
-  message?: string;
-  content: any;
-} | null;
-
 // only uses if you need
-export type Args = {
+export type Args = Request & Response;
+
+export type Request = {
   session?: Session;
   // input vars
   form: Form; // values filled by the user
@@ -65,8 +61,16 @@ export type Args = {
   update: (sql: string, replacements?: QueryReplacements) => Promise<void>;
   // utils methods
   fetch: (url: string, params: FetchParams) => Promise<any>;
+};
 
-  // response methods
+export type ResponseNeuron = {
+  type: string;
+  message?: string;
+  content: any;
+} | null;
+
+export type Response = {
+  json: (json: Object) => ResponseNeuron;
   table: (rows: Rows) => ResponseNeuron;
   value: (val: Row) => ResponseNeuron;
   chartLine: (rows: Rows) => ResponseNeuron;

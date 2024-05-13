@@ -33,7 +33,7 @@ export const POST = withUser(async function ({ req, user }: any) {
     key: stringtoKey(data.name),
     filters: [],
     synapse:
-      "const fn = async (args: Args): Promise<ResponseNeuron> => {\n\treturn null;\n}",
+      "const fn = async (req: Request, res: Response): Promise<ResponseNeuron> => {\n\treturn null;\n}",
   });
 
   return NextResponse.json({

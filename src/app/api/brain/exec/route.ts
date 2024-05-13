@@ -7,6 +7,8 @@ import {
   FieldForm,
   QueryReplacements,
   ResponseNeuron,
+  Request,
+  Response,
 } from "@/lib/types.d";
 import { withNeuron } from "@/lib/withNeuron";
 import vm from "node:vm";
@@ -15,7 +17,7 @@ let db = new Models();
 
 const { Datasource, NeuronExecution }: any = db;
 
-const buildNeuronArgs = ({ user, form, datasource }: any): Args => ({
+const buildRequest = ({ user, form, datasource }: any): Request => ({
   session: {
     id: user.id,
     name: user.name,
@@ -76,6 +78,12 @@ const buildNeuronArgs = ({ user, form, datasource }: any): Args => ({
       return rows[0];
     }
     return rows;
+  },
+});
+
+const buildResponse = ({}: any): Response => ({
+  json: (json: Object): ResponseNeuron => {
+    return { type: "json", content: json };
   },
   error: (message: string): ResponseNeuron => {
     return { type: "error", content: { message } };
@@ -161,15 +169,26 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
   let content = `
   // declaration of the function
   ${neuron.executable}
-  fn(args);`;
+
+  if (fn.length == 1) {
+    fn(args);
+  } else if (fn.length == 2) {
+    fn(req, res);
+  }
+  `;
 
   let response: ResponseNeuron;
   try {
+    let req = buildRequest({ user, form, datasource });
+    let res = buildResponse({ user, form, datasource });
     response = await vm.runInNewContext(
       content,
       {
         console: console,
-        args: buildNeuronArgs({ user, form, datasource }),
+        args: {
+          ...req,
+          ...res,
+        } as Args,
       },
       {
         displayErrors: false,
