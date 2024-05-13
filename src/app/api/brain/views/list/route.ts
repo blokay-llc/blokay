@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import { withUser } from "@/lib/withUser";
 let db = new Models();
-const { View, ViewGroup, ViewItem, UserPermission }: any = db;
+const { View, ViewGroup, ViewItem, UserPermission, Neuron }: any = db;
 
 export const POST = withUser(async function ({ req, user }: any) {
   let queryBuilder = {
@@ -33,6 +33,17 @@ export const POST = withUser(async function ({ req, user }: any) {
     result = result.filter((view: any) => permissionsMap[view.id]);
   }
 
+  const neuronList = await Neuron.findAll({
+    where: {
+      businessId: user.businessId,
+    },
+  });
+
+  let neuronsKeyMap = neuronList.reduce((ac: any, item: any) => {
+    ac[item.key] = item.id;
+    return ac;
+  }, {});
+
   const viewItems = await ViewItem.findAll({
     include: [
       {
@@ -43,9 +54,6 @@ export const POST = withUser(async function ({ req, user }: any) {
         },
       },
     ],
-    where: {
-      neuronId: { [db.Op.not]: null },
-    },
   });
 
   const list = result.reduce((ac: any, v: any) => {
@@ -56,14 +64,24 @@ export const POST = withUser(async function ({ req, user }: any) {
         Views: [],
       };
     }
+
+    let children = viewItems
+      .filter((vi: any) => vi.viewId == v.id)
+      .map((vi: any) => {
+        let neuronId = vi.neuronId || vi?.options?.neuronId;
+        if (vi?.options?.neuronKey) {
+          neuronId = neuronsKeyMap[vi?.options?.neuronKey];
+        }
+        return neuronId;
+      })
+      .filter((neuronId: any) => neuronId);
+
     ac[v.viewGroupId].Views.push({
       id: v.id,
       name: v.name,
       icon: v.icon,
       slug: v.slug,
-      children: viewItems
-        .filter((vi: any) => vi.viewId == v.id)
-        .map((n: any) => n.neuronId),
+      children,
     });
 
     return ac;

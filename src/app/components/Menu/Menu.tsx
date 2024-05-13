@@ -22,7 +22,7 @@ export default function Menu({
 
   return (
     <div className="lg:pt-0 pt-16">
-      <div className="lg:static lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
+      <div className="lg:static pb-3 lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
         <div className="border   bg-white dark:bg-stone-800/90 backdrop-blur-md md:dark:bg-stone-800 font-light border-stone-300 dark:border-stone-950  rounded-lg text-sm shadow py-2  text-stone-800 dark:text-stone-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
           <div className="px-2 flex items-center gap-5 lg:py-5 py-3">
             <a href="/dashboard">

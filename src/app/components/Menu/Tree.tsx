@@ -172,6 +172,8 @@ export default function TreeMenu({
       for (let viewIndex in viewGroup.children) {
         let view = viewGroup.children[viewIndex];
 
+        console.log(view);
+
         for (let childNeuronIndex in view.children) {
           let neuronId = view.children[childNeuronIndex];
           if (map[neuronId]?.id) {
