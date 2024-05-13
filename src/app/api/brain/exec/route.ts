@@ -185,6 +185,8 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
       content,
       {
         console: console,
+        req,
+        res,
         args: {
           ...req,
           ...res,

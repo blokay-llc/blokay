@@ -26,7 +26,7 @@ const NeuronAdmin = ({ neuron, changeColorModal, reload, onClose }: any) => {
 
   const init = (v: string) => {
     fetchNeuron();
-    changeColorModal(["code", "api"].includes(v) ? "#21252b" : "white");
+    changeColorModal(["code"].includes(v) ? "#21252b" : "white");
   };
 
   const setViewPage = (v: string) => {
@@ -41,7 +41,7 @@ const NeuronAdmin = ({ neuron, changeColorModal, reload, onClose }: any) => {
   return (
     <div className="relative">
       <div className="flex justify-center">
-        <div className={`tabs ${["code", "api"].includes(view) ? "dark" : ""}`}>
+        <div className={`tabs ${["code"].includes(view) ? "dark" : ""}`}>
           <div
             onClick={() => setViewPage("general")}
             className={`tab ${view == "general" ? "active" : ""}`}

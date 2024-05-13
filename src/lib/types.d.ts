@@ -45,10 +45,9 @@ export type Session = {
   name: string;
 } | null;
 
-// only uses if you need
-export type Args = Request & Response;
+export interface Args extends Request, Response {}
 
-export type Request = {
+export interface Request {
   session?: Session;
   // input vars
   form: Form; // values filled by the user
@@ -61,7 +60,7 @@ export type Request = {
   update: (sql: string, replacements?: QueryReplacements) => Promise<void>;
   // utils methods
   fetch: (url: string, params: FetchParams) => Promise<any>;
-};
+}
 
 export type ResponseNeuron = {
   type: string;
@@ -69,7 +68,7 @@ export type ResponseNeuron = {
   content: any;
 } | null;
 
-export type Response = {
+export interface Response {
   json: (json: Object) => ResponseNeuron;
   table: (rows: Rows) => ResponseNeuron;
   value: (val: Row) => ResponseNeuron;
@@ -77,4 +76,4 @@ export type Response = {
   chartDoughnut: (rows: Rows) => ResponseNeuron;
   message: (message: string) => ResponseNeuron;
   error: (message: string) => ResponseNeuron;
-};
+}

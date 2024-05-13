@@ -119,15 +119,6 @@ function Modal(
                         </svg>
                       </div>
                       <h2 className="text-base md:text-base">{title}</h2>
-                      {titleLogo && (
-                        <div>
-                          <img
-                            src="/web/logo.svg"
-                            alt="Sigfre logo"
-                            className="h-10"
-                          />
-                        </div>
-                      )}
                     </div>
                     <div
                       className="hover:bg-stone-200 dark:hover:bg-stone-800 p-1 rounded-full cursor-pointer"

@@ -1,8 +1,47 @@
 "use client";
+import { useState } from "react";
+import IconTools from "@/app/components/DS/IconTools";
+import AppIcon from "@/app/components/DS/AppIcon";
+function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
+  const [showing, setShowing] = useState(false);
+  return (
+    <div className="select-none">
+      <div
+        className={`border-stone-200  dark:border-stone-800 border px-5 py-3 rounded-lg flex flex-col gap-5 ${
+          showing ? "bg-stone-800" : "dark:hover:bg-white/10"
+        }`}
+      >
+        <div
+          className="flex items-center gap-3 "
+          onClick={() => setShowing(!showing)}
+        >
+          <div>
+            {iconTool && (
+              <IconTools icon={iconTool} className="size-8 fill-white" />
+            )}
+            {icon && <AppIcon icon={icon} className="size-8 fill-white" />}
+          </div>
+          <div>{title}</div>
+        </div>
+
+        {showing && (
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            {children}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 export default function NeuronAPIDoc({ neuron }: any) {
   if (!neuron) return <></>;
 
-  let form = neuron.filters.fields.reduce((ac: any, item: any) => {
+  let fields = neuron.filters?.fields || [];
+  let form = fields.reduce((ac: any, item: any) => {
     ac[item.name] = item.type;
     return ac;
   }, {});
@@ -11,21 +50,9 @@ export default function NeuronAPIDoc({ neuron }: any) {
     form: form,
   };
   return (
-    <div
-      className="   rounded-xl relative overflow-hidden"
-      style={{
-        backgroundImage: "linear-gradient(rgb(13, 13, 13), rgb(29, 29, 29))",
-      }}
-    >
-      <div
-        className="px-3 lg:px-10 py-3 lg:py-10  bg-cover bg-top  "
-        style={{ backgroundImage: "url(/bg-blue.png)" }}
-      >
-        <div className=" z-10 relative px-5 py-5 rounded-2xl text-white">
-          <h2 className="font-bold text-3xl mb-5">
-            ¿Are you a developer? <br />
-            Use this block in your project
-          </h2>
+    <div className="flex flex-col gap-3 mt-5">
+      <BoxIntegration icon="api" title="Connect by API">
+        <div className=" py-3 select-text   ">
           <div className="flex items-center gap-2  mb-3 ">
             <div className="text-yellow-600 text-xs bg-yellow-300 inline-block py-1 px-1 rounded-lg">
               POST
@@ -35,16 +62,20 @@ export default function NeuronAPIDoc({ neuron }: any) {
               {process.env.NEXT_PUBLIC_URL}/api/brain/exec
             </div>
           </div>
-          <pre className="bg-white/60 backdrop-blur-sm max-w-96 px-3 py-3 rounded-lg text-stone-800 ">
+          <pre className="bg-stone-900 backdrop-blur-sm max-w-96 px-3 py-3 rounded-lg text-stone-300 ">
             <div className="text-stone-200 text-xs bg-stone-500  inline-block mb-3 py-1 px-1 rounded-lg">
               REQUEST
             </div>
-            <div className="font-light text-sm">
+            <div className="font-light text-sm select-text">
               {JSON.stringify(req, null, 2)}
             </div>
           </pre>
         </div>
-      </div>
+      </BoxIntegration>
+      <BoxIntegration iconTool="react" title="Connect with React" />
+      <BoxIntegration iconTool="vue" title="Connect with Vue" />
+      <BoxIntegration iconTool="angular" title="Connect with Angular" />
+      <BoxIntegration iconTool="html" title="Connect with HTML" />
     </div>
   );
 }
