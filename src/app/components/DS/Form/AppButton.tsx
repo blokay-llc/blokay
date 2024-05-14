@@ -33,7 +33,9 @@ const AppButton = function (props: any) {
     }
 
     let colorClass = "";
-    if (disabled) colorClass = " bg-gray-100 text-gray-500 cursor-not-allowed	 ";
+    if (disabled)
+      colorClass =
+        " bg-stone-100 dark:bg-stone-700 dark:text-stone-400 text-gray-500 cursor-not-allowed	 ";
     else {
       if (classColor) colorClass = classColor;
       else if (variant === "primary") {

@@ -3,7 +3,7 @@ export enum CellClick {
   closeCurrentNeuron = "closeCurrentNeuron",
 }
 
-export type Cell = {
+export type TableCell = {
   html: string;
   value: string;
   click: CellClick;
@@ -13,8 +13,8 @@ export type Cell = {
   };
 };
 
-export type Row = {
-  [x: string | number | symbol]: Cell | string | number | unknown;
+export type TableRow = {
+  [x: string | number | symbol]: TableCell | string | number | unknown;
 };
 
 export type FieldForm = {

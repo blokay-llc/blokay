@@ -12,6 +12,7 @@ import { addCard } from "@/app/services/users";
 export default function BillingView() {
   const modalRef: any = useRef();
   const [form, setForm]: any = useState({});
+  const [error, setError]: any = useState(null);
   const [loading, setLoading] = useState(false);
 
   const range = (start: number, finish: number) => {
@@ -27,6 +28,7 @@ export default function BillingView() {
   */
   const formAction = async () => {
     setLoading(true);
+    setError(null);
 
     try {
       let result: any = await fetch(
@@ -46,14 +48,18 @@ export default function BillingView() {
         }
       );
       result = await result.json();
+      if (result.error) {
+        throw { message: "Invalid fields " };
+      }
 
       let token_card = result.data.id;
       let last_four = result.data.last_four;
 
       // we only save the card token and last_four digits
       await addCard(token_card, last_four);
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
+      setError(err.message || "Unexpected error");
     } finally {
       setLoading(false);
     }
@@ -71,6 +77,12 @@ export default function BillingView() {
         title="Add card"
         footer={
           <AppButton
+            disabled={
+              !form.creditCardNumber ||
+              !form.creditCardPlaceHolder ||
+              !form.creditCardExpiryYear ||
+              !form.creditCardExpiryMonth
+            }
             text="Save"
             icon="account"
             type="submit"
@@ -86,6 +98,7 @@ export default function BillingView() {
       >
         <div className="0">
           <div className="flex flex-col gap-5">
+            {error && <div className="text-red-400">{error}</div>}
             <AppInput
               type="text"
               value={form.creditCardNumber}
@@ -113,6 +126,7 @@ export default function BillingView() {
                     setForm({ ...form, creditCardExpiryYear: val });
                   }}
                 >
+                  <option value={undefined}>00</option>
                   {range(24, 50).map((year) => (
                     <option value={year}>{year}</option>
                   ))}
@@ -126,6 +140,7 @@ export default function BillingView() {
                     setForm({ ...form, creditCardExpiryMonth: val });
                   }}
                 >
+                  <option value={undefined}>00</option>
                   {[
                     "01",
                     "02",

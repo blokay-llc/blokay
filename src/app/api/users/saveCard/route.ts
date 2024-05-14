@@ -18,7 +18,7 @@ export const POST = withUser(async function ({ user, req }: any) {
 
   let coreApi = new CoreAPI(business.coreToken);
 
-  await coreApi.saveCard(token, lastFour);
+  await coreApi.saveCard(token, lastFour, user.email);
 
   await business.update({
     paymentProviderToken: token,
