@@ -22,6 +22,9 @@ const buildRequest = ({ user, form, datasource }: any): Request => ({
     id: user.id,
     name: user.name,
     email: user.email,
+    extra1: user.extra1,
+    extra2: user.extra2,
+    extra3: user.extra3,
   },
   form: {
     async getFile(file: string, parser: string): Promise<FieldForm> {

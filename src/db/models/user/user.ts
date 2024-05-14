@@ -42,6 +42,9 @@ export default (sequelize: any, DataTypes: any) => {
           objThis.setDataValue("mfa", JSON.stringify(value));
         },
       },
+      extra1: { type: DataTypes.STRING, allowNull: true },
+      extra2: { type: DataTypes.STRING, allowNull: true },
+      extra3: { type: DataTypes.STRING, allowNull: true },
     },
     {
       paranoid: true,

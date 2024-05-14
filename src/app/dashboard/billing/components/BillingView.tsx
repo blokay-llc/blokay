@@ -57,6 +57,7 @@ export default function BillingView() {
 
       // we only save the card token and last_four digits
       await addCard(token_card, last_four);
+      modalRef.current.hideModal();
     } catch (err: any) {
       console.log(err);
       setError(err.message || "Unexpected error");

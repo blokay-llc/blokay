@@ -43,6 +43,9 @@ export type Session = {
   id: string;
   email: string;
   name: string;
+  extra1: string;
+  extra2: string;
+  extra3: string;
 } | null;
 
 export interface Args extends Request, Response {}

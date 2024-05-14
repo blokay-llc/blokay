@@ -31,7 +31,7 @@ export const POST = withUser(async function ({ req, user }: any) {
     icon: data.icon,
     description: data.name,
     key: stringtoKey(data.name),
-    filters: [],
+    filters: {},
     synapse:
       "const fn = async (req: Request, res: Response) => {\n\treturn null;\n}",
   });
