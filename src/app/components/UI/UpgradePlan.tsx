@@ -4,7 +4,7 @@ import { AppIcon, AppButton } from "@/app/components/DS/Index";
 export default function UpgradePlan({ onClick }: any) {
   return (
     <div
-      className="mt-10 bg-black pt-20 pb-20 md:pb-20 border-0 border-sky-400 rounded-3xl mb-20 relative overflow-hidden md:bg-cover bg-no-repeat bg-bottom bg-[length:60rem_auto]  text-white"
+      className="mt-10 bg-black pt-20 pb-20 md:pb-20 border-0 border-sky-400 rounded-3xl relative overflow-hidden md:bg-cover bg-no-repeat bg-bottom bg-[length:60rem_auto]  text-white"
       style={{
         backgroundImage:
           "url(https://assets-global.website-files.com/645a9acecda2e0594fac6126/658054b9bde4219f7c818b9b_gradient-noise-purple-azure-p-500.png)",

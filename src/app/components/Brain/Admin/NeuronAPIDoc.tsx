@@ -37,6 +37,16 @@ function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
     </div>
   );
 }
+
+function ComingSoon() {
+  return (
+    <div className="py-5 text-center">
+      <h2 className="dark:text-stone-600 text-stone-400 text-xl">
+        Coming Soon
+      </h2>
+    </div>
+  );
+}
 export default function NeuronAPIDoc({ neuron }: any) {
   if (!neuron) return <></>;
 
@@ -72,10 +82,18 @@ export default function NeuronAPIDoc({ neuron }: any) {
           </pre>
         </div>
       </BoxIntegration>
-      <BoxIntegration iconTool="react" title="Connect with React" />
-      <BoxIntegration iconTool="vue" title="Connect with Vue" />
-      <BoxIntegration iconTool="angular" title="Connect with Angular" />
-      <BoxIntegration iconTool="html" title="Connect with HTML" />
+      <BoxIntegration iconTool="react" title="Connect with React">
+        <ComingSoon />
+      </BoxIntegration>
+      <BoxIntegration iconTool="vue" title="Connect with Vue">
+        <ComingSoon />
+      </BoxIntegration>
+      <BoxIntegration iconTool="angular" title="Connect with Angular">
+        <ComingSoon />
+      </BoxIntegration>
+      <BoxIntegration iconTool="html" title="Connect with HTML">
+        <ComingSoon />
+      </BoxIntegration>
     </div>
   );
 }

@@ -6,11 +6,34 @@ import Editor from "@/app/components/Brain/Admin/Editor/Index";
 import NeuronAPI from "./NeuronAPI";
 import NeuronChat from "./NeuronChat";
 import NeuronGeneral from "./NeuronGeneral";
+import UpgradePlan from "../../UI/UpgradePlan";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-const NeuronAdmin = ({ neuron, changeColorModal, reload, onClose }: any) => {
+function Tab({ view, viewPage, setViewPage, title, icon }: any) {
+  return (
+    <div
+      onClick={() => setViewPage(viewPage)}
+      className={`tab ${view == viewPage ? "active" : ""}`}
+    >
+      <AppIcon icon={icon} />
+      <div>{title}</div>
+    </div>
+  );
+}
+const NeuronAdmin = ({
+  views,
+  neuron,
+  changeColorModal,
+  reload,
+  onClose,
+}: any) => {
+  const router = useRouter();
+  const { data: session }: any = useSession();
   const [view, setView] = useState("chat");
   const [neuronAdmin, setNeuronAdmin] = useState(null);
   const [loading, setLoading] = useState(false);
+  const isAdmin = session?.user?.rol == "admin";
 
   const fetchNeuron = () => {
     if (loading) return;
@@ -38,33 +61,58 @@ const NeuronAdmin = ({ neuron, changeColorModal, reload, onClose }: any) => {
     init(view);
   }, [neuron]);
 
+  const viewsCount = () => {
+    if (views.length <= 0) return 0;
+    return views.reduce((acc: any, view: any) => {
+      return (acc += view.Views.length);
+    }, 0);
+  };
+
+  const onLimit = () => {
+    if (session?.business?.addedCard) return false;
+    return viewsCount() >= session?.business?.limitViews;
+  };
+
+  const canEdit = () => {
+    return isAdmin && !onLimit() && session?.business?.addedCard;
+  };
+
+  if (!canEdit()) {
+    return (
+      <UpgradePlan
+        onClick={() => {
+          onClose && onClose();
+          return router.push("/dashboard/billing");
+        }}
+      />
+    );
+  }
+
   return (
     <div className="relative">
       <div className="flex justify-center">
         <div className={`tabs ${["code"].includes(view) ? "dark" : ""}`}>
-          <div
-            onClick={() => setViewPage("general")}
-            className={`tab ${view == "general" ? "active" : ""}`}
-          >
-            <AppIcon icon="general" />
-            <div>General</div>
-          </div>
-
-          <div
-            onClick={() => setViewPage("chat")}
-            className={`tab ${view == "chat" ? "active" : ""}`}
-          >
-            <AppIcon icon="wizard" />
-            <div>Chat</div>
-          </div>
-
-          <div
-            onClick={() => setViewPage("code")}
-            className={`tab ${view == "code" ? "active" : ""}`}
-          >
-            <AppIcon icon="developer" />
-            <div>Code</div>
-          </div>
+          <Tab
+            view={view}
+            viewPage="general"
+            setViewPage={setViewPage}
+            title="General"
+            icon="general"
+          />
+          <Tab
+            view={view}
+            viewPage="chat"
+            setViewPage={setViewPage}
+            title="Chat"
+            icon="wizard"
+          />
+          <Tab
+            view={view}
+            viewPage="code"
+            setViewPage={setViewPage}
+            title="Code"
+            icon="developer"
+          />
 
           <div
             onClick={() => setViewPage("api")}
