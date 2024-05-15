@@ -273,7 +273,7 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
     dataSourceId: datasource.id,
     neuronId: neuron.id,
     businessId: user.businessId,
-    data: JSON.stringify(form),
+    data: form,
     finishAt: Date.now(),
     error: response?.type == "exception" ? response.content?.name : null,
   });

@@ -53,7 +53,7 @@ export interface Args extends Request, Response {}
 export interface Request {
   session?: Session;
   // input vars
-  form: Form; // values filled by the user
+  form?: Form; // values filled by the user
 
   // database methods
   find: (sql: string, replacements?: QueryReplacements) => Promise<Row>;
