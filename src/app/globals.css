@@ -147,7 +147,7 @@ body {
 }
 
 .menu-responsive li a {
-  @apply p-2 block hover:bg-gray-100 rounded-lg text-stone-600 dark:text-stone-100;
+  @apply p-2 block hover:bg-gray-100 dark:hover:bg-stone-800 rounded-lg text-stone-600 dark:text-stone-100;
 }
 
 .plus {
