@@ -13,7 +13,7 @@ import {
 import { DS, Neuron } from "@blokay/react";
 import Header from "@/app/dashboard/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
-import NeuronAdmin from "../../../../components/Brain/Admin/NeuronAdmin";
+import NeuronAdmin from "../../../../components/NeuronAdmin/NeuronAdmin";
 import { useSession } from "next-auth/react";
 import "./styles.css";
 import { uuidv4 } from "@/app/helpers/functions";

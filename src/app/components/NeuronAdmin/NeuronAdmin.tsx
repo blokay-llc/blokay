@@ -2,11 +2,11 @@
 import { useState, useEffect } from "react";
 import { DS } from "@blokay/react";
 import { getNeuronAdmin } from "@/app/services/brain";
-import Editor from "@/app/components/Brain/Admin/Editor/Index";
+import Editor from "@/app/components/NeuronAdmin/Editor/Index";
 import NeuronAPI from "./NeuronAPI";
 import NeuronChat from "./NeuronChat";
 import NeuronGeneral from "./NeuronGeneral";
-import UpgradePlan from "../../UI/UpgradePlan";
+import UpgradePlan from "../UI/UpgradePlan";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
