@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { AppInput, AppButton, AppModal } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import Datasources from "./Datasources";
 
 export default function SettingsView() {
@@ -12,10 +12,10 @@ export default function SettingsView() {
     <div>
       <Datasources />
 
-      <AppModal
+      <DS.Modal
         title="Add card"
         footer={
-          <AppButton
+          <DS.Button
             text="Save card"
             icon="account"
             type="submit"
@@ -30,7 +30,7 @@ export default function SettingsView() {
       >
         <div className="0">
           <form className="flex flex-col gap-5">
-            <AppInput
+            <DS.Input
               type="text"
               value={form.creditCardNumber}
               label="Credit card number"
@@ -39,7 +39,7 @@ export default function SettingsView() {
               }}
             />
 
-            <AppInput
+            <DS.Input
               type="text"
               value={form.creditCardPlaceHolder}
               label="Credit card label"
@@ -50,7 +50,7 @@ export default function SettingsView() {
 
             <div className="grid grid-cols-12 gap-3">
               <div className="col-span-4">
-                <AppInput
+                <DS.Input
                   type="text"
                   value={form.creditCardYear}
                   label="Year"
@@ -60,7 +60,7 @@ export default function SettingsView() {
                 />
               </div>
               <div className="col-span-4">
-                <AppInput
+                <DS.Input
                   type="text"
                   value={form.creditCardExpiryMonth}
                   label="Month"
@@ -70,7 +70,7 @@ export default function SettingsView() {
                 />
               </div>
               <div className="col-span-4">
-                <AppInput
+                <DS.Input
                   type="text"
                   value={form.creditCardCVV}
                   label="CVV"
@@ -82,7 +82,7 @@ export default function SettingsView() {
             </div>
           </form>
         </div>
-      </AppModal>
+      </DS.Modal>
     </div>
   );
 }

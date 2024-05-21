@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { AppInput, AppSelect, AppButton } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import { brainList, viewItemEdit } from "@/app/services/brain";
 
 export default function EditItemOptions({
@@ -47,7 +47,7 @@ export default function EditItemOptions({
     >
       {type == "text" && (
         <>
-          <AppInput
+          <DS.Input
             type="text"
             value={form.text}
             onChange={(val: string) => {
@@ -60,7 +60,7 @@ export default function EditItemOptions({
 
       {type == "image" && (
         <>
-          <AppInput
+          <DS.Input
             type="text"
             value={form.image}
             onChange={(val: string) => {
@@ -73,7 +73,7 @@ export default function EditItemOptions({
 
       {type == "button" && (
         <>
-          <AppInput
+          <DS.Input
             type="text"
             value={form.label}
             //   error={errors[row.name]}
@@ -83,7 +83,7 @@ export default function EditItemOptions({
             label={"Button label"}
           />
 
-          <AppSelect
+          <DS.Select
             value={form.click}
             label="Click event"
             onChange={(val: string) => {
@@ -93,10 +93,10 @@ export default function EditItemOptions({
             <option value="">Select an option</option>
             <option value="openNeuron">Open Neuron</option>
             {/* <option value="customJS">Custom JS</option> */}
-          </AppSelect>
+          </DS.Select>
 
           {form.click === "openNeuron" && (
-            <AppSelect
+            <DS.Select
               value={form.neuronKey}
               label="Neuron name"
               onChange={(val: string) => {
@@ -108,20 +108,20 @@ export default function EditItemOptions({
               {neurons.map((neuron: any) => (
                 <option value={neuron.key}>{neuron.name}</option>
               ))}
-            </AppSelect>
+            </DS.Select>
           )}
         </>
       )}
 
       <div className="flex items-center gap-5 mt-3 pt-3 border-t dark:border-stone-800 border-stone-200">
-        <AppButton
+        <DS.Button
           text="Cancel"
           onClick={() => onHide && onHide()}
           variant="secondary"
           className="w-full"
           size="md"
         />
-        <AppButton
+        <DS.Button
           loading={loading}
           text="Update"
           onClick={() => {

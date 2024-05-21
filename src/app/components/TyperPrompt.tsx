@@ -1,6 +1,6 @@
 "use client";
 
-import { AppIcon, AppLoader } from "./DS/Index";
+import { DS } from "@blokay/react";
 
 export default function TyperPrompt({
   loading,
@@ -27,8 +27,8 @@ export default function TyperPrompt({
           onClick={onGenerate}
           className="font-medium text-sm right-5 bg-stone-800 dark:bg-stone-700 dark:hover:bg-stone-900 hover:bg-stone-700 text-white  px-3 py-2 rounded-lg flex gap-3 items-center"
         >
-          {loading && <AppLoader size="sm" />}
-          {!loading && <AppIcon icon="wizard" className="fill-white size-5" />}
+          {loading && <DS.Loader size="sm" />}
+          {!loading && <DS.Icon icon="wizard" className="fill-white size-5" />}
           <div>Generate</div>
         </button>
       </div>

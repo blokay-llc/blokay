@@ -5,9 +5,8 @@ import {
   fetchUpdateDatasources,
   fetchCreateDatasource,
 } from "@/app/services/datasource";
-import { AppLoader, AppButton } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import DatasourceForm from "./DatasourceForm";
-import IconTools from "@/app/components/DS/IconTools";
 
 export default function SettingsView() {
   const [datasources, setDatasources]: any = useState(null);
@@ -84,7 +83,7 @@ export default function SettingsView() {
 
       {loading && (
         <div className="mx-auto">
-          <AppLoader size="lg" className="mx-auto" />
+          <DS.Loader size="lg" className="mx-auto" />
         </div>
       )}
       {Array.isArray(datasources) && !loading && !datasource && (
@@ -93,7 +92,7 @@ export default function SettingsView() {
             <h2 className="font-bold text-xl ">My Datasources</h2>
 
             {datasources.length > 0 && (
-              <AppButton
+              <DS.Button
                 onClick={newDataSource}
                 text="Create"
                 icon="add"
@@ -110,7 +109,7 @@ export default function SettingsView() {
                 <h2 className="mb-5 text-lg font-bold text-stone-700">
                   You don't have any datasource created
                 </h2>
-                <AppButton
+                <DS.Button
                   onClick={newDataSource}
                   text="Create your first datasource"
                   icon="add"
@@ -131,7 +130,7 @@ export default function SettingsView() {
                     }}
                   >
                     <div>
-                      <IconTools
+                      <DS.IconTools
                         className="size-10 fill-stone-600"
                         icon={datasource.type}
                       />

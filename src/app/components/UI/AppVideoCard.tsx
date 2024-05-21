@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { AppModal } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 export default function AppVideoCard({
   duration,
   title,
@@ -38,7 +38,7 @@ export default function AppVideoCard({
         </div>
       </div>
 
-      <AppModal size="lg" position="center" ref={modalRef}>
+      <DS.Modal size="lg" position="center" ref={modalRef}>
         <iframe
           width="100%"
           height="600"
@@ -46,7 +46,7 @@ export default function AppVideoCard({
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         ></iframe>
-      </AppModal>
+      </DS.Modal>
     </>
   );
 }

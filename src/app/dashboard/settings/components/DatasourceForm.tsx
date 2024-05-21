@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { AppInput, AppButton, AppIcon } from "@/app/components/DS/Index";
-import IconTools from "@/app/components/DS/IconTools";
+import { DS } from "@blokay/react";
 
 export default function DatasourceForm({
   datasource = {},
@@ -173,7 +172,7 @@ export default function DatasourceForm({
               className="rounded-full shrink-0 size-8 flex items-center justify-center bg-white hover:bg-stone-200"
               onClick={onBack}
             >
-              <AppIcon className="size-6 fill-stone-600" icon="left" />
+              <DS.Icon className="size-6 fill-stone-600" icon="left" />
             </div>
           )}
           <h2 className="font-bold text-xl ">{title}</h2>
@@ -199,7 +198,7 @@ export default function DatasourceForm({
                   : "border-stone-300 dark:border-stone-800"
               }`}
             >
-              <IconTools
+              <DS.IconTools
                 icon={type.type}
                 className={`${
                   form.type == type.type
@@ -213,7 +212,7 @@ export default function DatasourceForm({
         </div>
 
         <div className="lg:w-1/3 w-full flex flex-col gap-5">
-          <AppInput
+          <DS.Input
             type="text"
             value={form.name}
             label="Name"
@@ -228,7 +227,7 @@ export default function DatasourceForm({
               <div className="flex flex-col gap-3">
                 {type.fields.map((field: any) => (
                   <div key={field.name}>
-                    <AppInput
+                    <DS.Input
                       type={field.type}
                       value={form.config[field.name]}
                       label={field.label}
@@ -245,7 +244,7 @@ export default function DatasourceForm({
             </div>
           )}
 
-          <AppButton
+          <DS.Button
             onClick={() => handleSubmit()}
             text="Save"
             icon="save"

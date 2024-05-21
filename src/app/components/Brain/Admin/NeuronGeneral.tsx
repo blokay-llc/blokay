@@ -1,13 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import {
-  AppInput,
-  AppModal,
-  AppSelect,
-  AppButton,
-  AppCheckbox,
-} from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import { updateNeuron, deleteNeuron } from "@/app/services/brain";
 
 const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
@@ -75,7 +69,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
 
   return (
     <div>
-      <AppInput
+      <DS.Input
         type="text"
         disabled={true}
         value={form.key}
@@ -86,7 +80,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
         }}
       />
 
-      <AppInput
+      <DS.Input
         type="textarea"
         value={form.description}
         label="Description"
@@ -98,7 +92,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
       <div className="mt-5 pt-5 border-t border-stone-300 dark:border-stone-800">
         <div className="mb-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <AppSelect
+            <DS.Select
               value={form.type}
               label="Type"
               onChange={(val: string) => {
@@ -107,7 +101,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
             >
               <option value="function">Function</option>
               <option value="cron">Cron Job</option>
-            </AppSelect>
+            </DS.Select>
 
             <h2 className="font-bold text-stone-700 dark:text-stone-400 ">
               {form.type == "cron" ? "Cron Job" : "Input data"}
@@ -115,7 +109,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
           </div>
 
           {form.type == "function" && (
-            <AppButton
+            <DS.Button
               text="Add field"
               onClick={addField}
               icon="add"
@@ -134,7 +128,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
                   className="grid grid-cols-12 gap-3 mb-3 bg-stone-200 dark:bg-stone-800 items-center py-1 rounded-lg px-3"
                 >
                   <div className="col-span-3">
-                    <AppInput
+                    <DS.Input
                       type="text"
                       value={fields[index].name}
                       label="Name"
@@ -146,7 +140,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
                     />
                   </div>
                   <div className="col-span-2">
-                    <AppSelect
+                    <DS.Select
                       value={fields[index].type}
                       label="Type"
                       onChange={(val: string) => {
@@ -167,10 +161,10 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
                       <option value="money">money</option>
                       <option value="email">email</option>
                       <option value="hidden">hidden</option>
-                    </AppSelect>
+                    </DS.Select>
                   </div>
                   <div className="col-span-4">
-                    <AppInput
+                    <DS.Input
                       type="text"
                       value={fields[index].label}
                       label="Label"
@@ -182,7 +176,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
                     />
                   </div>
                   <div className="col-span-3">
-                    <AppCheckbox
+                    <DS.Checkbox
                       type="text"
                       value={fields[index].isRequired}
                       label="Required?"
@@ -197,7 +191,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
               ))}
             </div>
 
-            <AppInput
+            <DS.Input
               type="text"
               value={form.filters.button}
               label="Button Text"
@@ -218,7 +212,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
           <>
             <div className="flex items-center gap-3">
               <div className="lg:w-2/5">
-                <AppSelect
+                <DS.Select
                   value={form.cron}
                   label="Type"
                   onChange={(val: string) => {
@@ -238,10 +232,10 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
                   <option value="0 0 */7 * *">Every 7 day</option>
                   <option value="0 0 */15 * *">Every 15 day</option>
                   <option value="0 0 0 * *">Every month</option>
-                </AppSelect>
+                </DS.Select>
               </div>
 
-              <AppInput
+              <DS.Input
                 type="text"
                 value={form.cron}
                 label="Cron Job"
@@ -257,7 +251,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
         )}
 
         <div className="mt-10 pt-3 border-t flex justify-between border-stone-200 dark:border-stone-800">
-          <AppButton
+          <DS.Button
             text="Delete this"
             onClick={() => {
               modalDeleteRef.current.showModal();
@@ -267,7 +261,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
             size="md"
           />
 
-          <AppButton
+          <DS.Button
             loading={loading}
             text="Save"
             onClick={() => saveChanges()}
@@ -278,18 +272,18 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
         </div>
       </div>
 
-      <AppModal
+      <DS.Modal
         title="Delete function"
         footer={
           <div className="flex items-center gap-5">
-            <AppButton
+            <DS.Button
               text="No, cancel"
               onClick={() => modalDeleteRef.current.hideModal()}
               variant="secondary"
               className="w-full"
               size="md"
             />
-            <AppButton
+            <DS.Button
               text="Yes, delete"
               onClick={handleDelete}
               variant="primary"
@@ -302,7 +296,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
         size="sm"
         ref={modalDeleteRef}
       >
-        <AppInput
+        <DS.Input
           type="text"
           value={form.textDeleteNeuron}
           label="Write (yes, delete)"
@@ -311,7 +305,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
             setForm({ ...form, textDeleteNeuron: val });
           }}
         />
-      </AppModal>
+      </DS.Modal>
     </div>
   );
 };

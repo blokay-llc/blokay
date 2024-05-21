@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { AppInput, AppButton, AppIcon } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
 
@@ -43,7 +43,7 @@ export default function LoginForm() {
         </a>
 
         <form action={login} className="flex flex-col gap-5">
-          <AppInput
+          <DS.Input
             type="text"
             label="Email"
             name="email"
@@ -53,7 +53,7 @@ export default function LoginForm() {
             }}
           />
 
-          <AppInput
+          <DS.Input
             type="password"
             name="password"
             label="Password"
@@ -63,7 +63,7 @@ export default function LoginForm() {
             }}
           />
 
-          <AppButton
+          <DS.Button
             text="Sign in"
             icon="account"
             type="submit"
@@ -84,7 +84,7 @@ export default function LoginForm() {
                 loginThird("google");
               }}
             >
-              <AppIcon icon="google" className="fill-stone-600 size-5" />
+              <DS.Icon icon="google" className="fill-stone-600 size-5" />
               <div>Login with Google</div>
             </div>
           )}
@@ -96,7 +96,7 @@ export default function LoginForm() {
                 loginThird("github");
               }}
             >
-              <AppIcon icon="github" className="fill-stone-600 size-5" />
+              <DS.Icon icon="github" className="fill-stone-600 size-5" />
               <div>Login with GitHub</div>
             </div>
           )}
@@ -111,7 +111,7 @@ export default function LoginForm() {
             href="/register"
             className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-[#7358bf30] to-indigo-100"
           >
-            <AppIcon icon="account" className="size-10 fill-stone-500" />
+            <DS.Icon icon="account" className="size-10 fill-stone-500" />
             <div>
               <span className="font-bold">Need a new workspace? </span>
               <div className="font-light text-sm">Sign up</div>

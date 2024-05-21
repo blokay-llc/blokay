@@ -1,13 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import {
-  AppInput,
-  AppButton,
-  AppIcon,
-  AppSelect,
-} from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import { fetchRegister } from "@/app/services/auth";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
@@ -48,7 +43,7 @@ export default function RegisterForm() {
         </a>
 
         <form action={register} className="flex flex-col gap-5">
-          <AppInput
+          <DS.Input
             type="text"
             value={form.companyName}
             label="Company Name"
@@ -57,7 +52,7 @@ export default function RegisterForm() {
             }}
           />
 
-          <AppSelect
+          <DS.Select
             value={form.companySize}
             label="Company Size"
             onChange={(val: string) => {
@@ -70,9 +65,9 @@ export default function RegisterForm() {
             <option value="21-100">21-100</option>
             <option value="101-1000">101-1000</option>
             <option value="1001-infinite">1001-Infinite</option>
-          </AppSelect>
+          </DS.Select>
 
-          <AppInput
+          <DS.Input
             type="text"
             value={form.name}
             label="Your name"
@@ -81,7 +76,7 @@ export default function RegisterForm() {
             }}
           />
 
-          <AppInput
+          <DS.Input
             type="text"
             value={form.email}
             label="Your Email"
@@ -90,7 +85,7 @@ export default function RegisterForm() {
             }}
           />
 
-          <AppInput
+          <DS.Input
             type="password"
             value={form.password}
             label="Password"
@@ -111,7 +106,7 @@ export default function RegisterForm() {
             and terms of service.
           </div>
 
-          <AppButton
+          <DS.Button
             text="Sign up"
             icon="summaryclient"
             type="submit"
@@ -127,7 +122,7 @@ export default function RegisterForm() {
             href="/login"
             className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-[#7358bf30] to-indigo-100"
           >
-            <AppIcon icon="account" className="size-10 fill-stone-500" />
+            <DS.Icon icon="account" className="size-10 fill-stone-500" />
             <div>
               <span className="font-bold">Existing workspace? </span>
               <div className="font-light text-sm">Sign in</div>

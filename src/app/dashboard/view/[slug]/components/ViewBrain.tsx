@@ -10,12 +10,10 @@ import {
   viewList,
   deleteFromLayout as deleteFromLayoutApi,
 } from "@/app/services/brain";
-import { AppModal } from "@/app/components/DS/Index";
+import { DS, Neuron } from "@blokay/react";
 import Header from "@/app/dashboard/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
-import Neuron from "../../../../components/Brain/Neuron";
 import NeuronAdmin from "../../../../components/Brain/Admin/NeuronAdmin";
-import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import { useSession } from "next-auth/react";
 import "./styles.css";
 import { uuidv4 } from "@/app/helpers/functions";
@@ -260,7 +258,6 @@ const ViewBrain = ({ slug }: any) => {
 
                       {vItem.type == "neuron" && (
                         <Neuron
-                          onEditNeuron={clickNeuron}
                           editMode={editMode}
                           neuronId={vItem.neuronId}
                           defaultForm={{}}
@@ -293,7 +290,7 @@ const ViewBrain = ({ slug }: any) => {
           fetchView();
         }}
       />
-      <AppModal size="md" position="center" ref={modalRef}>
+      <DS.Modal size="md" position="center" ref={modalRef}>
         {neuron && (
           <NeuronAdmin
             views={views}
@@ -310,7 +307,7 @@ const ViewBrain = ({ slug }: any) => {
             }}
           />
         )}
-      </AppModal>
+      </DS.Modal>
     </div>
   );
 };

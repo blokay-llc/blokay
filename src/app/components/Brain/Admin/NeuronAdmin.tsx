@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { AppIcon } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import { getNeuronAdmin } from "@/app/services/brain";
 import Editor from "@/app/components/Brain/Admin/Editor/Index";
 import NeuronAPI from "./NeuronAPI";
@@ -16,7 +16,7 @@ function Tab({ view, viewPage, setViewPage, title, icon }: any) {
       onClick={() => setViewPage(viewPage)}
       className={`tab ${view == viewPage ? "active" : ""}`}
     >
-      <AppIcon icon={icon} />
+      <DS.Icon icon={icon} />
       <div>{title}</div>
     </div>
   );
@@ -118,7 +118,7 @@ const NeuronAdmin = ({
             onClick={() => setViewPage("api")}
             className={`tab ${view == "api" ? "active" : ""}`}
           >
-            <AppIcon icon="api" />
+            <DS.Icon icon="api" />
           </div>
         </div>
       </div>

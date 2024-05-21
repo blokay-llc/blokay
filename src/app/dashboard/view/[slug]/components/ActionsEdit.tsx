@@ -1,6 +1,6 @@
 "use client";
 import { useRef, forwardRef } from "react";
-import { AppModal, AppButton } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import React, { useImperativeHandle } from "react";
 import EditItemOptions from "./EditItemOptions";
 
@@ -32,7 +32,7 @@ function ActionsEdit(
         e.stopPropagation();
       }}
     >
-      <AppModal
+      <DS.Modal
         title="Edit options of the item"
         size="sm"
         ref={modalOptionsItem}
@@ -50,20 +50,20 @@ function ActionsEdit(
             reload();
           }}
         />
-      </AppModal>
+      </DS.Modal>
 
-      <AppModal
+      <DS.Modal
         title="Delete from this view"
         footer={
           <div className="flex items-center gap-5">
-            <AppButton
+            <DS.Button
               text="No, cancel"
               onClick={() => modalDeleteRef.current.hideModal()}
               variant="secondary"
               className="w-full"
               size="md"
             />
-            <AppButton
+            <DS.Button
               text="Yes, delete"
               onClick={() => {
                 modalDeleteRef.current.hideModal();
@@ -81,7 +81,7 @@ function ActionsEdit(
         <p className="font-light ">
           This action is irreversible. Are you sure you want to proceed?
         </p>
-      </AppModal>
+      </DS.Modal>
     </div>
   );
 }

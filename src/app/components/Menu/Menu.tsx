@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
-import { AppInput, AppIcon } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import Tree from "./Tree";
-
 import { useSession } from "next-auth/react";
 
 export default function Menu({
@@ -45,7 +44,7 @@ export default function Menu({
 
           {view && !isMobile && (
             <div className="px-2">
-              <AppInput
+              <DS.Input
                 type="text"
                 value={search}
                 label="Search action"
@@ -62,7 +61,7 @@ export default function Menu({
                 href="/dashboard"
               >
                 <div>Home</div>
-                <AppIcon icon="right" className="size-5 fill-stone-700" />
+                <DS.Icon icon="right" className="size-5 fill-stone-700" />
               </a>
             </li>
 
@@ -73,7 +72,7 @@ export default function Menu({
                   href="/dashboard/users"
                 >
                   <div>Users</div>
-                  <AppIcon icon="right" className="size-5 fill-stone-700" />
+                  <DS.Icon icon="right" className="size-5 fill-stone-700" />
                 </a>
               </li>
             )}
@@ -85,7 +84,7 @@ export default function Menu({
                   href="/dashboard/billing"
                 >
                   <div>Billing</div>
-                  <AppIcon icon="right" className="size-5 fill-stone-700" />
+                  <DS.Icon icon="right" className="size-5 fill-stone-700" />
                 </a>
               </li>
             )}
@@ -97,7 +96,7 @@ export default function Menu({
                   href="/dashboard/settings"
                 >
                   <div>Settings</div>
-                  <AppIcon icon="right" className="size-5 fill-stone-700" />
+                  <DS.Icon icon="right" className="size-5 fill-stone-700" />
                 </a>
               </li>
             )}
@@ -108,7 +107,7 @@ export default function Menu({
                 href="/logout"
               >
                 <div>Logout</div>
-                <AppIcon icon="right" className="size-5 fill-stone-700" />
+                <DS.Icon icon="right" className="size-5 fill-stone-700" />
               </a>
             </li>
           </ul>

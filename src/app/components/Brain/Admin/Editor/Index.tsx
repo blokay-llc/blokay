@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
-import { AppButton } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import { updateNeuron } from "@/app/services/brain";
 
 export default function EditorApp({ neuron, reload }: any) {
@@ -103,7 +103,7 @@ export default function EditorApp({ neuron, reload }: any) {
           />
           {form.synapse != neuron.synapse && (
             <div className="absolute top-2 right-0">
-              <AppButton
+              <DS.Button
                 text="Guardar"
                 onClick={() => saveChanges()}
                 loading={loading}

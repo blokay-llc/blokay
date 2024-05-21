@@ -1,11 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import {
-  AppInput,
-  AppButton,
-  AppSelect,
-  AppModal,
-} from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import UpgradePlan from "@/app/components/UI/UpgradePlan";
 import { addCard } from "@/app/services/users";
 
@@ -74,10 +69,10 @@ export default function BillingView() {
         }}
       />
 
-      <AppModal
+      <DS.Modal
         title="Add card"
         footer={
-          <AppButton
+          <DS.Button
             disabled={
               !form.creditCardNumber ||
               !form.creditCardPlaceHolder ||
@@ -100,7 +95,7 @@ export default function BillingView() {
         <div className="0">
           <div className="flex flex-col gap-5">
             {error && <div className="text-red-400">{error}</div>}
-            <AppInput
+            <DS.Input
               type="text"
               value={form.creditCardNumber}
               label="Card number"
@@ -109,7 +104,7 @@ export default function BillingView() {
               }}
             />
 
-            <AppInput
+            <DS.Input
               type="text"
               value={form.creditCardPlaceHolder}
               label="Name on credit card"
@@ -120,7 +115,7 @@ export default function BillingView() {
 
             <div className="grid grid-cols-12 gap-3">
               <div className="col-span-4">
-                <AppSelect
+                <DS.Select
                   value={form.creditCardExpiryYear}
                   label="Year"
                   onChange={(val: string) => {
@@ -131,10 +126,10 @@ export default function BillingView() {
                   {range(24, 50).map((year) => (
                     <option value={year}>{year}</option>
                   ))}
-                </AppSelect>
+                </DS.Select>
               </div>
               <div className="col-span-4">
-                <AppSelect
+                <DS.Select
                   value={form.creditCardExpiryMonth}
                   label="Month"
                   onChange={(val: string) => {
@@ -158,10 +153,10 @@ export default function BillingView() {
                   ].map((month) => (
                     <option value={month}>{month}</option>
                   ))}
-                </AppSelect>
+                </DS.Select>
               </div>
               <div className="col-span-4">
-                <AppInput
+                <DS.Input
                   type="text"
                   value={form.creditCardCVC}
                   label="CVV"
@@ -173,7 +168,7 @@ export default function BillingView() {
             </div>
           </div>
         </div>
-      </AppModal>
+      </DS.Modal>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { AppButton } from "../DS/Index";
+import { DS } from "@blokay/react";
 export default function AddCreditCard({ text }: any) {
   return (
     <div
@@ -9,7 +9,7 @@ export default function AddCreditCard({ text }: any) {
       }}
     >
       <div>{text}</div>
-      <AppButton
+      <DS.Button
         href="/dashboard/billing"
         text="Upgrade"
         variant="primary"

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import TyperPrompt from "@/app/components/TyperPrompt";
-import { AppIcon } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import { rewriteFn } from "@/app/services/brain";
 
 const NeuronChat = ({ neuron, reload }: any) => {
@@ -90,21 +90,21 @@ const NeuronChat = ({ neuron, reload }: any) => {
           </div>
           <ul className="font-bold pl-5 mt-5 flex flex-col gap-3">
             <li className="flex gap-1 items-center">
-              <AppIcon
+              <DS.Icon
                 icon="right"
                 className="size-5 fill-black dark:fill-white"
               />
               <div>Create a report of inactive users.</div>
             </li>
             <li className="flex gap-1 items-center">
-              <AppIcon
+              <DS.Icon
                 icon="right"
                 className="size-5 fill-black dark:fill-white"
               />
               <div>Create a sales graph.</div>
             </li>
             <li className="flex gap-1 items-center">
-              <AppIcon
+              <DS.Icon
                 icon="right"
                 className="size-5 fill-black dark:fill-white"
               />

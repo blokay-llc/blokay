@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { AppIcon, AppModal, AppButton } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import ShareView from "@/app/components/UI/ShareView";
 import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import AvatarName from "../../../../components/UI/AvatarName";
@@ -49,7 +49,7 @@ export default function Header({
           <>
             <a className="" href="/dashboard">
               <div className="size-8 p-1 cursor-pointer border-2 border-stone-50 dark:border-stone-800 hover:border-stone-300 dark:hover:bg-stone-700 dark:hover:border-stone-700 rounded-full bg-white dark:bg-stone-800">
-                <AppIcon
+                <DS.Icon
                   icon="left"
                   className="fill-stone-900 dark:fill-stone-200 size-full"
                 />
@@ -71,26 +71,26 @@ export default function Header({
           onClick={clickShare}
           className="flex items-center gap-2 border-2 border-stone-300 dark:border-stone-700 rounded-lg text-sm text-stone-500 px-3 py-2 ml-3 hover:bg-white dark:hover:bg-stone-600"
         >
-          <AppIcon icon="share" className="size-4 fill-stone-500" />
+          <DS.Icon icon="share" className="size-4 fill-stone-500" />
           Share
         </div>
       </div>
 
-      <AppModal
+      <DS.Modal
         size="sm"
         position="center"
         title="Share page"
         ref={modalRef}
         footer={
           <div className="flex items-center justify-between">
-            <AppButton
+            <DS.Button
               text="Copy link"
               icon="copy"
               // onClick={() => handleClickCreateNew()}
               variant="primary"
               size="md"
             />
-            <AppButton
+            <DS.Button
               icon="close"
               text="Close"
               onClick={() => {
@@ -105,7 +105,7 @@ export default function Header({
         {view?.SharedUsers?.length > 0 && (
           <ShareView SharedUsers={view.SharedUsers} />
         )}
-      </AppModal>
+      </DS.Modal>
     </div>
   );
 }

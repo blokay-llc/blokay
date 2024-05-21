@@ -1,5 +1,5 @@
 "use client";
-import { AppIcon, AppButton } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 
 export default function UpgradePlan({ onClick }: any) {
   return (
@@ -16,20 +16,20 @@ export default function UpgradePlan({ onClick }: any) {
         <div className="mb-5 font-light mt-5">
           <ul className="text-sm flex flex-col gap-3">
             <li className="flex gap-3 items-center">
-              <AppIcon icon="check" className="size-5 fill-white" />
+              <DS.Icon icon="check" className="size-5 fill-white" />
               <span>Audit logs</span>
             </li>
             <li className="flex gap-3 items-center">
-              <AppIcon icon="check" className="size-5 fill-white" />
+              <DS.Icon icon="check" className="size-5 fill-white" />
               <span>Unlimited users</span>
             </li>
             <li className="flex gap-3 items-center">
-              <AppIcon icon="check" className="size-5 fill-white" />
+              <DS.Icon icon="check" className="size-5 fill-white" />
               <span>Granular access</span>
             </li>
           </ul>
         </div>
-        <AppButton
+        <DS.Button
           text="add a card"
           onClick={onClick}
           variant="primary"

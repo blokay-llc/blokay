@@ -1,5 +1,5 @@
 "use client";
-import { AppIcon } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 
 export default function ({
   clickNeuron,
@@ -28,7 +28,7 @@ export default function ({
                 clickNeuron(viewItem.neuronId);
               }}
             >
-              <AppIcon icon="edit" />
+              <DS.Icon icon="edit" />
               <span>Edit</span>
             </div>
           )}
@@ -38,7 +38,7 @@ export default function ({
               className="action-button"
               onMouseDown={(e) => setAction(e, "edit")}
             >
-              <AppIcon icon="edit" />
+              <DS.Icon icon="edit" />
             </div>
           )}
 
@@ -46,7 +46,7 @@ export default function ({
             className="action-button"
             onMouseDown={(e) => setAction(e, "delete")}
           >
-            <AppIcon icon="delete" />
+            <DS.Icon icon="delete" />
           </div>
         </div>
       </div>

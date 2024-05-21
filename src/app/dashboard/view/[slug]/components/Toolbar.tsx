@@ -1,11 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import {
-  AppIcon,
-  AppModal,
-  AppButton,
-  AppInput,
-} from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 import { newNeuron } from "@/app/services/brain";
 
 export default function Toolbar({
@@ -44,7 +39,7 @@ export default function Toolbar({
           {editMode === "edit" && (
             <>
               <div className="item group square" onClick={handleClickNew}>
-                <AppIcon icon="add" />
+                <DS.Icon icon="add" />
               </div>
               <div
                 className={`item square ${
@@ -52,7 +47,7 @@ export default function Toolbar({
                 }`}
                 onClick={() => setClickAction("new")}
               >
-                <AppIcon icon="smart_button" />
+                <DS.Icon icon="smart_button" />
               </div>
             </>
           )}
@@ -79,14 +74,14 @@ export default function Toolbar({
             className={`item square ${editMode == "edit" ? "active" : ""}`}
             onClick={() => setEditMode("edit")}
           >
-            <AppIcon icon="grid" />
+            <DS.Icon icon="grid" />
           </div>
 
           <div
             className={`item square ${editMode == "user" ? "active" : ""}`}
             onClick={() => setEditMode("user")}
           >
-            <AppIcon icon="view" />
+            <DS.Icon icon="view" />
           </div>
         </div>
         {clickAction && (
@@ -98,29 +93,29 @@ export default function Toolbar({
         {clickAction == "new" && (
           <div className="action-box ">
             <div className=" item" onClick={() => addBlockView("button")}>
-              <AppIcon icon="smart_button" />
+              <DS.Icon icon="smart_button" />
               <div>Add Button</div>
             </div>
 
             <div className=" item" onClick={() => addBlockView("image")}>
-              <AppIcon icon="image" />
+              <DS.Icon icon="image" />
               <div>Add Image</div>
             </div>
 
             <div className=" item" onClick={() => addBlockView("text")}>
-              <AppIcon icon="general" />
+              <DS.Icon icon="general" />
               <div>Add Text</div>
             </div>
           </div>
         )}
       </div>
 
-      <AppModal
+      <DS.Modal
         size="sm"
         title="Add new"
         ref={modalRef}
         footer={
-          <AppButton
+          <DS.Button
             text="Add new"
             onClick={() => handleClickCreateNewNeuron()}
             variant="primary"
@@ -129,7 +124,7 @@ export default function Toolbar({
           />
         }
       >
-        <AppInput
+        <DS.Input
           onChange={(val: string) => {
             setForm({ ...form, name: val });
           }}
@@ -137,7 +132,7 @@ export default function Toolbar({
           value={form.name}
           label="Name of the block"
         />
-      </AppModal>
+      </DS.Modal>
     </>
   );
 }

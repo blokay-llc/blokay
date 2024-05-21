@@ -1,17 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { viewList, addView } from "@/app/services/brain";
-import {
-  AppButton,
-  AppModal,
-  AppInput,
-  AppLoader,
-  AppSelect,
-} from "@/app/components/DS/Index";
 import { useSession } from "next-auth/react";
 import AppVideoCard from "../../../components/UI/AppVideoCard";
 import AvatarName from "../../../components/UI/AvatarName";
 import AddCreditCard from "@/app/components/UI/AddCreditCard";
+import { DS } from "@blokay/react";
 
 function ListViews({}) {
   const { data: session }: any = useSession();
@@ -88,7 +82,7 @@ function ListViews({}) {
     <div className="">
       <div className=" flex items-center justify-between gap-5 mb-10">
         <div className="lg:w-full mr-auto">
-          <AppInput
+          <DS.Input
             type="view"
             value={form.search}
             onChange={(val: string) => {
@@ -100,7 +94,7 @@ function ListViews({}) {
           />
         </div>
         {canCreateViews() && !loading && (
-          <AppButton
+          <DS.Button
             icon="wizard"
             text="Add new"
             onClick={() => handleClickCreateNew()}
@@ -114,7 +108,7 @@ function ListViews({}) {
         </div>
       </div>
       <div className="">
-        {loading && <AppLoader size="md" className="mx-auto" />}
+        {loading && <DS.Loader size="md" className="mx-auto" />}
         {!loading && viewsComputed.length > 0 && (
           <div>
             {!canCreateViews() && !session?.business?.addedCard && (
@@ -124,7 +118,7 @@ function ListViews({}) {
             )}
 
             <h2 className="text-stone-900 dark:text-white text-2xl mb-5 ">
-              My views
+              <div>My views</div>
             </h2>
 
             <div className="flex flex-col gap-3 lg:gap-5">
@@ -140,7 +134,7 @@ function ListViews({}) {
                       <a
                         href={"/dashboard/view/" + view.slug}
                         key={view.id}
-                        className="bg-white dark:bg-stone-800 shadow-sm border-2 border-transparent transition	 hover:border-stone-600 text-stone-900 dark:text-stone-200 p-3 lg:p-5 rounded-xl flex items-center gap-3 hover:bg-stone-50 dark:hover:bg-stone-800  dark:hover:bg-gradient-to-r  dark:hover:from-[#362230] dark:hover:to-[#122441]"
+                        className="bg-white dark:bg-stone-900 shadow-sm border-2 border-transparent transition	 hover:border-stone-600 text-stone-900 dark:text-stone-200 p-3 lg:p-5 rounded-xl flex items-center gap-3 hover:bg-stone-50 dark:hover:bg-stone-800  dark:hover:bg-gradient-to-r  dark:hover:from-[#362230] dark:hover:to-[#122441]"
                       >
                         <div className="font-light">{view.name}</div>
                       </a>
@@ -166,10 +160,10 @@ function ListViews({}) {
         )}
       </div>
 
-      <AppModal
+      <DS.Modal
         title="Add new"
         footer={
-          <AppButton
+          <DS.Button
             text="Add new"
             onClick={() => handleSaveView()}
             variant="primary"
@@ -180,7 +174,7 @@ function ListViews({}) {
         size="sm"
         ref={modalRef}
       >
-        <AppInput
+        <DS.Input
           type="text"
           value={form.name}
           onChange={(val: string) => {
@@ -191,7 +185,7 @@ function ListViews({}) {
 
         {viewsComputed.length > 0 && (
           <div className="mt-3">
-            <AppSelect
+            <DS.Select
               value={form.categoryId}
               onChange={(categoryId: string) => {
                 setForm({ ...form, categoryId });
@@ -205,10 +199,10 @@ function ListViews({}) {
                 .map((category: any) => (
                   <option value={category.id}>{category.name}</option>
                 ))}
-            </AppSelect>
+            </DS.Select>
           </div>
         )}
-      </AppModal>
+      </DS.Modal>
     </div>
   );
 }

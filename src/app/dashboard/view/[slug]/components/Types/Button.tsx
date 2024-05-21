@@ -1,12 +1,12 @@
 "use client";
 import { useRef } from "react";
-import Events from "@/app/components/Brain/Events";
-import { AppButton } from "@/app/components/DS/Index";
+import { Events } from "@blokay/react";
+import { DS } from "@blokay/react";
 export default function ({ options, editMode }: any) {
   const eventRef: any = useRef();
   return (
     <>
-      <AppButton
+      <DS.Button
         text={options?.label || "Button"}
         className="w-full"
         variant="primary"

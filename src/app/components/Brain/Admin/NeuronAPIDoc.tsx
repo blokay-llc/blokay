@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
-import IconTools from "@/app/components/DS/IconTools";
-import AppIcon from "@/app/components/DS/AppIcon";
+import { DS } from "@blokay/react";
 function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
   const [showing, setShowing] = useState(false);
   return (
@@ -17,9 +16,9 @@ function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
         >
           <div>
             {iconTool && (
-              <IconTools icon={iconTool} className="size-8 fill-white" />
+              <DS.IconTools icon={iconTool} className="size-8 fill-white" />
             )}
-            {icon && <AppIcon icon={icon} className="size-8 fill-white" />}
+            {icon && <DS.Icon icon={icon} className="size-8 fill-white" />}
           </div>
           <div>{title}</div>
         </div>

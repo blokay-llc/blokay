@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { AppLoader } from "@/app/components/DS/Index";
 import {
   fetchUsers,
   fetchUser,
@@ -10,13 +9,7 @@ import {
 import { viewList } from "@/app/services/brain";
 import { useSession } from "next-auth/react";
 import AddCreditCard from "@/app/components/UI/AddCreditCard";
-import {
-  AppCheckbox,
-  AppModal,
-  AppButton,
-  AppSelect,
-  AppInput,
-} from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 
 export default function ListUsers() {
   const { data: session }: any = useSession();
@@ -101,7 +94,7 @@ export default function ListUsers() {
     <div className="flex flex-col gap-5 relative">
       {loading && (
         <div className="min-h-screen border-2 border-stone-300 dark:border-stone-800 rounded-xl flex items-center justify-center absolute z-10 top-0 left-0 w-full h-full dark:bg-stone-800/40 bg-stone-200/40 backdrop-blur-sm ">
-          <AppLoader size="md" />
+          <DS.Loader size="md" />
         </div>
       )}
 
@@ -117,7 +110,7 @@ export default function ListUsers() {
         isAdmin &&
         (users.length < session?.business?.limitUsers ||
           session?.business?.addedCard) && (
-          <AppButton
+          <DS.Button
             text="Add new user"
             onClick={() => createNewUser()}
             variant="primary"
@@ -149,10 +142,10 @@ export default function ListUsers() {
         </div>
       )}
 
-      <AppModal
+      <DS.Modal
         title="Assign permissions"
         footer={
-          <AppButton
+          <DS.Button
             text="Save"
             onClick={() =>
               form.id
@@ -170,7 +163,7 @@ export default function ListUsers() {
       >
         {loadingUser && (
           <div className=" flex items-center justify-center">
-            <AppLoader size="md" />
+            <DS.Loader size="md" />
           </div>
         )}
         {!loadingUser && (
@@ -185,7 +178,7 @@ export default function ListUsers() {
               </a>
             )}
 
-            <AppSelect
+            <DS.Select
               value={form.rol}
               label="Rol"
               onChange={(val: string) => {
@@ -195,9 +188,9 @@ export default function ListUsers() {
               <option value="admin">Admin</option>
               <option value="editor">Editor</option>
               <option value="user">User</option>
-            </AppSelect>
+            </DS.Select>
 
-            <AppInput
+            <DS.Input
               type="text"
               value={form.name}
               label="Name"
@@ -208,7 +201,7 @@ export default function ListUsers() {
 
             {!form.id && (
               <>
-                <AppInput
+                <DS.Input
                   type="text"
                   value={form.email}
                   label="Email"
@@ -217,7 +210,7 @@ export default function ListUsers() {
                   }}
                 />
 
-                <AppInput
+                <DS.Input
                   type="password"
                   value={form.password}
                   label="Password"
@@ -233,7 +226,7 @@ export default function ListUsers() {
                 {views.map((c: any) => (
                   <div>
                     <div className="items-center gap-2 flex mb-3">
-                      <AppCheckbox
+                      <DS.Checkbox
                         type="text"
                         value={
                           c.Views.length ==
@@ -257,7 +250,7 @@ export default function ListUsers() {
                     <div className="flex flex-col gap-1 pl-3">
                       {c.Views.map((v: any) => (
                         <div key={"view" + v.id}>
-                          <AppCheckbox
+                          <DS.Checkbox
                             type="text"
                             value={form.permissions[v.id]}
                             label={v.name}
@@ -280,7 +273,7 @@ export default function ListUsers() {
             )}
           </div>
         )}
-      </AppModal>
+      </DS.Modal>
     </div>
   );
 }

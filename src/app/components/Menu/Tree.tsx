@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { AppIcon } from "@/app/components/DS/Index";
+import { DS } from "@blokay/react";
 
 const DropItem = function ({
   editMode = "",
@@ -82,7 +82,7 @@ const DropItem = function ({
                   setIsOpen(!isOpen);
                 }}
               >
-                <AppIcon
+                <DS.Icon
                   icon="right"
                   className={`fill-stone-600 dark:fill-stone-200 size-4 ${
                     isOpen ? "rotate-90" : ""
@@ -102,13 +102,13 @@ const DropItem = function ({
           </div>
           <div>
             {item.key && item.type == "function" && (
-              <AppIcon
+              <DS.Icon
                 icon="component"
                 className={`size-4 fill-stone-600 dark:fill-stone-200`}
               />
             )}
             {item.key && item.type == "cron" && (
-              <AppIcon
+              <DS.Icon
                 icon="clock"
                 className={`size-5 fill-yellow-700 dark:fill-yellow-500`}
               />
