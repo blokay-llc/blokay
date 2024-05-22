@@ -5,7 +5,7 @@ import { callContext } from "./callContext";
 
 let db = new Models();
 
-const { Datasource, NeuronExecution, Business, Neuron }: any = db;
+const { Datasource, NeuronExecution, Neuron }: any = db;
 
 export const POST = withJWT(async function ({ business, session, body }: any) {
   let { neuronId, neuronKey } = body.data;
