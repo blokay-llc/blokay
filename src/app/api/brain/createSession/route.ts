@@ -67,6 +67,7 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
   let jwtToken = jwt.sign(
     {
       data: response?.content,
+      businessId,
     },
     business.coreToken,
     { expiresIn: "1h" }

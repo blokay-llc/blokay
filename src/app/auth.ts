@@ -85,6 +85,7 @@ export const authOptions: any = {
 
       let jwtToken = jwt.sign(
         {
+          businessId: userData.Business.id,
           data: userMapped,
         },
         userData.Business.coreToken,

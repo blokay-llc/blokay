@@ -14,7 +14,8 @@ export const withJWT = (cb: any) => {
 
     let token = body._token;
     let {
-      data: { businessId, ...session },
+      businessId,
+      data: { ...session },
     } = decodeJWT(token);
 
     if (!businessId) {

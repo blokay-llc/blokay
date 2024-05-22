@@ -1,7 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { Events } from "@blokay/react";
-import { DS } from "@blokay/react";
+import { DS, Events } from "@blokay/react";
 export default function ({ options, editMode }: any) {
   const eventRef: any = useRef();
   return (
