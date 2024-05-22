@@ -10,7 +10,7 @@ import {
   viewList,
   deleteFromLayout as deleteFromLayoutApi,
 } from "@/app/services/brain";
-import { DS, Neuron } from "@blokay/react";
+import { DS, Block } from "@blokay/react";
 import Header from "@/app/dashboard/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
 import NeuronAdmin from "../../../../components/NeuronAdmin/NeuronAdmin";
@@ -258,7 +258,7 @@ const ViewBrain = ({ slug }: any) => {
                       {}
 
                       {vItem.type == "neuron" && (
-                        <Neuron
+                        <Block
                           jwtToken={session?.jwtToken}
                           editMode={editMode}
                           neuronId={vItem.neuronId}
