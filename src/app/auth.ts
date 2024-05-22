@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Models from "@/db/index";
+import jwt from "jsonwebtoken";
 
 let db = new Models();
 const { User, Session, Business }: any = db;
@@ -70,7 +71,28 @@ export const authOptions: any = {
       if (!userData) {
         return null;
       }
+
+      let userMapped = {
+        id: userData.id,
+        businessId: userData.businessId,
+        name: userData.name,
+        email: userData.email,
+        rol: userData.rol,
+        extra1: userData.extra1,
+        extra2: userData.extra2,
+        extra3: userData.extra3,
+      };
+
+      let jwtToken = jwt.sign(
+        {
+          data: userMapped,
+        },
+        userData.Business.coreToken,
+        { expiresIn: "1h" }
+      );
+
       return {
+        jwtToken,
         business: {
           id: userData.Business.id,
           name: userData.Business.name,
@@ -79,16 +101,7 @@ export const authOptions: any = {
           limitViews: !userData.Business.paymentProviderToken ? 5 : null,
           limitUsers: !userData.Business.paymentProviderToken ? 2 : null,
         },
-        user: {
-          id: userData.id,
-          businessId: userData.businessId,
-          name: userData.name,
-          email: userData.email,
-          rol: userData.rol,
-          extra1: userData.extra1,
-          extra2: userData.extra2,
-          extra3: userData.extra3,
-        },
+        user: userMapped,
       };
     },
   },

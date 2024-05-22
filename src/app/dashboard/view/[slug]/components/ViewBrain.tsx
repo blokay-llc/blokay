@@ -255,9 +255,11 @@ const ViewBrain = ({ slug }: any) => {
                           }}
                         />
                       )}
+                      {}
 
                       {vItem.type == "neuron" && (
                         <Neuron
+                          jwtToken={session?.jwtToken}
                           editMode={editMode}
                           neuronId={vItem.neuronId}
                           defaultForm={{}}
