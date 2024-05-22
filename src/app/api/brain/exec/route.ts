@@ -1,21 +1,48 @@
 import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import { Args, ResponseNeuron } from "@/lib/types.d";
-import { withNeuron } from "@/lib/withNeuron";
+import { withJWT } from "@/lib/withJWT";
 import vm from "node:vm";
 import { buildRequest, buildResponse } from "./buildParams";
 
 let db = new Models();
 
-const { Datasource, NeuronExecution }: any = db;
+const { Datasource, NeuronExecution, Business, Neuron }: any = db;
 
-export const POST = withNeuron(async function ({ user, neuron, body }: any) {
+export const POST = withJWT(async function ({ business, session, body }: any) {
+  let { neuronId, neuronKey } = body.data;
+
+  let queryBuilder: any = {
+    where: {
+      businessId: business.id,
+    },
+  };
+  if (neuronId) {
+    queryBuilder.where.id = neuronId;
+  } else if (neuronKey) {
+    queryBuilder.where.key = neuronKey;
+  }
+
+  let neuron = await Neuron.findOne(queryBuilder);
+
+  if (!neuron) {
+    return NextResponse.json(
+      {
+        data: {
+          message: "Icorrect neuron",
+        },
+      },
+      { status: 400 }
+    );
+  }
+
   let { form } = body.data;
 
   let d1 = Date.now();
+
   const datasource = await Datasource.findOne({
     where: {
-      businessId: user.businessId,
+      businessId: business.id,
     },
   });
 
@@ -32,8 +59,8 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
 
   let response: ResponseNeuron;
   try {
-    let req = buildRequest({ user, form, datasource });
-    let res = buildResponse({ user, form, datasource });
+    let req = buildRequest({ session, form, datasource });
+    let res = buildResponse({ session, form, datasource });
     response = await vm.runInNewContext(
       content,
       {
@@ -119,10 +146,10 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
 
   NeuronExecution.create({
     timeMs,
-    userId: user.id,
+    userId: session.id || session.userId || null,
     dataSourceId: datasource.id,
     neuronId: neuron.id,
-    businessId: user.businessId,
+    businessId: business.id,
     data: form,
     finishAt: Date.now(),
     error: response?.type == "exception" ? response.content?.name : null,
