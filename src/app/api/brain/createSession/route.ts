@@ -1,25 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import Models from "@/db/index";
-import { withJWT } from "@/lib/withJWT";
 import { callContext } from "../exec/callContext";
+import jwt from "jsonwebtoken";
 
 let db = new Models();
 
-const { Datasource, NeuronExecution, Neuron }: any = db;
+const { Datasource, NeuronExecution, Neuron, Business }: any = db;
 
 export const POST = async function (req: NextRequest, res: NextRequest) {
   const body = await req.json();
 
-  let { businessId } = body.data;
+  let { businessId, form } = body.data;
 
-  let queryBuilder: any = {
-    where: {
-      businessId: businessId,
-      key: "createSession",
-    },
-  };
-
-  let neuron = await Neuron.findOne(queryBuilder);
+  let neuron = await Neuron.getSessionNeuron(businessId);
 
   if (!neuron) {
     return NextResponse.json(
@@ -32,17 +25,26 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
     );
   }
 
-  let { form } = body.data;
-
+  let business = await Business.findById(businessId);
   let d1 = Date.now();
 
   const datasource = await Datasource.findOne({
     where: {
-      businessId: businessId,
+      businessId: business.id,
     },
   });
 
   let response = await callContext(neuron, null, form, datasource);
+  if (response?.content) {
+    return NextResponse.json(
+      {
+        data: {
+          message: "This block has not been implemented yet",
+        },
+      },
+      { status: 400 }
+    );
+  }
 
   datasource.update({ lastUseAt: Date.now() });
   let timeMs = Date.now() - d1;
@@ -62,9 +64,18 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
     error: response?.type == "exception" ? response.content?.name : null,
   });
 
+  let jwtToken = jwt.sign(
+    {
+      data: response?.content,
+    },
+    business.coreToken,
+    { expiresIn: "1h" }
+  );
+
   return NextResponse.json({
     data: {
-      response,
+      content: response?.content,
+      jwtToken,
     },
   });
 };

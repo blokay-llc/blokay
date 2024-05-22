@@ -72,6 +72,16 @@ const model = (sequelize: any, DataTypes: any) => {
   // models.Neuron.belongsTo(models.RolPrivilege);
   // };
 
+  Neuron.getSessionNeuron = async function (businessId: string) {
+    let queryBuilder: any = {
+      where: {
+        key: "session",
+        businessId,
+      },
+    };
+    return await Neuron.findOne(queryBuilder);
+  };
+
   return Neuron;
 };
 
