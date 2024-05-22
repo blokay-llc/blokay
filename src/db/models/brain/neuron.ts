@@ -75,7 +75,7 @@ const model = (sequelize: any, DataTypes: any) => {
   Neuron.getSessionNeuron = async function (businessId: string) {
     let queryBuilder: any = {
       where: {
-        key: "session",
+        key: "login",
         businessId,
       },
     };

@@ -35,7 +35,7 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
   });
 
   let response = await callContext(neuron, null, form, datasource);
-  if (response?.content) {
+  if (!response?.content) {
     return NextResponse.json(
       {
         data: {
