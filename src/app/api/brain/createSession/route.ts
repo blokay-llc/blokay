@@ -70,7 +70,7 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
       businessId,
     },
     business.coreToken,
-    { expiresIn: "1h" }
+    {}
   );
 
   return NextResponse.json({

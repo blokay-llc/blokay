@@ -7,7 +7,12 @@ let db = new Models();
 
 const { Datasource, NeuronExecution, Neuron }: any = db;
 
-export const POST = withJWT(async function ({ business, session, body }: any) {
+export const POST = withJWT(async function ({
+  newToken,
+  business,
+  session,
+  body,
+}: any) {
   let { neuronId, neuronKey } = body.data;
 
   let queryBuilder: any = {
@@ -101,6 +106,7 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
 
   return NextResponse.json({
     data: {
+      newToken,
       response,
     },
   });
