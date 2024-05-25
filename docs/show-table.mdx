@@ -1,0 +1,73 @@
+# Show Tables
+
+## Step 1
+
+Get the start and end dates from the form: The fn function expects to receive the start and end dates from the form provided in args.form.
+
+```ts { 2 }
+const fn = async function (args: Args) {
+  const { startDate, endDate } = args.form;
+};
+```
+
+---
+
+## Step 2
+
+Build the SQL query: Use the provided dates to construct the SQL query that will select the data from the database according to the date range.
+
+```ts { 3,4,5,6,7,8 }
+const fn = async function (args: Args) {
+  const { startDate, endDate } = args.form;
+  const sql = `
+    SELECT * 
+    FROM table 
+    WHERE date BETWEEN :startDate AND :endDate
+  `;
+  const replacements = { startDate, endDate };
+};
+```
+
+---
+
+## Step 3
+
+Execute the query and get the results: Use the query method provided in args to execute the SQL query and get the data from the database.
+
+```ts { 10 }
+const fn = async function (args: Args) {
+  const { startDate, endDate } = args.form;
+  const sql = `
+    SELECT * 
+    FROM table 
+    WHERE date BETWEEN :startDate AND :endDate
+  `;
+  const replacements = { startDate, endDate };
+
+  const rows = await args.query(sql, replacements);
+};
+```
+
+---
+
+## Step 4
+
+Display the results: Use the table method provided in args to send the query results as a table response.
+
+```ts {12}
+const fn = async function (args: Args) {
+  const { startDate, endDate } = args.form;
+  const sql = `
+    SELECT * 
+    FROM table 
+    WHERE date BETWEEN :startDate AND :endDate
+  `;
+  const replacements = { startDate, endDate };
+
+  const rows = await args.query(sql, replacements);
+
+  return args.table(rows);
+};
+```
+
+With these steps, you can complete the fn function to show the results in a table filtered by start and end dates. Make sure to adjust the code according to your application's specifications and structure.
