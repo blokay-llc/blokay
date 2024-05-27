@@ -19,8 +19,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@blokay/react": ["../react/dist/index.es.js"],
-      "@blokay/react/css": ["../react/dist/style.css"]
+      "@blokay/react": ["../react/dist/index.es.js"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
