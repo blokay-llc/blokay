@@ -26,6 +26,9 @@ export default function RegisterForm() {
         setForm({});
         router.push("/login");
       })
+      .catch((err) => {
+        alert(JSON.stringify(err));
+      })
       .finally(() => {
         setLoading(false);
       });
