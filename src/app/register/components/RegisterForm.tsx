@@ -1,24 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DS } from "@blokay/react";
 import { fetchRegister } from "@/app/services/auth";
-import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function RegisterForm() {
-  const { data: session } = useSession();
-  const router = useRouter();
   const [form, setForm]: any = useState({
     companySize: "1-5",
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors]: any = useState({});
-
-  useEffect(() => {
-    if (session?.user) {
-      router.push("/dashboard");
-    }
-  }, [session]);
 
   const register = () => {
     setLoading(true);

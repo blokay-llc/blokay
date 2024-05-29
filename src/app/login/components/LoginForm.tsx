@@ -1,21 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DS } from "@blokay/react";
-import { useRouter } from "next/navigation";
-import { useSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export default function LoginForm() {
-  const { data: session } = useSession();
-  const router = useRouter();
-
   const [form, setForm]: any = useState({});
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (session?.user) {
-      router.push("/dashboard");
-    }
-  }, [session]);
 
   const login = () => {
     setLoading(true);
