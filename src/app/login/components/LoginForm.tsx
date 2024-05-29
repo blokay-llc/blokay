@@ -76,28 +76,28 @@ export default function LoginForm() {
 
         <div></div>
 
-        <div className="mt-5 flex flex-col gap-3">
+        <div className="mt-10 grid grid-cols-2 gap-3">
           {process.env.NEXT_PUBLIC_GOOGLE_LOGIN && (
             <div
-              className="transition duration-100 border-2 border-stone-300 dark:border-stone-800 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300 dark:hover:bg-stone-900 dark:text-stone-400 "
+              className="transition duration-100 border-2 border-stone-300 dark:border-stone-800 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300 dark:hover:bg-stone-900 dark:text-stone-400 cursor-pointer "
               onClick={() => {
                 loginThird("google");
               }}
             >
               <DS.Icon icon="google" className="fill-stone-600 size-5" />
-              <div>Login with Google</div>
+              <div> Google</div>
             </div>
           )}
 
           {process.env.NEXT_PUBLIC_GITHUB_LOGIN && (
             <div
-              className="transition duration-100 border-2 border-stone-300 dark:border-stone-800 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300  dark:hover:bg-stone-900 dark:text-stone-400"
+              className="transition duration-100 border-2 border-stone-300 dark:border-stone-800 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300  dark:hover:bg-stone-900 dark:text-stone-400 cursor-pointer"
               onClick={() => {
                 loginThird("github");
               }}
             >
               <DS.Icon icon="github" className="fill-stone-600 size-5" />
-              <div>Login with GitHub</div>
+              <div> GitHub</div>
             </div>
           )}
         </div>
@@ -109,7 +109,7 @@ export default function LoginForm() {
         <div className=" mx-auto mt-10  ">
           <a
             href="/register"
-            className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-[#7358bf30] to-indigo-100"
+            className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-teal-950 to-indigo-100"
           >
             <DS.Icon icon="account" className="size-10 fill-stone-500" />
             <div>

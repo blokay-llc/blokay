@@ -13,7 +13,13 @@ const { User, Business }: any = db;
 
 const schema = z.object({
   name: z.string().min(3),
-  email: z.string().email(),
+  email: z
+    .string()
+    .email()
+    .refine(async (e: string) => {
+      const currentUser = await User.findByEmail(e);
+      return !currentUser;
+    }, "The user already exists."),
   password: z.string().min(5),
   companyName: z.string().min(3),
   companySize: z.string(),
@@ -23,16 +29,10 @@ export async function POST(req: any) {
   const body = await req.json();
   let coreApi = new CoreAPI("");
 
-  const { success, errors } = isValidSchema(schema, body.data);
+  const { success, errors } = await isValidSchema(schema, body.data);
   if (!success) return sendDataValidationError(errors);
 
   let { email, password, companyName, companySize, name } = body.data;
-
-  const currentUser = await User.findByEmail(email);
-  if (!currentUser)
-    return sendError({
-      message: "Exists user",
-    });
 
   let result = await coreApi.newBusiness(name, companyName, companySize, email);
 

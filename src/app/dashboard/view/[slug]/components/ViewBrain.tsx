@@ -53,11 +53,14 @@ const ViewBrain = ({ slug }: any) => {
   const fetchView = () => {
     viewGet(slug).then((r) => {
       setView(r.View);
-      if (isAdmin && r.View.layout?.length == 0) {
-        setEditMode("edit");
-      }
     });
   };
+  useEffect(() => {
+    if (isAdmin && view?.ViewItems?.length == 0) {
+      setEditMode("edit");
+    }
+  }, [view, isAdmin]);
+
   useEffect(() => {
     listViews();
     fetchView();
@@ -255,8 +258,6 @@ const ViewBrain = ({ slug }: any) => {
                           }}
                         />
                       )}
-                      {}
-
                       {vItem.type == "neuron" && (
                         <Block
                           editMode={editMode}

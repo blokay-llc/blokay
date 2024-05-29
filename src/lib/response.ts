@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-export const isValidSchema = (schema: any, data: any) => {
-  const response = schema.safeParse(data);
+export const isValidSchema = async (schema: any, data: any) => {
+  const response = await schema.safeParseAsync(data);
 
   return { success: response.success, errors: response.error };
 };

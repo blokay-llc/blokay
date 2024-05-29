@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { DS } from "@blokay/react";
 import { fetchRegister } from "@/app/services/auth";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
@@ -12,6 +12,7 @@ export default function RegisterForm() {
     companySize: "1-5",
   });
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors]: any = useState({});
 
   useEffect(() => {
     if (session?.user) {
@@ -24,10 +25,22 @@ export default function RegisterForm() {
     fetchRegister(form)
       .then(() => {
         setForm({});
-        router.push("/login");
+        return signIn("credentials", {
+          email: form.email,
+          password: form.password,
+          redirect: true,
+          callbackUrl: "/dashboard",
+        });
       })
       .catch((err) => {
-        alert(JSON.stringify(err));
+        let inputsErrors = err?.errors?.issues || [];
+        let errs = inputsErrors.reduce((acc: any, curr: any) => {
+          let key = curr.path[0];
+          acc[key] = curr.message;
+          return acc;
+        }, {});
+
+        setErrors(errs);
       })
       .finally(() => {
         setLoading(false);
@@ -50,9 +63,10 @@ export default function RegisterForm() {
             type="text"
             value={form.companyName}
             label="Company Name"
-            onChange={(val: string) => {
-              setForm({ ...form, companyName: val });
-            }}
+            onChange={(companyName: string) =>
+              setForm({ ...form, companyName })
+            }
+            error={errors?.companyName}
           />
 
           <DS.Select
@@ -61,6 +75,7 @@ export default function RegisterForm() {
             onChange={(val: string) => {
               setForm({ ...form, companySize: val });
             }}
+            error={errors?.companySize}
           >
             <option value="me">Only me</option>
             <option value="1-5">1-5</option>
@@ -77,6 +92,7 @@ export default function RegisterForm() {
             onChange={(val: string) => {
               setForm({ ...form, name: val });
             }}
+            error={errors?.name}
           />
 
           <DS.Input
@@ -86,15 +102,15 @@ export default function RegisterForm() {
             onChange={(val: string) => {
               setForm({ ...form, email: val });
             }}
+            error={errors?.email}
           />
 
           <DS.Input
             type="password"
             value={form.password}
             label="Password"
-            onChange={(val: string) => {
-              setForm({ ...form, password: val });
-            }}
+            onChange={(password: string) => setForm({ ...form, password })}
+            error={errors?.password}
           />
 
           <div className="text-sm text-stone-500 font-light border-t border-stone-300 dark:border-black mt-3 pt-3">
@@ -123,7 +139,7 @@ export default function RegisterForm() {
         <div className=" mx-auto  mt-10  ">
           <a
             href="/login"
-            className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-[#7358bf30] to-indigo-100"
+            className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-blue-950 to-indigo-100"
           >
             <DS.Icon icon="account" className="size-10 fill-stone-500" />
             <div>
