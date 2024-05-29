@@ -12,6 +12,7 @@ export default function SettingsView() {
   const [datasources, setDatasources]: any = useState(null);
   const [datasource, setDatasource]: any = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors]: any = useState({});
 
   const getDatasources = () => {
     setLoading(true);
@@ -34,6 +35,16 @@ export default function SettingsView() {
         setDatasource(null);
         getDatasources();
       })
+      .catch((err) => {
+        let inputsErrors = err?.errors?.issues || [];
+        let errs = inputsErrors.reduce((acc: any, curr: any) => {
+          let key = curr.path.join(".");
+          acc[key] = curr.message;
+          return acc;
+        }, {});
+
+        setErrors(errs);
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -46,12 +57,23 @@ export default function SettingsView() {
         setDatasource(null);
         getDatasources();
       })
+      .catch((err) => {
+        let inputsErrors = err?.errors?.issues || [];
+        let errs = inputsErrors.reduce((acc: any, curr: any) => {
+          let key = curr.path.join(".");
+          acc[key] = curr.message;
+          return acc;
+        }, {});
+
+        setErrors(errs);
+      })
       .finally(() => {
         setLoading(false);
       });
   };
 
   const newDataSource = () => {
+    setErrors({});
     setDatasource({ name: "Your first datasource", type: "mysql", config: {} });
   };
 
@@ -63,6 +85,7 @@ export default function SettingsView() {
     <div>
       {datasource?.id && (
         <DatasourceForm
+          errors={errors}
           title="Datasource config"
           datasource={datasource}
           loading={loading}
@@ -73,6 +96,7 @@ export default function SettingsView() {
 
       {datasource && !datasource?.id && (
         <DatasourceForm
+          errors={errors}
           title="Create Datasource"
           datasource={datasource}
           loading={loading}
@@ -103,10 +127,10 @@ export default function SettingsView() {
             )}
           </div>
 
-          <div className="flex-col flex gap-3 border-stone-300 dark:border-stone-800 border-2 px-5 py-3 rounded-xl">
+          <div className="flex-col flex gap-3 border-stone-300 dark:border-stone-800 border-2 px-5 py-10 rounded-xl dark:bg-gradient-to-r dark:from-black dark:to-blue-950">
             {datasources.length == 0 && (
               <div>
-                <h2 className="mb-5 text-lg font-bold text-stone-700">
+                <h2 className="mb-5 text-lg font-bold text-stone-700 dark:text-stone-200">
                   You don't have any datasource created
                 </h2>
                 <DS.Button
@@ -126,6 +150,7 @@ export default function SettingsView() {
                     key={datasource.id}
                     className="flex items-center gap-3 py-4"
                     onClick={() => {
+                      setErrors({});
                       setDatasource(datasource);
                     }}
                   >

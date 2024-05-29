@@ -113,7 +113,7 @@ export default function Menu({
           </ul>
 
           <div className="lg:block hidden">
-            {editMode && neurons?.length > 0 && (
+            {editMode && views?.length > 0 && (
               <Tree
                 views={views}
                 onClickNeuron={onClickNeuron}

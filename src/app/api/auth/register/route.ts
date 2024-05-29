@@ -4,7 +4,6 @@ import CoreAPI from "@/app/services/core";
 import {
   isValidSchema,
   sendDataValidationError,
-  sendError,
   sendData,
 } from "@/lib/response";
 
@@ -27,11 +26,11 @@ const schema = z.object({
 
 export async function POST(req: any) {
   const body = await req.json();
-  let coreApi = new CoreAPI("");
 
   const { success, errors } = await isValidSchema(schema, body.data);
   if (!success) return sendDataValidationError(errors);
 
+  let coreApi = new CoreAPI("");
   let { email, password, companyName, companySize, name } = body.data;
 
   let result = await coreApi.newBusiness(name, companyName, companySize, email);

@@ -183,7 +183,7 @@ function ListViews({}) {
           label={"Name"}
         />
 
-        {viewsComputed.length > 0 && (
+        {viewsComputed.filter((x) => x.id).length > 0 && (
           <div className="mt-3">
             <DS.Select
               value={form.categoryId}

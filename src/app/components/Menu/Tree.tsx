@@ -149,7 +149,7 @@ export default function TreeMenu({
   editMode,
 }: any) {
   const buildStructure = function () {
-    if (!neurons.length) return [];
+    // if (!neurons.length) return [];
     if (!views.length) return [];
     const map: any = {};
     for (let neuron of neurons) {

@@ -8,6 +8,7 @@ export default function DatasourceForm({
   onDone = null,
   onBack = null,
   title = "",
+  errors = {},
 }: any) {
   const [form, setForm]: any = useState({
     ...(datasource || {}),
@@ -219,6 +220,7 @@ export default function DatasourceForm({
             onChange={(val: string) => {
               setForm({ ...form, name: val });
             }}
+            error={errors.name}
           />
 
           {type?.fields && type.fields.length > 0 && (
@@ -231,6 +233,7 @@ export default function DatasourceForm({
                       type={field.type}
                       value={form.config[field.name]}
                       label={field.label}
+                      error={errors["config." + field.name]}
                       onChange={(val: string) => {
                         setForm({
                           ...form,
