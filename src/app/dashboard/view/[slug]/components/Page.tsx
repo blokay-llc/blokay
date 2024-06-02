@@ -1,5 +1,5 @@
 "use client";
-import ViewBrain from "./ViewBrain";
+import ViewBlock from "./ViewBlock";
 import { BlokayProvider } from "@blokay/react";
 import { useSession } from "next-auth/react";
 
@@ -9,7 +9,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   return (
     <div className="min-h-screen h-full">
       <BlokayProvider jwtToken={session?.jwtToken}>
-        <ViewBrain slug={params.slug} />
+        <ViewBlock slug={params.slug} />
       </BlokayProvider>
     </div>
   );
