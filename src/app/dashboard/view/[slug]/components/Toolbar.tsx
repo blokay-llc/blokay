@@ -51,14 +51,6 @@ export default function Toolbar({
               </div>
             </>
           )}
-          {/* <div className="item square">
-          <AppIcon icon="wizard" />
-        </div>
-
-        
-        <div className="item square">
-          <AppIcon icon="general" />
-        </div> */}
 
           <div className="item aspect-auto">
             <input
@@ -76,7 +68,6 @@ export default function Toolbar({
           >
             <DS.Icon icon="grid" />
           </div>
-
           <div
             className={`item square ${editMode == "user" ? "active" : ""}`}
             onClick={() => setEditMode("user")}
