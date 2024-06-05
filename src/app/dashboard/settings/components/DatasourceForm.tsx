@@ -203,9 +203,9 @@ export default function DatasourceForm({
               <DS.IconTools
                 icon={type.type}
                 className={`${
-                  form.type == type.type
+                  form.config.type == type.type
                     ? "dark:fill-stone-200 fill-stone-800 "
-                    : "fill-stone-600 dark:fill-stone-800"
+                    : "fill-stone-600 dark:fill-stone-600"
                 }  size-12`}
               />
               <div className="font-light text-sm">{type.name}</div>
