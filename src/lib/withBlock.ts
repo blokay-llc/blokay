@@ -5,7 +5,7 @@ import Models from "@/db/index";
 let db = new Models();
 const { Neuron }: any = db;
 
-export const withNeuron = (cb: any) => {
+export const withBlock = (cb: any) => {
   return withUser(async function ({ req, user }: any) {
     const body = await req.json();
 
@@ -22,19 +22,19 @@ export const withNeuron = (cb: any) => {
       queryBuilder.where.key = neuronKey;
     }
 
-    let neuron = await Neuron.findOne(queryBuilder);
+    let block = await Neuron.findOne(queryBuilder);
 
-    if (!neuron) {
+    if (!block) {
       return NextResponse.json(
         {
           data: {
-            message: "Icorrect neuron",
+            message: "Icorrect block",
           },
         },
         { status: 400 }
       );
     }
 
-    return await cb({ req, user, neuron, body });
+    return await cb({ req, user, block, body });
   });
 };

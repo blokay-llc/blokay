@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { withNeuron } from "@/lib/withNeuron";
+import { withBlock } from "@/lib/withBlock";
 
-export const POST = withNeuron(async function ({ neuron }: any) {
-  await neuron.destroy();
+export const POST = withBlock(async function ({ block }: any) {
+  await block.destroy();
   return NextResponse.json({
     data: {},
   });

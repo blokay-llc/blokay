@@ -1,4 +1,4 @@
-import { withNeuron } from "@/lib/withNeuron";
+import { withBlock } from "@/lib/withBlock";
 import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import CoreAPI from "@/app/services/core";
@@ -7,7 +7,7 @@ import { transpileModule } from "../updateNeuron/ts-js";
 let db = new Models();
 const { Neuron, Datasource, Business, NeuronLog }: any = db;
 
-export const POST = withNeuron(async function ({ user, neuron, body }: any) {
+export const POST = withBlock(async function ({ user, block, body }: any) {
   const data = body.data;
 
   let business = await Business.findById(user.businessId);
@@ -22,11 +22,11 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
 
   let neurons = await Neuron.findAll({
     where: {
-      businessId: neuron.businessId,
+      businessId: block.businessId,
     },
   });
 
-  let fields = neuron.filters?.fields || [];
+  let fields = block.filters?.fields || [];
   // only send needed data Neuron
   let neuronsList = neurons.map((n: any) => ({
     id: n.id,
@@ -34,8 +34,8 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
     description: n.description,
   }));
   let result = await coreApi.getFn(
-    neuron.description,
-    neuron.synapse,
+    block.description,
+    block.synapse,
     data.prompt || "",
     fields,
     datasource.structure, // We Only share the database metadata (never your credentials or data)
@@ -49,21 +49,21 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
       synapse: result.synapse,
       executable: js.code,
       history: [
-        ...neuron.history,
+        ...block.history,
         { type: "user", message: data.prompt },
         { type: "system", message: "Ok" },
       ],
     };
-    if (!neuron.description) {
+    if (!block.description) {
       toUpdate.description = result.description;
     }
-    neuron = await neuron.update(toUpdate);
+    block = await block.update(toUpdate);
 
     NeuronLog.create({
       userId: user.id,
-      neuronId: neuron.id,
+      neuronId: block.id,
       businessId: user.businessId,
-      filters: neuron.filters,
+      filters: block.filters,
       synapse: result.synapse,
     });
   }
@@ -71,7 +71,7 @@ export const POST = withNeuron(async function ({ user, neuron, body }: any) {
   return NextResponse.json({
     data: {
       Result: {
-        fn: neuron.id,
+        fn: block.id,
       },
     },
   });
