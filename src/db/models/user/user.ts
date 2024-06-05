@@ -23,12 +23,10 @@ export default (sequelize: any, DataTypes: any) => {
       blockedAt: {
         type: DataTypes.DATE,
         allowNull: true,
-        defaultValue: false,
       },
       lastActionAt: {
         type: DataTypes.DATE,
         allowNull: true,
-        defaultValue: false,
       },
       mfa: {
         type: DataTypes.TEXT,
