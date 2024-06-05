@@ -5,6 +5,26 @@ import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import Tree from "./Tree";
 import { useSession } from "next-auth/react";
 
+type MenuOptionProps = {
+  name: string;
+  icon: string;
+  href: string;
+};
+
+const MenuOption = ({ name, icon, href }: MenuOptionProps) => {
+  return (
+    <li>
+      <a
+        className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
+        href={href}
+      >
+        <div>{name}</div>
+        <DS.Icon icon={icon} className="size-5 fill-stone-700" />
+      </a>
+    </li>
+  );
+};
+
 export default function Menu({
   views = [],
   view = null,
@@ -55,61 +75,29 @@ export default function Menu({
             </div>
           )}
           <ul className="py-3 px-2 lg:block hidden ">
-            <li>
-              <a
-                className="items-center py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between"
-                href="/dashboard"
-              >
-                <div>Home</div>
-                <DS.Icon icon="right" className="size-5 fill-stone-700" />
-              </a>
-            </li>
+            <MenuOption name="Home" icon="right" href="/dashboard" />
 
             {isAdmin && (
-              <li>
-                <a
-                  className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
-                  href="/dashboard/users"
-                >
-                  <div>Users</div>
-                  <DS.Icon icon="right" className="size-5 fill-stone-700" />
-                </a>
-              </li>
+              <MenuOption name="Users" icon="right" href="/dashboard/users" />
             )}
 
             {isAdmin && (
-              <li>
-                <a
-                  className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
-                  href="/dashboard/billing"
-                >
-                  <div>Billing</div>
-                  <DS.Icon icon="right" className="size-5 fill-stone-700" />
-                </a>
-              </li>
+              <MenuOption
+                name="Billing"
+                icon="right"
+                href="/dashboard/billing"
+              />
             )}
 
             {isAdmin && (
-              <li>
-                <a
-                  className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
-                  href="/dashboard/settings"
-                >
-                  <div>Settings</div>
-                  <DS.Icon icon="right" className="size-5 fill-stone-700" />
-                </a>
-              </li>
+              <MenuOption
+                name="Settings"
+                icon="right"
+                href="/dashboard/settings"
+              />
             )}
 
-            <li>
-              <a
-                className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
-                href="/logout"
-              >
-                <div>Logout</div>
-                <DS.Icon icon="right" className="size-5 fill-stone-700" />
-              </a>
-            </li>
+            <MenuOption name="Logout" icon="right" href="/logout" />
           </ul>
 
           <div className="lg:block hidden">
