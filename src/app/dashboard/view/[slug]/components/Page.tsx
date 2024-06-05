@@ -6,9 +6,10 @@ import { useSession } from "next-auth/react";
 export default function Page({ params }: { params: { slug: string } }) {
   const { data: session }: any = useSession();
 
+  const endpoint = process.env.NEXT_PUBLIC_API || "https://app.blokay.com/api/";
   return (
     <div className="min-h-screen h-full">
-      <BlokayProvider jwtToken={session?.jwtToken}>
+      <BlokayProvider jwtToken={session?.jwtToken} endpoint={endpoint}>
         <ViewBlock slug={params.slug} />
       </BlokayProvider>
     </div>
