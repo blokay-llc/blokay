@@ -83,7 +83,7 @@ function ListViews({}) {
       <div className=" flex items-center justify-between gap-5 mb-10">
         <div className="lg:w-full mr-auto">
           <DS.Input
-            type="view"
+            type="text"
             value={form.search}
             onChange={(val: string) => {
               setForm({ ...form, search: val });

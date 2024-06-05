@@ -4,7 +4,7 @@ import TyperPrompt from "@/app/components/TyperPrompt";
 import { DS } from "@blokay/react";
 import { rewriteFn } from "@/app/services/brain";
 
-const NeuronChat = ({ neuron, reload }: any) => {
+const Chat = ({ neuron, reload }: any) => {
   const messagesEndRef: any = useRef();
   const [form, setForm]: any = useState({});
   const [historyChat, setHistoryChat]: any[] = useState([]);
@@ -132,4 +132,4 @@ const NeuronChat = ({ neuron, reload }: any) => {
     </div>
   );
 };
-export default NeuronChat;
+export default Chat;

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { DS } from "@blokay/react";
 import { updateNeuron, deleteNeuron } from "@/app/services/brain";
 
-const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
+const General = ({ neuron, reload, onClose }: any) => {
   const modalDeleteRef: any = useRef();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -81,7 +81,7 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
       />
 
       <DS.Input
-        type="textarea"
+        type="text"
         value={form.description}
         label="Description"
         onChange={(val: string) => {
@@ -309,4 +309,4 @@ const NeuronGeneral = ({ neuron, reload, onClose }: any) => {
     </div>
   );
 };
-export default NeuronGeneral;
+export default General;

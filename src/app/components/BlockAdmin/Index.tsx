@@ -2,10 +2,10 @@
 import { useState, useEffect } from "react";
 import { DS } from "@blokay/react";
 import { getNeuronAdmin } from "@/app/services/brain";
-import Editor from "@/app/components/NeuronAdmin/Editor/Index";
-import NeuronAPI from "./NeuronAPI";
-import NeuronChat from "./NeuronChat";
-import NeuronGeneral from "./NeuronGeneral";
+import Editor from "@/app/components/BlockAdmin/Editor/Index";
+import API from "./API";
+import Chat from "./Chat";
+import General from "./General";
 import UpgradePlan from "../UI/UpgradePlan";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -131,11 +131,11 @@ const NeuronAdmin = ({
         />
       )}
       {view == "general" && (
-        <NeuronGeneral reload={reload} neuron={neuronAdmin} onClose={onClose} />
+        <General reload={reload} neuron={neuronAdmin} onClose={onClose} />
       )}
-      {view == "chat" && <NeuronChat reload={reload} neuron={neuronAdmin} />}
+      {view == "chat" && <Chat reload={reload} neuron={neuronAdmin} />}
 
-      {view == "api" && <NeuronAPI reload={reload} neuron={neuronAdmin} />}
+      {view == "api" && <API reload={reload} neuron={neuronAdmin} />}
     </div>
   );
 };
