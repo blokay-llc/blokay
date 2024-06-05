@@ -1,5 +1,5 @@
 "use client";
-import { VERSION, ENV, API_PROD, API_SANDBOX, API_DEV } from "./config";
+import { VERSION, API } from "./config";
 
 let country = "";
 let city = "";
@@ -25,25 +25,7 @@ getCountry().then((r) => {
   }
 });
 
-const getServerUrl = function () {
-  if (ENV === "prod") {
-    return {
-      SERVER_URL: API_PROD,
-    };
-  } else if (ENV === "sandbox") {
-    return {
-      SERVER_URL: API_SANDBOX,
-    };
-  }
-
-  return {
-    SERVER_URL: API_DEV,
-  };
-};
-
-const dataURLS = getServerUrl();
-
-export const SERVER_URL = dataURLS.SERVER_URL;
+export const SERVER_URL = API;
 
 export const getOS = () => {
   var userAgent = window.navigator.userAgent,
