@@ -14,22 +14,22 @@ function stripText(type: string, text: string) {
   text = text.trim();
   return text;
 }
-function getSubNeurons(str: string, neuronKeysMap: any[]) {
+function getSubBlocks(str: string, blockKeysMap: any[]) {
   if (!str) return [];
 
-  let neurons: any = [];
+  let blocks: any = [];
   let ocurrences = str.match(/\b(neuronKey).{0,60}/g) || [];
-  neurons = [...neurons, ...ocurrences];
+  blocks = [...blocks, ...ocurrences];
   ocurrences = str.match(/\b(neuronId).{0,60}/g) || [];
-  neurons = [...neurons, ...ocurrences];
+  blocks = [...blocks, ...ocurrences];
 
-  return neurons.map((n: any) => {
+  return blocks.map((n: any) => {
     if (n.includes("neuronId")) {
       return stripText("neuronId", n);
     }
 
     let neuronKey: any = stripText("neuronKey", n);
-    return neuronKeysMap[neuronKey];
+    return blockKeysMap[neuronKey];
   });
 }
 
@@ -40,14 +40,14 @@ export const POST = withAdmin(async function ({ user }: any) {
     },
   });
 
-  let neuronsKeyMap = result.reduce((ac: any, item: any) => {
+  let blocksKeyMap = result.reduce((ac: any, item: any) => {
     ac[item.key] = item.id;
     return ac;
   }, {});
 
-  for (let neuronIndex in result) {
-    let childrenIds = getSubNeurons(result[neuronIndex].synapse, neuronsKeyMap);
-    result[neuronIndex].childrenIds = childrenIds;
+  for (let blockIndex in result) {
+    let childrenIds = getSubBlocks(result[blockIndex].synapse, blocksKeyMap);
+    result[blockIndex].childrenIds = childrenIds;
   }
 
   const list = result.map((n: any) => ({

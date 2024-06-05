@@ -18,13 +18,13 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
     queryBuilder.where.key = neuronKey;
   }
 
-  let neuron = await Neuron.findOne(queryBuilder);
+  let block = await Neuron.findOne(queryBuilder);
 
-  if (!neuron) {
+  if (!block) {
     return NextResponse.json(
       {
         data: {
-          message: "Icorrect neuron",
+          message: "Icorrect block",
         },
       },
       { status: 400 }
@@ -34,11 +34,11 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
   return NextResponse.json({
     data: {
       Neuron: {
-        id: neuron.id,
-        createdAt: neuron.createdAt,
-        key: neuron.key,
-        description: neuron.description,
-        filters: neuron.filters,
+        id: block.id,
+        createdAt: block.createdAt,
+        key: block.key,
+        description: block.description,
+        filters: block.filters,
       },
     },
   });

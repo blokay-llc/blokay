@@ -33,13 +33,13 @@ export const POST = withUser(async function ({ req, user }: any) {
     result = result.filter((view: any) => permissionsMap[view.id]);
   }
 
-  const neuronList = await Neuron.findAll({
+  const blockList = await Neuron.findAll({
     where: {
       businessId: user.businessId,
     },
   });
 
-  let neuronsKeyMap = neuronList.reduce((ac: any, item: any) => {
+  let blocksKeyMap = blockList.reduce((ac: any, item: any) => {
     ac[item.key] = item.id;
     return ac;
   }, {});
@@ -68,13 +68,13 @@ export const POST = withUser(async function ({ req, user }: any) {
     let children = viewItems
       .filter((vi: any) => vi.viewId == v.id)
       .map((vi: any) => {
-        let neuronId = vi.neuronId || vi?.options?.neuronId;
+        let blockId = vi.neuronId || vi?.options?.neuronId;
         if (vi?.options?.neuronKey) {
-          neuronId = neuronsKeyMap[vi?.options?.neuronKey];
+          blockId = blocksKeyMap[vi?.options?.neuronKey];
         }
-        return neuronId;
+        return blockId;
       })
-      .filter((neuronId: any) => neuronId);
+      .filter((blockId: any) => blockId);
 
     ac[v.viewGroupId].Views.push({
       id: v.id,
