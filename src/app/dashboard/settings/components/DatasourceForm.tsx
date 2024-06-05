@@ -190,6 +190,7 @@ export default function DatasourceForm({
                   config: {
                     ...form.config,
                     type: type.type,
+                    dialect: type.type,
                   },
                 });
               }}

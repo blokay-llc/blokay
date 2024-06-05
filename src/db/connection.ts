@@ -29,6 +29,7 @@ export const getConnection = (db: any, datasource: any, profile: string) => {
 
               const conn = new db.Sequelize({
                 ...datasource.config.database,
+                dialect: "mysql",
                 dialectModule: dialects.mysql2,
                 operatorsAliases: db.Op,
                 benchmark: true,

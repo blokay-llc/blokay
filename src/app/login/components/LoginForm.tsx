@@ -67,7 +67,7 @@ export default function LoginForm() {
         <div></div>
 
         <div className="mt-10 grid grid-cols-2 gap-3">
-          {process.env.NEXT_PUBLIC_GOOGLE_LOGIN && (
+          {process.env.NEXT_PUBLIC_GOOGLE_LOGIN != "0" && (
             <div
               className="transition duration-100 border-2 border-stone-300 dark:border-stone-800 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300 dark:hover:bg-stone-900 dark:text-stone-400 cursor-pointer "
               onClick={() => {
@@ -79,7 +79,7 @@ export default function LoginForm() {
             </div>
           )}
 
-          {process.env.NEXT_PUBLIC_GITHUB_LOGIN && (
+          {process.env.NEXT_PUBLIC_GITHUB_LOGIN != "0" && (
             <div
               className="transition duration-100 border-2 border-stone-300 dark:border-stone-800 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300  dark:hover:bg-stone-900 dark:text-stone-400 cursor-pointer"
               onClick={() => {
