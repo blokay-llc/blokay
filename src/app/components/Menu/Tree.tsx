@@ -29,22 +29,23 @@ const DropItem = function ({
 
   useEffect(() => {
     if (view?.id == item.id) {
+      console.log("view", view?.id, item.id);
       propogateOpen();
     }
   }, [view]);
 
-  useEffect(() => {
-    if (search && item?.name) {
-      let s = search.toLowerCase();
-      let name = item.name.toLowerCase();
-      let found = name.includes(s);
+  // useEffect(() => {
+  //   if (search && item?.name) {
+  //     let s = search.toLowerCase();
+  //     let name = item.name.toLowerCase();
+  //     let found = name.includes(s);
 
-      propogateOpen(found);
-    } else {
-      setIsOpen(defaultOpen);
-      setIsFound(false);
-    }
-  }, [search]);
+  //     propogateOpen(found);
+  //   } else {
+  //     setIsOpen(defaultOpen);
+  //     setIsFound(false);
+  //   }
+  // }, [search]);
 
   return (
     <div>
@@ -146,6 +147,8 @@ export default function TreeMenu({
   neurons,
   editMode,
 }: any) {
+  const [mode, setMode] = useState("functions");
+
   const buildStructure = function () {
     // if (!neurons.length) return [];
     if (!views.length) return [];
@@ -211,45 +214,69 @@ export default function TreeMenu({
 
   return (
     <div className={`${editMode == "user" ? "hidden" : ""}`}>
-      <div className="px-2 select-none flex flex-col pt-3 border-t border-stone-200 dark:border-black">
-        {buildStructure().map((item: any, index: any) => (
-          <DropItem
-            onClickNeuron={onClickNeuron}
-            defaultOpen={false}
-            level={0}
-            item={item}
-            key={`s-${index}-${item.id}`}
-            editMode={editMode}
-            search={search}
-            view={view}
-          />
-        ))}
-      </div>
-
-      {nonUsed.length > 0 && (
-        <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200 dark:border-black">
-          <h2 className="text-stone-600 dark:text-white mb-3 text-sm font-medium">
-            Unused yet
-          </h2>
-          {nonUsed.map((item: any, index: any) => (
-            <DropItem
-              onClickNeuron={onClickNeuron}
-              defaultOpen={false}
-              level={0}
-              item={item}
-              key={`non-${index}-${item.id}`}
-              editMode={editMode}
-              search={search}
-            />
-          ))}
+      <div className="px-3 mb-3 mt-3">
+        <div className="text-sm flex gap-1 select-none items-center dark:bg-stone-800 px-1 py-0.5 rounded-lg">
+          <div
+            className={`px-2 py-1  ${
+              mode == "functions"
+                ? "dark:bg-black text-white "
+                : "dark:text-stone-400"
+            } rounded-lg shadow-md w-full text-center text-sm`}
+            onClick={() => setMode("functions")}
+          >
+            Blocks
+          </div>
+          <div
+            className={`px-2 py-1  ${
+              mode == "crons"
+                ? "dark:bg-black text-white "
+                : "dark:text-stone-400"
+            } rounded-lg shadow-md w-full text-center text-sm `}
+            onClick={() => setMode("crons")}
+          >
+            Jobs
+          </div>
         </div>
+      </div>
+      {mode == "functions" && (
+        <>
+          <div className="px-2 select-none flex flex-col pt-3 border-t border-stone-200 dark:border-black">
+            {buildStructure().map((item: any, index: any) => (
+              <DropItem
+                onClickNeuron={onClickNeuron}
+                defaultOpen={false}
+                level={0}
+                item={item}
+                key={`s-${index}-${item.id}`}
+                editMode={editMode}
+                search={search}
+                view={view}
+              />
+            ))}
+          </div>
+          {nonUsed.length > 0 && (
+            <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200 dark:border-black">
+              <h2 className="text-stone-600 dark:text-white mb-3 text-sm font-medium">
+                Unused yet
+              </h2>
+              {nonUsed.map((item: any, index: any) => (
+                <DropItem
+                  onClickNeuron={onClickNeuron}
+                  defaultOpen={false}
+                  level={0}
+                  item={item}
+                  key={`non-${index}-${item.id}`}
+                  editMode={editMode}
+                  search={search}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
 
-      {crons.length > 0 && (
+      {mode == "crons" && crons.length > 0 && (
         <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200 dark:border-black">
-          <h2 className="text-stone-600 dark:text-white mb-3 text-sm font-medium">
-            Cron Jobs
-          </h2>
           {crons.map((item: any, index: any) => (
             <DropItem
               onClickNeuron={onClickNeuron}
