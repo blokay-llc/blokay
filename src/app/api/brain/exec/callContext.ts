@@ -23,28 +23,27 @@ export async function callContext(
   try {
     let req = buildRequest({ session, form, datasource });
     let res = buildResponse({ session, form, datasource });
-    response = await vm.runInNewContext(
-      content,
-      {
-        console: console,
-        req,
-        res,
-        args: {
-          ...req,
-          ...res,
-        } as Args,
+
+    const contextifiedObject = vm.createContext({
+      console: console,
+      req,
+      res,
+      args: {
+        ...req,
+        ...res,
+      } as Args,
+    });
+
+    response = await vm.runInNewContext(content, contextifiedObject, {
+      displayErrors: false,
+      timeout: 200 * 1000,
+      breakOnSigint: true,
+      contextName: `neuron execution ${neuron.id} - ${neuron.key}`,
+      contextCodeGeneration: {
+        strings: false,
+        wasm: false,
       },
-      {
-        displayErrors: false,
-        timeout: 200 * 1000,
-        breakOnSigint: true,
-        contextName: `neuron execution ${neuron.id} - ${neuron.key}`,
-        contextCodeGeneration: {
-          strings: false,
-          wasm: false,
-        },
-      }
-    );
+    });
   } catch (err: any) {
     response = {
       type: "exception",

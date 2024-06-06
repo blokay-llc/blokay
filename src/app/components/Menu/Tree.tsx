@@ -108,7 +108,7 @@ const DropItem = function ({
             {item.key && item.type == "cron" && (
               <DS.Icon
                 icon="clock"
-                className={`size-5 fill-yellow-700 dark:fill-yellow-500`}
+                className={`size-4 fill-yellow-700 dark:fill-yellow-500`}
               />
             )}
           </div>

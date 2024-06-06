@@ -1,5 +1,5 @@
 .toolbar {
-  @apply rounded-xl  overflow-hidden h-14 items-center flex shrink-0 transition duration-100 border-black/10 border-2 z-20 relative;
+  @apply rounded-lg  overflow-hidden h-14 items-center flex shrink-0 transition duration-100 border-black/10 border-2 z-20 relative;
 }
 
 .toolbar .item {

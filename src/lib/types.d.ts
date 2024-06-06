@@ -1,20 +1,9 @@
-export enum CellClick {
-  openNeuron = "openNeuron",
-  closeCurrentNeuron = "closeCurrentNeuron",
-}
-
-export type TableCell = {
-  html: string;
-  value: string;
-  click: CellClick;
-  args: {
-    neuronKey: string;
-    form: Form;
-  };
+export type Utils = {
+  createButton: (label: string, neuronKey: string, form: any) => any;
 };
 
 export type TableRow = {
-  [x: string | number | symbol]: TableCell | string | number | unknown;
+  [x: string | number | symbol]: string | number | unknown;
 };
 
 export type FieldForm = {
@@ -51,6 +40,7 @@ export type Session = {
 export interface Args extends Request, Response {}
 
 export interface Request {
+  utils: Utils;
   session?: Session;
   // input vars
   form?: Form; // values filled by the user

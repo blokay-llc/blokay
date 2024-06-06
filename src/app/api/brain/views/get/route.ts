@@ -39,11 +39,25 @@ export const POST = withView(async function ({ user, view }: any) {
         viewId: view.id,
       },
     });
+    results = results.map((r: any) => r.User);
+    results = results.concat(
+      await User.findAll({
+        where: {
+          rol: "admin",
+          businessId: user.businessId,
+        },
+      })
+    );
 
-    sharedUsers = results.map((u: any) => ({
-      id: u.id,
-      name: u.User.name,
-    }));
+    let mapUsers = results.reduce((ac: any, u: any) => {
+      ac[u.id] = {
+        id: u.id,
+        name: u.name,
+      };
+      return ac;
+    }, {});
+
+    sharedUsers = Object.values(mapUsers);
   }
 
   let viewItems = await ViewItem.findAll({
@@ -52,9 +66,9 @@ export const POST = withView(async function ({ user, view }: any) {
     },
   });
 
-  let children = new Set(
-    viewItems.filter((vi: any) => vi.neuronId).map((item: any) => item.neuronId)
-  );
+  // let children = new Set(
+  //   viewItems.filter((vi: any) => vi.neuronId).map((item: any) => item.neuronId)
+  // );
 
   return NextResponse.json({
     data: {

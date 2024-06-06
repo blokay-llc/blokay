@@ -127,9 +127,9 @@ export default function SettingsView() {
             )}
           </div>
 
-          <div className="flex-col flex gap-3 border-stone-300 dark:border-stone-800 border-2 px-5 py-10 rounded-xl dark:bg-gradient-to-r dark:from-black dark:to-blue-950">
+          <div className="flex-col flex gap-3 border-stone-300 dark:border-stone-800 border-2 px-5 py-5 rounded-xl ">
             {datasources.length == 0 && (
-              <div>
+              <div className="py-5">
                 <h2 className="mb-5 text-lg font-bold text-stone-700 dark:text-stone-200">
                   You don't have any datasource created
                 </h2>
@@ -138,7 +138,6 @@ export default function SettingsView() {
                   text="Create your first datasource"
                   icon="add"
                   variant="primary"
-                  size="lg"
                   loading={loading}
                 />
               </div>

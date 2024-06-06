@@ -16,6 +16,19 @@ export const buildRequest = ({
   form,
   datasource,
 }: any): Request => ({
+  utils: {
+    createButton(label: string, neuronKey: string, form: any): any {
+      return {
+        html: `<button>${label}</button>`,
+        value: label,
+        click: "openNeuron",
+        args: {
+          neuronKey,
+          form,
+        },
+      };
+    },
+  },
   session: user
     ? {
         id: user.id,
