@@ -1,4 +1,5 @@
 const colors = [
+  { bg: "bg-blue-500", text: "text-blue-900" },
   { bg: "bg-rose-500", text: "text-rose-900" },
   { bg: "bg-yellow-500", text: "text-yellow-900" },
   { bg: "bg-indigo-500", text: "text-indigo-900" },

@@ -3,11 +3,11 @@
 }
 
 .toolbar .item {
-  @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center bg-white dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-900;
+  @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center bg-white dark:bg-stone-900 hover:bg-stone-200 dark:hover:bg-stone-800;
 }
 
 .toolbar .item.active {
-  @apply bg-gradient-to-br from-indigo-600 to-indigo-700;
+  @apply bg-gradient-to-br from-blue-600 to-blue-900;
 }
 
 .toolbar .item.active svg {
@@ -33,17 +33,17 @@
 }
 
 .edit-mode .react-grid-item {
-  @apply border-2 border-transparent hover:border-indigo-500 dark:hover:border-indigo-400;
+  @apply border-2 border-transparent hover:border-blue-500 dark:hover:border-blue-400;
 }
 .edit-mode .react-grid-item > .react-resizable-handle::after {
-  @apply group-hover:bg-indigo-600 dark:group-hover:bg-indigo-400 size-3 -bottom-1.5 -right-1.5 border-transparent;
+  @apply group-hover:bg-blue-600 dark:group-hover:bg-blue-400 size-3 -bottom-1.5 -right-1.5 border-transparent;
 }
 .edit-mode .react-grid-item:hover .react-resizable-handle::after {
-  @apply bg-indigo-500 dark:border-indigo-400;
+  @apply bg-blue-500 dark:border-blue-400;
 }
 
 .edit-mode .react-grid-item.react-grid-placeholder {
-  @apply bg-indigo-300;
+  @apply bg-blue-300;
 }
 
 .action-button {

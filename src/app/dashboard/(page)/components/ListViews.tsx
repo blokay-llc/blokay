@@ -134,7 +134,7 @@ function ListViews({}) {
                       <a
                         href={"/dashboard/view/" + view.slug}
                         key={view.id}
-                        className="bg-white dark:bg-stone-900 shadow-sm  border-transparent transition	   text-stone-900 dark:text-stone-400 dark:hover:text-stone-200 p-3 lg:px-5 lg:py-3  rounded-lg flex items-center gap-3 hover:bg-stone-50 dark:hover:bg-stone-800  dark:hover:bg-gradient-to-r  dark:hover:from-black dark:hover:to-teal-950  duration-100"
+                        className="bg-white dark:bg-stone-900 shadow-sm  border-transparent transition	   text-stone-900 dark:text-stone-400 dark:hover:text-stone-200 p-3 lg:px-5 lg:py-3  rounded-lg flex items-center gap-3 hover:bg-stone-50 dark:hover:bg-stone-800  dark:hover:bg-gradient-to-r  dark:hover:from-black dark:hover:to-blue-950  duration-100"
                       >
                         <div className="font-light">{view.name}</div>
                       </a>

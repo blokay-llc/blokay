@@ -51,9 +51,7 @@ const DropItem = function ({
       <div className="flex flex-col ">
         <div
           className={`flex items-center justify-between py-1 ${
-            item.key
-              ? "bg-stone-100 dark:bg-stone-700 hover:bg-stone-200 dark:hover:bg-stone-900"
-              : ""
+            item.key ? " hover:bg-stone-200 dark:hover:bg-stone-900" : ""
           }`}
           onClick={() => {
             if (item.key) {
@@ -92,7 +90,7 @@ const DropItem = function ({
             )}
             <div
               className={`text-[13px] text-stone-600 dark:text-stone-300 ${
-                level == 0 ? "font-medium" : "font-light"
+                level == 0 ? "font-light" : "font-light"
               }`}
             >
               <span className={`${isFound ? "font-bold " : ""}`}>
@@ -104,7 +102,7 @@ const DropItem = function ({
             {item.key && item.type == "function" && (
               <DS.Icon
                 icon="component"
-                className={`size-4 fill-stone-600 dark:fill-stone-200`}
+                className={`size-3 fill-indigo-600 dark:fill-indigo-300`}
               />
             )}
             {item.key && item.type == "cron" && (
