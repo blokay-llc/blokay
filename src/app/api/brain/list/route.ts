@@ -18,9 +18,17 @@ function getSubBlocks(str: string, blockKeysMap: any[]) {
   if (!str) return [];
 
   let blocks: any = [];
-  let ocurrences = str.match(/\b(neuronKey).{0,60}/g) || [];
+  let ocurrences: any = str.match(/\b(neuronKey).{0,60}/g) || [];
   blocks = [...blocks, ...ocurrences];
   ocurrences = str.match(/\b(neuronId).{0,60}/g) || [];
+  blocks = [...blocks, ...ocurrences];
+
+  ocurrences = str.match(/\b(createButton).{0,60}/g) || [];
+  if (ocurrences.length > 0) {
+    ocurrences = ocurrences.map((item: any) => {
+      return item.split(",")[1];
+    });
+  }
   blocks = [...blocks, ...ocurrences];
 
   return blocks.map((n: any) => {
