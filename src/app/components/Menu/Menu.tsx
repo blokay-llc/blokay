@@ -19,7 +19,10 @@ const MenuOption = ({ name, icon, href }: MenuOptionProps) => {
         href={href}
       >
         <div>{name}</div>
-        <DS.Icon icon={icon} className="size-5 fill-stone-700" />
+        <DS.Icon
+          icon={icon}
+          className="size-5 fill-stone-700 dark:fill-stone-500"
+        />
       </a>
     </li>
   );

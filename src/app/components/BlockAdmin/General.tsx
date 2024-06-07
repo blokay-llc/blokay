@@ -13,6 +13,7 @@ const General = ({ neuron, reload, onClose }: any) => {
   });
 
   const [fields, setFields] = useState([...(neuron?.filters?.fields || [])]);
+  const [fieldIndex, setFieldIndex] = useState(0);
 
   const addField = () => {
     setFields([
@@ -121,75 +122,98 @@ const General = ({ neuron, reload, onClose }: any) => {
 
         {form.type == "function" && (
           <>
-            <div className="mb-5">
-              {fields.map((row, index) => (
-                <div
-                  key={"field-" + index}
-                  className="grid grid-cols-12 gap-3 mb-3 bg-stone-200 dark:bg-stone-800 items-center py-1 rounded-lg px-3"
-                >
-                  <div className="col-span-3">
-                    <DS.Input
-                      type="text"
-                      value={fields[index].name}
-                      label="Name"
-                      onChange={(val: string) => {
-                        let f = fields.slice(0);
-                        f[index].name = val;
-                        setFields(f);
-                      }}
-                    />
+            {fields.length > 0 && (
+              <div className="mb-5 select-none border border-stone-800 rounded-lg px-5">
+                <div className="grid grid-cols-1 gap-5 divide-x divide-stone-800 md:grid-cols-12">
+                  <div className="md:col-span-5 py-5">
+                    {fields.map((row, index) => (
+                      <div
+                        onClick={() => setFieldIndex(index)}
+                        key={"field-" + index}
+                        className={`flex gap-3 mb-2 group  items-center py-1 rounded-lg px-3 font-medium text-sm ${
+                          fieldIndex == index
+                            ? "bg-stone-200 dark:bg-stone-800"
+                            : ""
+                        }`}
+                      >
+                        <span className="text-blue-600 text-xs">
+                          {fields[index].type}
+                        </span>
+                        <span>{fields[index].name}</span>
+                        <div className="ml-auto opacity-0 group-hover:opacity-100 transition duration-200">
+                          -
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="col-span-2">
-                    <DS.Select
-                      value={fields[index].type}
-                      label="Type"
-                      onChange={(val: string) => {
-                        let f = fields.slice(0);
-                        f[index].type = val;
-                        setFields(f);
-                      }}
-                    >
-                      <option value="url">url</option>
-                      <option value="checkbox">checkbox</option>
-                      <option value="file">file</option>
-                      <option value="select">select</option>
-                      <option value="date">date</option>
-                      <option value="time">time</option>
-                      <option value="number">number</option>
-                      <option value="text">text</option>
-                      <option value="email">email</option>
-                      <option value="money">money</option>
-                      <option value="email">email</option>
-                      <option value="hidden">hidden</option>
-                    </DS.Select>
-                  </div>
-                  <div className="col-span-4">
-                    <DS.Input
-                      type="text"
-                      value={fields[index].label}
-                      label="Label"
-                      onChange={(val: string) => {
-                        let f = fields.slice(0);
-                        f[index].label = val;
-                        setFields(f);
-                      }}
-                    />
-                  </div>
-                  <div className="col-span-3">
-                    <DS.Checkbox
-                      type="text"
-                      value={fields[index].isRequired}
-                      label="Required?"
-                      onChange={() => {
-                        let f = fields.slice(0);
-                        f[index].isRequired = !!!f[index].isRequired;
-                        setFields(f);
-                      }}
-                    />
+                  <div className="md:col-span-7 py-5">
+                    <div className="grid grid-cols-1 xl:grid-cols-2 w-full gap-3 mb-3   py-1 rounded-lg px-3">
+                      <div>
+                        <DS.Input
+                          type="text"
+                          value={fields[fieldIndex].name}
+                          label="Name"
+                          onChange={(val: string) => {
+                            let f = fields.slice(0);
+                            f[fieldIndex].name = val;
+                            setFields(f);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <DS.Select
+                          value={fields[fieldIndex].type}
+                          label="Type"
+                          onChange={(val: string) => {
+                            let f = fields.slice(0);
+                            f[fieldIndex].type = val;
+                            setFields(f);
+                          }}
+                        >
+                          <option value="url">url</option>
+                          <option value="checkbox">checkbox</option>
+                          <option value="file">file</option>
+                          <option value="select">select</option>
+                          <option value="date">date</option>
+                          <option value="time">time</option>
+                          <option value="number">number</option>
+                          <option value="text">text</option>
+                          <option value="email">email</option>
+                          <option value="money">money</option>
+                          <option value="email">email</option>
+                          <option value="hidden">hidden</option>
+                        </DS.Select>
+                      </div>
+                      <div>
+                        <DS.Input
+                          type="text"
+                          value={fields[fieldIndex].label}
+                          label="Label"
+                          onChange={(val: string) => {
+                            let f = fields.slice(0);
+                            f[fieldIndex].label = val;
+                            setFields(f);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <DS.Checkbox
+                          type="text"
+                          value={fields[fieldIndex].isRequired}
+                          label="Required?"
+                          onChange={() => {
+                            let f = fields.slice(0);
+                            f[fieldIndex].isRequired =
+                              !!!f[fieldIndex].isRequired;
+                            setFields(f);
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
 
             <DS.Input
               type="text"

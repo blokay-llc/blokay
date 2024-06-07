@@ -219,7 +219,7 @@ export default function TreeMenu({
           <div
             className={`px-2 py-1  ${
               mode == "functions"
-                ? "dark:bg-black text-white "
+                ? "dark:bg-black text-white font-medium "
                 : "dark:text-stone-400"
             } rounded-lg shadow-md w-full text-center text-sm`}
             onClick={() => setMode("functions")}
@@ -229,7 +229,7 @@ export default function TreeMenu({
           <div
             className={`px-2 py-1  ${
               mode == "crons"
-                ? "dark:bg-black text-white "
+                ? "dark:bg-black text-white font-medium "
                 : "dark:text-stone-400"
             } rounded-lg shadow-md w-full text-center text-sm `}
             onClick={() => setMode("crons")}
