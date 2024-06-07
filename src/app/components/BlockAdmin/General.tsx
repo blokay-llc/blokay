@@ -185,6 +185,7 @@ const General = ({ neuron, reload, onClose }: any) => {
                             <option value="time">time</option>
                             <option value="number">number</option>
                             <option value="text">text</option>
+                            <option value="textarea">textarea</option>
                             <option value="email">email</option>
                             <option value="money">money</option>
                             <option value="email">email</option>
