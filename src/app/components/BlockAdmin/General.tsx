@@ -102,7 +102,7 @@ const General = ({ neuron, reload, onClose }: any) => {
         }}
       />
 
-      <div className="mt-5 pt-5 border-t border-stone-300 dark:border-stone-800">
+      <div className="mt-5 pt-5 border-t border-neutral-300 dark:border-neutral-800">
         <div className="mb-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <DS.Select
@@ -116,7 +116,7 @@ const General = ({ neuron, reload, onClose }: any) => {
               <option value="cron">Cron Job</option>
             </DS.Select>
 
-            <h2 className="font-bold text-stone-700 dark:text-stone-400 ">
+            <h2 className="font-bold text-neutral-700 dark:text-neutral-400 ">
               {form.type == "cron" ? "Cron Job" : "Input data"}
             </h2>
           </div>
@@ -135,8 +135,8 @@ const General = ({ neuron, reload, onClose }: any) => {
         {form.type == "function" && (
           <>
             {fields.length > 0 && (
-              <div className="mb-5 select-none border border-stone-800 rounded-lg px-5">
-                <div className="grid grid-cols-1 gap-5 divide-x divide-stone-800 md:grid-cols-12">
+              <div className="mb-5 select-none border border-neutral-800 rounded-lg px-5">
+                <div className="grid grid-cols-1 gap-5 divide-x divide-neutral-800 md:grid-cols-12">
                   <div className="md:col-span-5 py-5">
                     {fields.map((row, index) => (
                       <div
@@ -144,7 +144,7 @@ const General = ({ neuron, reload, onClose }: any) => {
                         key={"field-" + index}
                         className={`flex gap-3 mb-2 group  items-center py-1 rounded-lg px-3 font-medium text-sm ${
                           fieldIndex == index
-                            ? "bg-stone-200 dark:bg-stone-800"
+                            ? "bg-neutral-200 dark:bg-neutral-800"
                             : ""
                         }`}
                       >
@@ -353,7 +353,7 @@ const General = ({ neuron, reload, onClose }: any) => {
           </>
         )}
 
-        <div className="mt-10 pt-3 border-t flex justify-between border-stone-200 dark:border-stone-800">
+        <div className="mt-10 pt-3 border-t flex justify-between border-neutral-200 dark:border-neutral-800">
           <DS.Button
             text="Delete this"
             onClick={() => {

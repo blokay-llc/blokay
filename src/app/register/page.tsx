@@ -11,7 +11,7 @@ export default async function Register() {
   }
 
   return (
-    <div className="min-h-screen h-full dark:bg-stone-950 ">
+    <div className="min-h-screen h-full dark:bg-neutral-950 ">
       <div className="flex items-center justify-center min-h-screen w-full">
         <Providers>
           <RegisterForm />

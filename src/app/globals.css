@@ -136,7 +136,7 @@
 }
 
 body {
-  @apply bg-stone-100 dark:bg-stone-950 text-stone-950 dark:text-stone-200;
+  @apply bg-neutral-100 dark:bg-neutral-950 text-neutral-950 dark:text-neutral-200;
   color: rgb(var(--foreground-rgb));
 }
 
@@ -147,7 +147,7 @@ body {
 }
 
 .menu-responsive li a {
-  @apply p-2 block hover:bg-gray-100 dark:hover:bg-stone-800 rounded-lg text-stone-600 dark:text-stone-100;
+  @apply p-2 block hover:bg-gray-100 dark:hover:bg-neutral-800 rounded-lg text-neutral-600 dark:text-neutral-100;
 }
 
 .plus {
@@ -192,7 +192,7 @@ body {
   @apply fill-white dark:fill-black;
 }
 .icon-btn.secondary {
-  @apply fill-stone-600;
+  @apply fill-neutral-600;
 }
 .tooltip::after {
   content: "";
@@ -285,13 +285,13 @@ div.highway-barrier .highway-lane > div:hover {
 }
 
 .table {
-  @apply bg-white dark:bg-stone-800 p-4 z-0 flex flex-col relative justify-between gap-4 overflow-auto rounded-2xl shadow w-full;
+  @apply bg-white dark:bg-neutral-800 p-4 z-0 flex flex-col relative justify-between gap-4 overflow-auto rounded-2xl shadow w-full;
 }
 .table table {
-  @apply w-full text-stone-800 dark:text-stone-300;
+  @apply w-full text-neutral-800 dark:text-neutral-300;
 }
 .table table thead tr th {
-  @apply px-3 text-xs text-stone-500 bg-stone-200 dark:bg-stone-950 dark:text-stone-300 uppercase h-10;
+  @apply px-3 text-xs text-neutral-500 bg-neutral-200 dark:bg-neutral-950 dark:text-neutral-300 uppercase h-10;
 }
 .table table thead tr th:first-child {
   @apply rounded-l-xl;
@@ -305,7 +305,7 @@ div.highway-barrier .highway-lane > div:hover {
 }
 
 .table table tbody tr {
-  /* @apply bg-stone-100; */
+  /* @apply bg-neutral-100; */
 }
 .table table tbody tr:first-child {
   @apply rounded-t-xl;
@@ -324,7 +324,7 @@ div.highway-barrier .highway-lane > div:hover {
 }
 
 .table table tbody button {
-  @apply bg-stone-200 hover:bg-stone-300 text-stone-600 py-1 px-3 text-sm rounded-lg;
+  @apply bg-neutral-200 hover:bg-neutral-300 text-neutral-600 py-1 px-3 text-sm rounded-lg;
 }
 
 .react-grid-item > .react-resizable-handle::after {
@@ -335,21 +335,21 @@ div.highway-barrier .highway-lane > div:hover {
 }
 
 .tabs {
-  @apply flex mb-5 justify-center gap-1 p-2 rounded-xl border-2 border-stone-100 font-light text-stone-600 dark:text-stone-400 dark:border-stone-800;
+  @apply flex mb-5 justify-center gap-1 p-2 rounded-xl border-2 border-neutral-100 font-light text-neutral-600 dark:text-neutral-400 dark:border-neutral-800;
 }
 .tabs .tab {
   @apply px-3 py-1 cursor-pointer rounded-lg   flex  items-center gap-3;
 }
 
 .tabs .tab.active {
-  @apply bg-stone-200 dark:bg-stone-900 dark:text-stone-200 dark:hover:bg-stone-800;
+  @apply bg-neutral-200 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800;
 }
 .tabs .tab svg {
-  @apply fill-stone-600 dark:fill-stone-400 size-6;
+  @apply fill-neutral-600 dark:fill-neutral-400 size-6;
 }
 
 .tabs .tab:not(.active) {
-  @apply hover:bg-stone-100 dark:hover:bg-stone-900;
+  @apply hover:bg-neutral-100 dark:hover:bg-neutral-900;
 }
 
 .tabs.dark {
@@ -357,7 +357,7 @@ div.highway-barrier .highway-lane > div:hover {
 }
 
 .tabs.dark .tab.active {
-  @apply bg-stone-700;
+  @apply bg-neutral-700;
 }
 
 .tabs.dark .tab svg {

@@ -117,7 +117,7 @@ function ListViews({}) {
               </div>
             )}
 
-            <h2 className="text-stone-900 dark:text-white text-2xl mb-5 ">
+            <h2 className="text-neutral-900 dark:text-white text-2xl mb-5 ">
               <div>My views</div>
             </h2>
 
@@ -125,7 +125,7 @@ function ListViews({}) {
               {viewsComputed.map((view: any) => (
                 <div>
                   {view.name && (
-                    <h2 className="mb-5 font-bold text-stone-900 dark:text-stone-200">
+                    <h2 className="mb-5 font-bold text-neutral-900 dark:text-neutral-200">
                       {view.name}
                     </h2>
                   )}
@@ -134,7 +134,7 @@ function ListViews({}) {
                       <a
                         href={"/dashboard/view/" + view.slug}
                         key={view.id}
-                        className="bg-white dark:bg-stone-900 shadow-sm  border-transparent transition	   text-stone-900 dark:text-stone-400 dark:hover:text-stone-200 p-3 lg:px-5 lg:py-3  rounded-lg flex items-center gap-3 hover:bg-stone-50 dark:hover:bg-stone-800  dark:hover:bg-gradient-to-r  dark:hover:from-black dark:hover:to-blue-950  duration-100"
+                        className="bg-white dark:bg-neutral-900 shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3  rounded-lg flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800  dark:hover:bg-gradient-to-r  dark:hover:from-black dark:hover:to-blue-950  duration-100"
                       >
                         <div className="font-light">{view.name}</div>
                       </a>

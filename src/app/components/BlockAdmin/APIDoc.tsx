@@ -8,7 +8,7 @@ function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
   return (
     <div className="select-none">
       <div
-        className={`border-stone-200  dark:border-stone-800 border px-5 py-3 rounded-lg flex flex-col gap-5 ${
+        className={`border-neutral-200  dark:border-neutral-800 border px-5 py-3 rounded-lg flex flex-col gap-5 ${
           showing ? "bg-[#21252b]" : "dark:hover:bg-white/10"
         }`}
       >
@@ -42,7 +42,7 @@ function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
 function ComingSoon() {
   return (
     <div className="py-5 text-center">
-      <h2 className="dark:text-stone-600 text-stone-400 text-xl">
+      <h2 className="dark:text-neutral-600 text-neutral-400 text-xl">
         Coming Soon
       </h2>
     </div>
@@ -102,8 +102,8 @@ function Component() {
               {process.env.NEXT_PUBLIC_URL}/api/brain/exec
             </div>
           </div>
-          <pre className="bg-stone-900 backdrop-blur-sm max-w-96 px-3 py-3 rounded-lg text-stone-300 ">
-            <div className="text-stone-200 text-xs bg-stone-500  inline-block mb-3 py-1 px-1 rounded-lg">
+          <pre className="bg-neutral-900 backdrop-blur-sm max-w-96 px-3 py-3 rounded-lg text-neutral-300 ">
+            <div className="text-neutral-200 text-xs bg-neutral-500  inline-block mb-3 py-1 px-1 rounded-lg">
               REQUEST
             </div>
             <div className="font-light text-sm select-text">

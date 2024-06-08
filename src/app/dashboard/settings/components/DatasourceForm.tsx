@@ -170,10 +170,10 @@ export default function DatasourceForm({
         <div className="flex gap-5 items-center">
           {onBack && (
             <div
-              className="rounded-full shrink-0 size-8 flex items-center justify-center bg-white hover:bg-stone-200"
+              className="rounded-full shrink-0 size-8 flex items-center justify-center bg-white hover:bg-neutral-200"
               onClick={onBack}
             >
-              <DS.Icon className="size-6 fill-stone-600" icon="left" />
+              <DS.Icon className="size-6 fill-neutral-600" icon="left" />
             </div>
           )}
           <h2 className="font-bold text-xl ">{title}</h2>
@@ -196,16 +196,16 @@ export default function DatasourceForm({
               }}
               className={`border-2 flex flex-col gap-3 justify-center items-center px-3 py-2 rounded-xl ${
                 form.config.type == type.type
-                  ? "border-stone-600 dark:border-stone-200 "
-                  : "border-stone-300 dark:border-stone-800"
+                  ? "border-neutral-600 dark:border-neutral-200 "
+                  : "border-neutral-300 dark:border-neutral-800"
               }`}
             >
               <DS.IconTools
                 icon={type.type}
                 className={`${
                   form.config.type == type.type
-                    ? "dark:fill-stone-200 fill-stone-800 "
-                    : "fill-stone-600 dark:fill-stone-600"
+                    ? "dark:fill-neutral-200 fill-neutral-800 "
+                    : "fill-neutral-600 dark:fill-neutral-600"
                 }  size-12`}
               />
               <div className="font-light text-sm">{type.name}</div>
@@ -258,7 +258,7 @@ export default function DatasourceForm({
             loading={loading}
           />
 
-          <div className="font-light text-stone-600 text-sm">
+          <div className="font-light text-neutral-600 text-sm">
             Your credentials are saved encrypted
           </div>
         </div>

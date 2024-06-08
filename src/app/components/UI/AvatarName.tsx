@@ -25,7 +25,7 @@ export default function AvatarName({ name, colorIndex = 0 }: any) {
       className={`group select-none text-sm relative size-8 rounded-full flex items-center justify-center ${colors[index].bg} ${colors[index].text}`}
     >
       {getShort().toUpperCase()}
-      <div className="group-hover:block absolute -bottom-7 left-0  w-26 text-center hidden  bg-stone-900 text-stone-100 rounded-sm py-1 px-2 text-xs z-10">
+      <div className="group-hover:block absolute -bottom-7 left-0  w-26 text-center hidden  bg-neutral-900 text-neutral-100 rounded-sm py-1 px-2 text-xs z-10">
         <div className="truncate">{name}</div>
       </div>
     </div>

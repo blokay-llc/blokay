@@ -104,7 +104,7 @@ export default function RegisterForm() {
             error={errors?.password}
           />
 
-          <div className="text-sm text-stone-500 font-light border-t border-stone-300 dark:border-black mt-3 pt-3">
+          <div className="text-sm text-neutral-500 font-light border-t border-neutral-300 dark:border-black mt-3 pt-3">
             By using Blokay, you are agreeing to our{" "}
             <a
               href="https://blokay.com/privacy"
@@ -130,9 +130,9 @@ export default function RegisterForm() {
         <div className=" mx-auto  mt-10  ">
           <a
             href="/login"
-            className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-blue-950 to-indigo-100"
+            className="border-neutral-300 dark:border-neutral-950 border-2 text-neutral-700 px-5 py-3 rounded-2xl shadow-2xl shadow-neutral-400 dark:shadow-black dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-blue-950 to-indigo-100"
           >
-            <DS.Icon icon="account" className="size-10 fill-stone-500" />
+            <DS.Icon icon="account" className="size-10 fill-neutral-500" />
             <div>
               <span className="font-bold">Existing workspace? </span>
               <div className="font-light text-sm">Sign in</div>

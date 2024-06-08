@@ -15,13 +15,13 @@ const MenuOption = ({ name, icon, href }: MenuOptionProps) => {
   return (
     <li>
       <a
-        className="py-1 text-sm hover:bg-stone-100 dark:hover:bg-stone-950 rounded-lg px-1.5 flex justify-between items-center"
+        className="py-1 text-sm hover:bg-neutral-100 dark:hover:bg-gray-950 rounded-lg px-1.5 flex justify-between items-center"
         href={href}
       >
         <div>{name}</div>
         <DS.Icon
           icon={icon}
-          className="size-5 fill-stone-700 dark:fill-stone-500"
+          className="size-5 fill-neutral-700 dark:fill-neutral-500"
         />
       </a>
     </li>
@@ -45,7 +45,7 @@ export default function Menu({
   return (
     <div className="lg:pt-0 pt-16">
       <div className="lg:static pb-3 lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
-        <div className="border   bg-white dark:bg-stone-900 backdrop-blur-md  font-light border-stone-300 dark:border-stone-950  rounded-lg text-sm shadow py-2  text-stone-800 dark:text-stone-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
+        <div className="border   bg-white dark:bg-neutral-900 backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-950  rounded-lg text-sm shadow py-2  text-neutral-800 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
           <div className="px-2 flex items-center gap-5 lg:py-5 py-3">
             <a href="/dashboard">
               <img
@@ -117,7 +117,7 @@ export default function Menu({
           </div>
         </div>
 
-        <div className="text-xs text-stone-400 mt-3 md:flex gap-3 px-2 hidden">
+        <div className="text-xs text-neutral-400 mt-3 md:flex gap-3 px-2 hidden">
           <a href="https://blokay.com/contact">Contact</a>
           <a href="https://blokay.com/privacy">Privacy policy</a>
         </div>

@@ -127,10 +127,10 @@ export default function SettingsView() {
             )}
           </div>
 
-          <div className="flex-col flex gap-3 border-stone-300 dark:border-stone-800 border-2 px-5 py-5 rounded-xl ">
+          <div className="flex-col flex gap-3 border-neutral-300 dark:border-neutral-800 border-2 px-5 py-5 rounded-xl ">
             {datasources.length == 0 && (
               <div className="py-5">
-                <h2 className="mb-5 text-lg font-bold text-stone-700 dark:text-stone-200">
+                <h2 className="mb-5 text-lg font-bold text-neutral-700 dark:text-neutral-200">
                   You don't have any datasource created
                 </h2>
                 <DS.Button
@@ -143,7 +143,7 @@ export default function SettingsView() {
               </div>
             )}
             {datasources.length > 0 && (
-              <div className="flex flex-col  divide-y divide-stone-300">
+              <div className="flex flex-col  divide-y divide-neutral-300">
                 {datasources.map((datasource: any) => (
                   <div
                     key={datasource.id}
@@ -155,7 +155,7 @@ export default function SettingsView() {
                   >
                     <div>
                       <DS.IconTools
-                        className="size-10 fill-stone-600"
+                        className="size-10 fill-neutral-600"
                         icon={datasource.type}
                       />
                     </div>

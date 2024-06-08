@@ -69,39 +69,39 @@ export default function LoginForm() {
         <div className="mt-10 grid grid-cols-2 gap-3">
           {process.env.NEXT_PUBLIC_GOOGLE_LOGIN != "0" && (
             <div
-              className="transition duration-100 border-2 border-stone-300 dark:border-stone-800 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300 dark:hover:bg-stone-900 dark:text-stone-400 cursor-pointer "
+              className="transition duration-100 border-2 border-neutral-300 dark:border-neutral-800 rounded-lg flex gap-3 items-center text-neutral-600 px-3 py-2 font-light hover:bg-neutral-300 dark:hover:bg-neutral-900 dark:text-neutral-400 cursor-pointer "
               onClick={() => {
                 loginThird("google");
               }}
             >
-              <DS.Icon icon="google" className="fill-stone-600 size-5" />
+              <DS.Icon icon="google" className="fill-neutral-600 size-5" />
               <div> Google</div>
             </div>
           )}
 
           {process.env.NEXT_PUBLIC_GITHUB_LOGIN != "0" && (
             <div
-              className="transition duration-100 border-2 border-stone-300 dark:border-stone-800 rounded-lg flex gap-3 items-center text-stone-600 px-3 py-2 font-light hover:bg-stone-300  dark:hover:bg-stone-900 dark:text-stone-400 cursor-pointer"
+              className="transition duration-100 border-2 border-neutral-300 dark:border-neutral-800 rounded-lg flex gap-3 items-center text-neutral-600 px-3 py-2 font-light hover:bg-neutral-300  dark:hover:bg-neutral-900 dark:text-neutral-400 cursor-pointer"
               onClick={() => {
                 loginThird("github");
               }}
             >
-              <DS.Icon icon="github" className="fill-stone-600 size-5" />
+              <DS.Icon icon="github" className="fill-neutral-600 size-5" />
               <div> GitHub</div>
             </div>
           )}
         </div>
 
-        <div className="text-stone-600 mt-5 font-light text-sm text-center">
+        <div className="text-neutral-600 mt-5 font-light text-sm text-center">
           ¿Any problem to login?
         </div>
 
         <div className=" mx-auto mt-10  ">
           <a
             href="/register"
-            className="border-stone-300 dark:border-stone-950 border-2 text-stone-700 px-5 py-3 rounded-2xl shadow-2xl shadow-stone-400 dark:shadow-black dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-teal-950 to-indigo-100"
+            className="border-neutral-300 dark:border-neutral-950 border-2 text-neutral-700 px-5 py-3 rounded-2xl shadow-2xl shadow-neutral-400 dark:shadow-black dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-teal-950 to-indigo-100"
           >
-            <DS.Icon icon="account" className="size-10 fill-stone-500" />
+            <DS.Icon icon="account" className="size-10 fill-neutral-500" />
             <div>
               <span className="font-bold">Need a new workspace? </span>
               <div className="font-light text-sm">Sign up</div>

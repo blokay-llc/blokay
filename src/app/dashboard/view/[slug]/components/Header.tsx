@@ -48,14 +48,14 @@ export default function Header({
         {!isAdmin && (
           <>
             <a className="" href="/dashboard">
-              <div className="size-8 p-1 cursor-pointer border-2 border-stone-50 dark:border-stone-800 hover:border-stone-300 dark:hover:bg-stone-700 dark:hover:border-stone-700 rounded-full bg-white dark:bg-stone-800">
+              <div className="size-8 p-1 cursor-pointer border-2 border-neutral-50 dark:border-neutral-800 hover:border-neutral-300 dark:hover:bg-neutral-700 dark:hover:border-neutral-700 rounded-full bg-white dark:bg-neutral-800">
                 <DS.Icon
                   icon="left"
-                  className="fill-stone-900 dark:fill-stone-200 size-full"
+                  className="fill-neutral-900 dark:fill-neutral-200 size-full"
                 />
               </div>
             </a>
-            <h2 className="text-2xl text-stone-800 dark:text-stone-400">
+            <h2 className="text-2xl text-neutral-800 dark:text-neutral-400">
               {title}
             </h2>
           </>
@@ -69,9 +69,9 @@ export default function Header({
 
         <div
           onClick={clickShare}
-          className="flex items-center gap-2 border-2 border-stone-300 dark:border-stone-700 rounded-lg text-sm text-stone-500 px-3 py-2 ml-3 hover:bg-white dark:hover:bg-stone-600"
+          className="flex items-center gap-2 border-2 border-neutral-300 dark:border-neutral-700 rounded-lg text-sm text-neutral-500 px-3 py-2 ml-3 hover:bg-white dark:hover:bg-neutral-600"
         >
-          <DS.Icon icon="share" className="size-4 fill-stone-500" />
+          <DS.Icon icon="share" className="size-4 fill-neutral-500" />
           Share
         </div>
       </div>

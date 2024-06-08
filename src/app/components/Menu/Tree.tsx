@@ -52,7 +52,7 @@ const DropItem = function ({
       <div className="flex flex-col ">
         <div
           className={`flex items-center justify-between py-1 ${
-            item.key ? " hover:bg-stone-200 dark:hover:bg-stone-900" : ""
+            item.key ? " hover:bg-neutral-200 dark:hover:bg-neutral-900" : ""
           }`}
           onClick={() => {
             if (item.key) {
@@ -83,14 +83,14 @@ const DropItem = function ({
               >
                 <DS.Icon
                   icon="right"
-                  className={`fill-stone-600 dark:fill-stone-200 size-4 ${
+                  className={`fill-neutral-600 dark:fill-neutral-200 size-4 ${
                     isOpen ? "rotate-90" : ""
                   }`}
                 />
               </div>
             )}
             <div
-              className={`text-[13px] text-stone-600 dark:text-stone-300 ${
+              className={`text-[13px] text-neutral-600 dark:text-neutral-300 ${
                 level == 0 ? "font-light" : "font-light"
               }`}
             >
@@ -215,12 +215,12 @@ export default function TreeMenu({
   return (
     <div className={`${editMode == "user" ? "hidden" : ""}`}>
       <div className="px-3 mb-3 mt-3">
-        <div className="text-sm flex gap-1 select-none items-center dark:bg-stone-800 px-1 py-0.5 rounded-lg">
+        <div className="text-sm flex gap-1 select-none items-center dark:bg-neutral-800 px-1 py-0.5 rounded-lg">
           <div
             className={`px-2 py-1  ${
               mode == "functions"
                 ? "dark:bg-black text-white font-medium "
-                : "dark:text-stone-400"
+                : "dark:text-neutral-400"
             } rounded-lg shadow-md w-full text-center text-sm`}
             onClick={() => setMode("functions")}
           >
@@ -230,7 +230,7 @@ export default function TreeMenu({
             className={`px-2 py-1  ${
               mode == "crons"
                 ? "dark:bg-black text-white font-medium "
-                : "dark:text-stone-400"
+                : "dark:text-neutral-400"
             } rounded-lg shadow-md w-full text-center text-sm `}
             onClick={() => setMode("crons")}
           >
@@ -240,7 +240,7 @@ export default function TreeMenu({
       </div>
       {mode == "functions" && (
         <>
-          <div className="px-2 select-none flex flex-col pt-3 border-t border-stone-200 dark:border-black">
+          <div className="px-2 select-none flex flex-col pt-3 border-t border-neutral-200 dark:border-black">
             {buildStructure().map((item: any, index: any) => (
               <DropItem
                 onClickNeuron={onClickNeuron}
@@ -255,8 +255,8 @@ export default function TreeMenu({
             ))}
           </div>
           {nonUsed.length > 0 && (
-            <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200 dark:border-black">
-              <h2 className="text-stone-600 dark:text-white mb-3 text-sm font-medium">
+            <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-neutral-200 dark:border-black">
+              <h2 className="text-neutral-600 dark:text-white mb-3 text-sm font-medium">
                 Unused yet
               </h2>
               {nonUsed.map((item: any, index: any) => (
@@ -276,7 +276,7 @@ export default function TreeMenu({
       )}
 
       {mode == "crons" && crons.length > 0 && (
-        <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-stone-200 dark:border-black">
+        <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-neutral-200 dark:border-black">
           {crons.map((item: any, index: any) => (
             <DropItem
               onClickNeuron={onClickNeuron}

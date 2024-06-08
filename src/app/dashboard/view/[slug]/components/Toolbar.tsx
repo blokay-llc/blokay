@@ -54,7 +54,7 @@ export default function Toolbar({
 
           <div className="item aspect-auto">
             <input
-              className="text-stone-900 dark:text-stone-100 text-lg px-5 font-medium bg-transparent focus:outline-none w-full "
+              className="text-neutral-900 dark:text-neutral-100 text-lg px-5 font-medium bg-transparent focus:outline-none w-full "
               value={title}
               disabled={editMode === "user"}
               onChange={(e) => {
@@ -78,7 +78,7 @@ export default function Toolbar({
         {clickAction && (
           <div
             onClick={() => setClickAction("")}
-            className="fixed w-full bg-stone-400/20 dark:bg-stone-700/40 min-h-screen top-0 left-0 z-10 backdrop-blur-sm"
+            className="fixed w-full bg-neutral-400/20 dark:bg-neutral-700/40 min-h-screen top-0 left-0 z-10 backdrop-blur-sm"
           ></div>
         )}
         {clickAction == "new" && (
