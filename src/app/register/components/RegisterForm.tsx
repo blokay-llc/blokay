@@ -3,39 +3,24 @@ import { useState } from "react";
 import { DS } from "@blokay/react";
 import { fetchRegister } from "@/app/services/auth";
 import { signIn } from "next-auth/react";
+import { useApi } from "@/hooks/useApi";
 
 export default function RegisterForm() {
   const [form, setForm]: any = useState({
     companySize: "1-5",
   });
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors]: any = useState({});
+  const { loading, errors, callApi } = useApi(fetchRegister);
 
   const register = () => {
-    setLoading(true);
-    fetchRegister(form)
-      .then(() => {
-        setForm({});
-        return signIn("credentials", {
-          email: form.email,
-          password: form.password,
-          redirect: true,
-          callbackUrl: "/dashboard",
-        });
-      })
-      .catch((err) => {
-        let inputsErrors = err?.errors?.issues || [];
-        let errs = inputsErrors.reduce((acc: any, curr: any) => {
-          let key = curr.path[0];
-          acc[key] = curr.message;
-          return acc;
-        }, {});
-
-        setErrors(errs);
-      })
-      .finally(() => {
-        setLoading(false);
+    callApi(form).then(() => {
+      setForm({});
+      return signIn("credentials", {
+        email: form.email,
+        password: form.password,
+        redirect: true,
+        callbackUrl: "/dashboard",
       });
+    });
   };
 
   return (

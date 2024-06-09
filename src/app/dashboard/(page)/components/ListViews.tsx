@@ -6,6 +6,7 @@ import AppVideoCard from "../../../components/UI/AppVideoCard";
 import AvatarName from "../../../components/UI/AvatarName";
 import AddCreditCard from "@/app/components/UI/AddCreditCard";
 import { DS } from "@blokay/react";
+import { useApi } from "@/hooks/useApi";
 
 function ListViews({}) {
   const { data: session }: any = useSession();
@@ -14,21 +15,17 @@ function ListViews({}) {
   const modalRef: any = useRef();
   const [views, setViews] = useState([]);
   const [form, setForm]: any = useState({ search: "" });
-  const [loading, setLoading] = useState(false);
+  const { loading, callApi } = useApi(viewList);
+  const { loading: loadingAdd, errors, callApi: callApiAdd } = useApi(addView);
 
   useEffect(() => {
     listViews();
   }, []);
 
   const listViews = () => {
-    setLoading(true);
-    viewList()
-      .then((result) => {
-        setViews(result.Views);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    callApi().then((result) => {
+      setViews(result.Views);
+    });
   };
 
   const handleClickCreateNew = () => {
@@ -36,7 +33,7 @@ function ListViews({}) {
   };
 
   const handleSaveView = () => {
-    addView(form).then((result) => {
+    callApiAdd(form).then((result) => {
       modalRef.current.hideModal();
       listViews();
       setForm({ search: "" });
@@ -169,6 +166,7 @@ function ListViews({}) {
             variant="primary"
             className="w-full"
             size="md"
+            loading={loadingAdd}
           />
         }
         size="sm"
@@ -177,12 +175,10 @@ function ListViews({}) {
         <DS.Input
           type="text"
           value={form.name}
-          onChange={(val: string) => {
-            setForm({ ...form, name: val });
-          }}
-          label={"Name"}
+          onChange={(val: string) => setForm({ ...form, name: val })}
+          label="Name"
+          error={errors?.name || errors?.key}
         />
-
         {viewsComputed.filter((x) => x.id).length > 0 && (
           <div className="mt-3">
             <DS.Select

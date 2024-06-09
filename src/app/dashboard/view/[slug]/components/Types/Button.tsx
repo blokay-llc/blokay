@@ -8,7 +8,7 @@ export default function ({ options, editMode }: any) {
       <DS.Button
         text={options?.label || "Button"}
         className="w-full"
-        variant="primary"
+        variant="secondary"
         onClick={() => {
           if (editMode != "user") return;
           eventRef.current.functions[options.click]({

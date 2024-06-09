@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import { DS } from "@blokay/react";
 import { newNeuron } from "@/app/services/brain";
+import { useApi } from "@/hooks/useApi";
 
 export default function Toolbar({
   title,
@@ -15,12 +16,13 @@ export default function Toolbar({
   const modalRef: any = useRef();
   const [form, setForm]: any = useState({ type: "function" });
   const [clickAction, setClickAction]: any = useState("");
+  const { loading, errors, callApi } = useApi(newNeuron);
 
   const handleClickNew = () => {
     modalRef.current.showModal();
   };
-  const handleClickCreateNewNeuron = () => {
-    newNeuron(form).then((neuron) => {
+  const handleClickCreateNewBlock = () => {
+    callApi(form).then((neuron) => {
       modalRef.current.hideModal();
       onCreate && onCreate({ neuron });
       setForm({});
@@ -108,10 +110,11 @@ export default function Toolbar({
         footer={
           <DS.Button
             text="Add new"
-            onClick={() => handleClickCreateNewNeuron()}
+            onClick={() => handleClickCreateNewBlock()}
             variant="primary"
             className="w-full"
             size="md"
+            loading={loading}
           />
         }
       >
@@ -121,6 +124,7 @@ export default function Toolbar({
           }}
           type="text"
           value={form.name}
+          error={errors?.name || errors?.key}
           label="Name of the block"
         />
       </DS.Modal>

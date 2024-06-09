@@ -1,9 +1,22 @@
+import { z } from "zod";
 import { withUser } from "@/lib/withUser";
-import { NextResponse } from "next/server";
 import Models from "@/db/index";
+import {
+  isValidSchema,
+  sendDataValidationError,
+  sendData,
+} from "@/lib/response";
 
 let db = new Models();
 const { Neuron }: any = db;
+
+const schema = z.object({
+  name: z.string().min(3),
+  key: z.string().refine(async (e: string) => {
+    const currentBlock = await Neuron.findByKey(e);
+    return !currentBlock;
+  }, "The block already exists."),
+});
 
 function stringtoKey(str: string) {
   str = str.replace(/^\s+|\s+$/g, ""); // trim
@@ -25,22 +38,27 @@ export const POST = withUser(async function ({ req, user }: any) {
   const body = await req.json();
   const data = body.data;
 
+  let key = stringtoKey(data.name);
+  const { success, errors } = await isValidSchema(schema, {
+    name: data.name,
+    key,
+  });
+  if (!success) return sendDataValidationError(errors);
+
   let neuron = await Neuron.create({
     type: data.type || "function",
     businessId: user.businessId,
     icon: data.icon,
     description: data.name,
-    key: stringtoKey(data.name),
+    key,
     filters: {},
     synapse:
       "const fn = async (req: Request, res: Response) => {\n\treturn null;\n}",
   });
 
-  return NextResponse.json({
-    data: {
-      Neuron: {
-        id: neuron.id,
-      },
+  return sendData({
+    Neuron: {
+      id: neuron.id,
     },
   });
 });

@@ -78,6 +78,15 @@ const model = (sequelize: any, DataTypes: any) => {
     return await Neuron.findOne(queryBuilder);
   };
 
+  Neuron.findByKey = async function (key: string) {
+    let queryBuilder: any = {
+      where: {
+        key,
+      },
+    };
+    return await Neuron.findOne(queryBuilder);
+  };
+
   return Neuron;
 };
 

@@ -7,73 +7,48 @@ import {
 } from "@/app/services/datasource";
 import { DS } from "@blokay/react";
 import DatasourceForm from "./DatasourceForm";
+import { useApi } from "@/hooks/useApi";
 
 export default function SettingsView() {
   const [datasources, setDatasources]: any = useState(null);
   const [datasource, setDatasource]: any = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors]: any = useState({});
+  const { loading, callApi } = useApi(fetchDatasources);
+  const {
+    loading: loadingUpdate,
+    errors: errorsUpdate,
+    callApi: callApiUpdate,
+  } = useApi(fetchUpdateDatasources);
+
+  const {
+    loading: loadingCreate,
+    errors: errorsCreate,
+    callApi: callApiCreate,
+  } = useApi(fetchCreateDatasource);
 
   const getDatasources = () => {
-    setLoading(true);
-    fetchDatasources()
-      .then((result) => {
-        setDatasources(result.Datasource);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    callApi().then((result) => {
+      setDatasources(result.Datasource);
+    });
   };
 
   const handleUpdate = (form: any) => {
-    setLoading(true);
-    fetchUpdateDatasources({
+    callApiUpdate({
       datasourceId: datasource.id,
       ...form,
-    })
-      .then(() => {
-        setDatasource(null);
-        getDatasources();
-      })
-      .catch((err) => {
-        let inputsErrors = err?.errors?.issues || [];
-        let errs = inputsErrors.reduce((acc: any, curr: any) => {
-          let key = curr.path.join(".");
-          acc[key] = curr.message;
-          return acc;
-        }, {});
-
-        setErrors(errs);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    }).then(() => {
+      setDatasource(null);
+      getDatasources();
+    });
   };
 
   const handleCreate = (form: any) => {
-    setLoading(true);
-    fetchCreateDatasource(form)
-      .then(() => {
-        setDatasource(null);
-        getDatasources();
-      })
-      .catch((err) => {
-        let inputsErrors = err?.errors?.issues || [];
-        let errs = inputsErrors.reduce((acc: any, curr: any) => {
-          let key = curr.path.join(".");
-          acc[key] = curr.message;
-          return acc;
-        }, {});
-
-        setErrors(errs);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    callApiCreate(form).then(() => {
+      setDatasource(null);
+      getDatasources();
+    });
   };
 
   const newDataSource = () => {
-    setErrors({});
     setDatasource({ name: "Your first datasource", type: "mysql", config: {} });
   };
 
@@ -85,10 +60,10 @@ export default function SettingsView() {
     <div>
       {datasource?.id && (
         <DatasourceForm
-          errors={errors}
+          errors={errorsUpdate}
           title="Datasource config"
           datasource={datasource}
-          loading={loading}
+          loading={loadingUpdate}
           onDone={handleUpdate}
           onBack={() => setDatasource(null)}
         />
@@ -96,10 +71,10 @@ export default function SettingsView() {
 
       {datasource && !datasource?.id && (
         <DatasourceForm
-          errors={errors}
+          errors={errorsCreate}
           title="Create Datasource"
           datasource={datasource}
-          loading={loading}
+          loading={loadingCreate}
           onDone={handleCreate}
           onBack={() => setDatasource(null)}
         />
@@ -149,7 +124,6 @@ export default function SettingsView() {
                     key={datasource.id}
                     className="flex items-center gap-3 py-4"
                     onClick={() => {
-                      setErrors({});
                       setDatasource(datasource);
                     }}
                   >
