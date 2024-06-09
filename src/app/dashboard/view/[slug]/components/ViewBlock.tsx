@@ -23,7 +23,7 @@ import Button from "./Types/Button";
 import Text from "./Types/Text";
 import ActionsEditButtons from "./ActionsEditButtons";
 
-const ViewBrain = ({ slug }: any) => {
+const ViewBlock = ({ slug }: any) => {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
@@ -315,4 +315,4 @@ const ViewBrain = ({ slug }: any) => {
     </div>
   );
 };
-export default ViewBrain;
+export default ViewBlock;

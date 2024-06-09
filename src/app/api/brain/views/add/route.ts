@@ -29,13 +29,13 @@ export const POST = withUser(async function ({ req, user }: any) {
 
   let dataCreation: any = {
     businessId: user.businessId,
+    userId: user.id,
     name: data.name,
     layout: [],
     slug: string_to_slug(data.name),
     viewGroupId: data.categoryId || null,
   };
 
-  console.log(dataCreation);
   let view = await View.create(dataCreation);
 
   return NextResponse.json({

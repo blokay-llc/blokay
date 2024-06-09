@@ -8,7 +8,7 @@ import AddCreditCard from "@/app/components/UI/AddCreditCard";
 import { DS } from "@blokay/react";
 import { useApi } from "@/hooks/useApi";
 
-function ListViews({}) {
+export default function ListViews({}) {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
@@ -77,104 +77,104 @@ function ListViews({}) {
 
   return (
     <div className="">
-      <div className=" flex items-center justify-between gap-5 mb-10">
-        <div className="lg:w-full mr-auto">
-          <DS.Input
-            type="text"
-            value={form.search}
-            onChange={(val: string) => {
-              setForm({ ...form, search: val });
-            }}
-            icon="search"
-            className="w-full"
-            label="Search"
-          />
-        </div>
-        {canCreateViews() && !loading && (
-          <DS.Button
-            icon="wizard"
-            text="Add new"
-            onClick={() => handleClickCreateNew()}
-            variant="primary"
-            size="md"
-            className="shrink-0"
-          />
-        )}
-        <div className="shrink-0">
-          <AvatarName name={session?.user?.name} />
-        </div>
-      </div>
       <div className="">
         {loading && <DS.Loader size="md" className="mx-auto" />}
-        {!loading && viewsComputed.length > 0 && (
-          <div>
-            {!canCreateViews() && !session?.business?.addedCard && (
-              <div className="mb-10 ">
-                <AddCreditCard text="You need to add a credit card to continue building" />
-              </div>
-            )}
 
-            <h2 className="text-neutral-900 dark:text-white text-2xl mb-5 ">
-              <div>My views</div>
-            </h2>
-
-            <div className="flex flex-col gap-3 lg:gap-5">
-              {viewsComputed.map((view: any) => (
-                <div>
-                  {view.name && (
-                    <h2 className="mb-5 font-bold text-neutral-900 dark:text-neutral-200">
-                      {view.name}
-                    </h2>
-                  )}
-
-                  {/* <div className="bl-table">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Creator</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {view.Views.map((view: any) => (
-                          <tr>
-                            <td>{view.name}</td>
-
-                            <td>Created by Juan David</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div> */}
-                  <div className="flex flex-wrap items-center gap-3 lg:gap-5">
-                    {view.Views.map((view: any) => (
-                      <a
-                        href={"/dashboard/view/" + view.slug}
-                        key={view.id}
-                        className="bg-white dark:bg-neutral-900 shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3  rounded-lg flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800  dark:hover:bg-gradient-to-r  dark:hover:from-black dark:hover:to-blue-950  duration-100"
-                      >
-                        <div className="font-light">{view.name}</div>
-                      </a>
-                    ))}
-                  </div>
+        <div className="w-[42rem] mx-auto">
+          {!loading && viewsComputed.length > 0 && (
+            <div>
+              <div className=" flex items-center justify-between gap-5 mb-10">
+                <div className="lg:w-full mr-auto">
+                  <DS.Input
+                    type="text"
+                    value={form.search}
+                    onChange={(val: string) => {
+                      setForm({ ...form, search: val });
+                    }}
+                    icon="search"
+                    className="w-full"
+                    label="Search"
+                  />
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
+                {canCreateViews() && !loading && (
+                  <DS.Button
+                    icon="wizard"
+                    text="Add new"
+                    onClick={() => handleClickCreateNew()}
+                    variant="primary"
+                    size="md"
+                    className="shrink-0"
+                  />
+                )}
+                <div className="shrink-0">
+                  <AvatarName name={session?.user?.name} />
+                </div>
+              </div>
 
-        {!loading && viewsCount() <= 3 && isAdmin && (
-          <div className="mt-10">
-            <AppVideoCard
-              youtubeUrl=""
-              title="Quick intro"
-              subtitle="Introduction by the Founder"
-              name="Introduction"
-              duration="1:09"
-              preview="https://www.relume.io/app/a/adam-video.ece0d5b362faf0b7dfc4.webp"
-            />
-          </div>
-        )}
+              {!canCreateViews() && !session?.business?.addedCard && (
+                <div className="mb-10 ">
+                  <AddCreditCard text="You need to add a credit card to continue building" />
+                </div>
+              )}
+
+              <h2 className="text-neutral-900 dark:text-white text-xl mb-5 ">
+                <div>My views</div>
+              </h2>
+
+              <div className="flex flex-col gap-3 lg:gap-5 ">
+                {viewsComputed.map((view: any) => (
+                  <div className="">
+                    {view.name && (
+                      <h2 className="mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-200">
+                        {view.name}
+                      </h2>
+                    )}
+
+                    <div className="flex flex-col w-full divide-y divide-black dark:bg-neutral-900 rounded-xl  ">
+                      {view.Views.map((view: any) => (
+                        <a
+                          href={"/dashboard/view/" + view.slug}
+                          key={view.id}
+                          className="  shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3  rounded-lg flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800  dark:bg-gradient-to-r  dark:hover:from-black dark:hover:to-blue-950  duration-100 justify-between relative group/delete"
+                        >
+                          <div className="font-light mr-auto ">{view.name}</div>
+                          {view.User && (
+                            <div className="flex items-center gap-2 ">
+                              <AvatarName name={view?.User?.name} size="sm" />
+                              <div className="font-light text-xs">
+                                {view.User.name}
+                              </div>
+                            </div>
+                          )}
+
+                          <div className="pl-5 opacity-0 group-hover/delete:opacity-100 transition-all">
+                            <DS.Icon
+                              icon="delete"
+                              className="size-4 fill-white"
+                            />
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {!loading && viewsCount() <= 3 && isAdmin && (
+            <div className="mt-10">
+              <AppVideoCard
+                youtubeUrl=""
+                title="Quick intro"
+                subtitle="Introduction by the Founder"
+                name="Introduction"
+                duration="1:09"
+                preview="https://www.relume.io/app/a/adam-video.ece0d5b362faf0b7dfc4.webp"
+              />
+            </div>
+          )}
+        </div>
       </div>
 
       <DS.Modal
@@ -222,5 +222,3 @@ function ListViews({}) {
     </div>
   );
 }
-
-export default ListViews;

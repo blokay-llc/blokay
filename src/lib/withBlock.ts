@@ -9,7 +9,7 @@ export const withBlock = (cb: any) => {
   return withUser(async function ({ req, user }: any) {
     const body = await req.json();
 
-    let { neuronId, neuronKey } = body.data;
+    let { neuronId, neuronKey, block: blockName } = body.data;
 
     let queryBuilder: any = {
       where: {
@@ -20,6 +20,8 @@ export const withBlock = (cb: any) => {
       queryBuilder.where.id = neuronId;
     } else if (neuronKey) {
       queryBuilder.where.key = neuronKey;
+    } else if (blockName) {
+      queryBuilder.where.key = blockName;
     }
 
     let block = await Neuron.findOne(queryBuilder);

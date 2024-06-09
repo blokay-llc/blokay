@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import { withJWT } from "@/lib/withJWT";
 import { callContext } from "./callContext";
+import XLSX from "xlsx";
 
 let db = new Models();
 
 const { Datasource, NeuronExecution, Neuron }: any = db;
 
 export const POST = withJWT(async function ({ business, session, body }: any) {
+  let { format } = body;
   let { neuronId, neuronKey } = body.data;
 
   let queryBuilder: any = {
@@ -46,13 +48,12 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
 
   let response = await callContext(neuron, session, form, datasource);
 
-  /*
-  if (format == "excel" && responseNeuron.content.type == "table") {
-    let content = responseNeuron.content.content;
+  if (format == "excel" && response?.type == "table") {
+    let content = response.content;
     let dataExcel = [
       content.header,
-      ...content.data.map((row) =>
-        row.map((col) => {
+      ...content.data.map((row: any) =>
+        row.map((col: any) => {
           let val = null;
           if (typeof col == "string" || typeof col == "number") {
             val = col;
@@ -71,16 +72,17 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
 
     const buf = XLSX.write(workbook, { type: "buffer" });
-    res.writeHead(200, {
-      "Content-Type": "application/vnd.ms-excel",
-      "Content-disposition": `attachment;filename=${encodeURIComponent(
-        neuron.description
-      )}.xlsx`,
-      "Content-Length": buf.length,
-    });
-    return res.end(Buffer.from(buf, "binary"));
+
+    const nextResponse: any = new NextResponse(buf);
+    nextResponse.headers.set("content-type", "application/vnd.ms-excel");
+    nextResponse.headers.set("content-Length", buf.length);
+    nextResponse.headers.set(
+      "Content-disposition",
+      `attachment;filename=${encodeURIComponent(neuron.description)}.xlsx`
+    );
+    return nextResponse;
   }
-*/
+
   datasource.update({ lastUseAt: Date.now() });
   let timeMs = Date.now() - d1;
   neuron.update({

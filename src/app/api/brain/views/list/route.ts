@@ -2,11 +2,15 @@ import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import { withUser } from "@/lib/withUser";
 let db = new Models();
-const { View, ViewGroup, ViewItem, UserPermission, Neuron }: any = db;
+const { View, ViewGroup, ViewItem, UserPermission, Neuron, User }: any = db;
 
 export const POST = withUser(async function ({ req, user }: any) {
   let queryBuilder = {
     include: [
+      {
+        model: User,
+        required: false,
+      },
       {
         model: ViewGroup,
         required: false,
@@ -82,6 +86,12 @@ export const POST = withUser(async function ({ req, user }: any) {
       icon: v.icon,
       slug: v.slug,
       children,
+      User: v.User
+        ? {
+            id: v.User.id,
+            name: v.User.name,
+          }
+        : null,
     });
 
     return ac;

@@ -6,6 +6,7 @@ const model = (sequelize: any, DataTypes: any) => {
       name: { type: DataTypes.STRING, allowNull: true },
       slug: { type: DataTypes.STRING, allowNull: true },
       businessId: { type: DataTypes.INTEGER, allowNull: true },
+      userId: { type: DataTypes.INTEGER, allowNull: true },
       viewGroupId: { type: DataTypes.INTEGER, allowNull: true },
     },
     {
@@ -16,6 +17,7 @@ const model = (sequelize: any, DataTypes: any) => {
 
   View.associate = function (models: any) {
     models.View.belongsTo(models.ViewGroup);
+    models.View.belongsTo(models.User);
   };
 
   return View;

@@ -57,7 +57,7 @@ export default function NeuronAPIDoc({ neuron }: any) {
     return ac;
   }, {});
   let req = {
-    neuronKey: neuron.key,
+    block: neuron.key,
     form: form,
   };
 
@@ -92,9 +92,9 @@ function Component() {
   return (
     <div className="flex flex-col gap-3 mt-5">
       <BoxIntegration icon="api" title="Connect by API">
-        <div className=" py-3 select-text   ">
-          <div className="flex items-center gap-2  mb-3 ">
-            <div className="text-yellow-600 text-xs bg-yellow-300 inline-block py-1 px-1 rounded-lg">
+        <div className="">
+          <div className="flex items-center gap-2  mb-5  py-3 select-text   ">
+            <div className="text-blue-700 text-xs bg-blue-300 inline-block py-1 px-1 rounded-lg">
               POST
             </div>
 
@@ -102,14 +102,23 @@ function Component() {
               {process.env.NEXT_PUBLIC_URL}/api/brain/exec
             </div>
           </div>
-          <pre className="bg-neutral-900 backdrop-blur-sm max-w-96 px-3 py-3 rounded-lg text-neutral-300 ">
-            <div className="text-neutral-200 text-xs bg-neutral-500  inline-block mb-3 py-1 px-1 rounded-lg">
-              REQUEST
-            </div>
-            <div className="font-light text-sm select-text">
-              {JSON.stringify(req, null, 2)}
-            </div>
-          </pre>
+          <Editor
+            options={{
+              insertSpaces: true,
+              tabSize: 4,
+              fontSize: 16,
+              minimap: {
+                enabled: false,
+              },
+              wordWrap: "on",
+              readOnly: true,
+            }}
+            beforeMount={setEditorTheme}
+            theme="onedark"
+            height="200px"
+            defaultLanguage="json"
+            value={JSON.stringify(req, null, 2)}
+          />
         </div>
       </BoxIntegration>
       <BoxIntegration iconTool="react" title="Connect with React">
