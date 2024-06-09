@@ -259,11 +259,13 @@ const ViewBrain = ({ slug }: any) => {
                         />
                       )}
                       {vItem.type == "neuron" && (
-                        <Block
-                          editMode={editMode}
-                          neuronId={vItem.neuronId}
-                          defaultForm={{}}
-                        />
+                        <div className="dark:bg-black/60 overflow-y-auto max-h-full h-full flex justify-center">
+                          <Block
+                            editMode={editMode}
+                            neuronId={vItem.neuronId}
+                            defaultForm={{}}
+                          />
+                        </div>
                       )}
                       {vItem.type == "button" && (
                         <Button editMode={editMode} options={vItem.options} />

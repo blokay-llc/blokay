@@ -392,6 +392,7 @@ const General = ({ neuron, reload, onClose }: any) => {
               variant="primary"
               className="w-full"
               size="md"
+              loading={loading}
               disabled={form.textDeleteNeuron != "yes, delete"}
             />
           </div>

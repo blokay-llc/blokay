@@ -74,7 +74,7 @@ const NeuronAdmin = ({
   };
 
   const canEdit = () => {
-    return isAdmin && !onLimit() && session?.business?.addedCard;
+    return (isAdmin && !onLimit()) || session?.business?.addedCard;
   };
 
   if (!canEdit()) {

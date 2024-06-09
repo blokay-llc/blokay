@@ -7,6 +7,7 @@ export function useApi(service: apiCalback) {
 
   const callApi = async (...args: any) => {
     setErrors({});
+    setLoading(true);
     return service(...args)
       .then((res) => {
         setLoading(false);

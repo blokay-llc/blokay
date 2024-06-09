@@ -126,6 +126,26 @@ function ListViews({}) {
                       {view.name}
                     </h2>
                   )}
+
+                  {/* <div className="bl-table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Creator</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {view.Views.map((view: any) => (
+                          <tr>
+                            <td>{view.name}</td>
+
+                            <td>Created by Juan David</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div> */}
                   <div className="flex flex-wrap items-center gap-3 lg:gap-5">
                     {view.Views.map((view: any) => (
                       <a
