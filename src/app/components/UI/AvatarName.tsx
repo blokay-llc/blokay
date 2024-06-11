@@ -1,9 +1,10 @@
 const colors = [
   { bg: "bg-blue-500", text: "text-blue-900" },
+  { bg: "bg-green-500", text: "text-green-900" },
+  { bg: "bg-indigo-500", text: "text-indigo-900" },
+
   { bg: "bg-rose-500", text: "text-rose-900" },
   { bg: "bg-yellow-500", text: "text-yellow-900" },
-  { bg: "bg-indigo-500", text: "text-indigo-900" },
-  { bg: "bg-lime-500", text: "text-lime-900" },
   { bg: "bg-pink-500", text: "text-pink-900" },
   { bg: "bg-amber-500", text: "text-amber-900" },
   { bg: "bg-cyan-500", text: "text-cyan-900" },

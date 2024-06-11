@@ -64,6 +64,15 @@ export const addView = async function (form: any) {
   return result.data;
 };
 
+export const deleteView = async function (form: any) {
+  let data = {
+    ...form,
+  };
+
+  let result = await postRequest("brain/views/delete", data);
+  return result.data;
+};
+
 export const newNeuron = async function (form: any) {
   let data = {
     ...form,

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { viewList, addView } from "@/app/services/brain";
+import { viewList, addView, deleteView } from "@/app/services/brain";
 import { useSession } from "next-auth/react";
 import AppVideoCard from "../../../components/UI/AppVideoCard";
 import AvatarName from "../../../components/UI/AvatarName";
@@ -12,11 +12,14 @@ export default function ListViews({}) {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
+  const modalDeleteRef: any = useRef();
   const modalRef: any = useRef();
   const [views, setViews] = useState([]);
+  const [view, setView]: any = useState([]);
   const [form, setForm]: any = useState({ search: "" });
   const { loading, callApi } = useApi(viewList);
   const { loading: loadingAdd, errors, callApi: callApiAdd } = useApi(addView);
+  const { loading: loadingDelete, callApi: callApiDelete } = useApi(deleteView);
 
   useEffect(() => {
     listViews();
@@ -37,6 +40,15 @@ export default function ListViews({}) {
       modalRef.current.hideModal();
       listViews();
       setForm({ search: "" });
+    });
+  };
+
+  const handleDeleteView = () => {
+    callApiDelete({
+      viewId: view.id,
+    }).then((result) => {
+      modalDeleteRef.current.hideModal();
+      listViews();
     });
   };
 
@@ -151,7 +163,14 @@ export default function ListViews({}) {
                             </div>
                           )}
 
-                          <div className="pl-5 opacity-0 group-hover/delete:opacity-100 transition-all">
+                          <div
+                            className="pl-5 opacity-0 group-hover/delete:opacity-100 transition-all"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              modalDeleteRef.current.showModal();
+                              setView(view);
+                            }}
+                          >
                             <DS.Icon
                               icon="delete"
                               className="size-4 fill-white"
@@ -224,6 +243,42 @@ export default function ListViews({}) {
             </DS.Select>
           </div>
         )}
+      </DS.Modal>
+
+      <DS.Modal
+        title="Delete view"
+        footer={
+          <div className="flex items-center gap-5">
+            <DS.Button
+              text="No, cancel"
+              onClick={() => modalDeleteRef.current.hideModal()}
+              variant="secondary"
+              className="w-full"
+              size="md"
+            />
+            <DS.Button
+              text="Yes, delete"
+              onClick={() => handleDeleteView()}
+              variant="primary"
+              className="w-full"
+              size="md"
+              loading={loadingDelete}
+              disabled={form.textDeleteNeuron != "yes, delete"}
+            />
+          </div>
+        }
+        size="sm"
+        ref={modalDeleteRef}
+      >
+        <DS.Input
+          type="text"
+          value={form.textDeleteNeuron}
+          label="Write (yes, delete)"
+          className="mb-3"
+          onChange={(val: string) => {
+            setForm({ ...form, textDeleteNeuron: val });
+          }}
+        />
       </DS.Modal>
     </div>
   );
