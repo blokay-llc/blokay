@@ -41,7 +41,9 @@ export default function Toolbar({
           {editMode === "edit" && (
             <>
               <div className="item group square" onClick={handleClickNew}>
-                <DS.Icon icon="add" />
+                <div className="option">
+                  <DS.Icon icon="add" />
+                </div>
               </div>
               <div
                 className={`item square ${
@@ -49,7 +51,9 @@ export default function Toolbar({
                 }`}
                 onClick={() => setClickAction("new")}
               >
-                <DS.Icon icon="smart_button" />
+                <div className="option">
+                  <DS.Icon icon="smart_button" />
+                </div>
               </div>
             </>
           )}
@@ -68,22 +72,29 @@ export default function Toolbar({
             className={`item square ${editMode == "edit" ? "active" : ""}`}
             onClick={() => setEditMode("edit")}
           >
-            <DS.Icon icon="grid" />
+            <div className="option">
+              <DS.Icon icon="grid" />
+            </div>
           </div>
           <div
             className={`item square ${editMode == "user" ? "active" : ""}`}
-            onClick={() => setEditMode("user")}
+            onClick={() => {
+              setEditMode("user");
+              setClickAction("");
+            }}
           >
-            <DS.Icon icon="view" />
+            <div className="option">
+              <DS.Icon icon="view" />
+            </div>
           </div>
         </div>
-        {clickAction && (
+        {clickAction && editMode == "edit" && (
           <div
             onClick={() => setClickAction("")}
             className="fixed w-full bg-neutral-400/20 dark:bg-neutral-700/40 min-h-screen top-0 left-0 z-10 backdrop-blur-sm"
           ></div>
         )}
-        {clickAction == "new" && (
+        {clickAction == "new" && editMode == "edit" && (
           <div className="action-box ">
             <div className=" item" onClick={() => addBlockView("button")}>
               <DS.Icon icon="smart_button" />

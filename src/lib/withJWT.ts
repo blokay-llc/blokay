@@ -13,6 +13,16 @@ export const withJWT = (cb: any) => {
     const body = await req.json();
 
     let token = body._token;
+    if (!token) {
+      return NextResponse.json(
+        {
+          data: {
+            message: "JWT is required",
+          },
+        },
+        { status: 401 }
+      );
+    }
     let {
       businessId,
       data: { ...session },
@@ -34,9 +44,8 @@ export const withJWT = (cb: any) => {
         id: businessId,
       },
     });
-    let data: any;
     try {
-      data = jwt.verify(token, business.coreToken);
+      jwt.verify(token, business.coreToken);
     } catch (err) {
       return NextResponse.json(
         {

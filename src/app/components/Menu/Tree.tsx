@@ -29,7 +29,6 @@ const DropItem = function ({
 
   useEffect(() => {
     if (view?.id == item.id) {
-      console.log("view", view?.id, item.id);
       propogateOpen();
     }
   }, [view]);
@@ -219,7 +218,7 @@ export default function TreeMenu({
           <div
             className={`px-2 py-1  ${
               mode == "functions"
-                ? "dark:bg-black text-white font-medium "
+                ? "dark:bg-neutral-700 text-white font-medium "
                 : "dark:text-neutral-400"
             } rounded-lg shadow-md w-full text-center text-sm`}
             onClick={() => setMode("functions")}
@@ -229,7 +228,7 @@ export default function TreeMenu({
           <div
             className={`px-2 py-1  ${
               mode == "crons"
-                ? "dark:bg-black text-white font-medium "
+                ? "dark:bg-neutral-700 text-white font-medium "
                 : "dark:text-neutral-400"
             } rounded-lg shadow-md w-full text-center text-sm `}
             onClick={() => setMode("crons")}

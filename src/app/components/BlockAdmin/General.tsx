@@ -84,7 +84,6 @@ const General = ({ neuron, reload, onClose }: any) => {
     <div>
       <DS.Input
         type="text"
-        disabled={true}
         value={form.key}
         label="ID"
         className="mb-3"

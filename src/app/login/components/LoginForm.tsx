@@ -36,7 +36,6 @@ export default function LoginForm() {
           <DS.Input
             type="text"
             label="Email"
-            name="email"
             value={form.email}
             onChange={(val: string) => {
               setForm({ ...form, email: val });
@@ -45,7 +44,6 @@ export default function LoginForm() {
 
           <DS.Input
             type="password"
-            name="password"
             label="Password"
             value={form.password}
             onChange={(val: string) => {

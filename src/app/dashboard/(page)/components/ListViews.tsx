@@ -101,7 +101,7 @@ export default function ListViews({}) {
                     icon="wizard"
                     text="Add new"
                     onClick={() => handleClickCreateNew()}
-                    variant="primary"
+                    variant="secondary"
                     size="md"
                     className="shrink-0"
                   />
@@ -117,9 +117,9 @@ export default function ListViews({}) {
                 </div>
               )}
 
-              <h2 className="text-neutral-900 dark:text-white text-xl mb-5 ">
+              {/* <h2 className="text-neutral-900 dark:text-white text-xl mb-5 ">
                 <div>My views</div>
-              </h2>
+              </h2> */}
 
               <div className="flex flex-col gap-3 lg:gap-5 ">
                 {viewsComputed.map((view: any) => (
@@ -130,13 +130,19 @@ export default function ListViews({}) {
                       </h2>
                     )}
 
-                    <div className="flex flex-col w-full divide-y divide-black dark:bg-neutral-900 rounded-xl  ">
+                    <div className="flex flex-col w-full divide-y divide-black dark:bg-neutral-900 rounded-xl  overflow-hidden">
                       {view.Views.map((view: any) => (
                         <a
                           href={"/dashboard/view/" + view.slug}
                           key={view.id}
-                          className="  shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3  rounded-lg flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800  dark:bg-gradient-to-r  dark:hover:from-black dark:hover:to-blue-950  duration-100 justify-between relative group/delete"
+                          className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800  dark:bg-gradient-to-r  dark:hover:from-transparent dark:hover:to-blue-900/40 duration-100 justify-between relative group/delete"
                         >
+                          <div className="font-light  ">
+                            <DS.Icon
+                              icon="layers"
+                              className="size-5 fill-white"
+                            />
+                          </div>
                           <div className="font-light mr-auto ">{view.name}</div>
                           {view.User && (
                             <div className="flex items-center gap-2 ">
@@ -180,14 +186,16 @@ export default function ListViews({}) {
       <DS.Modal
         title="Add new"
         footer={
-          <DS.Button
-            text="Add new"
-            onClick={() => handleSaveView()}
-            variant="primary"
-            className="w-full"
-            size="md"
-            loading={loadingAdd}
-          />
+          <div className="flex justify-end">
+            <DS.Button
+              text="Add new"
+              onClick={() => handleSaveView()}
+              variant="secondary"
+              icon="add"
+              size="md"
+              loading={loadingAdd}
+            />
+          </div>
         }
         size="sm"
         ref={modalRef}

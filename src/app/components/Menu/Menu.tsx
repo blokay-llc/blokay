@@ -15,13 +15,17 @@ const MenuOption = ({ name, icon, href }: MenuOptionProps) => {
   return (
     <li>
       <a
-        className="py-1 text-sm hover:bg-neutral-100 dark:hover:bg-gray-950 rounded-lg px-1.5 flex justify-between items-center"
+        className="py-1.5 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg px-1.5 flex justify-between items-center gap-2"
         href={href}
       >
-        <div>{name}</div>
         <DS.Icon
           icon={icon}
           className="size-5 fill-neutral-700 dark:fill-neutral-500"
+        />
+        <div>{name}</div>
+        <DS.Icon
+          icon="right"
+          className="size-5 ml-auto fill-neutral-700 dark:fill-neutral-500"
         />
       </a>
     </li>
@@ -46,7 +50,7 @@ export default function Menu({
     <div className="lg:pt-0 pt-16">
       <div className="lg:static pb-3 lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
         <div className="border   bg-white dark:bg-neutral-900 backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-950  rounded-lg text-sm shadow py-2  text-neutral-800 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
-          <div className="px-2 flex items-center gap-5 lg:py-5 py-3">
+          <div className="px-4 flex items-center gap-5  py-3 lg:pt-5">
             <a href="/dashboard">
               <img
                 src="/logo.svg"
@@ -78,16 +82,16 @@ export default function Menu({
             </div>
           )}
           <ul className="py-3 px-2 lg:block hidden ">
-            <MenuOption name="Home" icon="right" href="/dashboard" />
+            <MenuOption name="Home" icon="home" href="/dashboard" />
 
             {isAdmin && (
-              <MenuOption name="Users" icon="right" href="/dashboard/users" />
+              <MenuOption name="Users" icon="account" href="/dashboard/users" />
             )}
 
             {isAdmin && (
               <MenuOption
                 name="Billing"
-                icon="right"
+                icon="bill"
                 href="/dashboard/billing"
               />
             )}
@@ -95,12 +99,12 @@ export default function Menu({
             {isAdmin && (
               <MenuOption
                 name="Settings"
-                icon="right"
+                icon="config"
                 href="/dashboard/settings"
               />
             )}
 
-            <MenuOption name="Logout" icon="right" href="/logout" />
+            <MenuOption name="Logout" icon="security" href="/logout" />
           </ul>
 
           <div className="lg:block hidden">

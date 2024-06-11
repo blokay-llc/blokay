@@ -233,7 +233,7 @@ const ViewBlock = ({ slug }: any) => {
                 >
                   {layout().map((vItem: any) => (
                     <div
-                      className="group"
+                      className={`group `}
                       key={vItem.id}
                       data-grid={{
                         x: vItem.x,
@@ -259,16 +259,22 @@ const ViewBlock = ({ slug }: any) => {
                         />
                       )}
                       {vItem.type == "neuron" && (
-                        <div className="dark:bg-black/60 overflow-y-auto max-h-full h-full flex justify-center">
-                          <Block
-                            editMode={editMode}
-                            neuronId={vItem.neuronId}
-                            defaultForm={{}}
-                          />
+                        <div
+                          className={`dark:bg-black/60 overflow-y-auto max-h-full h-full flex justify-center ${
+                            editMode == "edit" ? "opacity-70 grayscale" : ""
+                          }`}
+                        >
+                          <Block neuronId={vItem.neuronId} defaultForm={{}} />
                         </div>
                       )}
                       {vItem.type == "button" && (
-                        <Button editMode={editMode} options={vItem.options} />
+                        <div
+                          className={`${
+                            editMode == "edit" ? "opacity-70 grayscale" : ""
+                          }`}
+                        >
+                          <Button editMode={editMode} options={vItem.options} />
+                        </div>
                       )}
                       {vItem.type == "image" && (
                         <Image editMode={editMode} options={vItem.options} />

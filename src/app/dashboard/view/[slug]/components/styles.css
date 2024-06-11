@@ -3,11 +3,14 @@
 }
 
 .toolbar .item {
-  @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center bg-white dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800;
+  @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center bg-white dark:bg-neutral-900 hover:bg-neutral-200  p-1;
+}
+.toolbar .item:not(.active) {
+  @apply dark:hover:bg-neutral-800;
 }
 
-.toolbar .item.active {
-  @apply bg-gradient-to-br from-blue-600 to-blue-900;
+.toolbar .item.active .option {
+  @apply bg-gradient-to-br from-blue-600 to-blue-900 p-2 rounded-lg;
 }
 
 .toolbar .item.active svg {
