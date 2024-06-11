@@ -1,16 +1,16 @@
 .toolbar {
-  @apply rounded-lg  overflow-hidden h-14 items-center flex shrink-0 transition duration-100 border-black/10 border z-20 relative dark:border-neutral-700 divide-x dark:divide-neutral-700 dark:bg-neutral-950;
+  @apply rounded-lg  overflow-hidden h-14 items-center flex shrink-0 transition duration-100  border border-neutral-300 z-20 relative dark:border-neutral-700 divide-x dark:divide-neutral-700 dark:bg-neutral-950 divide-neutral-300;
 }
 
 .toolbar .item {
   @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center     p-1;
 }
 .toolbar .item:not(.active) {
-  @apply dark:hover:bg-neutral-800;
+  @apply dark:hover:bg-neutral-800 hover:bg-neutral-200;
 }
 
 .toolbar .item.active .option {
-  @apply bg-gradient-to-br from-blue-600 to-blue-900 p-2 rounded-lg;
+  @apply bg-gradient-to-br dark:from-blue-600 from-blue-500 dark:to-blue-900 to-blue-700 p-2 rounded-lg;
 }
 
 .toolbar .item.active svg {
@@ -50,8 +50,9 @@
 }
 
 .action-button {
-  @apply px-3 py-1 cursor-pointer rounded-lg hover:bg-neutral-100 bg-white shadow-sm flex gap-3 items-center text-neutral-500 text-sm border-2 border-neutral-200 dark:bg-neutral-800 dark:border-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700;
+  @apply px-3 py-0.5 cursor-pointer rounded-md hover:bg-neutral-100 bg-white shadow-sm dark:shadow-xl flex gap-1 items-center text-neutral-500 text-sm border border-neutral-200;
+  @apply dark:bg-neutral-800 dark:border-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:shadow-black;
 }
 .action-button svg {
-  @apply fill-neutral-500 size-5 dark:fill-neutral-400;
+  @apply fill-neutral-500 size-5 dark:fill-neutral-200;
 }

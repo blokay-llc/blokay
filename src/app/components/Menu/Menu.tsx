@@ -20,10 +20,10 @@ const MenuOption = ({ name, icon, currentPath, href }: MenuOptionProps) => {
     <li>
       <a
         className={
-          "py-1.5 text-sm hover:bg-neutral-100  rounded-lg px-1.5 flex justify-between items-center gap-2 " +
+          "py-1.5 text-sm   rounded-lg px-1.5 flex justify-between items-center gap-2 " +
           (isActive(href)
-            ? "dark:text-white font-medium dark:bg-white/10 "
-            : "dark:hover:bg-neutral-800")
+            ? "dark:text-white text-neutral-800 font-medium dark:bg-white/10 bg-black/10 "
+            : "dark:hover:bg-neutral-800 hover:bg-neutral-200")
         }
         href={href}
       >
@@ -31,7 +31,9 @@ const MenuOption = ({ name, icon, currentPath, href }: MenuOptionProps) => {
           icon={icon}
           className={
             "size-5 fill-neutral-700  " +
-            (isActive(href) ? "dark:fill-white" : "dark:fill-neutral-500")
+            (isActive(href)
+              ? "dark:fill-white fill-neutral-800"
+              : "dark:fill-neutral-500")
           }
         />
         <div>{name}</div>
@@ -62,7 +64,7 @@ export default function Menu({
   return (
     <div className="lg:pt-0 pt-16">
       <div className="lg:static pb-3 lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
-        <div className="border   bg-white dark:bg-transparent backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-800  rounded-lg text-sm shadow py-2  text-neutral-800 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
+        <div className="border   bg-transparent dark:bg-transparent backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-800  rounded-lg text-sm  py-2  text-neutral-600 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
           <div className="px-4 flex items-center gap-5  py-3 lg:pt-5">
             <a href="/dashboard">
               <img

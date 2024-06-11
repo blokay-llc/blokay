@@ -121,7 +121,7 @@ export default function ListUsers() {
         )}
 
       {users.length > 0 && (
-        <div className="bg-white dark:bg-neutral-950  flex flex-col  rounded-lg shadow-sm border border-neutral-300 dark:border-neutral-800 dark:divide-neutral-800 divide-y overflow-hidden">
+        <div className="bg-transparent dark:bg-neutral-950  flex flex-col  rounded-lg shadow-sm border border-neutral-300 dark:border-neutral-800 dark:divide-neutral-800 divide-y overflow-hidden">
           {users.map((user: any) => (
             <div
               onClick={() => handleClickUser(user)}
@@ -132,7 +132,9 @@ export default function ListUsers() {
                 <img src="/logo-sm.svg" className="w-full h-full" />
               </div>
               <div>
-                <div>{user.name}</div>
+                <div className="dark:text-white text-neutral-800">
+                  {user.name}
+                </div>
                 <div className="font-light text-sm dark:text-neutral-400 text-neutral-700">
                   {user.email} - {user.rol}
                 </div>

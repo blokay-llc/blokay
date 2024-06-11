@@ -135,8 +135,8 @@ const General = ({ neuron, reload, onClose }: any) => {
         {form.type == "function" && (
           <>
             {fields.length > 0 && (
-              <div className="mb-5 select-none border border-neutral-800 rounded-lg px-5">
-                <div className="grid grid-cols-1 gap-5 divide-x divide-neutral-800 md:grid-cols-12">
+              <div className="mb-5 select-none border border-neutral-300 dark:border-neutral-800 rounded-lg px-5">
+                <div className="grid grid-cols-1 gap-5 divide-x divide-neutral-300 dark:divide-neutral-800 md:grid-cols-12">
                   <div className="md:col-span-5 py-5">
                     {fields.map((row, index) => (
                       <div

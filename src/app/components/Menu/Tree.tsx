@@ -214,13 +214,13 @@ export default function TreeMenu({
   return (
     <div className={`${editMode == "user" ? "hidden" : ""}`}>
       <div className="px-3 mb-3 mt-3">
-        <div className="text-sm flex gap-1 select-none items-center dark:bg-neutral-800 px-1 py-0.5 rounded-lg">
+        <div className="text-sm flex gap-1 select-none items-center dark:bg-neutral-800 bg-neutral-200 px-1 py-0.5 rounded-lg">
           <div
             className={`px-2 py-1  ${
               mode == "functions"
-                ? "dark:bg-neutral-700 text-white font-medium "
+                ? "shadow-md dark:bg-neutral-700 bg-white text-neutral-600 dark:text-white font-medium "
                 : "dark:text-neutral-400"
-            } rounded-lg shadow-md w-full text-center text-sm`}
+            } rounded-lg w-full text-center text-sm`}
             onClick={() => setMode("functions")}
           >
             Blocks
@@ -228,9 +228,9 @@ export default function TreeMenu({
           <div
             className={`px-2 py-1  ${
               mode == "crons"
-                ? "dark:bg-neutral-700 text-white font-medium "
+                ? "shadow-md dark:bg-neutral-700 bg-white text-neutral-600 dark:text-white font-medium "
                 : "dark:text-neutral-400"
-            } rounded-lg shadow-md w-full text-center text-sm `}
+            } rounded-lg  w-full text-center text-sm `}
             onClick={() => setMode("crons")}
           >
             Jobs

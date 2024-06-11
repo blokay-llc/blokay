@@ -14,7 +14,15 @@ export default function ({
   return (
     <div>
       {viewItem.block && (
-        <div className="bg-blue-400 group-hover:opacity-100 opacity-0 absolute text-sm -top-5 -left-[2px] text-blue-900 px-2">
+        <div
+          onMouseDown={(e) => {
+            e.stopPropagation();
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          className="bg-blue-400 group-hover:opacity-100 opacity-0 absolute text-sm -top-5 -left-[2px] text-blue-900 px-2 select-text selection:bg-blue-900 selection:text-blue-200"
+        >
           {viewItem.block}
         </div>
       )}

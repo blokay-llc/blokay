@@ -260,8 +260,8 @@ const ViewBlock = ({ slug }: any) => {
                       )}
                       {vItem.type == "neuron" && (
                         <div
-                          className={`dark:border-white/10 border rounded-xl  overflow-y-auto max-h-full h-full flex justify-center ${
-                            editMode == "edit" ? "opacity-70 grayscale" : ""
+                          className={`dark:border-white/10 border-neutral-300 border rounded-xl  overflow-y-auto max-h-full h-full flex justify-center ${
+                            editMode == "edit" ? "grayscale" : ""
                           }`}
                         >
                           <Block neuronId={vItem.neuronId} defaultForm={{}} />
@@ -269,9 +269,7 @@ const ViewBlock = ({ slug }: any) => {
                       )}
                       {vItem.type == "button" && (
                         <div
-                          className={`${
-                            editMode == "edit" ? "opacity-70 grayscale" : ""
-                          }`}
+                          className={`${editMode == "edit" ? "grayscale" : ""}`}
                         >
                           <Button editMode={editMode} options={vItem.options} />
                         </div>

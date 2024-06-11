@@ -117,10 +117,6 @@ export default function ListViews({}) {
                 </div>
               )}
 
-              {/* <h2 className="text-neutral-900 dark:text-white text-xl mb-5 ">
-                <div>My views</div>
-              </h2> */}
-
               <div className="flex flex-col gap-5 lg:gap-10 ">
                 {viewsComputed.map((view: any) => (
                   <div className="">
@@ -130,24 +126,26 @@ export default function ListViews({}) {
                       </h2>
                     )}
 
-                    <div className="flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 rounded-xl  overflow-hidden">
+                    <div className="flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl  overflow-hidden">
                       {view.Views.map((view: any) => (
                         <a
                           href={"/dashboard/view/" + view.slug}
                           key={view.id}
-                          className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800  dark:bg-gradient-to-r  dark:hover:from-black/10 dark:hover:to-blue-900/40 duration-100 justify-between relative group/delete"
+                          className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/delete"
                         >
                           <div className="font-light  ">
                             <DS.Icon
                               icon="layers"
-                              className="size-5 fill-white"
+                              className="size-5 fill-neutral-500 dark:fill-white"
                             />
                           </div>
-                          <div className="font-light mr-auto ">{view.name}</div>
+                          <div className="font-light mr-auto text-sm md:text-base ">
+                            {view.name}
+                          </div>
                           {view.User && (
                             <div className="flex items-center gap-2 ">
                               <AvatarName name={view?.User?.name} size="sm" />
-                              <div className="font-light text-xs">
+                              <div className="font-light text-xs truncate">
                                 {view.User.name}
                               </div>
                             </div>
