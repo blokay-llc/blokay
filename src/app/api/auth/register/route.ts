@@ -6,6 +6,8 @@ import {
   sendDataValidationError,
   sendData,
 } from "@/lib/response";
+import Email from "@/app/services/mail";
+import UserWelcome from "@/emails/UserWelcome";
 
 let db = new Models();
 const { User, Business }: any = db;
@@ -47,6 +49,14 @@ export async function POST(req: any) {
     businessId: business.id,
     rol: "admin",
   });
+
+  let emailSender = new Email();
+  emailSender.send(
+    user.email,
+    "Welcome to Blokay - Developing faster is impossible.",
+    UserWelcome,
+    { name }
+  );
 
   await business.update({
     ownerId: user.id,

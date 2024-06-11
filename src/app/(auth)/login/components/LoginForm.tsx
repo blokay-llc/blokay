@@ -1,11 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { DS } from "@blokay/react";
 import { signIn } from "next-auth/react";
+import { useApi } from "@/hooks/useApi";
+import { fetchForgotPassword } from "@/app/services/auth";
 
 export default function LoginForm() {
   const [form, setForm]: any = useState({});
   const [loading, setLoading] = useState(false);
+  const modalRecoverPassword: any = useRef();
+  const {
+    loading: loadingForgot,
+    errors,
+    callApi,
+  } = useApi(fetchForgotPassword);
 
   const login = () => {
     setLoading(true);
@@ -19,6 +27,12 @@ export default function LoginForm() {
   const loginThird = (third: string) => {
     setLoading(true);
     signIn(third, { callbackUrl: "/dashboard" });
+  };
+
+  const handleForgotPassword = () => {
+    callApi(form).then(() => {
+      modalRecoverPassword.current.hideModal();
+    });
   };
 
   return (
@@ -90,14 +104,17 @@ export default function LoginForm() {
           )}
         </div>
 
-        <div className="text-neutral-600 mt-5 font-light text-sm text-center">
+        <div
+          className="text-neutral-600 mt-5 font-light text-sm text-center"
+          onClick={() => modalRecoverPassword.current.showModal()}
+        >
           ¿Any problem to login?
         </div>
 
         <div className=" mx-auto mt-10  ">
           <a
             href="/register"
-            className="border-neutral-300 dark:border-neutral-950 border-2 text-neutral-700 px-5 py-3 rounded-2xl shadow-2xl shadow-neutral-400 dark:shadow-black dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-teal-950 to-indigo-100"
+            className="border-neutral-300 dark:border-neutral-950 border-2 text-neutral-700 px-5 py-3 rounded-2xl shadow-2xl shadow-neutral-400 dark:shadow-black dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-blue-950 to-indigo-100"
           >
             <DS.Icon icon="account" className="size-10 fill-neutral-500" />
             <div>
@@ -107,6 +124,43 @@ export default function LoginForm() {
           </a>
         </div>
       </div>
+
+      <DS.Modal
+        title="Delete view"
+        footer={
+          <div className="flex items-center gap-5">
+            <DS.Button
+              text="Cancel"
+              onClick={() => modalRecoverPassword.current.hideModal()}
+              variant="secondary"
+              className="w-full"
+              size="md"
+            />
+            <DS.Button
+              text="Confirm"
+              onClick={() => handleForgotPassword()}
+              variant="primary"
+              className="w-full"
+              size="md"
+              loading={loadingForgot}
+              disabled={!form.email}
+            />
+          </div>
+        }
+        size="sm"
+        ref={modalRecoverPassword}
+      >
+        <DS.Input
+          type="email"
+          value={form.email}
+          label="Email"
+          className="mb-3"
+          error={errors?.email}
+          onChange={(val: string) => {
+            setForm({ ...form, email: val });
+          }}
+        />
+      </DS.Modal>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import Providers from "@/app/login/components/Providers";
+import Providers from "@/app/(auth)/login/components/Providers";
 import BillingView from "./components/BillingView";
 import Menu from "@/app/components/Menu/Menu";
 export default function Billing() {

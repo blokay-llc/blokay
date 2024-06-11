@@ -1,5 +1,5 @@
 import Page from "./components/Page";
-import Providers from "@/app/login/components/Providers";
+import Providers from "@/app/(auth)/login/components/Providers";
 
 export default function View({ params }: { params: { slug: string } }) {
   return (

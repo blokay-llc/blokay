@@ -1,6 +1,7 @@
 import ListViews from "@/app/dashboard/(page)/components/ListViews";
 import Menu from "@/app/components/Menu/Menu";
-import Providers from "../../login/components/Providers";
+import Providers from "../../(auth)/login/components/Providers";
+
 export default function Home() {
   return (
     <div className="min-h-screen  ">
