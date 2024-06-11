@@ -69,7 +69,7 @@ export default function Header({
 
         <div
           onClick={clickShare}
-          className="flex items-center gap-2 border-2 border-neutral-300 dark:border-neutral-700 rounded-lg text-sm text-neutral-500 px-3 py-2 ml-3 hover:bg-white dark:hover:bg-neutral-600"
+          className="flex items-center gap-2 border border-neutral-300 dark:border-neutral-600 rounded-lg text-sm text-neutral-500 px-3 py-1.5 ml-3  dark:hover:border-neutral-300"
         >
           <DS.Icon icon="share" className="size-4 fill-neutral-500" />
           Share

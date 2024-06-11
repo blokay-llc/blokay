@@ -260,7 +260,7 @@ const ViewBlock = ({ slug }: any) => {
                       )}
                       {vItem.type == "neuron" && (
                         <div
-                          className={`dark:bg-black/60 overflow-y-auto max-h-full h-full flex justify-center ${
+                          className={`dark:border-white/10 border rounded-xl  overflow-y-auto max-h-full h-full flex justify-center ${
                             editMode == "edit" ? "opacity-70 grayscale" : ""
                           }`}
                         >

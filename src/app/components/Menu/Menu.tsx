@@ -4,23 +4,35 @@ import { DS } from "@blokay/react";
 import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 import Tree from "./Tree";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 type MenuOptionProps = {
   name: string;
   icon: string;
   href: string;
+  currentPath: string;
 };
 
-const MenuOption = ({ name, icon, href }: MenuOptionProps) => {
+const MenuOption = ({ name, icon, currentPath, href }: MenuOptionProps) => {
+  const isActive = (href: string) => currentPath === href;
+
   return (
     <li>
       <a
-        className="py-1.5 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg px-1.5 flex justify-between items-center gap-2"
+        className={
+          "py-1.5 text-sm hover:bg-neutral-100  rounded-lg px-1.5 flex justify-between items-center gap-2 " +
+          (isActive(href)
+            ? "dark:text-white font-medium dark:bg-white/10 "
+            : "dark:hover:bg-neutral-800")
+        }
         href={href}
       >
         <DS.Icon
           icon={icon}
-          className="size-5 fill-neutral-700 dark:fill-neutral-500"
+          className={
+            "size-5 fill-neutral-700  " +
+            (isActive(href) ? "dark:fill-white" : "dark:fill-neutral-500")
+          }
         />
         <div>{name}</div>
         <DS.Icon
@@ -39,6 +51,7 @@ export default function Menu({
   editMode = null,
   neurons = [],
 }: any) {
+  const pathName = usePathname();
   const { isMobile } = useScreenDetector();
 
   const { data: session }: any = useSession();
@@ -49,7 +62,7 @@ export default function Menu({
   return (
     <div className="lg:pt-0 pt-16">
       <div className="lg:static pb-3 lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
-        <div className="border   bg-white dark:bg-neutral-900 backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-950  rounded-lg text-sm shadow py-2  text-neutral-800 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
+        <div className="border   bg-white dark:bg-transparent backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-800  rounded-lg text-sm shadow py-2  text-neutral-800 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
           <div className="px-4 flex items-center gap-5  py-3 lg:pt-5">
             <a href="/dashboard">
               <img
@@ -82,14 +95,25 @@ export default function Menu({
             </div>
           )}
           <ul className="py-3 px-2 lg:block hidden ">
-            <MenuOption name="Home" icon="home" href="/dashboard" />
+            <MenuOption
+              currentPath={pathName}
+              name="Home"
+              icon="home"
+              href="/dashboard"
+            />
 
             {isAdmin && (
-              <MenuOption name="Users" icon="account" href="/dashboard/users" />
+              <MenuOption
+                currentPath={pathName}
+                name="Users"
+                icon="account"
+                href="/dashboard/users"
+              />
             )}
 
             {isAdmin && (
               <MenuOption
+                currentPath={pathName}
                 name="Billing"
                 icon="bill"
                 href="/dashboard/billing"
@@ -98,13 +122,19 @@ export default function Menu({
 
             {isAdmin && (
               <MenuOption
+                currentPath={pathName}
                 name="Settings"
                 icon="config"
                 href="/dashboard/settings"
               />
             )}
 
-            <MenuOption name="Logout" icon="security" href="/logout" />
+            <MenuOption
+              currentPath={pathName}
+              name="Logout"
+              icon="security"
+              href="/logout"
+            />
           </ul>
 
           <div className="lg:block hidden">

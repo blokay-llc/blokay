@@ -80,7 +80,7 @@ export default function ListViews({}) {
       <div className="">
         {loading && <DS.Loader size="md" className="mx-auto" />}
 
-        <div className="w-[42rem] mx-auto">
+        <div className="">
           {!loading && viewsComputed.length > 0 && (
             <div>
               <div className=" flex items-center justify-between gap-5 mb-10">
@@ -121,21 +121,21 @@ export default function ListViews({}) {
                 <div>My views</div>
               </h2> */}
 
-              <div className="flex flex-col gap-3 lg:gap-5 ">
+              <div className="flex flex-col gap-5 lg:gap-10 ">
                 {viewsComputed.map((view: any) => (
                   <div className="">
                     {view.name && (
-                      <h2 className="mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-200">
+                      <h2 className="mb-4 text-sm font-medium text-neutral-900 dark:text-neutral-200">
                         {view.name}
                       </h2>
                     )}
 
-                    <div className="flex flex-col w-full divide-y divide-black dark:bg-neutral-900 rounded-xl  overflow-hidden">
+                    <div className="flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 rounded-xl  overflow-hidden">
                       {view.Views.map((view: any) => (
                         <a
                           href={"/dashboard/view/" + view.slug}
                           key={view.id}
-                          className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800  dark:bg-gradient-to-r  dark:hover:from-transparent dark:hover:to-blue-900/40 duration-100 justify-between relative group/delete"
+                          className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800  dark:bg-gradient-to-r  dark:hover:from-black/10 dark:hover:to-blue-900/40 duration-100 justify-between relative group/delete"
                         >
                           <div className="font-light  ">
                             <DS.Icon

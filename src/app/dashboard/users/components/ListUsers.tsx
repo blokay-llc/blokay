@@ -93,7 +93,7 @@ export default function ListUsers() {
   return (
     <div className="flex flex-col gap-5 relative">
       {loading && (
-        <div className="min-h-screen border-2 border-neutral-300 dark:border-neutral-800 rounded-xl flex items-center justify-center absolute z-10 top-0 left-0 w-full h-full dark:bg-neutral-800/40 bg-neutral-200/40 backdrop-blur-sm ">
+        <div className="min-h-screen border border-neutral-300 dark:border-neutral-800 rounded-xl flex items-center justify-center absolute z-10 top-0 left-0 w-full h-full dark:bg-black/40 bg-neutral-200/40  backdrop-blur-sm ">
           <DS.Loader size="md" />
         </div>
       )}
@@ -121,12 +121,12 @@ export default function ListUsers() {
         )}
 
       {users.length > 0 && (
-        <div className="bg-white dark:bg-neutral-950 px-3 py-3 flex flex-col gap-4 rounded-lg shadow-sm border border-neutral-300 dark:border-neutral-800">
+        <div className="bg-white dark:bg-neutral-950  flex flex-col  rounded-lg shadow-sm border border-neutral-300 dark:border-neutral-800 dark:divide-neutral-800 divide-y overflow-hidden">
           {users.map((user: any) => (
             <div
               onClick={() => handleClickUser(user)}
               key={user.id}
-              className="px-5 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-black flex items-center gap-3"
+              className="px-5 py-4  hover:bg-neutral-100 dark:hover:bg-black flex items-center gap-3"
             >
               <div className="size-10 bg-neutral-200 flex items-center justify-center rounded-full">
                 <img src="/logo-sm.svg" className="w-full h-full" />

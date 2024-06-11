@@ -102,7 +102,7 @@ export default function SettingsView() {
             )}
           </div>
 
-          <div className="flex-col flex gap-3 border-neutral-300 dark:border-neutral-800 border-2 px-5 py-5 rounded-xl ">
+          <div className="flex-col flex gap-3 border-neutral-300 dark:border-neutral-800 border px-5 py-5 rounded-xl ">
             {datasources.length == 0 && (
               <div className="py-5">
                 <h2 className="mb-5 text-lg font-bold text-neutral-700 dark:text-neutral-200">

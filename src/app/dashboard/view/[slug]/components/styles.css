@@ -1,9 +1,9 @@
 .toolbar {
-  @apply rounded-lg  overflow-hidden h-14 items-center flex shrink-0 transition duration-100 border-black/10 border-2 z-20 relative;
+  @apply rounded-lg  overflow-hidden h-14 items-center flex shrink-0 transition duration-100 border-black/10 border z-20 relative dark:border-neutral-700 divide-x dark:divide-neutral-700 dark:bg-neutral-950;
 }
 
 .toolbar .item {
-  @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center bg-white dark:bg-neutral-900 hover:bg-neutral-200  p-1;
+  @apply relative shrink-0 h-full transition duration-100 flex items-center justify-center     p-1;
 }
 .toolbar .item:not(.active) {
   @apply dark:hover:bg-neutral-800;

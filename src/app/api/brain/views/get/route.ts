@@ -4,7 +4,7 @@ import Models from "@/db/index";
 
 let db = new Models();
 
-const { User, UserPermission, ViewItem }: any = db;
+const { User, UserPermission, ViewItem, Neuron }: any = db;
 
 export const POST = withView(async function ({ user, view }: any) {
   // set currentId
@@ -61,6 +61,12 @@ export const POST = withView(async function ({ user, view }: any) {
   }
 
   let viewItems = await ViewItem.findAll({
+    include: [
+      {
+        model: Neuron,
+        required: false,
+      },
+    ],
     where: {
       viewId: view.id,
     },
@@ -80,6 +86,7 @@ export const POST = withView(async function ({ user, view }: any) {
         ViewItems: viewItems.map((vItem: any) => ({
           id: vItem.id,
           neuronId: vItem.neuronId,
+          block: vItem?.Neuron?.key,
           options: vItem.options,
           type: vItem.type,
           x: vItem.x,

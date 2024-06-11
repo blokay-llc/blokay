@@ -9,9 +9,9 @@ export default function TyperPrompt({
   onGenerate,
 }: any) {
   return (
-    <div className="bg-neutral-200 dark:bg-neutral-800 p-2 mt-6 rounded-3xl overflow-hidde items-center  bottom-0 relative  flex justify-between mx-auto">
+    <div className="bg-neutral-200 dark:bg-neutral-800 p-2 mt-6 rounded-xl overflow-hidde items-center  bottom-0 relative  flex justify-between mx-auto">
       <textarea
-        className="font-light bg-neutral-200 dark:bg-neutral-800  dark:text-neutral-200 rounded-2xl text-slate-900 w-full min-h-6 focus:outline-none px-5 py-0 dark:placeholder-neutral-600"
+        className="font-light bg-neutral-200 dark:bg-neutral-800  dark:text-neutral-200  text-slate-900 w-full min-h-6 focus:outline-none px-5 py-0 dark:placeholder-neutral-600"
         placeholder="Write your requirement here"
         value={value}
         onChange={(e) => {

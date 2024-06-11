@@ -86,6 +86,7 @@ const General = ({ neuron, reload, onClose }: any) => {
         type="text"
         value={form.key}
         label="ID"
+        disabled={true}
         className="mb-3"
         onChange={(val: string) => {
           setForm({ ...form, description: val });
@@ -225,6 +226,18 @@ const General = ({ neuron, reload, onClose }: any) => {
                               let f = fields.slice(0);
                               f[fieldIndex].isRequired =
                                 !!!f[fieldIndex].isRequired;
+                              setFields(f);
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <DS.Input
+                            type="text"
+                            value={fields[fieldIndex].grid}
+                            label="Grid"
+                            onChange={(val: string) => {
+                              let f = fields.slice(0);
+                              f[fieldIndex].grid = val;
                               setFields(f);
                             }}
                           />
