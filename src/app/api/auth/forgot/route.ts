@@ -7,6 +7,7 @@ import {
 } from "@/lib/response";
 import Email from "@/app/services/mail";
 import ForgotPassword from "@/emails/ForgotPassword";
+import jwt from "jsonwebtoken";
 
 let db = new Models();
 const { User }: any = db;
@@ -30,10 +31,18 @@ export async function POST(req: any) {
   });
   if (!user) return sendData({});
 
+  let token = jwt.sign(
+    {
+      email: user.email,
+    },
+    process.env.ENCRYPTION_KEY || "",
+    { expiresIn: "3h" }
+  );
+
   let emailSender = new Email();
   emailSender.send(user.email, "Blokay - Reset your password", ForgotPassword, {
     name: user.name,
-    token: "",
+    token,
   });
 
   return sendData({});

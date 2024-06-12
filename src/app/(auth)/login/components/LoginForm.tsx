@@ -105,7 +105,7 @@ export default function LoginForm() {
         </div>
 
         <div
-          className="text-neutral-600 mt-5 font-light text-sm text-center"
+          className="text-neutral-600 mt-5 font-light text-sm text-center dark:hover:text-white cursor-pointer"
           onClick={() => modalRecoverPassword.current.showModal()}
         >
           ¿Any problem to login?
