@@ -48,16 +48,16 @@ function ComingSoon() {
     </div>
   );
 }
-export default function NeuronAPIDoc({ neuron }: any) {
-  if (!neuron) return <></>;
+export default function BlockAPIDoc({ block }: any) {
+  if (!block) return <></>;
 
-  let fields = neuron.filters?.fields || [];
+  let fields = block.filters?.fields || [];
   let form = fields.reduce((ac: any, item: any) => {
     ac[item.name] = item.type;
     return ac;
   }, {});
   let req = {
-    block: neuron.key,
+    block: block.key,
     form: form,
   };
 
@@ -66,7 +66,7 @@ export default function NeuronAPIDoc({ neuron }: any) {
 function Component() {
   const form = ${JSON.stringify(form, null, 4)};
   return <Block
-            neuronKey="${neuron.key}"
+            key="${block.key}"
             form={form}
         />
 }`;

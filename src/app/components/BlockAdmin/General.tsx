@@ -4,15 +4,20 @@ import { useState, useEffect, useRef } from "react";
 import { DS } from "@blokay/react";
 import { updateNeuron, deleteNeuron } from "@/app/services/brain";
 
-const General = ({ neuron, reload, onClose }: any) => {
+type Props = {
+  reload: () => void;
+  block: any;
+  onClose: () => void;
+};
+const General = ({ block, reload, onClose }: Props) => {
   const modalDeleteRef: any = useRef();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    ...neuron,
-    filters: { fields: [], button: null, ...neuron?.filters },
+    ...block,
+    filters: { fields: [], button: null, ...block?.filters },
   });
 
-  const [fields, setFields] = useState([...(neuron?.filters?.fields || [])]);
+  const [fields, setFields] = useState([...(block?.filters?.fields || [])]);
   const [fieldIndex, setFieldIndex] = useState(0);
 
   const addField = () => {
@@ -42,7 +47,7 @@ const General = ({ neuron, reload, onClose }: any) => {
     setLoading(true);
     updateNeuron({
       ...form,
-      neuronId: neuron.id,
+      neuronId: block.id,
       filters: {
         ...form.filters,
         fields,
@@ -59,7 +64,7 @@ const General = ({ neuron, reload, onClose }: any) => {
   const handleDelete = (id: string) => {
     setLoading(true);
     deleteNeuron({
-      neuronId: neuron.id,
+      neuronId: block.id,
     })
       .then((result) => {
         modalDeleteRef.current.hideModal();
@@ -72,13 +77,13 @@ const General = ({ neuron, reload, onClose }: any) => {
   };
 
   useEffect(() => {
-    setFields([...(neuron?.filters?.fields || [])]);
+    setFields([...(block?.filters?.fields || [])]);
 
     setForm({
-      ...neuron,
-      filters: { ...neuron?.filters, button: neuron?.filters?.button || null },
+      ...block,
+      filters: { ...block?.filters, button: block?.filters?.button || null },
     });
-  }, [neuron]);
+  }, [block]);
 
   return (
     <div>
@@ -405,7 +410,7 @@ const General = ({ neuron, reload, onClose }: any) => {
               className="w-full"
               size="md"
               loading={loading}
-              disabled={form.textDeleteNeuron != "yes, delete"}
+              disabled={form.textDeleteBlock != "yes, delete"}
             />
           </div>
         }
@@ -414,11 +419,11 @@ const General = ({ neuron, reload, onClose }: any) => {
       >
         <DS.Input
           type="text"
-          value={form.textDeleteNeuron}
+          value={form.textDeleteBlock}
           label="Write (yes, delete)"
           className="mb-3"
           onChange={(val: string) => {
-            setForm({ ...form, textDeleteNeuron: val });
+            setForm({ ...form, textDeleteBlock: val });
           }}
         />
       </DS.Modal>

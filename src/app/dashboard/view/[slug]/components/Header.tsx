@@ -23,7 +23,7 @@ export default function Header({
     setTitle(view?.name);
   }, [view]);
 
-  const clickShare = (neuron: any) => {
+  const clickShare = (block: any) => {
     modalRef.current.showModal();
   };
 
@@ -63,9 +63,17 @@ export default function Header({
       </div>
 
       <div className="hidden lg:flex gap-1 items-center select-none ">
-        {names.map((name: string, index: any) => (
-          <AvatarName key={"people-" + index} name={name} colorIndex={index} />
-        ))}
+        <div className="flex items-center">
+          {names.map((name: string, index: any) => (
+            <AvatarName
+              key={"people-" + index}
+              className="-mx-1 border-4 dark:border-neutral-950"
+              name={name}
+              colorIndex={index}
+              size="lg"
+            />
+          ))}
+        </div>
 
         <div
           onClick={clickShare}

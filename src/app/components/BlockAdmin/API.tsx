@@ -2,8 +2,8 @@
 
 import APIDoc from "./APIDoc";
 
-export default function API({ reload, neuron }: any) {
-  if (!neuron) return <></>;
+export default function API({ reload, block }: any) {
+  if (!block) return <></>;
 
-  return <APIDoc neuron={neuron} />;
+  return <APIDoc block={block} />;
 }

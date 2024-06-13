@@ -120,7 +120,7 @@ export const getNeuronAdmin = async function (neuronId: number) {
 
   let result = await postRequest("brain/admin-get", data);
 
-  return result.data.Neuron;
+  return result.data.Block;
 };
 
 export const viewList = async function () {

@@ -72,10 +72,6 @@ export const POST = withView(async function ({ user, view }: any) {
     },
   });
 
-  // let children = new Set(
-  //   viewItems.filter((vi: any) => vi.neuronId).map((item: any) => item.neuronId)
-  // );
-
   return NextResponse.json({
     data: {
       View: {

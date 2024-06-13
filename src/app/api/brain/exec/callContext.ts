@@ -3,14 +3,14 @@ import vm from "node:vm";
 import { buildRequest, buildResponse } from "./buildParams";
 
 export async function callContext(
-  neuron: any,
+  block: any,
   session: any,
   form: any,
   datasource: any
 ): Promise<ResponseNeuron> {
   let content = `
     // declaration of the function
-    ${neuron.executable}
+    ${block.executable}
   
     if (fn.length == 1) {
       fn(args);
@@ -38,7 +38,7 @@ export async function callContext(
       displayErrors: false,
       timeout: 200 * 1000,
       breakOnSigint: true,
-      contextName: `neuron execution ${neuron.id} - ${neuron.key}`,
+      contextName: `block execution ${block.id} - ${block.key}`,
       contextCodeGeneration: {
         strings: false,
         wasm: false,

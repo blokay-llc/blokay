@@ -22,9 +22,9 @@ export default function Toolbar({
     modalRef.current.showModal();
   };
   const handleClickCreateNewBlock = () => {
-    callApi(form).then((neuron) => {
+    callApi(form).then((block) => {
       modalRef.current.hideModal();
-      onCreate && onCreate({ neuron });
+      onCreate && onCreate({ block });
       setForm({});
     });
   };

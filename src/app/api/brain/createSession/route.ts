@@ -12,9 +12,9 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
 
   let { businessId, form } = body.data;
 
-  let neuron = await Neuron.getSessionNeuron(businessId);
+  let block = await Neuron.getSessionNeuron(businessId);
 
-  if (!neuron) {
+  if (!block) {
     return NextResponse.json(
       {
         data: {
@@ -34,7 +34,7 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
     },
   });
 
-  let response = await callContext(neuron, null, form, datasource);
+  let response = await callContext(block, null, form, datasource);
   if (!response?.content) {
     return NextResponse.json(
       {
@@ -48,7 +48,7 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
 
   datasource.update({ lastUseAt: Date.now() });
   let timeMs = Date.now() - d1;
-  neuron.update({
+  block.update({
     executions: db.sequelize.literal(`executions + 1`),
     timeMs: db.sequelize.literal(`timeMs + ${timeMs}`),
   });
@@ -57,7 +57,7 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
     timeMs,
     userId: null,
     dataSourceId: datasource.id,
-    neuronId: neuron.id,
+    neuronId: block.id,
     businessId: businessId,
     data: form,
     finishAt: Date.now(),

@@ -21,26 +21,28 @@ function Tab({ view, viewPage, setViewPage, title, icon }: any) {
     </div>
   );
 }
-const NeuronAdmin = ({
-  views,
-  neuron,
-  changeColorModal,
-  reload,
-  onClose,
-}: any) => {
+
+type Props = {
+  views: string[];
+  block: any;
+  changeColorModal: (color: string) => void;
+  reload: () => void;
+  onClose: () => void;
+};
+export default function BlockAdmin(props: Props) {
   const router = useRouter();
   const { data: session }: any = useSession();
   const [view, setView] = useState("chat");
-  const [neuronAdmin, setNeuronAdmin] = useState(null);
+  const [blockAdmin, setBlockAdmin] = useState(null);
   const [loading, setLoading] = useState(false);
   const isAdmin = session?.user?.rol == "admin";
 
-  const fetchNeuron = () => {
+  const fetchBlock = () => {
     if (loading) return;
     setLoading(true);
-    getNeuronAdmin(neuron.id)
+    getNeuronAdmin(props.block.id)
       .then((n) => {
-        setNeuronAdmin(n);
+        setBlockAdmin(n);
       })
       .finally(() => {
         setLoading(false);
@@ -48,8 +50,8 @@ const NeuronAdmin = ({
   };
 
   const init = (v: string) => {
-    fetchNeuron();
-    changeColorModal(["code"].includes(v) ? "#21252b" : "white");
+    fetchBlock();
+    props.changeColorModal(["code"].includes(v) ? "#21252b" : "white");
   };
 
   const setViewPage = (v: string) => {
@@ -59,11 +61,11 @@ const NeuronAdmin = ({
 
   useEffect(() => {
     init(view);
-  }, [neuron]);
+  }, [props.block]);
 
   const viewsCount = () => {
-    if (views.length <= 0) return 0;
-    return views.reduce((acc: any, view: any) => {
+    if (props.views.length <= 0) return 0;
+    return props.views.reduce((acc: any, view: any) => {
       return (acc += view.Views.length);
     }, 0);
   };
@@ -81,7 +83,7 @@ const NeuronAdmin = ({
     return (
       <UpgradePlan
         onClick={() => {
-          onClose && onClose();
+          props.onClose && props.onClose();
           return router.push("/dashboard/billing");
         }}
       />
@@ -124,19 +126,22 @@ const NeuronAdmin = ({
       </div>
       {view == "code" && (
         <Editor
-          neuron={neuronAdmin}
+          block={blockAdmin}
           reload={() => {
-            fetchNeuron();
+            fetchBlock();
           }}
         />
       )}
       {view == "general" && (
-        <General reload={reload} neuron={neuronAdmin} onClose={onClose} />
+        <General
+          reload={props.reload}
+          block={blockAdmin}
+          onClose={props.onClose}
+        />
       )}
-      {view == "chat" && <Chat reload={reload} neuron={neuronAdmin} />}
+      {view == "chat" && <Chat reload={props.reload} block={blockAdmin} />}
 
-      {view == "api" && <API reload={reload} neuron={neuronAdmin} />}
+      {view == "api" && <API reload={props.reload} block={blockAdmin} />}
     </div>
   );
-};
-export default NeuronAdmin;
+}

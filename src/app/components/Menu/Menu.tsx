@@ -46,13 +46,20 @@ const MenuOption = ({ name, icon, currentPath, href }: MenuOptionProps) => {
   );
 };
 
+type MenuProps = {
+  views?: any[];
+  view?: any;
+  onClickBlock?: any;
+  editMode?: any;
+  blocks?: any[];
+};
 export default function Menu({
   views = [],
   view = null,
-  onClickNeuron = null,
+  onClickBlock = null,
   editMode = null,
-  neurons = [],
-}: any) {
+  blocks = [],
+}: MenuProps) {
   const pathName = usePathname();
   const { isMobile } = useScreenDetector();
 
@@ -143,10 +150,10 @@ export default function Menu({
             {editMode && views?.length > 0 && (
               <Tree
                 views={views}
-                onClickNeuron={onClickNeuron}
+                onClickBlock={onClickBlock}
                 view={view}
                 search={search}
-                neurons={neurons}
+                blocks={blocks}
                 editMode={editMode}
               />
             )}

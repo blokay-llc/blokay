@@ -13,7 +13,7 @@ import {
 import { DS, Block } from "@blokay/react";
 import Header from "@/app/dashboard/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
-import NeuronAdmin from "../../../../components/BlockAdmin/Index";
+import BlockAdmin from "../../../../components/BlockAdmin/Index";
 import { useSession } from "next-auth/react";
 import "./styles.css";
 import { uuidv4 } from "@/app/helpers/functions";
@@ -32,9 +32,9 @@ const ViewBlock = ({ slug }: any) => {
   const containerRef: any = useRef(null);
   const [view, setView]: any = useState(null);
   const [viewItem, setViewItem]: any = useState(null);
-  const [neurons, setNeurons] = useState([]);
+  const [blocks, setBlocks] = useState([]);
   const [containerWidth, setContainerWidth] = useState(null);
-  const [neuron, setNeuron]: any = useState(null);
+  const [block, setBlock]: any = useState(null);
   const [editMode, setEditMode] = useState("user");
   const [views, setViews] = useState([]);
 
@@ -44,9 +44,9 @@ const ViewBlock = ({ slug }: any) => {
     });
   };
 
-  const fetchListNeurons = () => {
+  const fetchListBlocks = () => {
     brainList().then((l: any) => {
-      setNeurons(l.Neurons);
+      setBlocks(l.Neurons);
     });
   };
 
@@ -64,7 +64,7 @@ const ViewBlock = ({ slug }: any) => {
   useEffect(() => {
     listViews();
     fetchView();
-    fetchListNeurons();
+    fetchListBlocks();
   }, []);
 
   const saveView = (form: any) => {
@@ -134,7 +134,7 @@ const ViewBlock = ({ slug }: any) => {
     );
   }, [containerRef.current]);
 
-  const addViewItem = ({ neuronId = null, x, y, w, h, type }: any) => {
+  const addViewItem = ({ blockId = null, x, y, w, h, type }: any) => {
     const newLayout: any = [
       ...view.ViewItems,
       {
@@ -143,7 +143,7 @@ const ViewBlock = ({ slug }: any) => {
         w,
         h,
         type,
-        neuronId,
+        neuronId: blockId,
         id: uuidv4(),
       },
     ];
@@ -156,11 +156,11 @@ const ViewBlock = ({ slug }: any) => {
 
   const onDrop = (layout: any[], layoutItem: any, _event: any) => {
     let i = _event.dataTransfer.getData("text/plain");
-    addViewItem({ ...layoutItem, type: "neuron", neuronId: i });
+    addViewItem({ ...layoutItem, type: "block", blockId: i });
   };
 
-  const clickNeuron = (neuronId: any) => {
-    setNeuron({ id: neuronId });
+  const clickBlock = (blockId: any) => {
+    setBlock({ id: blockId });
     modalRef.current.showModal();
   };
 
@@ -170,10 +170,10 @@ const ViewBlock = ({ slug }: any) => {
     });
   };
 
-  const onCreateNeuron = ({ neuron, type }: any) => {
-    if (neuron) {
-      fetchListNeurons();
-      setNeuron(neuron);
+  const onCreateBlock = ({ block, type }: any) => {
+    if (block) {
+      fetchListBlocks();
+      setBlock(block);
       modalRef.current.showModal();
     } else {
       addViewItem({ type, x: 0, y: 0, w: 4, h: type == "button" ? 2 : 5 });
@@ -192,9 +192,9 @@ const ViewBlock = ({ slug }: any) => {
           <Menu
             views={views}
             view={view}
-            onClickNeuron={clickNeuron}
+            onClickBlock={clickBlock}
             editMode={editMode}
-            neurons={neurons}
+            blocks={blocks}
           />
         </div>
         <div className="lg:flex-1 pb-10">
@@ -203,7 +203,7 @@ const ViewBlock = ({ slug }: any) => {
               view={view}
               save={saveView}
               refresh={refreshView}
-              onCreate={onCreateNeuron}
+              onCreate={onCreateBlock}
               isAdmin={isAdmin}
               editMode={editMode}
               setEditMode={setEditMode}
@@ -247,7 +247,7 @@ const ViewBlock = ({ slug }: any) => {
                         <ActionsEditButtons
                           viewItem={vItem}
                           setViewItem={setViewItem}
-                          clickNeuron={clickNeuron}
+                          clickBlock={clickBlock}
                           onAction={(e: any, action: string) => {
                             e.stopPropagation();
                             if (action === "delete") {
@@ -258,7 +258,7 @@ const ViewBlock = ({ slug }: any) => {
                           }}
                         />
                       )}
-                      {vItem.type == "neuron" && (
+                      {["neuron", "block"].includes(vItem.type) && (
                         <div
                           className={`dark:border-white/10 border-neutral-300 border rounded-xl  overflow-y-auto max-h-full h-full flex justify-center ${
                             editMode == "edit" ? "grayscale" : ""
@@ -291,7 +291,7 @@ const ViewBlock = ({ slug }: any) => {
       <ActionsEdit
         view={view}
         viewItem={viewItem}
-        clickNeuron={clickNeuron}
+        clickBlock={clickBlock}
         deleteFromLayout={deleteFromLayout}
         ref={actionsEditRef}
         reload={() => {
@@ -299,17 +299,17 @@ const ViewBlock = ({ slug }: any) => {
         }}
       />
       <DS.Modal size="md" position="center" ref={modalRef}>
-        {neuron && (
-          <NeuronAdmin
+        {block && (
+          <BlockAdmin
             views={views}
             reload={() => {
               fetchView();
-              fetchListNeurons();
+              fetchListBlocks();
             }}
             onClose={() => {
               modalRef.current.hideModal();
             }}
-            neuron={neuron}
+            block={block}
             changeColorModal={(color: string) => {
               modalRef.current.changeColorModal(color);
             }}

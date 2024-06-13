@@ -13,17 +13,17 @@ export default function EditItemOptions({
 }: any) {
   if (!type) return <></>;
   const [form, setForm] = useState({ ...options });
-  const [neurons, setNeurons] = useState([]);
+  const [blocks, setBlocks] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchListNeurons = () => {
+  const fetchListBlock = () => {
     brainList().then((l: any) => {
-      setNeurons(l.Neurons);
+      setBlocks(l.Neurons);
     });
   };
 
   useEffect(() => {
-    fetchListNeurons();
+    fetchListBlock();
   }, []);
 
   const fetchViewItemEdit = (form: any) => {
@@ -91,22 +91,22 @@ export default function EditItemOptions({
             }}
           >
             <option value="">Select an option</option>
-            <option value="openNeuron">Open Neuron</option>
+            <option value="openBlock">Open Block</option>
             {/* <option value="customJS">Custom JS</option> */}
           </DS.Select>
 
-          {form.click === "openNeuron" && (
+          {form.click === "openBlock" && (
             <DS.Select
               value={form.neuronKey}
-              label="Neuron name"
+              label="Block name"
               onChange={(val: string) => {
                 setForm({ ...form, neuronKey: val });
               }}
             >
               <option value="">Select an option</option>
 
-              {neurons.map((neuron: any) => (
-                <option value={neuron.key}>{neuron.name}</option>
+              {blocks.map((block: any) => (
+                <option value={block.key}>{block.name}</option>
               ))}
             </DS.Select>
           )}

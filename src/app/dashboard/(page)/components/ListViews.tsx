@@ -262,7 +262,7 @@ export default function ListViews({}) {
               className="w-full"
               size="md"
               loading={loadingDelete}
-              disabled={form.textDeleteNeuron != "yes, delete"}
+              disabled={form.textDeleteView != "yes, delete"}
             />
           </div>
         }
@@ -271,11 +271,11 @@ export default function ListViews({}) {
       >
         <DS.Input
           type="text"
-          value={form.textDeleteNeuron}
+          value={form.textDeleteView}
           label="Write (yes, delete)"
           className="mb-3"
           onChange={(val: string) => {
-            setForm({ ...form, textDeleteNeuron: val });
+            setForm({ ...form, textDeleteView: val });
           }}
         />
       </DS.Modal>

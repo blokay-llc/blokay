@@ -1,12 +1,18 @@
 "use client";
 import { DS } from "@blokay/react";
 
+type Props = {
+  clickBlock: (neuronId: string) => void;
+  viewItem: any;
+  setViewItem: (viewItem: any) => void;
+  onAction: (e: any, action: string) => void;
+};
 export default function ({
-  clickNeuron,
+  clickBlock,
   viewItem,
   setViewItem,
   onAction,
-}: any) {
+}: Props) {
   const setAction = (e: any, action: string) => {
     onAction && onAction(e, action);
     setViewItem(viewItem);
@@ -40,7 +46,7 @@ export default function ({
                 onMouseDown={(e) => {
                   e.stopPropagation();
                   setViewItem(viewItem);
-                  clickNeuron(viewItem.neuronId);
+                  clickBlock(viewItem.neuronId);
                 }}
               >
                 <DS.Icon icon="edit" />

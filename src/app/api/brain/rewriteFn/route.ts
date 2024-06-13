@@ -20,15 +20,15 @@ export const POST = withBlock(async function ({ user, block, body }: any) {
     },
   });
 
-  let neurons = await Neuron.findAll({
+  let blocks = await Neuron.findAll({
     where: {
       businessId: block.businessId,
     },
   });
 
   let fields = block.filters?.fields || [];
-  // only send needed data Neuron
-  let neuronsList = neurons.map((n: any) => ({
+  // only send needed data Blocks
+  let blockList = blocks.map((n: any) => ({
     id: n.id,
     key: n.key,
     description: n.description,
@@ -39,7 +39,7 @@ export const POST = withBlock(async function ({ user, block, body }: any) {
     data.prompt || "",
     fields,
     datasource.structure, // We Only share the database metadata (never your credentials or data)
-    neuronsList
+    blockList
   );
 
   let js = transpileModule(result.synapse);

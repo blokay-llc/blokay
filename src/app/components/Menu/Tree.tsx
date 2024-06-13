@@ -2,16 +2,26 @@
 import { useState, useEffect } from "react";
 import { DS } from "@blokay/react";
 
+type DropItemProps = {
+  editMode?: any;
+  level?: number;
+  item?: any;
+  defaultOpen?: boolean;
+  onFound?: any;
+  onClickBlock?: any;
+  search?: string;
+  view?: any;
+};
 const DropItem = function ({
   editMode = "",
   level = 1,
   item,
   defaultOpen = false,
   onFound = null,
-  onClickNeuron = null,
+  onClickBlock = null,
   search = "",
   view = null,
-}: any) {
+}: DropItemProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [isFound, setIsFound] = useState(false);
 
@@ -55,7 +65,7 @@ const DropItem = function ({
           }`}
           onClick={() => {
             if (item.key) {
-              onClickNeuron(item.id);
+              onClickBlock(item.id);
             }
           }}
           draggable={
@@ -124,7 +134,7 @@ const DropItem = function ({
                   item={child}
                   view={view}
                   key={`child-${index}-${item.id}-${child.id}`}
-                  onClickNeuron={onClickNeuron}
+                  onClickBlock={onClickBlock}
                   search={search}
                   onFound={(found: boolean) => {
                     setIsOpen(found);
@@ -138,30 +148,38 @@ const DropItem = function ({
     </div>
   );
 };
+
+type TreeProps = {
+  views?: any[];
+  onClickBlock?: any;
+  view?: any;
+  search?: string;
+  blocks?: any[];
+  editMode?: any;
+};
 export default function TreeMenu({
   views = [],
-  onClickNeuron,
+  onClickBlock,
   view,
   search,
-  neurons,
+  blocks = [],
   editMode,
-}: any) {
+}: TreeProps) {
   const [mode, setMode] = useState("functions");
 
   const buildStructure = function () {
-    // if (!neurons.length) return [];
     if (!views.length) return [];
     const map: any = {};
-    for (let neuron of neurons) {
-      map[neuron.id] = neuron;
+    for (let block of blocks) {
+      map[block.id] = block;
     }
 
-    for (let neuron of neurons) {
-      neuron.children = [];
-      for (let childId of neuron.childrenIds) {
-        neuron.children.push(map[childId]);
+    for (let block of blocks) {
+      block.children = [];
+      for (let childId of block.childrenIds) {
+        block.children.push(map[childId]);
       }
-      map[neuron.id] = neuron;
+      map[block.id] = block;
     }
 
     for (let viewGroupIndex in views) {
@@ -172,10 +190,10 @@ export default function TreeMenu({
       for (let viewIndex in viewGroup.children) {
         let view = viewGroup.children[viewIndex];
 
-        for (let childNeuronIndex in view.children) {
-          let neuronId = view.children[childNeuronIndex];
-          if (map[neuronId]?.id) {
-            view.children[childNeuronIndex] = map[neuronId];
+        for (let childBlockIndex in view.children) {
+          let blockId = view.children[childBlockIndex];
+          if (map[blockId]?.id) {
+            view.children[childBlockIndex] = map[blockId];
           }
         }
       }
@@ -184,20 +202,20 @@ export default function TreeMenu({
   };
 
   const getOthers = function () {
-    let list = neurons.filter((n: any) => n.type == "function").slice(0);
-    let crons = neurons.filter((n: any) => n.type == "cron").slice(0);
+    let list = blocks.filter((n: any) => n.type == "function").slice(0);
+    let crons = blocks.filter((n: any) => n.type == "cron").slice(0);
     let use = new Set();
-    // add subneurons
-    for (let n of neurons) {
-      for (let neuronId of n.childrenIds) {
-        use.add(+neuronId);
+    // add subbocks
+    for (let b of blocks) {
+      for (let blockId of b.childrenIds) {
+        use.add(+blockId);
       }
     }
 
     for (let cat of views) {
       for (let view of cat.Views) {
-        for (let neuron of view.children) {
-          let id = neuron?.id || neuron;
+        for (let block of view.children) {
+          let id = block?.id || block;
           use.add(+id);
         }
       }
@@ -242,7 +260,7 @@ export default function TreeMenu({
           <div className="px-2 select-none flex flex-col pt-3 border-t border-neutral-200 dark:border-black">
             {buildStructure().map((item: any, index: any) => (
               <DropItem
-                onClickNeuron={onClickNeuron}
+                onClickBlock={onClickBlock}
                 defaultOpen={false}
                 level={0}
                 item={item}
@@ -260,7 +278,7 @@ export default function TreeMenu({
               </h2>
               {nonUsed.map((item: any, index: any) => (
                 <DropItem
-                  onClickNeuron={onClickNeuron}
+                  onClickBlock={onClickBlock}
                   defaultOpen={false}
                   level={0}
                   item={item}
@@ -278,7 +296,7 @@ export default function TreeMenu({
         <div className="px-2 select-none flex flex-col pt-3 mt-3 border-t border-neutral-200 dark:border-black">
           {crons.map((item: any, index: any) => (
             <DropItem
-              onClickNeuron={onClickNeuron}
+              onClickBlock={onClickBlock}
               defaultOpen={false}
               level={0}
               item={item}

@@ -4,9 +4,13 @@ import Editor from "@monaco-editor/react";
 import { DS } from "@blokay/react";
 import { updateNeuron } from "@/app/services/brain";
 
-export default function EditorApp({ neuron, reload }: any) {
+type Props = {
+  block: any;
+  reload: () => void;
+};
+export default function EditorApp({ block, reload }: Props) {
   const editorRef: any = useRef(null);
-  const [form, setForm] = useState({ synapse: neuron?.synapse });
+  const [form, setForm] = useState({ synapse: block?.synapse });
   const [diagnostics, setDiagnostics] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +28,7 @@ export default function EditorApp({ neuron, reload }: any) {
   const saveChanges = () => {
     setLoading(true);
     updateNeuron({
-      neuronId: neuron.id,
+      neuronId: block.id,
       synapse: form.synapse,
     })
       .then((result) => {
@@ -61,15 +65,15 @@ export default function EditorApp({ neuron, reload }: any) {
   }
 
   useEffect(() => {
-    setForm({ ...form, synapse: neuron?.synapse });
-  }, [neuron]);
+    setForm({ ...form, synapse: block?.synapse });
+  }, [block]);
 
   return (
     <div
       className=" p-2 rounded-3xl overflow-hidde lg:h-[32rem]"
       style={{ backgroundColor: "#21252b" }}
     >
-      {neuron?.synapse != undefined && (
+      {block?.synapse != undefined && (
         <>
           {diagnostics.length > 0 && (
             <div>
@@ -99,9 +103,9 @@ export default function EditorApp({ neuron, reload }: any) {
             theme="onedark"
             height="100%"
             defaultLanguage="typescript"
-            value={neuron.synapse}
+            value={block.synapse}
           />
-          {form.synapse != neuron.synapse && (
+          {form.synapse != block.synapse && (
             <div className="absolute top-2 right-0">
               <DS.Button
                 text="Guardar"

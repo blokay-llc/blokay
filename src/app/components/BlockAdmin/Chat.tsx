@@ -4,7 +4,11 @@ import TyperPrompt from "@/app/components/TyperPrompt";
 import { DS } from "@blokay/react";
 import { rewriteFn } from "@/app/services/brain";
 
-const Chat = ({ neuron, reload }: any) => {
+type ChatProps = {
+  block: any;
+  reload?: any;
+};
+const Chat = ({ block, reload }: ChatProps) => {
   const messagesEndRef: any = useRef();
   const [form, setForm]: any = useState({});
   const [historyChat, setHistoryChat]: any[] = useState([]);
@@ -24,7 +28,7 @@ const Chat = ({ neuron, reload }: any) => {
 
     rewriteFn({
       ...form,
-      neuronId: neuron.id,
+      neuronId: block.id,
     })
       .then(() => {
         setHistoryChat((prevArray: any) => [
@@ -50,8 +54,8 @@ const Chat = ({ neuron, reload }: any) => {
   }, [historyChat]);
 
   useEffect(() => {
-    if (neuron?.history) setHistoryChat(neuron.history);
-  }, [neuron]);
+    if (block?.history) setHistoryChat(block.history);
+  }, [block]);
 
   return (
     <div>
@@ -81,7 +85,7 @@ const Chat = ({ neuron, reload }: any) => {
         </div>
       )}
 
-      {historyChat.length == 0 && neuron?.id && (
+      {historyChat.length == 0 && block?.id && (
         <div className="font-light border mx-10 mb-10  mt-10 border-transparent rounded-xl px-5 py-10 text-black bg-gradient-to-r from-[#f4def6] to-[#d7ecf8] dark:from-blue-800 dark:to-blue-950 dark:text-white dark:border-white/10  ">
           <div className="text-sm">
             You can directly request our artificial intelligence to build the

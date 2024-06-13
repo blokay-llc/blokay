@@ -23,13 +23,13 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
     queryBuilder.where.key = neuronKey;
   }
 
-  let neuron = await Neuron.findOne(queryBuilder);
+  let block = await Neuron.findOne(queryBuilder);
 
-  if (!neuron) {
+  if (!block) {
     return NextResponse.json(
       {
         data: {
-          message: "Icorrect neuron",
+          message: "Icorrect block",
         },
       },
       { status: 400 }
@@ -46,7 +46,7 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
     },
   });
 
-  let response = await callContext(neuron, session, form, datasource);
+  let response = await callContext(block, session, form, datasource);
 
   if (format == "excel" && response?.type == "table") {
     let content = response.content;
@@ -78,14 +78,14 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
     nextResponse.headers.set("content-Length", buf.length);
     nextResponse.headers.set(
       "Content-disposition",
-      `attachment;filename=${encodeURIComponent(neuron.description)}.xlsx`
+      `attachment;filename=${encodeURIComponent(block.description)}.xlsx`
     );
     return nextResponse;
   }
 
   datasource.update({ lastUseAt: Date.now() });
   let timeMs = Date.now() - d1;
-  neuron.update({
+  block.update({
     executions: db.sequelize.literal(`executions + 1`),
     timeMs: db.sequelize.literal(`timeMs + ${timeMs}`),
   });
@@ -94,7 +94,7 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
     timeMs,
     userId: session.id || session.userId || null,
     dataSourceId: datasource.id,
-    neuronId: neuron.id,
+    neuronId: block.id,
     businessId: business.id,
     data: form,
     finishAt: Date.now(),

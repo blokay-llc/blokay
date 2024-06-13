@@ -10,7 +10,12 @@ const colors = [
   { bg: "bg-cyan-500", text: "text-cyan-900" },
 ];
 
-export default function AvatarName({ name, colorIndex = 0, size = "md" }: any) {
+export default function AvatarName({
+  name,
+  colorIndex = 0,
+  size = "md",
+  className = "",
+}: any) {
   const getShort = () => {
     let n = name || "";
     let short = n.split(" ");
@@ -21,6 +26,7 @@ export default function AvatarName({ name, colorIndex = 0, size = "md" }: any) {
 
   const sizeClass = () => {
     if (size == "sm") return "size-6 text-xs";
+    if (size == "lg") return "size-10 ";
     if (size == "md") return "size-8 text-sm";
     return "size-8 text-sm";
   };
@@ -28,9 +34,9 @@ export default function AvatarName({ name, colorIndex = 0, size = "md" }: any) {
 
   return (
     <div
-      className={`group select-none  relative ${sizeClass()}  rounded-full flex items-center justify-center ${
+      className={`group select-none relative ${sizeClass()} rounded-full flex items-center justify-center ${
         colors[index].bg
-      } ${colors[index].text}`}
+      } ${colors[index].text} ${className}`}
     >
       {getShort().toUpperCase()}
       <div className="group-hover:block absolute -bottom-7 left-0  w-26 text-center hidden  bg-neutral-900 text-neutral-100 rounded-sm py-1 px-2 text-xs z-10">
