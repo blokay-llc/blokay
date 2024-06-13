@@ -188,12 +188,11 @@ export default function ListViews({}) {
           {!loading && viewsCount() <= 3 && isAdmin && (
             <div className="mt-10">
               <AppVideoCard
-                youtubeUrl=""
+                youtubeUrl="AwZzqjmr2n4"
                 title="Quick intro"
                 subtitle="Introduction by the Founder"
                 name="Introduction"
                 duration="1:09"
-                preview="https://www.relume.io/app/a/adam-video.ece0d5b362faf0b7dfc4.webp"
               />
             </div>
           )}

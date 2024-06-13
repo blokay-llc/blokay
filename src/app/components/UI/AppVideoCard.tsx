@@ -5,7 +5,6 @@ export default function AppVideoCard({
   duration,
   title,
   subtitle,
-  preview,
   name,
   youtubeUrl,
 }: any) {
@@ -14,7 +13,7 @@ export default function AppVideoCard({
   return (
     <>
       <div
-        className="px-5 group  transition  rounded-xl py-5 flex justify-between gap-5 items-center text-indigo-900 dark:text-white cursor-pointer select-none bg-gradient-to-r from-[#f4def6] to-[#d7ecf8] dark:from-blue-800 dark:to-blue-950"
+        className="px-5 group  transition  rounded-xl py-5 flex justify-between gap-5 items-center text-indigo-900 dark:text-white cursor-pointer select-none bg-gradient-to-tr from-[#f4def6] to-[#d7ecf8] dark:from-blue-800 dark:to-blue-950/60"
         onClick={() => modalRef.current.showModal()}
       >
         <div>
@@ -28,7 +27,10 @@ export default function AppVideoCard({
           </div>
 
           <div>
-            <img src={preview} className="size-16" />
+            <img
+              src={"http://i3.ytimg.com/vi/" + youtubeUrl + "/hqdefault.jpg"}
+              className="size-16 object-cover "
+            />
           </div>
         </div>
       </div>
@@ -37,7 +39,11 @@ export default function AppVideoCard({
         <iframe
           width="100%"
           height="600"
-          src={youtubeUrl}
+          src={
+            "https://www.youtube.com/embed/" +
+            youtubeUrl +
+            "?si=V-JkZZmsg-6dE9Fu"
+          }
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         ></iframe>
