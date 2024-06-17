@@ -1,0 +1,35 @@
+# Create Sessions
+
+A session is a way to authenticate a user and get a token that can be used to access the Blokay platform.
+
+## Option 1: Use a RESTful API to obtain a JWT token
+
+```bash
+curl -X POST https://app.blokay.com/api.brain/createSession \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "businessId": "your-business-id",
+    YOUR_DATA_HERE
+  }'
+```
+
+## Option 2: Use React compoenent to login
+
+```tsx
+import { SignOut, SignIn, SignForm } from "@blokay/react";
+
+function App() {
+  return (
+    <div className="container mx-auto">
+      <SignOut>
+        {/*This is only visible if the user is not signed in*/}
+        <SignForm />
+      </SignOut>
+      <SignIn>{/*This is only visible if the user is signed in*/}</SignIn>
+    </div>
+  );
+}
+```
+
+<Link label="How to start" href="/docs/react-start" />
+<Link label="How to create ChartLines" href="/docs/create-chart" />

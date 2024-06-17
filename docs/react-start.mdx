@@ -1,0 +1,46 @@
+# Get started with Blokay React
+
+## Install Blokay React
+
+```bash
+npm install @blokay/react
+```
+
+## Generate JWT token
+
+You can generate the current user's session token by defining the logic directly within the Blokay platform.
+
+See how to [create sessions](https://blokay.com/docs/create-session).
+
+## Add Blokay Provider to your app
+
+```tsx {1, 6, 8}
+import { BlokayProvider } from "@blokay/react";
+
+function App() {
+  return (
+    <div className="App">
+      <BlokayProvider businessId={"2"} jwtToken={token}>
+        <App />
+      </BlokayProvider>
+    </div>
+  );
+}
+```
+
+## Now you are ready to use Blokay blocks in your React code.
+
+```tsx {6}
+import { Block } from "@blokay/react";
+
+function Component() {
+  return (
+    <div>
+      <Block block="block.key" form={{}} />
+    </div>
+  );
+}
+```
+
+<Link label="How to create Sessions" href="/docs/create-session" />
+<Link label="How to create ChartLines" href="/docs/create-chart" />
