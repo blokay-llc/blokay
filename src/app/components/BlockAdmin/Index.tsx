@@ -51,7 +51,7 @@ export default function BlockAdmin(props: Props) {
 
   const init = (v: string) => {
     fetchBlock();
-    props.changeColorModal(["code"].includes(v) ? "#21252b" : "white");
+    // props.changeColorModal(["code"].includes(v) ? "#0a0a0a" : "white");
   };
 
   const setViewPage = (v: string) => {
@@ -93,7 +93,7 @@ export default function BlockAdmin(props: Props) {
   return (
     <div className="relative">
       <div className="flex justify-center">
-        <div className={`tabs ${["code"].includes(view) ? "dark" : ""}`}>
+        <div className={`tabs `}>
           <Tab
             view={view}
             viewPage="general"

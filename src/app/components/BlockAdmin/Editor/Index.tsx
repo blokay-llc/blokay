@@ -53,7 +53,7 @@ export default function EditorApp({ block, reload }: Props) {
         { token: "constant", foreground: "#e06c75" },
       ],
       colors: {
-        "editor.background": "#21252b",
+        "editor.background": "#0a0a0a",
       },
     });
 
@@ -71,7 +71,7 @@ export default function EditorApp({ block, reload }: Props) {
   return (
     <div
       className=" p-2 rounded-3xl overflow-hidde lg:h-[32rem]"
-      style={{ backgroundColor: "#21252b" }}
+      style={{ backgroundColor: "#0a0a0a" }}
     >
       {block?.synapse != undefined && (
         <>
