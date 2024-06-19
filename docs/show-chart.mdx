@@ -1,6 +1,21 @@
 # Create ChartLines
 
+<Tabs tabs={["Example", "Prompt",  "Code"]}>
+  <Example block="examples.chartLine"/>
+   <div class="demo-prompt">Show me a graph with the count of customers created per day in the last 30 days.</div>
+```ts
+  const fn = async function (args: Args) {
+  let sql = `SELECT date_format(creationDate, "%m/%Y") as label, count(1) as conteo
+    from users WHERE creationDate >= NOW() - interval 30 day orderBy creationDate ASC`;
+  let results = await args.query(sql);
+  return args.chartLine(results);
+};
+```
+ 
+</Tabs>
 ---
+
+## Tutorial
 
 Here is a step-by-step tutorial on how to complete the function fn:
 
@@ -41,3 +56,8 @@ const fn = async function (args: Args) {
   return args.chartLine(results);
 };
 ```
+
+---
+
+<Link label="How to start" href="/docs/react-start" />
+<Link label="How to create ChartLines" href="/docs/create-chart" />

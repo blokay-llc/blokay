@@ -1,6 +1,23 @@
 # Show Tables
 
-## Step 1
+<Tabs tabs={["Example", "Prompt",  "Code"]}>
+  <Example block="examples.table"/>
+   <div class="demo-prompt">Show me a table of the users.</div>
+```ts
+const fn = async function (args: Args) {
+  let sql = `SELECT id, name, email FROM users LIMIT 100`;
+  let results = await args.query(sql);
+  return args.table(results);
+};
+```
+ 
+</Tabs>
+
+---
+
+## Tutorial
+
+### Step 1
 
 Get the start and end dates from the form: The fn function expects to receive the start and end dates from the form provided in args.form.
 
@@ -12,7 +29,7 @@ const fn = async function (args: Args) {
 
 ---
 
-## Step 2
+### Step 2
 
 Build the SQL query: Use the provided dates to construct the SQL query that will select the data from the database according to the date range.
 
@@ -30,7 +47,7 @@ const fn = async function (args: Args) {
 
 ---
 
-## Step 3
+### Step 3
 
 Execute the query and get the results: Use the query method provided in args to execute the SQL query and get the data from the database.
 
@@ -50,7 +67,7 @@ const fn = async function (args: Args) {
 
 ---
 
-## Step 4
+### Step 4
 
 Display the results: Use the table method provided in args to send the query results as a table response.
 

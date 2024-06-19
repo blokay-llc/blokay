@@ -38,7 +38,7 @@ export async function callContext(
       displayErrors: false,
       timeout: 200 * 1000,
       breakOnSigint: true,
-      contextName: `block execution ${block.id} - ${block.key}`,
+      contextName: `block execution ${block?.id} - ${block?.key}`,
       contextCodeGeneration: {
         strings: false,
         wasm: false,

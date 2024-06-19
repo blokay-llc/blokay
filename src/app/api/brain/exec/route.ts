@@ -83,7 +83,9 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
     return nextResponse;
   }
 
-  datasource.update({ lastUseAt: Date.now() });
+  if (datasource) {
+    datasource.update({ lastUseAt: Date.now() });
+  }
   let timeMs = Date.now() - d1;
   block.update({
     executions: db.sequelize.literal(`executions + 1`),
@@ -93,7 +95,7 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
   NeuronExecution.create({
     timeMs,
     userId: session.id || session.userId || null,
-    dataSourceId: datasource.id,
+    dataSourceId: datasource?.id,
     neuronId: block.id,
     businessId: business.id,
     data: form,
