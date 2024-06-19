@@ -1,16 +1,15 @@
-# Create ChartLines
+# Create Doughnut
 
 <Tabs tabs={["Example", "Prompt",  "Code"]}>
-  <div style={{ maxWidth: "600px" }}>
-    <Example block="examples.chartLine"/>
+  <div style={{ maxWidth: "500px" }}>
+    <Example block="examples.doughnut"/>
   </div>
-   <div class="demo-prompt">Show me a graph with the count of customers created per day in the last 30 days.</div>
+   <div class="demo-prompt">Show me a Doughnut with the count of customers active and inactive.</div>
 ```ts
-  const fn = async function (args: Args) {
-  let sql = `SELECT date_format(creationDate, "%m/%Y") as label, count(1) as conteo
-    from users WHERE creationDate >= NOW() - interval 30 day orderBy creationDate ASC`;
+const fn = async function (args: Args) {
+  let sql = `SELECT if(active = 1, "Active",  "Inactive") as label count(1) quantity   FROM users GROUP BY active`;
   let results = await args.query(sql);
-  return args.chartLine(results);
+  return args.chartDoughnut(results);
 };
 ```
  
@@ -24,8 +23,7 @@ Here is a step-by-step tutorial on how to complete the function fn:
 Define the initial SQL query: The SQL query should select the necessary data from the database. In this case, we want to count the number of users created in the last 30 days and group them by month and year.
 
 ```ts
-let sql = `SELECT date_format(creationDate, "%m/%Y") as label, count(1) as conteo
-from users WHERE creationDate >= NOW() - interval 30 day orderBy creationDate ASC`;
+let sql = `SELECT if(active = 1, "Active",  "Inactive") as label count(1) quantity   FROM users GROUP BY active`;
 ```
 
 ---
@@ -41,7 +39,7 @@ let results = await args.query(sql);
 Display the chart: Use the chartLine method provided in args to send the formatted data as a line chart response.
 
 ```ts
-return args.chartLine(data);
+return args.chartDoughnut(data);
 ```
 
 ---
@@ -52,14 +50,13 @@ With these steps, you have completed the fn function. Now, when this function is
 
 ```ts
 const fn = async function (args: Args) {
-  let sql = `SELECT date_format(creationDate, "%m/%Y") as label, count(1) as conteo
-    from users WHERE creationDate >= NOW() - interval 30 day orderBy creationDate ASC`;
+  let sql = `SELECT if(active = 1, "Active",  "Inactive") as label count(1) quantity   FROM users GROUP BY active`;
   let results = await args.query(sql);
-  return args.chartLine(results);
+  return args.chartDoughnut(results);
 };
 ```
 
 ---
 
-<Link label="How to start" href="/docs/react-start" />
+<Link label="How to create Chartlines" href="/docs/show-chart" />
 <Link label="How to create Tables" href="/docs/show-table" />
