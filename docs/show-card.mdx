@@ -1,0 +1,60 @@
+# Create Custom Card
+
+<Tabs tabs={["Example", "Prompt",  "Code"]}>
+  <div style={{ maxWidth: "600px" }}>
+    <Example block="examples.card"/>
+  </div>
+   <div class="demo-prompt">Show me the count of customers created.</div>
+```ts
+const fn = async function (args: Args) {
+  let sql = `SELECT count(1) as quantity FROM users `;
+  let results = await args.find(sql);
+  return args.value(results);
+};
+```
+ 
+</Tabs>
+---
+
+## Tutorial
+
+Here is a step-by-step tutorial on how to complete the function fn:
+
+```ts
+let sql = `SELECT count(1) as quantity FROM users`;
+```
+
+---
+
+Execute the SQL query: Use the query method provided in args to execute the SQL query and get the results.
+
+```ts
+let results = await args.find(sql);
+```
+
+---
+
+Display the chart: Use the value method provided in args to send the formatted data response.
+
+```ts
+return args.value(data);
+```
+
+---
+
+## Final Result
+
+With these steps, you have completed the fn function. Now, when this function is called, it will return a card showing the number of users created. Make sure to adjust the code according to your application's specifications and structure.
+
+```ts
+const fn = async function (args: Args) {
+  let sql = `SELECT count(1) as quantity FROM users `;
+  let results = await args.find(sql);
+  return args.value(results);
+};
+```
+
+---
+
+<Link label="How to create ChartLines" href="/docs/show-chart" />
+<Link label="How to create Tables" href="/docs/show-table" />
