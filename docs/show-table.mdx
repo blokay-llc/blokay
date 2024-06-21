@@ -15,9 +15,27 @@ const fn = async function (args: Args) {
 
 ---
 
+## Create a table with filters
+
+- Query Execution: It runs an SQL query to select all records from the users table where the creationDate is within a specified date range (dateStart to dateEnd). The query parameters are taken from req.form.
+- Result Processing: It awaits the result of the query.
+- Result Handling: It passes the query result to the table method of the args parameter and returns the processed res
+
+<Tabs tabs={["Example", "Prompt",  "Code"]}>
+  <Example block="examples.form"/>
+   <div class="demo-prompt">Show me a table of the users created between the given dates.</div>
+```ts
+const fn = async function (args: Args) {
+  let result = await req.query(`SELECT * FROM users WHERE creationDate >= :dateStart and creationDate <= :dateEnd`, req.form);
+  return args.table(result);
+};
+```
+ 
+</Tabs>
+
 ## Tutorial
 
-### Step 1
+### Step 1 - Get the start and end dates from the form
 
 Get the start and end dates from the form: The fn function expects to receive the start and end dates from the form provided in args.form.
 
@@ -29,7 +47,7 @@ const fn = async function (args: Args) {
 
 ---
 
-### Step 2
+### Step 2 - Build the SQL query
 
 Build the SQL query: Use the provided dates to construct the SQL query that will select the data from the database according to the date range.
 
@@ -47,7 +65,7 @@ const fn = async function (args: Args) {
 
 ---
 
-### Step 3
+### Step 3 - Execute the query and get the results
 
 Execute the query and get the results: Use the query method provided in args to execute the SQL query and get the data from the database.
 
@@ -67,7 +85,7 @@ const fn = async function (args: Args) {
 
 ---
 
-### Step 4
+### Step 4 - Display the results
 
 Display the results: Use the table method provided in args to send the query results as a table response.
 
