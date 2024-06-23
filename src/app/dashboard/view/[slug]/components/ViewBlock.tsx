@@ -11,6 +11,7 @@ import {
   deleteFromLayout as deleteFromLayoutApi,
 } from "@/app/services/brain";
 import { DS, Block } from "@blokay/react";
+import { useScreen } from "@/hooks/useScreen";
 import Header from "@/app/dashboard/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
 import BlockAdmin from "../../../../components/BlockAdmin/Index";
@@ -37,6 +38,7 @@ const ViewBlock = ({ slug }: any) => {
   const [block, setBlock]: any = useState(null);
   const [editMode, setEditMode] = useState("user");
   const [views, setViews] = useState([]);
+  const { rowHeight } = useScreen();
 
   const listViews = () => {
     viewList().then((result: any) => {
@@ -187,7 +189,7 @@ const ViewBlock = ({ slug }: any) => {
 
   return (
     <div className="lg:px-8 px-5 pt-8">
-      <div className="flex  gap-10">
+      <div className="flex gap-10">
         <div className="lg:w-[18rem]">
           <Menu
             views={views}
@@ -220,7 +222,7 @@ const ViewBlock = ({ slug }: any) => {
                   className="relative"
                   cols={24}
                   style={{ minHeight: 600 }}
-                  rowHeight={10}
+                  rowHeight={rowHeight}
                   width={containerWidth}
                   droppingItem={{ i: "__dropping-elem__", h: 10, w: 12 }}
                   margin={[20, 30]}

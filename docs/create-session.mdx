@@ -4,6 +4,7 @@ A session is a way to authenticate a user and get a token that can be used to ac
 
 ## Option 1: Use a RESTful API to obtain a JWT token
 
+<Tabs tabs={["curl", "NodeJS", "PHP", "Java", "GO"]}>
 ```bash
 curl -X POST https://app.blokay.com/api.brain/createSession \
   -H 'Content-Type: application/json' \
@@ -12,10 +13,92 @@ curl -X POST https://app.blokay.com/api.brain/createSession \
     YOUR_DATA_HERE
   }'
 ```
+```js
+import fetch from 'node-fetch';
+
+fetch('https://app.blokay.com/api.brain/createSession', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: '{\n "businessId": "your-business-id",\n YOUR_DATA_HERE\n }'
+});
+
+````
+```php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://app.blokay.com/api.brain/createSession');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, "{\n    \"businessId\": \"your-business-id\",\n    YOUR_DATA_HERE\n  }");
+
+$response = curl_exec($ch);
+
+curl_close($ch);
+````
+
+```java
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
+
+HttpClient client = HttpClient.newHttpClient();
+
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://app.blokay.com/api.brain/createSession"))
+    .POST(BodyPublishers.ofString("{\n    \"businessId\": \"your-business-id\",\n    YOUR_DATA_HERE\n  }"))
+    .setHeader("Content-Type", "application/json")
+    .build();
+
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+```
+
+```go
+package main
+
+import (
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+	"strings"
+)
+
+func main() {
+	client := &http.Client{}
+	var data = strings.NewReader(`{
+    "businessId": "your-business-id",
+    YOUR_DATA_HERE
+  }`)
+	req, err := http.NewRequest("POST", "https://app.blokay.com/api.brain/createSession", data)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+	bodyText, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%s\n", bodyText)
+}
+```
+
+</Tabs>
 
 ---
 
-## Option 2: Use React compoenent to login
+## Option 2: Use React component to login
 
 ```tsx
 import { SignOut, SignIn, SignForm } from "@blokay/react";
@@ -33,7 +116,34 @@ function App() {
 }
 ```
 
+## Option 3: Create JWT for your own
+
+```js
+import jwt from "jsonwebtoken";
+
+const getJWT = () => {
+  // create params
+  const params = {
+    businessId: 16, // your business id
+    session: {}, // your session data
+    token: `blokay-YOUR-TOKEN`, // your token
+    expiresIn: "1h", // session expires in
+  };
+
+  return jwt.sign(
+    {
+      data: { session: params.session },
+      businessId: params.businessId,
+    },
+    params.token,
+    {
+      expiresIn: params.expiresIn,
+    }
+  );
+};
+```
+
 ---
 
-<Link label="How to start" href="/docs/react-start" />
-<Link label="How to create ChartLines" href="/docs/create-chart" />
+<Link label="How to create ChartLines" href="/docs/show-chart" />
+<Link label="How to create Table" href="/docs/show-table" />
