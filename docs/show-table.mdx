@@ -33,6 +33,36 @@ const fn = async function (args: Args) {
  
 </Tabs>
 
+---
+
+## Show custom HTML
+
+This function is likely used in a web application to fetch and display a list of users in a formatted table, including visual indicators for user status and avatars. The function leverages asynchronous operations to handle database queries and processes the data into a structure suitable for frontend display.
+
+<Tabs tabs={["Example", "Prompt",  "Code"]}>
+  <Example block="examples.table.html"/>
+   <div class="demo-prompt">Show me the users id, email, an HTML avatar (first letter of the name), and an HTML status (active or inactive), then returns the results using a table method provided in the args.</div>
+```ts
+  const fn = async function (args: Args) {
+  let sql = 'SELECT * FROM  users limit 5';
+  let results = await args.query(sql);
+  results = results.map(row => ({
+    id: row.id,
+    avatar: {
+      html: '<div class="demo-avatar">' + row.name[0] + '</div>',
+    },
+    email: row.email,
+    status: {
+      html: row.status == 1 ? '<div class="demo-active">Active</div>'
+    :'<div class="demo-inactive">Inactive</div>' ,
+    },
+  }));
+  return args.table(results);
+};
+```
+
+</Tabs>
+
 ## Tutorial
 
 ### Step 1 - Get the start and end dates from the form
