@@ -101,6 +101,7 @@ export default function ListViews() {
             icon="search"
             className="w-full"
             label="Search"
+            autocomplete="off"
           />
         </div>
         {canCreateViews() && !loading && (

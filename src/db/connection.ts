@@ -27,6 +27,8 @@ export const getConnection = (db: any, datasource: any, profile: string) => {
             } else if (connections[dataSourceId].status == "created") {
               connections[dataSourceId].status = "connecting";
 
+              console.log("connecting", datasource.id);
+
               const conn = new db.Sequelize({
                 ...datasource.config.database,
                 dialect: "mysql",
