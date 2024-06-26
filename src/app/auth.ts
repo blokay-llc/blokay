@@ -99,6 +99,7 @@ export const authOptions: any = {
           name: userData.Business.name,
           billEmail: userData.Business.billEmail,
           logo: userData.Business.logo,
+          address: userData.Business.address,
           addedCard: !!userData.Business.paymentProviderToken,
           limitViews: !userData.Business.paymentProviderToken ? 5 : null,
           limitUsers: !userData.Business.paymentProviderToken ? 2 : null,

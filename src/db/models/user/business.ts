@@ -10,6 +10,7 @@ export default (sequelize: any, DataTypes: any) => {
       name: { type: DataTypes.STRING, allowNull: true },
       paymentProviderToken: { type: DataTypes.STRING, allowNull: true },
       billEmail: { type: DataTypes.STRING, allowNull: true },
+      address: { type: DataTypes.STRING, allowNull: true },
     },
     {
       paranoid: true,

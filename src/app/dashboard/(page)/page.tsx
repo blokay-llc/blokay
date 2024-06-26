@@ -2,7 +2,7 @@ import ListViews from "@/app/dashboard/(page)/components/ListViews";
 import Menu from "@/app/components/Menu/Menu";
 import Providers from "@/app/(auth)/login/components/Providers";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="min-h-screen  ">
       <div className="lg:px-8 px-3 pt-8">
