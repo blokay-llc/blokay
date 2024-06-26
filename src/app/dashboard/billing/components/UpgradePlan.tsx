@@ -4,13 +4,14 @@ import { DS } from "@blokay/react";
 export default function UpgradePlan({ onClick }: any) {
   return (
     <div
-      className="mt-10 bg-black pt-20 pb-20 md:pb-20 border-0 border-sky-400 rounded-3xl relative overflow-hidden md:bg-cover bg-no-repeat bg-bottom bg-[length:60rem_auto]  text-white"
+      className=" border-glow bg-black py-10  border-0 border-sky-400 rounded-3xl relative overflow-hidden md:bg-cover bg-no-repeat bg-bottom bg-[length:60rem_auto]  text-white"
       style={{
+        backgroundColor: "rgb(13 14 18 / var(--tw-bg-opacity))",
         backgroundImage:
-          "url(https://assets-global.website-files.com/645a9acecda2e0594fac6126/658054b9bde4219f7c818b9b_gradient-noise-purple-azure-p-500.png)",
+          "radial-gradient(91.62% 38.88% at 1.4% 4.24%, #0d94881c 0, transparent 100%), radial-gradient(21.88% 21.86% at 80.72% 42.34%, rgba(7, 7, 9, .45) 6.77%, transparent 100%), radial-gradient(24.02% 75.21% at 54.85% 37.73%, #0d94881c 5%, transparent 100%)",
       }}
     >
-      <div className="lg:w-1/3 w-4/5 md:min-w-96 rounded-xl bg-slate-900/50 backdrop-blur-md border-slate-800 px-5 py-10 shadow-lg mx-auto">
+      <div className="lg:w-1/3 border-glow w-4/5 md:min-w-96 rounded-xl bg-neutral-900/50 backdrop-blur-md  px-5 py-10 shadow-lg mx-auto">
         <h2 className="font-bold text-2xl">Add a credit card</h2>
 
         <div className="mb-5 font-light mt-5">

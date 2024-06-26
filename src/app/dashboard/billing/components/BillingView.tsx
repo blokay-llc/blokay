@@ -1,10 +1,15 @@
 "use client";
 import { useState, useRef } from "react";
 import { DS } from "@blokay/react";
-import UpgradePlan from "@/app/components/UI/UpgradePlan";
+import { useSession } from "next-auth/react";
 import { addCard } from "@/app/services/users";
+import UpgradePlan from "@/app/dashboard/billing/components/UpgradePlan";
+import UpdateCard from "@/app/dashboard/billing/components/UpdateCard";
+import CurrentBill from "@/app/dashboard/billing/components/CurrentBill";
+import BillEmail from "@/app/dashboard/billing/components/BillEmail";
 
 export default function BillingView() {
+  const { data: session }: any = useSession();
   const modalRef: any = useRef();
   const [form, setForm]: any = useState({});
   const [error, setError]: any = useState(null);
@@ -61,13 +66,33 @@ export default function BillingView() {
     }
   };
 
+  if (!session?.business) {
+    return <DS.Loader size="md" className="mx-auto" />;
+  }
+
   return (
-    <div>
-      <UpgradePlan
-        onClick={() => {
-          modalRef.current.showModal();
-        }}
-      />
+    <>
+      <div className="flex flex-col gap-5">
+        <CurrentBill />
+
+        {session?.business.addedCard && (
+          <UpdateCard
+            onClick={() => {
+              modalRef.current.showModal();
+            }}
+          />
+        )}
+
+        {!session?.business.addedCard && (
+          <UpgradePlan
+            onClick={() => {
+              modalRef.current.showModal();
+            }}
+          />
+        )}
+
+        <BillEmail session={session} />
+      </div>
 
       <DS.Modal
         title="Add card"
@@ -169,6 +194,6 @@ export default function BillingView() {
           </div>
         </div>
       </DS.Modal>
-    </div>
+    </>
   );
 }

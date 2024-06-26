@@ -9,6 +9,7 @@ export default (sequelize: any, DataTypes: any) => {
       website: { type: DataTypes.STRING, allowNull: true },
       name: { type: DataTypes.STRING, allowNull: true },
       paymentProviderToken: { type: DataTypes.STRING, allowNull: true },
+      billEmail: { type: DataTypes.STRING, allowNull: true },
     },
     {
       paranoid: true,

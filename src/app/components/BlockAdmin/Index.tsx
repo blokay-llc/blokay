@@ -6,7 +6,7 @@ import Editor from "@/app/components/BlockAdmin/Editor/Index";
 import API from "./API";
 import Chat from "./Chat";
 import General from "./General";
-import UpgradePlan from "../UI/UpgradePlan";
+import UpgradePlan from "../../dashboard/billing/components/UpgradePlan";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 

@@ -1,14 +1,14 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { viewList, addView, deleteView } from "@/app/services/brain";
 import { useSession } from "next-auth/react";
-import AppVideoCard from "../../../components/UI/AppVideoCard";
-import AvatarName from "../../../components/UI/AvatarName";
+import { viewList, addView, deleteView } from "@/app/services/brain";
+import AppVideoCard from "@/app/components/UI/AppVideoCard";
+import AvatarName from "@/app/components/UI/AvatarName";
 import AddCreditCard from "@/app/components/UI/AddCreditCard";
 import { DS } from "@blokay/react";
 import { useApi } from "@/hooks/useApi";
 
-export default function ListViews({}) {
+export default function ListViews() {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
@@ -17,7 +17,7 @@ export default function ListViews({}) {
   const [views, setViews] = useState([]);
   const [view, setView]: any = useState([]);
   const [form, setForm]: any = useState({ search: "" });
-  const { loading, callApi } = useApi(viewList);
+  const { loading, callApi, responded } = useApi(viewList);
   const { loading: loadingAdd, errors, callApi: callApiAdd } = useApi(addView);
   const { loading: loadingDelete, callApi: callApiDelete } = useApi(deleteView);
 
@@ -46,7 +46,7 @@ export default function ListViews({}) {
   const handleDeleteView = () => {
     callApiDelete({
       viewId: view.id,
-    }).then((result) => {
+    }).then(() => {
       modalDeleteRef.current.hideModal();
       listViews();
     });
@@ -66,9 +66,7 @@ export default function ListViews({}) {
           }),
         };
       })
-      .filter((view: any) => {
-        return view.Views.length > 0;
-      });
+      .filter((view: any) => view.Views.length > 0);
   };
 
   const viewsCount = () => {
@@ -76,6 +74,7 @@ export default function ListViews({}) {
       return (acc += view.Views.length);
     }, 0);
   };
+
   const onLimit = () => {
     if (session?.business?.addedCard) return false;
     if (views.length <= 0) return false;
@@ -87,117 +86,107 @@ export default function ListViews({}) {
   };
   const viewsComputed = getViewsComputed();
 
+  if (loading || !responded) return <DS.Loader size="md" className="mx-auto" />;
+
   return (
-    <div className="">
-      <div className="">
-        {loading && <DS.Loader size="md" className="mx-auto" />}
-
-        <div className="">
-          {!loading && viewsComputed.length > 0 && (
-            <div>
-              <div className=" flex items-center justify-between gap-5 mb-10">
-                <div className="lg:w-full mr-auto">
-                  <DS.Input
-                    type="text"
-                    value={form.search}
-                    onChange={(val: string) => {
-                      setForm({ ...form, search: val });
-                    }}
-                    icon="search"
-                    className="w-full"
-                    label="Search"
-                  />
-                </div>
-                {canCreateViews() && !loading && (
-                  <DS.Button
-                    icon="wizard"
-                    text="Add new"
-                    onClick={() => handleClickCreateNew()}
-                    variant="secondary"
-                    size="md"
-                    className="shrink-0"
-                  />
-                )}
-                <div className="shrink-0">
-                  <AvatarName name={session?.user?.name} />
-                </div>
-              </div>
-
-              {!canCreateViews() && !session?.business?.addedCard && (
-                <div className="mb-10 ">
-                  <AddCreditCard text="You need to add a credit card to continue building" />
-                </div>
-              )}
-
-              <div className="flex flex-col gap-5 lg:gap-10 ">
-                {viewsComputed.map((view: any) => (
-                  <div className="">
-                    {view.name && (
-                      <h2 className="mb-4 text-sm font-medium text-neutral-900 dark:text-neutral-200">
-                        {view.name}
-                      </h2>
-                    )}
-
-                    <div className="flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl  overflow-hidden">
-                      {view.Views.map((view: any) => (
-                        <a
-                          href={"/dashboard/view/" + view.slug}
-                          key={view.id}
-                          className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/delete"
-                        >
-                          <div className="font-light  ">
-                            <DS.Icon
-                              icon="layers"
-                              className="size-5 fill-neutral-500 dark:fill-white"
-                            />
-                          </div>
-                          <div className="font-light mr-auto text-sm md:text-base ">
-                            {view.name}
-                          </div>
-                          {view.User && (
-                            <div className="flex items-center gap-2 ">
-                              <AvatarName name={view?.User?.name} size="sm" />
-                              <div className="font-light text-xs truncate">
-                                {view.User.name}
-                              </div>
-                            </div>
-                          )}
-
-                          <div
-                            className="ml-3 opacity-0 group-hover/delete:opacity-100 transition-all p-2 rounded-lg hover:bg-white/10"
-                            onClick={(event) => {
-                              event.preventDefault();
-                              modalDeleteRef.current.showModal();
-                              setView(view);
-                            }}
-                          >
-                            <DS.Icon
-                              icon="delete"
-                              className="size-4 fill-white"
-                            />
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {!loading && viewsCount() <= 3 && isAdmin && (
-            <div className="mt-10">
-              <AppVideoCard
-                youtubeUrl="AwZzqjmr2n4"
-                title="Quick intro"
-                subtitle="Introduction by the Founder"
-                name="Introduction"
-                duration="1:09"
-              />
-            </div>
-          )}
+    <>
+      <div className="flex items-center justify-between gap-5 mb-10">
+        <div className="lg:w-full mr-auto">
+          <DS.Input
+            type="text"
+            value={form.search}
+            onChange={(val: string) => {
+              setForm({ ...form, search: val });
+            }}
+            icon="search"
+            className="w-full"
+            label="Search"
+          />
+        </div>
+        {canCreateViews() && !loading && (
+          <DS.Button
+            icon="wizard"
+            text="Add new"
+            onClick={() => handleClickCreateNew()}
+            variant="secondary"
+            size="md"
+            className="shrink-0"
+          />
+        )}
+        <div className="shrink-0">
+          <AvatarName name={session?.user?.name} />
         </div>
       </div>
+
+      {!canCreateViews() && !session?.business?.addedCard && (
+        <div className="mb-10 ">
+          <AddCreditCard text="You need to add a credit card to continue building" />
+        </div>
+      )}
+
+      <div className="flex flex-col gap-5 lg:gap-10 ">
+        {viewsComputed.map((view: any) => (
+          <div className="">
+            {view.name && (
+              <h2 className="mb-4 text-sm font-medium text-neutral-900 dark:text-neutral-200">
+                {view.name}
+              </h2>
+            )}
+
+            <div className="flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl  overflow-hidden">
+              {view.Views.map((view: any) => (
+                <a
+                  href={"/dashboard/view/" + view.slug}
+                  key={view.id}
+                  className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/delete"
+                >
+                  <div className="font-light  ">
+                    <DS.Icon
+                      icon="layers"
+                      className="size-5 fill-neutral-500 dark:fill-white"
+                    />
+                  </div>
+                  <div className="font-light mr-auto text-sm md:text-base ">
+                    {view.name}
+                  </div>
+                  {view.User && (
+                    <div className="flex items-center gap-2 ">
+                      <AvatarName name={view?.User?.name} size="sm" />
+                      <div className="font-light text-xs truncate">
+                        {view.User.name}
+                      </div>
+                    </div>
+                  )}
+
+                  <div
+                    className="ml-3 opacity-0 group-hover/delete:opacity-100 transition-all p-2 rounded-lg hover:bg-white/10"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      modalDeleteRef.current.showModal();
+                      setView(view);
+                    }}
+                  >
+                    <DS.Icon icon="delete" className="size-4 fill-white" />
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {viewsCount() <= 3 && isAdmin && (
+        <div className="mt-12">
+          <AppVideoCard
+            previewImage="/founder.jpeg"
+            youtubeUrl="AwZzqjmr2n4"
+            title="Quick intro"
+            subtitle="Introduction by the Founder"
+            name="Introduction"
+            duration="1:09"
+          />
+        </div>
+      )}
 
       <DS.Modal
         title="Add new"
@@ -279,6 +268,6 @@ export default function ListViews({}) {
           }}
         />
       </DS.Modal>
-    </div>
+    </>
   );
 }

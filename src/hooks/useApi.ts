@@ -3,6 +3,7 @@ type apiCalback = (...args: any) => Promise<any>;
 
 export function useApi(service: apiCalback) {
   const [loading, setLoading] = useState(false);
+  const [responded, setResponded] = useState(false);
   const [errors, setErrors]: any = useState({});
 
   const callApi = async (...args: any) => {
@@ -11,10 +12,12 @@ export function useApi(service: apiCalback) {
     return service(...args)
       .then((res) => {
         setLoading(false);
+        setResponded(true);
         return Promise.resolve(res);
       })
       .catch((err) => {
         setLoading(false);
+        setResponded(true);
 
         let inputsErrors = err?.errors?.issues || [];
         let errs = inputsErrors.reduce((acc: any, curr: any) => {
@@ -28,5 +31,5 @@ export function useApi(service: apiCalback) {
       });
   };
 
-  return { loading, errors, callApi };
+  return { loading, errors, callApi, responded };
 }
