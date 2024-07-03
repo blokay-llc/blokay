@@ -1,6 +1,17 @@
 const connections: any = {};
-const dialects = {
-  mysql2: require("mysql2"),
+const dialects: any = {
+  mysql: {
+    module: require("mysql2"),
+    dialect: "mysql",
+  },
+  postgresql: {
+    dialect: "postgres",
+    module: require("pg"),
+  },
+  default: {
+    dialect: "mysql",
+    module: require("mysql2"),
+  },
 };
 export const getConnection = (db: any, datasource: any, profile: string) => {
   let dataSourceId = datasource.id;
@@ -27,12 +38,13 @@ export const getConnection = (db: any, datasource: any, profile: string) => {
             } else if (connections[dataSourceId].status == "created") {
               connections[dataSourceId].status = "connecting";
 
-              console.log("connecting", datasource.id);
+              let dialect =
+                dialects[datasource.config?.database?.dialect || "default"];
 
               const conn = new db.Sequelize({
                 ...datasource.config.database,
-                dialect: "mysql",
-                dialectModule: dialects.mysql2,
+                dialect: dialect.dialect,
+                dialectModule: dialect.module,
                 operatorsAliases: db.Op,
                 benchmark: true,
                 logging: (str: string, time: number) => {
