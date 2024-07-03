@@ -188,9 +188,9 @@ const ViewBlock = ({ slug }: any) => {
   };
 
   return (
-    <div className="lg:px-8 px-5 pt-8">
-      <div className="flex gap-10">
-        <div className="lg:w-[18rem]">
+    <div className="lg:px-8 px-3 md:px-5 pt-8">
+      <div className="flex lg:gap-10">
+        <div className="lg:w-[18rem] ">
           <Menu
             views={views}
             view={view}
@@ -199,7 +199,7 @@ const ViewBlock = ({ slug }: any) => {
             blocks={blocks}
           />
         </div>
-        <div className="lg:flex-1 pb-10">
+        <div className="lg:flex-1 w-full pb-10">
           <div className="relative  ">
             <Header
               view={view}
