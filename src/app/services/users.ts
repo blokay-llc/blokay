@@ -43,7 +43,15 @@ export const downloadUserLogs = async function (form: any) {
 export const addCard = async function (token: string, lastFour: string) {
   let data = { token, lastFour };
 
-  let result = await postFile("users/saveCard", data);
+  let result = await postRequest("users/saveCard", data);
+
+  return result;
+};
+
+export const updateBusiness = async function (form: any) {
+  let data = { ...form };
+
+  let result = await postRequest("users/updateBusiness", data);
 
   return result;
 };

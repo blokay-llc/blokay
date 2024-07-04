@@ -6,7 +6,7 @@ import { addCard } from "@/app/services/users";
 import UpgradePlan from "@/app/dashboard/billing/components/UpgradePlan";
 import UpdateCard from "@/app/dashboard/billing/components/UpdateCard";
 import CurrentBill from "@/app/dashboard/billing/components/CurrentBill";
-import BillEmail from "@/app/dashboard/billing/components/BillEmail";
+import BusinessInfo from "@/app/dashboard/billing/components/BusinessInfo";
 
 export default function BillingView() {
   const { data: session }: any = useSession();
@@ -91,7 +91,7 @@ export default function BillingView() {
           />
         )}
 
-        <BillEmail session={session} />
+        <BusinessInfo session={session} />
       </div>
 
       <DS.Modal

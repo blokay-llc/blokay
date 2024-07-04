@@ -100,6 +100,7 @@ export const authOptions: any = {
           billEmail: userData.Business.billEmail,
           logo: userData.Business.logo,
           address: userData.Business.address,
+          website: userData.Business.website,
           addedCard: !!userData.Business.paymentProviderToken,
           limitViews: !userData.Business.paymentProviderToken ? 5 : null,
           limitUsers: !userData.Business.paymentProviderToken ? 2 : null,
