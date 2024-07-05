@@ -49,18 +49,13 @@ export default function BlockAdmin(props: Props) {
       });
   };
 
-  const init = (v: string) => {
-    fetchBlock();
-    // props.changeColorModal(["code"].includes(v) ? "#0a0a0a" : "white");
-  };
-
   const setViewPage = (v: string) => {
     setView(v);
-    init(v);
+    fetchBlock();
   };
 
   useEffect(() => {
-    init(view);
+    fetchBlock();
   }, [props.block]);
 
   const viewsCount = () => {
@@ -93,7 +88,7 @@ export default function BlockAdmin(props: Props) {
   return (
     <div className="relative">
       <div className="flex justify-center">
-        <div className={`tabs `}>
+        <div className="tabs">
           <Tab
             view={view}
             viewPage="general"
@@ -121,6 +116,12 @@ export default function BlockAdmin(props: Props) {
             className={`tab ${view == "api" ? "active" : ""}`}
           >
             <DS.Icon icon="api" />
+          </div>
+          <div
+            onClick={() => setViewPage("metrics")}
+            className={`tab ${view == "metrics" ? "active" : ""}`}
+          >
+            <DS.Icon icon="view" />
           </div>
         </div>
       </div>

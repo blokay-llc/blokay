@@ -8,7 +8,7 @@ let db = new Models();
 
 const schema = z.object({
   name: z.string().min(3),
-  website: z.string().url(),
+  website: z.string().optional(),
   billEmail: z.string().email(),
   address: z.string().min(3),
 });

@@ -72,7 +72,7 @@ export default function BusinessInfo({ session }: any) {
           text="Save"
           variant="primary"
           size="sm"
-          icon="card"
+          icon="save"
         />
       </div>
     </div>

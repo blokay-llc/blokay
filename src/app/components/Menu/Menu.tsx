@@ -71,7 +71,7 @@ export default function Menu({
   return (
     <div className="lg:pt-0 pt-16">
       <div className="lg:static pb-3 lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
-        <div className="border   bg-transparent dark:bg-transparent backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-800  rounded-lg text-sm  py-2  text-neutral-600 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
+        <div className="border   bg-transparent dark:bg-black backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-800  rounded-lg text-sm  py-2  text-neutral-600 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
           <div className="px-4 flex items-center gap-5  py-3 lg:pt-5">
             <a href="/dashboard">
               <img

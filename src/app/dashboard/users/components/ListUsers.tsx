@@ -10,7 +10,7 @@ import { viewList } from "@/app/services/brain";
 import { useSession } from "next-auth/react";
 import AddCreditCard from "@/app/components/UI/AddCreditCard";
 import { DS } from "@blokay/react";
-
+import AvatarName from "@/app/components/UI/AvatarName";
 export default function ListUsers() {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
@@ -122,15 +122,13 @@ export default function ListUsers() {
 
       {users.length > 0 && (
         <div className="bg-transparent dark:bg-neutral-950  flex flex-col  rounded-lg shadow-sm border border-neutral-300 dark:border-neutral-800 dark:divide-neutral-800 divide-y overflow-hidden">
-          {users.map((user: any) => (
+          {users.map((user: any, index: number) => (
             <div
               onClick={() => handleClickUser(user)}
               key={user.id}
               className="px-5 py-4  hover:bg-neutral-100 dark:hover:bg-black flex items-center gap-3"
             >
-              <div className="size-10 bg-neutral-200 flex items-center justify-center rounded-full">
-                <img src="/logo-sm.svg" className="w-full h-full" />
-              </div>
+              <AvatarName name={user.name} colorIndex={index} />
               <div>
                 <div className="dark:text-white text-neutral-800">
                   {user.name}
