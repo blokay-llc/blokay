@@ -17,6 +17,17 @@ export const withView = (cb: any) => {
       },
     };
 
+    if (!viewId && !slug) {
+      return NextResponse.json(
+        {
+          data: {
+            message: "Icorrect view",
+          },
+        },
+        { status: 400 }
+      );
+    }
+
     if (viewId) {
       queryBuilder.where.id = viewId;
     } else if (slug) {

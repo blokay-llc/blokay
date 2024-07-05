@@ -23,11 +23,13 @@ import Image from "./Types/Image";
 import Button from "./Types/Button";
 import Text from "./Types/Text";
 import ActionsEditButtons from "./ActionsEditButtons";
+import { useRouter } from "next/navigation";
 
 const ViewBlock = ({ slug }: any) => {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
+  const router = useRouter();
   const actionsEditRef: any = useRef();
   const modalRef: any = useRef();
   const containerRef: any = useRef(null);
@@ -53,9 +55,13 @@ const ViewBlock = ({ slug }: any) => {
   };
 
   const fetchView = () => {
-    viewGet(slug).then((r) => {
-      setView(r.View);
-    });
+    viewGet(slug)
+      .then((r) => {
+        setView(r.View);
+      })
+      .catch((e) => {
+        router.push("/dashboard");
+      });
   };
   useEffect(() => {
     if (isAdmin && view?.ViewItems?.length == 0) {

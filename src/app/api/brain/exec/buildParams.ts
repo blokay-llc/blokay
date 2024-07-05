@@ -12,7 +12,7 @@ import Models from "@/db/index";
 let db = new Models();
 
 export const buildRequest = ({
-  user = null,
+  session = null,
   form,
   datasource,
 }: any): Request => ({
@@ -29,14 +29,14 @@ export const buildRequest = ({
       };
     },
   },
-  session: user
+  session: session
     ? {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        extra1: user.extra1,
-        extra2: user.extra2,
-        extra3: user.extra3,
+        id: session.id,
+        name: session.name,
+        email: session.email,
+        extra1: session.extra1,
+        extra2: session.extra2,
+        extra3: session.extra3,
       }
     : null,
   form: {

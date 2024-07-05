@@ -45,6 +45,7 @@ export async function callContext(
       },
     });
   } catch (err: any) {
+    console.error(err);
     response = {
       type: "exception",
       content: {

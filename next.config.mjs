@@ -4,6 +4,9 @@ const nextConfig = {
   serverRuntimeConfig: {
     PROJECT_ROOT: import.meta.dirname,
   },
+  experimental: {
+    serverComponentsExternalPackages: ["sequelize"],
+  },
   async headers() {
     return [
       {

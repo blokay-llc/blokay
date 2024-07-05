@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import { withJWT } from "@/lib/withJWT";
 import { callContext } from "./callContext";
-import XLSX from "xlsx";
+import * as XLSX from "xlsx";
 
 let db = new Models();
 
