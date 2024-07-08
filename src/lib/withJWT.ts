@@ -45,6 +45,7 @@ export const withJWT = (cb: any) => {
       },
     });
     try {
+      console.log(business.coreToken, token);
       jwt.verify(token, business.coreToken);
     } catch (err) {
       return NextResponse.json(

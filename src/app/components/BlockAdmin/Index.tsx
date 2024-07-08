@@ -2,13 +2,14 @@
 import { useState, useEffect } from "react";
 import { DS } from "@blokay/react";
 import { getBlockAdmin } from "@/app/services/brain";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import UpgradePlan from "../../dashboard/billing/components/UpgradePlan";
 import Editor from "@/app/components/BlockAdmin/Editor/Index";
 import API from "./API";
 import Chat from "./Chat";
 import General from "./General";
-import UpgradePlan from "../../dashboard/billing/components/UpgradePlan";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import Metrics from "./Metrics";
 
 function Tab({ view, viewPage, setViewPage, title, icon }: any) {
   return (
@@ -28,6 +29,7 @@ type Props = {
   changeColorModal: (color: string) => void;
   reload: () => void;
   onClose: () => void;
+  jwt: string;
 };
 export default function BlockAdmin(props: Props) {
   const router = useRouter();
@@ -143,6 +145,10 @@ export default function BlockAdmin(props: Props) {
       {view == "chat" && <Chat reload={props.reload} block={blockAdmin} />}
 
       {view == "api" && <API reload={props.reload} block={blockAdmin} />}
+
+      {view == "metrics" && (
+        <Metrics reload={props.reload} block={blockAdmin} jwt={props.jwt} />
+      )}
     </div>
   );
 }

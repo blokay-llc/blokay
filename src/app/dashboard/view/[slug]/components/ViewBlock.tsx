@@ -25,7 +25,11 @@ import Text from "./Types/Text";
 import ActionsEditButtons from "./ActionsEditButtons";
 import { useRouter } from "next/navigation";
 
-const ViewBlock = ({ slug }: any) => {
+interface ViewBlockProps {
+  slug: string;
+  jwt: string;
+}
+const ViewBlock = ({ slug, jwt }: ViewBlockProps) => {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
@@ -309,6 +313,7 @@ const ViewBlock = ({ slug }: any) => {
       <DS.Modal size="md" position="center" ref={modalRef}>
         {block && (
           <BlockAdmin
+            jwt={jwt}
             views={views}
             reload={() => {
               fetchView();

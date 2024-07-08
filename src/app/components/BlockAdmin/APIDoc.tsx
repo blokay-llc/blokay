@@ -66,8 +66,9 @@ export default function BlockAPIDoc({ block }: any) {
 function Component() {
   const form = ${JSON.stringify(form, null, 4)};
   return <Block
-            key="${block.key}"
-            form={form}
+            block="${block.key}"
+            defaultForm={form}
+            autoExecute={false}
         />
 }`;
 
