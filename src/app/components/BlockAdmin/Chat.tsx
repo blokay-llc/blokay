@@ -28,7 +28,7 @@ const Chat = ({ block, reload }: ChatProps) => {
 
     rewriteFn({
       ...form,
-      neuronId: block.id,
+      blockId: block.id,
     })
       .then(() => {
         setHistoryChat((prevArray: any) => [

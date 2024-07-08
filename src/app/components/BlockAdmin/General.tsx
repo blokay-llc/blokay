@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { DS } from "@blokay/react";
-import { updateNeuron, deleteNeuron } from "@/app/services/brain";
+import { updateBlock, deleteBlock } from "@/app/services/brain";
 
 type Props = {
   reload: () => void;
@@ -45,9 +45,9 @@ const General = ({ block, reload, onClose }: Props) => {
 
   const saveChanges = () => {
     setLoading(true);
-    updateNeuron({
+    updateBlock({
       ...form,
-      neuronId: block.id,
+      blockId: block.id,
       filters: {
         ...form.filters,
         fields,
@@ -63,8 +63,8 @@ const General = ({ block, reload, onClose }: Props) => {
 
   const handleDelete = (id: string) => {
     setLoading(true);
-    deleteNeuron({
-      neuronId: block.id,
+    deleteBlock({
+      blockId: block.id,
     })
       .then((result) => {
         modalDeleteRef.current.hideModal();

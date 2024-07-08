@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { DS } from "@blokay/react";
-import { getNeuronAdmin } from "@/app/services/brain";
+import { getBlockAdmin } from "@/app/services/brain";
 import Editor from "@/app/components/BlockAdmin/Editor/Index";
 import API from "./API";
 import Chat from "./Chat";
@@ -40,7 +40,7 @@ export default function BlockAdmin(props: Props) {
   const fetchBlock = () => {
     if (loading) return;
     setLoading(true);
-    getNeuronAdmin(props.block.id)
+    getBlockAdmin(props.block.id)
       .then((n) => {
         setBlockAdmin(n);
       })

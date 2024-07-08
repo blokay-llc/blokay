@@ -25,7 +25,7 @@ export const POST = withView(async function ({ body, view }: any) {
       item = await ViewItem.create({
         viewId: view.id,
         id,
-        neuronId: itemLayout.neuronId || null,
+        blockId: itemLayout.blockId || null,
         type: itemLayout.type,
       });
     }

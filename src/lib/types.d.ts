@@ -1,5 +1,5 @@
 export type Utils = {
-  createButton: (label: string, neuronKey: string, form: any) => any;
+  createButton: (label: string, blockKey: string, form: any) => any;
 };
 
 export type TableRow = {
@@ -55,18 +55,18 @@ export interface Request {
   fetch: (url: string, params: FetchParams) => Promise<any>;
 }
 
-export type ResponseNeuron = {
+export type BlockResponse = {
   type: string;
   message?: string;
   content: any;
 } | null;
 
 export interface Response {
-  json: (json: Object) => ResponseNeuron;
-  table: (rows: Rows) => ResponseNeuron;
-  value: (val: Row) => ResponseNeuron;
-  chartLine: (rows: Rows) => ResponseNeuron;
-  chartDoughnut: (rows: Rows) => ResponseNeuron;
-  message: (message: string) => ResponseNeuron;
-  error: (message: string) => ResponseNeuron;
+  json: (json: Object) => BlockResponse;
+  table: (rows: Rows) => BlockResponse;
+  value: (val: Row) => BlockResponse;
+  chartLine: (rows: Rows) => BlockResponse;
+  chartDoughnut: (rows: Rows) => BlockResponse;
+  message: (message: string) => BlockResponse;
+  error: (message: string) => BlockResponse;
 }

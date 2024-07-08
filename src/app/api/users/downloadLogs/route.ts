@@ -4,7 +4,7 @@ import moment from "moment";
 import Models from "@/db/index";
 
 let db = new Models();
-const { User, NeuronExecution, Neuron }: any = db;
+const { User, BlockExecution, Block }: any = db;
 
 export const GET = withAdmin(async function ({ req, user }: any) {
   const url = new URL(req.url);
@@ -17,14 +17,14 @@ export const GET = withAdmin(async function ({ req, user }: any) {
     },
   });
 
-  const executions = await NeuronExecution.findAll({
+  const executions = await BlockExecution.findAll({
     include: [
       {
         model: User,
         required: true,
       },
       {
-        model: Neuron,
+        model: Block,
         required: true,
       },
     ],
@@ -39,7 +39,7 @@ export const GET = withAdmin(async function ({ req, user }: any) {
 
   const str = executions
     .map((e: any, index: number) => {
-      let str = `${index + 1};${e.Neuron.description};${moment(
+      let str = `${index + 1};${e.Block.description};${moment(
         e.createdAt
       ).format("YYYY-MM-DD HH:mm:ss")};${e.User.name}`;
       if (e.data) {

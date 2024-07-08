@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { DS } from "@blokay/react";
-import { updateNeuron } from "@/app/services/brain";
+import { updateBlock } from "@/app/services/brain";
 
 type Props = {
   block: any;
@@ -27,8 +27,8 @@ export default function EditorApp({ block, reload }: Props) {
 
   const saveChanges = () => {
     setLoading(true);
-    updateNeuron({
-      neuronId: block.id,
+    updateBlock({
+      blockId: block.id,
       synapse: form.synapse,
     })
       .then((result) => {

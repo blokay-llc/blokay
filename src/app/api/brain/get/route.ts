@@ -3,22 +3,22 @@ import Models from "@/db/index";
 
 let db = new Models();
 
-const { Neuron }: any = db;
+const { Block }: any = db;
 
 export const POST = async function (req: NextRequest, res: NextRequest) {
   const body = await req.json();
-  let { neuronId, neuronKey } = body.data;
+  let { blockId, blockKey } = body.data;
 
   let queryBuilder: any = {
     where: {},
   };
-  if (neuronId) {
-    queryBuilder.where.id = neuronId;
-  } else if (neuronKey) {
-    queryBuilder.where.key = neuronKey;
+  if (blockId) {
+    queryBuilder.where.id = blockId;
+  } else if (blockKey) {
+    queryBuilder.where.key = blockKey;
   }
 
-  let block = await Neuron.findOne(queryBuilder);
+  let block = await Block.findOne(queryBuilder);
 
   if (!block) {
     return NextResponse.json(
@@ -33,7 +33,7 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
 
   return NextResponse.json({
     data: {
-      Neuron: {
+      Block: {
         id: block.id,
         createdAt: block.createdAt,
         key: block.key,

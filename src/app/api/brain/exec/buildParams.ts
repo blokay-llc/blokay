@@ -3,7 +3,7 @@ import {
   Args,
   FieldForm,
   QueryReplacements,
-  ResponseNeuron,
+  BlockResponse,
   Request,
   Response,
 } from "@/lib/types.d";
@@ -17,13 +17,13 @@ export const buildRequest = ({
   datasource,
 }: any): Request => ({
   utils: {
-    createButton(label: string, neuronKey: string, form: any): any {
+    createButton(label: string, blockKey: string, form: any): any {
       return {
         html: `<button>${label}</button>`,
         value: label,
-        click: "openNeuron",
+        click: "openBlock",
         args: {
-          neuronKey,
+          blockKey,
           form,
         },
       };
@@ -98,17 +98,17 @@ export const buildRequest = ({
 });
 
 export const buildResponse = ({}: any): Response => ({
-  json: (json: Object): ResponseNeuron => {
+  json: (json: Object): BlockResponse => {
     return { type: "json", content: json };
   },
-  error: (message: string): ResponseNeuron => {
-    return { type: "error", content: { message } };
+  error: (message: string): BlockResponse => {
+    return { type: "message", content: { message, severity: "error" } };
   },
-  message: (message: string): ResponseNeuron => {
-    return { type: "message", content: { message } };
+  message: (message: string): BlockResponse => {
+    return { type: "message", content: { message, severity: "message" } };
   },
 
-  table: (result: any[]): ResponseNeuron => {
+  table: (result: any[]): BlockResponse => {
     if (!result || !result.length)
       return { type: "table", content: { data: [], header: [] } };
     let header = Object.keys(
@@ -117,10 +117,10 @@ export const buildResponse = ({}: any): Response => ({
     result = result.map((r) => header.map((h) => r[h] || ""));
     return { type: "table", content: { data: result, header } };
   },
-  value: (result: any): ResponseNeuron => {
+  value: (result: any): BlockResponse => {
     return { type: "value", content: result };
   },
-  chartLine: (result: any[]): ResponseNeuron => {
+  chartLine: (result: any[]): BlockResponse => {
     if (!result || !result.length)
       return { type: "line", content: { datasets: [], labels: [] } };
 
@@ -145,7 +145,7 @@ export const buildResponse = ({}: any): Response => ({
     }
     return { type: "line", content: { datasets: datasets, labels } };
   },
-  chartDoughnut: (result: any[]): ResponseNeuron => {
+  chartDoughnut: (result: any[]): BlockResponse => {
     if (!result || !result.length)
       return { type: "line", content: { datasets: [], labels: [] } };
 

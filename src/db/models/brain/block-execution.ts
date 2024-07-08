@@ -1,11 +1,11 @@
 const model = (sequelize: any, DataTypes: any) => {
-  const NeuronExecution = sequelize.define(
-    "NeuronExecution",
+  const Blockxecution = sequelize.define(
+    "BlockExecution",
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
       userId: { type: DataTypes.INTEGER, allowNull: true },
       dataSourceId: { type: DataTypes.INTEGER, allowNull: true },
-      neuronId: { type: DataTypes.INTEGER, allowNull: true },
+      blockId: { type: DataTypes.INTEGER, allowNull: true },
       businessId: { type: DataTypes.INTEGER, allowNull: true },
       timeMs: { type: DataTypes.INTEGER, allowNull: true },
       error: { type: DataTypes.STRING, allowNull: true },
@@ -23,7 +23,7 @@ const model = (sequelize: any, DataTypes: any) => {
             return JSON.parse(json);
           } catch (err) {
             console.error(
-              "neuron data error parse: " + objThis.getDataValue("id"),
+              "block data error parse: " + objThis.getDataValue("id"),
               err
             );
             return {};
@@ -36,16 +36,16 @@ const model = (sequelize: any, DataTypes: any) => {
       },
     },
     {
-      tableName: "neuron_executions",
+      tableName: "block_executions",
     }
   );
 
-  NeuronExecution.associate = function (models: any) {
-    models.NeuronExecution.belongsTo(models.Neuron);
-    models.NeuronExecution.belongsTo(models.User);
+  Blockxecution.associate = function (models: any) {
+    models.BlockExecution.belongsTo(models.Block);
+    models.BlockExecution.belongsTo(models.User);
   };
 
-  return NeuronExecution;
+  return Blockxecution;
 };
 
 export default model;

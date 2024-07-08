@@ -3,28 +3,28 @@ import { withUser } from "./withUser";
 import Models from "@/db/index";
 
 let db = new Models();
-const { Neuron }: any = db;
+const { Block }: any = db;
 
 export const withBlock = (cb: any) => {
   return withUser(async function ({ req, user }: any) {
     const body = await req.json();
 
-    let { neuronId, neuronKey, block: blockName } = body.data;
+    let { blockId, blockKey, block: blockName } = body.data;
 
     let queryBuilder: any = {
       where: {
         businessId: user.businessId,
       },
     };
-    if (neuronId) {
-      queryBuilder.where.id = neuronId;
-    } else if (neuronKey) {
-      queryBuilder.where.key = neuronKey;
+    if (blockId) {
+      queryBuilder.where.id = blockId;
+    } else if (blockKey) {
+      queryBuilder.where.key = blockKey;
     } else if (blockName) {
       queryBuilder.where.key = blockName;
     }
 
-    let block = await Neuron.findOne(queryBuilder);
+    let block = await Block.findOne(queryBuilder);
 
     if (!block) {
       return NextResponse.json(

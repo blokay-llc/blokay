@@ -1,6 +1,6 @@
 const model = (sequelize: any, DataTypes: any) => {
-  const Neuron = sequelize.define(
-    "Neuron",
+  const Block = sequelize.define(
+    "Block",
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
       executions: { type: DataTypes.INTEGER, allowNull: true },
@@ -22,7 +22,7 @@ const model = (sequelize: any, DataTypes: any) => {
             return JSON.parse(json);
           } catch (err) {
             console.error(
-              "neuron filters error parse: " + objThis.getDataValue("id"),
+              "block filters error parse: " + objThis.getDataValue("id"),
               err
             );
             return {};
@@ -46,7 +46,7 @@ const model = (sequelize: any, DataTypes: any) => {
             return JSON.parse(json);
           } catch (err) {
             console.error(
-              "neuron history error parse: " + objThis.getDataValue("id"),
+              "block history error parse: " + objThis.getDataValue("id"),
               err
             );
             return {};
@@ -64,30 +64,30 @@ const model = (sequelize: any, DataTypes: any) => {
     },
     {
       paranoid: true,
-      tableName: "neurons",
+      tableName: "blocks",
     }
   );
 
-  Neuron.getSessionNeuron = async function (businessId: string) {
+  Block.getSessionBlock = async function (businessId: string) {
     let queryBuilder: any = {
       where: {
         key: "login",
         businessId,
       },
     };
-    return await Neuron.findOne(queryBuilder);
+    return await Block.findOne(queryBuilder);
   };
 
-  Neuron.findByKey = async function (key: string) {
+  Block.findByKey = async function (key: string) {
     let queryBuilder: any = {
       where: {
         key,
       },
     };
-    return await Neuron.findOne(queryBuilder);
+    return await Block.findOne(queryBuilder);
   };
 
-  return Neuron;
+  return Block;
 };
 
 export default model;

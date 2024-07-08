@@ -6,24 +6,24 @@ import * as XLSX from "xlsx";
 
 let db = new Models();
 
-const { Datasource, NeuronExecution, Neuron }: any = db;
+const { Datasource, BlockExecution, Block }: any = db;
 
 export const POST = withJWT(async function ({ business, session, body }: any) {
   let { format } = body;
-  let { neuronId, neuronKey } = body.data;
+  let { blockId, blockKey } = body.data;
 
   let queryBuilder: any = {
     where: {
       businessId: business.id,
     },
   };
-  if (neuronId) {
-    queryBuilder.where.id = neuronId;
-  } else if (neuronKey) {
-    queryBuilder.where.key = neuronKey;
+  if (blockId) {
+    queryBuilder.where.id = blockId;
+  } else if (blockKey) {
+    queryBuilder.where.key = blockKey;
   }
 
-  let block = await Neuron.findOne(queryBuilder);
+  let block = await Block.findOne(queryBuilder);
 
   if (!block) {
     return NextResponse.json(
@@ -92,11 +92,11 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
     timeMs: db.sequelize.literal(`timeMs + ${timeMs}`),
   });
 
-  NeuronExecution.create({
+  BlockExecution.create({
     timeMs,
     userId: session.id || session.userId || null,
     dataSourceId: datasource?.id,
-    neuronId: block.id,
+    blockId: block.id,
     businessId: business.id,
     data: form,
     finishAt: Date.now(),

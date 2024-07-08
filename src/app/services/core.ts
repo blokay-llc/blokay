@@ -32,7 +32,7 @@ export default class Core {
     prompt: string,
     fields: any[],
     structure: any,
-    neuronList: any[]
+    blockList: any[]
   ) {
     let result = await this.fetchCore("/api/ai/exec", {
       description,
@@ -40,7 +40,7 @@ export default class Core {
       prompt,
       fields,
       structure,
-      neuronList,
+      blockList,
     });
 
     result = result.data.Result;

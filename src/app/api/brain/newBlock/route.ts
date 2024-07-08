@@ -8,12 +8,12 @@ import {
 } from "@/lib/response";
 
 let db = new Models();
-const { Neuron }: any = db;
+const { Block }: any = db;
 
 const schema = z.object({
   name: z.string().min(3),
   key: z.string().refine(async (e: string) => {
-    const currentBlock = await Neuron.findByKey(e);
+    const currentBlock = await Block.findByKey(e);
     return !currentBlock;
   }, "The block already exists."),
 });
@@ -45,7 +45,7 @@ export const POST = withUser(async function ({ req, user }: any) {
   });
   if (!success) return sendDataValidationError(errors);
 
-  let neuron = await Neuron.create({
+  let block = await Block.create({
     type: data.type || "function",
     businessId: user.businessId,
     icon: data.icon,
@@ -57,8 +57,8 @@ export const POST = withUser(async function ({ req, user }: any) {
   });
 
   return sendData({
-    Neuron: {
-      id: neuron.id,
+    Block: {
+      id: block.id,
     },
   });
 });

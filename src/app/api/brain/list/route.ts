@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import Models from "@/db/index";
 
 let db = new Models();
-const { Neuron }: any = db;
+const { Block }: any = db;
 
 function stripText(type: string, text: string) {
   text = text.replaceAll(type, "");
@@ -18,9 +18,9 @@ function getSubBlocks(str: string, blockKeysMap: any[]) {
   if (!str) return [];
 
   let blocks: any = [];
-  let ocurrences: any = str.match(/\b(neuronKey).{0,60}/g) || [];
+  let ocurrences: any = str.match(/\b(blockKey).{0,60}/g) || [];
   blocks = [...blocks, ...ocurrences];
-  ocurrences = str.match(/\b(neuronId).{0,60}/g) || [];
+  ocurrences = str.match(/\b(blockId).{0,60}/g) || [];
   blocks = [...blocks, ...ocurrences];
 
   ocurrences = str.match(/\b(createButton).{0,60}/g) || [];
@@ -32,17 +32,17 @@ function getSubBlocks(str: string, blockKeysMap: any[]) {
   blocks = [...blocks, ...ocurrences];
 
   return blocks.map((n: any) => {
-    if (n.includes("neuronId")) {
-      return stripText("neuronId", n);
+    if (n.includes("blockId")) {
+      return stripText("blockId", n);
     }
 
-    let neuronKey: any = stripText("neuronKey", n);
-    return blockKeysMap[neuronKey];
+    let blockKey: any = stripText("blockKey", n);
+    return blockKeysMap[blockKey];
   });
 }
 
 export const POST = withAdmin(async function ({ user }: any) {
-  const result = await Neuron.findAll({
+  const result = await Block.findAll({
     where: {
       businessId: user.businessId,
     },
@@ -68,7 +68,7 @@ export const POST = withAdmin(async function ({ user }: any) {
 
   return NextResponse.json({
     data: {
-      Neurons: list,
+      Blocks: list,
     },
   });
 });

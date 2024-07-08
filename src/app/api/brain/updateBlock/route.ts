@@ -4,7 +4,7 @@ import { withBlock } from "@/lib/withBlock";
 import Models from "@/db/index";
 
 let db = new Models();
-const { NeuronLog }: any = db;
+const { BlockLog }: any = db;
 
 export const POST = withBlock(async function ({ body, block, user }: any) {
   const data = body.data;
@@ -32,9 +32,9 @@ export const POST = withBlock(async function ({ body, block, user }: any) {
   if (Object.keys(toUpdate).length > 0) {
     block = await block.update(toUpdate);
 
-    NeuronLog.create({
+    BlockLog.create({
       userId: user.id,
-      neuronId: block.id,
+      blockId: block.id,
       businessId: user.businessId,
       filters: block.filters,
       synapse: block.synapse,

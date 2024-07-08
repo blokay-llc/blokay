@@ -2,10 +2,10 @@ import { withBlock } from "@/lib/withBlock";
 import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import CoreAPI from "@/app/services/core";
-import { transpileModule } from "../updateNeuron/ts-js";
+import { transpileModule } from "../updateBlock/ts-js";
 
 let db = new Models();
-const { Neuron, Datasource, Business, NeuronLog }: any = db;
+const { Block, Datasource, Business, BlockLog }: any = db;
 
 export const POST = withBlock(async function ({ user, block, body }: any) {
   const data = body.data;
@@ -20,7 +20,7 @@ export const POST = withBlock(async function ({ user, block, body }: any) {
     },
   });
 
-  let blocks = await Neuron.findAll({
+  let blocks = await Block.findAll({
     where: {
       businessId: block.businessId,
     },
@@ -59,9 +59,9 @@ export const POST = withBlock(async function ({ user, block, body }: any) {
     }
     block = await block.update(toUpdate);
 
-    NeuronLog.create({
+    BlockLog.create({
       userId: user.id,
-      neuronId: block.id,
+      blockId: block.id,
       businessId: user.businessId,
       filters: block.filters,
       synapse: result.synapse,

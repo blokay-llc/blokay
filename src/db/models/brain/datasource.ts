@@ -59,7 +59,7 @@ const model = (sequelize: any, DataTypes: any) => {
             return JSON.parse(json);
           } catch (err) {
             console.error(
-              "neuron structure error parse: " + objThis.getDataValue("id"),
+              "datasource structure error parse: " + objThis.getDataValue("id"),
               err
             );
             return {};

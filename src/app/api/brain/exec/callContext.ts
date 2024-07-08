@@ -1,4 +1,4 @@
-import { Args, ResponseNeuron } from "@/lib/types.d";
+import { Args, BlockResponse } from "@/lib/types.d";
 import vm from "node:vm";
 import { buildRequest, buildResponse } from "./buildParams";
 
@@ -7,7 +7,7 @@ export async function callContext(
   session: any,
   form: any,
   datasource: any
-): Promise<ResponseNeuron> {
+): Promise<BlockResponse> {
   let content = `
     // declaration of the function
     ${block.executable}
@@ -19,7 +19,7 @@ export async function callContext(
     }
     `;
 
-  let response: ResponseNeuron;
+  let response: BlockResponse;
   try {
     let req = buildRequest({ session, form, datasource });
     let res = buildResponse({ session, form, datasource });

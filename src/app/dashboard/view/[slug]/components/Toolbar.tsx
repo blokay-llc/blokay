@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import { DS } from "@blokay/react";
-import { newNeuron } from "@/app/services/brain";
+import { newBlock } from "@/app/services/brain";
 import { useApi } from "@/hooks/useApi";
 
 export default function Toolbar({
@@ -16,7 +16,7 @@ export default function Toolbar({
   const modalRef: any = useRef();
   const [form, setForm]: any = useState({ type: "function" });
   const [clickAction, setClickAction]: any = useState("");
-  const { loading, errors, callApi } = useApi(newNeuron);
+  const { loading, errors, callApi } = useApi(newBlock);
 
   const handleClickNew = () => {
     modalRef.current.showModal();

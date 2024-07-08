@@ -2,7 +2,7 @@
 import { DS } from "@blokay/react";
 
 type Props = {
-  clickBlock: (neuronId: string) => void;
+  clickBlock: (blockId: string) => void;
   viewItem: any;
   setViewItem: (viewItem: any) => void;
   onAction: (e: any, action: string) => void;
@@ -40,13 +40,13 @@ export default function ({
       >
         <div className="absolute top-2 right-3 z-20">
           <div className="opacity-0 group-hover:opacity-100 transition duration-100 flex  gap-1 justify-end select-none ">
-            {viewItem.neuronId && (
+            {viewItem.blockId && (
               <div
                 className="action-button"
                 onMouseDown={(e) => {
                   e.stopPropagation();
                   setViewItem(viewItem);
-                  clickBlock(viewItem.neuronId);
+                  clickBlock(viewItem.blockId);
                 }}
               >
                 <DS.Icon icon="edit" />
@@ -54,7 +54,7 @@ export default function ({
               </div>
             )}
 
-            {!viewItem.neuronId && (
+            {!viewItem.blockId && (
               <div
                 className="action-button"
                 onMouseDown={(e) => setAction(e, "edit")}

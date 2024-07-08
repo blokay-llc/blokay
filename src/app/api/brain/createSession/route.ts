@@ -5,14 +5,14 @@ import jwt from "jsonwebtoken";
 
 let db = new Models();
 
-const { Datasource, NeuronExecution, Neuron, Business }: any = db;
+const { Datasource, BlockExecution, Block, Business }: any = db;
 
 export const POST = async function (req: NextRequest, res: NextRequest) {
   const body = await req.json();
 
   let { businessId, form } = body.data;
 
-  let block = await Neuron.getSessionNeuron(businessId);
+  let block = await Block.getSessionBlock(businessId);
 
   if (!block) {
     return NextResponse.json(
@@ -53,11 +53,11 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
     timeMs: db.sequelize.literal(`timeMs + ${timeMs}`),
   });
 
-  NeuronExecution.create({
+  BlockExecution.create({
     timeMs,
     userId: null,
     dataSourceId: datasource.id,
-    neuronId: block.id,
+    BlockId: block.id,
     businessId: businessId,
     data: form,
     finishAt: Date.now(),

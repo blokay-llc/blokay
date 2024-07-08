@@ -1,12 +1,12 @@
 import { CronJob } from "cron";
 import Models from "@/db/index";
 
-import { ResponseNeuron } from "@/lib/types.d";
+import { BlockResponse } from "@/lib/types.d";
 import { buildArgs } from "../brain/exec/buildParams";
 import vm from "node:vm";
 
 let db = new Models();
-const { Neuron, Datasource, NeuronExecution }: any = db;
+const { Block, Datasource, BlockExecution }: any = db;
 
 export default class CronExecutor {
   private crons: any = [];
@@ -69,7 +69,7 @@ export default class CronExecutor {
   fn(args);
   `;
     let d1 = Date.now();
-    let response: ResponseNeuron;
+    let response: BlockResponse;
     try {
       response = await vm.runInNewContext(
         content,
@@ -114,10 +114,10 @@ export default class CronExecutor {
       timeMs: db.sequelize.literal(`timeMs + ${timeMs}`),
     });
 
-    NeuronExecution.create({
+    BlockExecution.create({
       timeMs,
       dataSourceId: cron.datasource.id,
-      neuronId: cron.id,
+      blockId: cron.id,
       businessId: cron.businessId,
       data: null,
       finishAt: Date.now(),
@@ -131,7 +131,7 @@ export default class CronExecutor {
         cron: { [db.Op.not]: null },
       },
     };
-    let cronsDb: any = await Neuron.findAll(queryBuilder);
+    let cronsDb: any = await Block.findAll(queryBuilder);
     for (let index in cronsDb) {
       const datasource = await Datasource.findOne({
         where: {

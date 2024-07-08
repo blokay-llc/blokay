@@ -18,7 +18,7 @@ export default function EditItemOptions({
 
   const fetchListBlock = () => {
     brainList().then((l: any) => {
-      setBlocks(l.Neurons);
+      setBlocks(l.Blocks);
     });
   };
 
@@ -97,10 +97,10 @@ export default function EditItemOptions({
 
           {form.click === "openBlock" && (
             <DS.Select
-              value={form.neuronKey}
+              value={form.blockKey}
               label="Block name"
               onChange={(val: string) => {
-                setForm({ ...form, neuronKey: val });
+                setForm({ ...form, blockKey: val });
               }}
             >
               <option value="">Select an option</option>

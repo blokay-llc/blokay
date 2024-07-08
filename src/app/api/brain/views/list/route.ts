@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import { withUser } from "@/lib/withUser";
 let db = new Models();
-const { View, ViewGroup, ViewItem, UserPermission, Neuron, User }: any = db;
+const { View, ViewGroup, ViewItem, UserPermission, Block, User }: any = db;
 
 export const POST = withUser(async function ({ req, user }: any) {
   let queryBuilder = {
@@ -37,7 +37,7 @@ export const POST = withUser(async function ({ req, user }: any) {
     result = result.filter((view: any) => permissionsMap[view.id]);
   }
 
-  const blockList = await Neuron.findAll({
+  const blockList = await Block.findAll({
     where: {
       businessId: user.businessId,
     },
@@ -72,9 +72,9 @@ export const POST = withUser(async function ({ req, user }: any) {
     let children = viewItems
       .filter((vi: any) => vi.viewId == v.id)
       .map((vi: any) => {
-        let blockId = vi.neuronId || vi?.options?.neuronId;
-        if (vi?.options?.neuronKey) {
-          blockId = blocksKeyMap[vi?.options?.neuronKey];
+        let blockId = vi.blockId || vi?.options?.blockId;
+        if (vi?.options?.blockKey) {
+          blockId = blocksKeyMap[vi?.options?.blockKey];
         }
         return blockId;
       })

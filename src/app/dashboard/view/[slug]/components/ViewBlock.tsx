@@ -50,7 +50,7 @@ const ViewBlock = ({ slug }: any) => {
 
   const fetchListBlocks = () => {
     brainList().then((l: any) => {
-      setBlocks(l.Neurons);
+      setBlocks(l.Blocks);
     });
   };
 
@@ -151,7 +151,7 @@ const ViewBlock = ({ slug }: any) => {
         w,
         h,
         type,
-        neuronId: blockId,
+        blockId: blockId,
         id: uuidv4(),
       },
     ];
@@ -266,13 +266,13 @@ const ViewBlock = ({ slug }: any) => {
                           }}
                         />
                       )}
-                      {["neuron", "block"].includes(vItem.type) && (
+                      {vItem.type == "block" && (
                         <div
                           className={`dark:border-white/10 border-neutral-300 border rounded-xl  overflow-y-auto max-h-full h-full flex justify-center ${
                             editMode == "edit" ? "grayscale" : ""
                           }`}
                         >
-                          <Block neuronId={vItem.neuronId} defaultForm={{}} />
+                          <Block blockId={vItem.blockId} defaultForm={{}} />
                         </div>
                       )}
                       {vItem.type == "button" && (

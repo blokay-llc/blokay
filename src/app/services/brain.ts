@@ -1,9 +1,9 @@
 import { postRequest } from "./_base";
 
-export const brainGet = async function ({ neuronId = null, neuronKey = null }) {
+export const brainGet = async function ({ blockId = null, blockKey = null }) {
   let data = {
-    neuronId,
-    neuronKey,
+    blockId,
+    blockKey,
   };
 
   let result = await postRequest("brain/get", data);
@@ -73,32 +73,32 @@ export const deleteView = async function (form: any) {
   return result.data;
 };
 
-export const newNeuron = async function (form: any) {
+export const newBlock = async function (form: any) {
   let data = {
     ...form,
   };
 
-  let result = await postRequest("brain/newNeuron", data);
+  let result = await postRequest("brain/newBlock", data);
 
-  return result.data.Neuron;
+  return result.data.Block;
 };
 
-export const updateNeuron = async function (form: any) {
+export const updateBlock = async function (form: any) {
   let data = {
     ...form,
   };
 
-  let result = await postRequest("brain/updateNeuron", data);
+  let result = await postRequest("brain/updateBlock", data);
 
   return result.data.Result;
 };
 
-export const deleteNeuron = async function (form: any) {
+export const deleteBlock = async function (form: any) {
   let data = {
     ...form,
   };
 
-  let result = await postRequest("brain/deleteNeuron", data);
+  let result = await postRequest("brain/deleteBlock", data);
 
   return result.data;
 };
@@ -113,9 +113,9 @@ export const rewriteFn = async function (form: any) {
   return result.data.Result;
 };
 
-export const getNeuronAdmin = async function (neuronId: number) {
+export const getBlockAdmin = async function (blockId: number) {
   let data = {
-    neuronId,
+    blockId,
   };
 
   let result = await postRequest("brain/admin-get", data);
