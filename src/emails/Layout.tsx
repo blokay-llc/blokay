@@ -25,7 +25,7 @@ export function Layout({ children }: any) {
               <img
                 src="https://blokay.com/logo.png"
                 alt="Blokay"
-                className="h-12 mx-auto mb-10"
+                className="h-8 mx-auto "
               />
             </div>
 

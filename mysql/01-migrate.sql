@@ -32,7 +32,7 @@ CREATE TABLE `block_executions` (
   KEY `businessId` (`businessId`),
   KEY `dataSourceId` (`dataSourceId`),
   KEY `userId` (`userId`),
-  KEY `neuronId` (`blockId`),
+  KEY `blockId` (`blockId`),
   KEY `createdAt` (`createdAt`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34505 DEFAULT CHARSET=latin1;
 
@@ -71,7 +71,7 @@ CREATE TABLE `blocks_logs` (
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `businessId` (`businessId`,`userId`),
-  KEY `neuronId` (`blockId`)
+  KEY `blockId` (`blockId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=268 DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'blog'
@@ -189,7 +189,7 @@ CREATE TABLE `view_items` (
   `deletedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `viewId` (`viewId`),
-  KEY `neuronId` (`blockId`),
+  KEY `blockId` (`blockId`),
   KEY `createdAt` (`createdAt`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

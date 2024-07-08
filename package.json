@@ -20,12 +20,10 @@
     "@sequelize/mysql": "7.0.0-alpha.41",
     "@sequelize/postgres": "7.0.0-alpha.41",
     "@sequelize/sqlite3": "7.0.0-alpha.41",
-    "@types/jsonwebtoken": "^9.0.6",
     "aws-sdk": "^2.1616.0",
     "bcrypt": "^5.1.1",
     "chart.js": "^4.4.2",
     "cron": "^3.1.7",
-    "cron-parser": "^4.9.0",
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.30.1",
     "monaco-editor": "^0.47.0",
@@ -36,7 +34,6 @@
     "pg": "^8.12.0",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
-    "react-dnd": "^16.0.1",
     "react-dom": "^18",
     "react-grid-layout": "^1.4.4",
     "react-transition-group": "^4.4.5",
@@ -46,6 +43,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
