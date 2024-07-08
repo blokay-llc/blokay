@@ -21,6 +21,14 @@ export function Layout({ children }: any) {
       <div className=" pt-10">
         <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
           <div className="bg-white rounded-lg  text-black  px-10 text-center border border-neutral-200">
+            <div>
+              <img
+                src="https://blokay.com/logo.png"
+                alt="Blokay"
+                className="h-12 mx-auto mb-10"
+              />
+            </div>
+
             <div className="py-10">{children}</div>
             <div className="w-full h-1 bg-neutral-200 mb-3 "></div>
             <div className=" pb-5  text-sm font-light   text-neutral-500">

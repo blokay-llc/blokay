@@ -150,16 +150,6 @@ body {
   @apply p-2 block hover:bg-gray-100 dark:hover:bg-neutral-800 rounded-lg text-neutral-600 dark:text-neutral-100;
 }
 
-@media (max-width: 600px) {
-  .faq-bg {
-    background-position: 40vw 100px;
-    background-size: auto 100%;
-  }
-  /* .dogsec {
-    background-size: auto 100px;
-  } */
-}
-
 .icon-btn {
   @apply fill-white dark:fill-black;
 }
