@@ -41,7 +41,6 @@ const Metrics = ({ block, reload, jwt }: MetricsProps) => {
       <div className="flex gap-5 items-center">
         <DS.Input
           label="Date start"
-          name="dateStart"
           type="date"
           value={form.dateStart}
           onChange={(val: string) => {
@@ -50,7 +49,6 @@ const Metrics = ({ block, reload, jwt }: MetricsProps) => {
         />
         <DS.Input
           label="Date End"
-          name="dateEnd"
           type="date"
           value={form.dateEnd}
           onChange={(val: string) => {
