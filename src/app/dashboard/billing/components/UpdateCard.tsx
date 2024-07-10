@@ -3,7 +3,7 @@ import { DS } from "@blokay/react";
 
 export default function UpdateCard({ onClick }: any) {
   return (
-    <div className="border border-neutral-800 rounded-lg py-5 px-5 ">
+    <div className="text-neutral-800 dark:text-white border border-neutral-200 bg-white dark:bg-transparent dark:border-neutral-800 rounded-lg py-5 px-5 ">
       <div className="flex gap-5 justify-between">
         <h2 className="font-bold text-xl ">Edit credit card</h2>
 

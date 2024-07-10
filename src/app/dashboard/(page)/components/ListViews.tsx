@@ -110,7 +110,7 @@ export default function ListViews() {
             text="Add new"
             onClick={() => handleClickCreateNew()}
             variant="secondary"
-            size="md"
+            size="lg"
             className="shrink-0"
           />
         )}
@@ -134,12 +134,12 @@ export default function ListViews() {
               </h2>
             )}
 
-            <div className="flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl  overflow-hidden">
+            <div className="dark:bg-transparent bg-white flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl  overflow-hidden">
               {view.Views.map((view: any) => (
                 <a
                   href={"/dashboard/view/" + view.slug}
                   key={view.id}
-                  className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-3 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/delete"
+                  className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-2 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/delete"
                 >
                   <div className="font-light  ">
                     <DS.Icon
@@ -160,14 +160,17 @@ export default function ListViews() {
                   )}
 
                   <div
-                    className="ml-3 opacity-0 group-hover/delete:opacity-100 transition-all p-2 rounded-lg hover:bg-white/10"
+                    className="ml-3 opacity-0 group-hover/delete:opacity-100 transition-all p-2 rounded-lg dark:hover:bg-white/10 hover:bg-black/10"
                     onClick={(event) => {
                       event.preventDefault();
                       modalDeleteRef.current.showModal();
                       setView(view);
                     }}
                   >
-                    <DS.Icon icon="delete" className="size-4 fill-white" />
+                    <DS.Icon
+                      icon="delete"
+                      className="size-4 fill-neutral-600 dark:fill-white"
+                    />
                   </div>
                 </a>
               ))}

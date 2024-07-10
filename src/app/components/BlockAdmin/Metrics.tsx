@@ -57,7 +57,7 @@ const Metrics = ({ block, reload, jwt }: MetricsProps) => {
         />
       </div>
 
-      <div className="border border-neutral-800 rounded-lg p-4 ">
+      <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg ">
         <Block
           block="block.executions"
           defaultForm={form}
@@ -66,7 +66,7 @@ const Metrics = ({ block, reload, jwt }: MetricsProps) => {
         />
       </div>
 
-      <div className="border border-neutral-800 rounded-lg p-4 ">
+      <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 ">
         <Block
           jwt={jwt}
           block="block.chart.exections"

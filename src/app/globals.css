@@ -136,7 +136,7 @@
 }
 
 body {
-  @apply bg-neutral-100 dark:bg-neutral-950 text-neutral-950 dark:text-neutral-200;
+  @apply bg-neutral-200 dark:bg-neutral-950 text-neutral-950 dark:text-neutral-200;
   color: rgb(var(--foreground-rgb));
 }
 
@@ -278,4 +278,8 @@ body {
       transparent 40%
     )
     1;
+}
+
+.bl-block-response.bl-response-line {
+  @apply justify-center items-center flex;
 }

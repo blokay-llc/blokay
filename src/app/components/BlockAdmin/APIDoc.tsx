@@ -9,7 +9,9 @@ function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
     <div className="select-none">
       <div
         className={`border-neutral-200  dark:border-neutral-800 border px-5 py-3 rounded-lg flex flex-col gap-5 ${
-          showing ? "bg-[#21252b]" : "dark:hover:bg-white/10"
+          showing
+            ? "bg-neutral-200 dark:bg-[#21252b]"
+            : "dark:hover:bg-white/10"
         }`}
       >
         <div
@@ -61,7 +63,8 @@ export default function BlockAPIDoc({ block }: any) {
     form: form,
   };
 
-  const reactContent = `import { Block } from "@blokay/react";
+  const reactContent = `
+import { Block } from "@blokay/react";
 
 function Component() {
   const form = ${JSON.stringify(form, null, 4)};

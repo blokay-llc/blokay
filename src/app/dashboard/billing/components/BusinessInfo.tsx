@@ -19,7 +19,7 @@ export default function BusinessInfo({ session }: any) {
   };
 
   return (
-    <div className="border border-neutral-800 rounded-lg py-5 ">
+    <div className="text-neutral-800 dark:text-white border border-neutral-200 bg-white dark:bg-transparent dark:border-neutral-800 rounded-lg py-5 ">
       <div className="px-5">
         <h2 className="font-bold text-xl mb-5">Billing details</h2>
         <p className=" text-sm font-light text-neutral-500">
@@ -65,7 +65,7 @@ export default function BusinessInfo({ session }: any) {
           />
         </div>
       </div>
-      <div className="px-5 flex justify-start mt-5 pt-5 border-t border-neutral-800">
+      <div className="px-5 flex justify-start mt-5 pt-5 border-t border-neutral-200 dark:border-neutral-800">
         <DS.Button
           onClick={() => handleSave()}
           loading={loading}

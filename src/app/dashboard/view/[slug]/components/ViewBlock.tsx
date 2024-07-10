@@ -272,7 +272,7 @@ const ViewBlock = ({ slug, jwt }: ViewBlockProps) => {
                       )}
                       {vItem.type == "block" && (
                         <div
-                          className={`dark:border-white/10 border-neutral-300 border rounded-xl  overflow-y-auto max-h-full h-full flex justify-center ${
+                          className={`dark:border-white/10 border-neutral-300 border rounded-xl  overflow-y-auto max-h-full h-full flex justify-center bg-neutral-100 dark:bg-transparent ${
                             editMode == "edit" ? "grayscale" : ""
                           }`}
                         >
