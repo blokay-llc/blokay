@@ -75,6 +75,26 @@ function Component() {
         />
 }`;
 
+  const vueContent = `
+<template>
+  ...
+  <Block
+    block="${block.key}"
+    :defaultForm='${JSON.stringify(form, null, 4)}'
+    :autoExecute="false
+  />
+  ...
+</template>
+<script>
+import { Block } from "@blokay/react";
+export default {
+  components: {
+    Block,
+  },
+}
+</script>
+`;
+
   function setEditorTheme(monaco: any) {
     monaco.editor.defineTheme("onedark", {
       base: "vs-dark",
@@ -147,7 +167,25 @@ function Component() {
         </div>
       </BoxIntegration>
       <BoxIntegration iconTool="vue" title="Connect with Vue">
-        <ComingSoon />
+        <div className="h-64">
+          <Editor
+            options={{
+              insertSpaces: true,
+              tabSize: 4,
+              fontSize: 14,
+              minimap: {
+                enabled: false,
+              },
+              wordWrap: "on",
+              readOnly: true,
+            }}
+            beforeMount={setEditorTheme}
+            theme="onedark"
+            height="100%"
+            defaultLanguage="typescript"
+            value={vueContent}
+          />
+        </div>
       </BoxIntegration>
       <BoxIntegration iconTool="angular" title="Connect with Angular">
         <ComingSoon />
