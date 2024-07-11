@@ -121,7 +121,7 @@ export default function ListUsers() {
         )}
 
       {users.length > 0 && (
-        <div className="bg-transparent dark:bg-neutral-950  flex flex-col  rounded-lg shadow-sm border border-neutral-300 dark:border-neutral-800 dark:divide-neutral-800 divide-y overflow-hidden">
+        <div className="bg-white dark:bg-neutral-950  flex flex-col  rounded-lg shadow-sm border border-neutral-300 dark:border-neutral-800 dark:divide-neutral-800 divide-y overflow-hidden">
           {users.map((user: any, index: number) => (
             <div
               onClick={() => handleClickUser(user)}

@@ -125,7 +125,7 @@ export default function ListViews() {
         </div>
       )}
 
-      <div className="flex flex-col gap-5 lg:gap-10 ">
+      <div className="flex flex-col gap-5 lg:gap-5 ">
         {viewsComputed.map((view: any) => (
           <div className="">
             {view.name && (
@@ -134,17 +134,17 @@ export default function ListViews() {
               </h2>
             )}
 
-            <div className="dark:bg-transparent bg-white flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl  overflow-hidden">
+            <div className="dark:bg-transparent bg-white flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl">
               {view.Views.map((view: any) => (
                 <a
                   href={"/dashboard/view/" + view.slug}
                   key={view.id}
-                  className=" shadow-sm  border-transparent transition	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-5 lg:py-2 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/delete"
+                  className=" shadow-sm  border-transparent 	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-3 lg:py-2 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/item transition-all"
                 >
-                  <div className="font-light  ">
+                  <div className="font-light group-hover/item:bg-sky-200 bg-neutral-100 size-7 flex items-center justify-center rounded-lg">
                     <DS.Icon
                       icon="layers"
-                      className="size-5 fill-neutral-500 dark:fill-white"
+                      className="size-5 group-hover/item:fill-sky-600 fill-neutral-400 dark:fill-white"
                     />
                   </div>
                   <div className="font-light mr-auto text-sm md:text-base ">
@@ -160,7 +160,7 @@ export default function ListViews() {
                   )}
 
                   <div
-                    className="ml-3 opacity-0 group-hover/delete:opacity-100 transition-all p-2 rounded-lg dark:hover:bg-white/10 hover:bg-black/10"
+                    className="ml-3 opacity-0 group-hover/item:opacity-100 transition-all p-2 rounded-lg dark:hover:bg-white/10 hover:bg-black/10"
                     onClick={(event) => {
                       event.preventDefault();
                       modalDeleteRef.current.showModal();

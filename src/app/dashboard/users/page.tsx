@@ -3,14 +3,14 @@ import ListUsers from "./components/ListUsers";
 import Menu from "@/app/components/Menu/Menu";
 export default function User() {
   return (
-    <div className="min-h-screen   pt-8">
-      <div className="mx-auto container">
+    <div className="lg:px-8 px-3 pt-8 min-h-screen">
+      <div className="">
         <Providers>
-          <div className="grid md:grid-cols-12 grid-cols-1 gap-5">
-            <div className="md:col-span-3 ">
+          <div className="lg:flex lg:gap-10  mx-auto">
+            <div className="lg:w-[18rem]">
               <Menu />
             </div>
-            <div className="md:col-span-9 md:px-10">
+            <div className="lg:flex-1 relative pb-10 lg:max-w-[48rem] mx-auto">
               <div className="relative pb-10">
                 <ListUsers />
               </div>

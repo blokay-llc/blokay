@@ -20,9 +20,17 @@ function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
         >
           <div>
             {iconTool && (
-              <DS.IconTools icon={iconTool} className="size-8 fill-white" />
+              <DS.IconTools
+                icon={iconTool}
+                className="size-8 fill-neutral-400 dark:fill-white"
+              />
             )}
-            {icon && <DS.Icon icon={icon} className="size-8 fill-white" />}
+            {icon && (
+              <DS.Icon
+                icon={icon}
+                className="size-8 fill-neutral-400 dark:fill-white"
+              />
+            )}
           </div>
           <div>{title}</div>
         </div>

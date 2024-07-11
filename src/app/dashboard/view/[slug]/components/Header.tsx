@@ -67,7 +67,7 @@ export default function Header({
           {names.map((name: string, index: any) => (
             <AvatarName
               key={"people-" + index}
-              className="-mx-1 border-4 dark:border-neutral-950"
+              className="-mx-1 border-4 border-neutral-100 dark:border-neutral-950"
               name={name}
               colorIndex={index}
               size="lg"

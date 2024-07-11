@@ -22,8 +22,8 @@ const MenuOption = ({ name, icon, currentPath, href }: MenuOptionProps) => {
         className={
           "py-1.5 text-sm   rounded-lg px-1.5 flex justify-between items-center gap-2 " +
           (isActive(href)
-            ? "dark:text-white text-neutral-600 font-medium dark:bg-white/10 bg-black/10 "
-            : "dark:hover:bg-neutral-800 hover:bg-neutral-200")
+            ? "dark:text-white text-neutral-600 font-medium dark:bg-white/10 bg-neutral-100 "
+            : "dark:hover:bg-neutral-800 ")
         }
         href={href}
       >
