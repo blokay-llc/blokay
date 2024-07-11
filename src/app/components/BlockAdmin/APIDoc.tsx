@@ -81,12 +81,12 @@ function Component() {
   <Block
     block="${block.key}"
     :defaultForm='${JSON.stringify(form, null, 4)}'
-    :autoExecute="false
+    :autoExecute="false"
   />
   ...
 </template>
 <script>
-import { Block } from "@blokay/react";
+import { Block } from "@blokay/vue";
 export default {
   components: {
     Block,
@@ -182,7 +182,7 @@ export default {
             beforeMount={setEditorTheme}
             theme="onedark"
             height="100%"
-            defaultLanguage="typescript"
+            defaultLanguage="vue"
             value={vueContent}
           />
         </div>
