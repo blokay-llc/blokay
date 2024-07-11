@@ -32,7 +32,7 @@ function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
               />
             )}
           </div>
-          <div>{title}</div>
+          <div className="dark:text-white text-neutral-500">{title}</div>
         </div>
 
         {showing && (
@@ -190,7 +190,7 @@ export default {
             beforeMount={setEditorTheme}
             theme="onedark"
             height="100%"
-            defaultLanguage="vue"
+            defaultLanguage="html"
             value={vueContent}
           />
         </div>

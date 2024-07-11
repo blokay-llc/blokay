@@ -31,7 +31,7 @@ const model = (sequelize: any, DataTypes: any) => {
       synapse: { type: DataTypes.STRING, allowNull: true },
     },
     {
-      tableName: "block_logs",
+      tableName: "blocks_logs",
     }
   );
 
