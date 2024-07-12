@@ -208,6 +208,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
             onClickBlock={clickBlock}
             editMode={editMode}
             blocks={blocks}
+            workspace={workspace}
           />
         </div>
         <div className="lg:flex-1 w-full pb-10">

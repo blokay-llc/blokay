@@ -53,6 +53,7 @@ type MenuProps = {
   onClickBlock?: any;
   editMode?: any;
   blocks?: any[];
+  workspace: string | null;
 };
 export default function Menu({
   views = [],
@@ -60,6 +61,7 @@ export default function Menu({
   onClickBlock = null,
   editMode = null,
   blocks = [],
+  workspace,
 }: MenuProps) {
   const pathName = usePathname();
   const { isMobile } = useScreenDetector();
@@ -74,7 +76,7 @@ export default function Menu({
       <div className="lg:static pb-3 lg:px-0 px-3 lg:pt-0 pt-3 fixed z-10 left-0 top-0 w-full">
         <div className="border   bg-white dark:bg-black backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-800  rounded-lg text-sm  py-2  text-neutral-600 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
           <div className="px-4 flex items-center gap-5  py-3 lg:pt-5">
-            <a href="/dashboard">
+            <a href={workspace ? `/dashboard/${workspace}` : "/dashboard"}>
               <img
                 src="/logo.svg"
                 className=" h-8 shrink-0 dark:hidden block"
@@ -112,7 +114,7 @@ export default function Menu({
               currentPath={pathName}
               name="Home"
               icon="home"
-              href="/dashboard"
+              href={workspace ? `/dashboard/${workspace}` : "/dashboard"}
             />
 
             {isAdmin && (
@@ -133,12 +135,12 @@ export default function Menu({
               />
             )}
 
-            {isAdmin && (
+            {isAdmin && workspace && (
               <MenuOption
                 currentPath={pathName}
                 name="Settings"
                 icon="config"
-                href="/dashboard/settings"
+                href={`/dashboard/${workspace}/settings`}
               />
             )}
 

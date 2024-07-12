@@ -8,10 +8,14 @@ import {
 } from "@/lib/response";
 
 let db = new Models();
-const { Datasource }: any = db;
+const { Datasource, Workspace }: any = db;
 
 const schema = z.object({
   name: z.string().min(3),
+  workspaceId: z.string().refine(async (e: string) => {
+    const workspace = await Workspace.findById(e);
+    return workspace;
+  }, "The workspace doesn't exists."),
   config: z.object({
     type: z.enum(["sqlite", "mariadb", "mysql", "postgresql", "oracle"]),
     host: z.string().min(3),
@@ -31,6 +35,7 @@ export const POST = withAdmin(async function ({ req, user }: any) {
     type: body.data.type,
     name: body.data.name,
     businessId: user.businessId,
+    workspaceId: body.data.workspaceId,
     config: {
       database: body.data.config,
     },

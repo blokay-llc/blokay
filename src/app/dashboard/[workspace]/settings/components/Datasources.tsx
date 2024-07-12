@@ -9,7 +9,7 @@ import { DS } from "@blokay/react";
 import DatasourceForm from "./DatasourceForm";
 import { useApi } from "@/hooks/useApi";
 
-export default function SettingsView() {
+export default function SettingsView({ workspace }: { workspace: string }) {
   const [datasources, setDatasources]: any = useState(null);
   const [datasource, setDatasource]: any = useState(null);
   const { loading, callApi } = useApi(fetchDatasources);
@@ -26,7 +26,7 @@ export default function SettingsView() {
   } = useApi(fetchCreateDatasource);
 
   const getDatasources = () => {
-    callApi().then((result) => {
+    callApi(workspace).then((result) => {
       setDatasources(result.Datasource);
     });
   };
@@ -42,7 +42,10 @@ export default function SettingsView() {
   };
 
   const handleCreate = (form: any) => {
-    callApiCreate(form).then(() => {
+    callApiCreate({
+      workspaceId: workspace,
+      ...form,
+    }).then(() => {
       setDatasource(null);
       getDatasources();
     });

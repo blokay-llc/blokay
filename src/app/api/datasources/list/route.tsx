@@ -5,10 +5,14 @@ import Models from "@/db/index";
 let db = new Models();
 const { Datasource }: any = db;
 
-export const POST = withAdmin(async function ({ user }: any) {
+export const POST = withAdmin(async function ({ req, user }: any) {
+  const body = await req.json();
+  const data = body.data;
+
   const result = await Datasource.findAll({
     where: {
       businessId: user.businessId,
+      workspaceId: data.workspaceId,
     },
   });
 

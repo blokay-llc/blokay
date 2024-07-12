@@ -12,7 +12,7 @@ export default async function Home({
       <Providers>
         <div className="lg:flex lg:gap-10  mx-auto">
           <div className="lg:w-[18rem]">
-            <Menu />
+            <Menu workspace={params.workspace} />
           </div>
           <div className="lg:flex-1 relative pb-10 lg:max-w-[48rem] mx-auto">
             <ListViews workspace={params.workspace} />

@@ -8,7 +8,7 @@ export default function User() {
         <Providers>
           <div className="lg:flex lg:gap-10  mx-auto">
             <div className="lg:w-[18rem]">
-              <Menu />
+              <Menu workspace={null} />
             </div>
             <div className="lg:flex-1 relative pb-10 lg:max-w-[48rem] mx-auto">
               <div className="relative pb-10">

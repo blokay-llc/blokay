@@ -3,14 +3,14 @@ import { useState, useRef } from "react";
 import { DS } from "@blokay/react";
 import Datasources from "./Datasources";
 
-export default function SettingsView() {
+export default function SettingsView({ workspace }: { workspace: string }) {
   const modalRef: any = useRef();
   const [form, setForm]: any = useState({});
   const [loading, setLoading] = useState(false);
 
   return (
     <div>
-      <Datasources />
+      <Datasources workspace={workspace} />
 
       <DS.Modal
         title="Add card"
