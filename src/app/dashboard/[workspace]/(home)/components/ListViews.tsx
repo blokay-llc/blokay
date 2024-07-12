@@ -126,61 +126,64 @@ export default function ListViews({ workspace }: any) {
           <AddCreditCard text="You need to add a credit card to continue building" />
         </div>
       )}
+
       <div className="flex flex-col gap-5 lg:gap-5 ">
-        {viewsComputed.map((view: any) => (
-          <div className="">
-            {view.name && (
-              <h2 className="mb-4 text-sm font-medium text-neutral-900 dark:text-neutral-200">
-                {view.name}
-              </h2>
-            )}
-
-            <div className="dark:bg-transparent bg-white flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl">
-              {view.Views.map((view: any) => (
-                <a
-                  href={`/dashboard/${workspace}/view/${view.slug}`}
-                  key={view.id}
-                  className=" shadow-sm  border-transparent 	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-3 lg:py-2 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/item transition-all"
-                >
-                  <div className="font-light group-hover/item:bg-sky-200 bg-neutral-100 size-7 flex items-center justify-center rounded-lg">
-                    <DS.Icon
-                      icon="layers"
-                      className="size-5 group-hover/item:fill-sky-600 fill-neutral-400 dark:fill-white"
-                    />
-                  </div>
-                  <div className="font-light mr-auto text-sm md:text-base ">
+        {viewsComputed.length > 0 && (
+          <div className="flex flex-col gap-5 lg:gap-5 ">
+            {viewsComputed.map((view: any) => (
+              <div className="">
+                {view.name && (
+                  <h2 className="mb-4 text-sm font-medium text-neutral-900 dark:text-neutral-200">
                     {view.name}
-                  </div>
-                  {view.User && (
-                    <div className="flex items-center gap-2 ">
-                      <AvatarName name={view?.User?.name} size="sm" />
-                      <div className="font-light text-xs truncate">
-                        {view.User.name}
-                      </div>
-                    </div>
-                  )}
+                  </h2>
+                )}
 
-                  <div
-                    className="ml-3 opacity-0 group-hover/item:opacity-100 transition-all p-2 rounded-lg dark:hover:bg-white/10 hover:bg-black/10"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      modalDeleteRef.current.showModal();
-                      setView(view);
-                    }}
-                  >
-                    <DS.Icon
-                      icon="delete"
-                      className="size-4 fill-neutral-600 dark:fill-white"
-                    />
-                  </div>
-                </a>
-              ))}
-            </div>
+                <div className="dark:bg-transparent bg-white flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl">
+                  {view.Views.map((view: any) => (
+                    <a
+                      href={`/dashboard/${workspace}/view/${view.slug}`}
+                      key={view.id}
+                      className=" shadow-sm  border-transparent 	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-3 lg:py-2 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/item transition-all"
+                    >
+                      <div className="font-light group-hover/item:bg-sky-200 bg-neutral-100 size-7 flex items-center justify-center rounded-lg">
+                        <DS.Icon
+                          icon="layers"
+                          className="size-5 group-hover/item:fill-sky-600 fill-neutral-400 dark:fill-white"
+                        />
+                      </div>
+                      <div className="font-light mr-auto text-sm md:text-base ">
+                        {view.name}
+                      </div>
+                      {view.User && (
+                        <div className="flex items-center gap-2 ">
+                          <AvatarName name={view?.User?.name} size="sm" />
+                          <div className="font-light text-xs truncate">
+                            {view.User.name}
+                          </div>
+                        </div>
+                      )}
+
+                      <div
+                        className="ml-3 opacity-0 group-hover/item:opacity-100 transition-all p-2 rounded-lg dark:hover:bg-white/10 hover:bg-black/10"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          modalDeleteRef.current.showModal();
+                          setView(view);
+                        }}
+                      >
+                        <DS.Icon
+                          icon="delete"
+                          className="size-4 fill-neutral-600 dark:fill-white"
+                        />
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      {viewsCount() <= 3 && isAdmin && (
-        <div className="mt-12">
+        )}
+        {viewsCount() <= 3 && isAdmin && (
           <AppVideoCard
             previewImage="/founder.jpeg"
             youtubeUrl="AwZzqjmr2n4"
@@ -189,8 +192,8 @@ export default function ListViews({ workspace }: any) {
             name="Introduction"
             duration="1:09"
           />
-        </div>
-      )}
+        )}
+      </div>
       <DS.Modal
         title="Add new"
         footer={

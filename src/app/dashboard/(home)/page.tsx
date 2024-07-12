@@ -1,11 +1,23 @@
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/auth";
 import { redirect } from "next/navigation";
+import Models from "@/db/index";
 
-async function getDefaultWorkspace() {
-  return 2;
+let db = new Models();
+const { Workspace }: any = db;
+async function getDefaultWorkspaceId() {
+  const session: any = await getServerSession(authOptions);
+
+  let workspace = await Workspace.findOne({
+    where: {
+      businessId: session?.business?.id,
+    },
+  });
+  return workspace.id;
 }
 
 export default async function Home() {
-  const workspace = await getDefaultWorkspace();
+  const workspace = await getDefaultWorkspaceId();
   if (workspace) {
     redirect("/dashboard/" + workspace);
   }

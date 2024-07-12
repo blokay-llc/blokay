@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { withUser } from "@/lib/withUser";
-import { NextResponse } from "next/server";
 import Models from "@/db/index";
 import {
   isValidSchema,
@@ -50,6 +49,7 @@ export const POST = withUser(async function ({ req, user }: any) {
     layout: [],
     slug: string_to_slug(data.name),
     viewGroupId: data.categoryId || null,
+    workspaceId: data.workspaceId,
   };
 
   let view = await View.create(dataCreation);

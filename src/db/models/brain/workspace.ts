@@ -8,7 +8,7 @@ const model = (sequelize: any, DataTypes: any) => {
     },
     {
       paranoid: true,
-      tableName: "views",
+      tableName: "workspaces",
     }
   );
 
