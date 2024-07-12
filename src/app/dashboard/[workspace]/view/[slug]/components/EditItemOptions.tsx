@@ -10,6 +10,7 @@ export default function EditItemOptions({
   onHide,
   onUpdate,
   viewId,
+  workspace,
 }: any) {
   if (!type) return <></>;
   const [form, setForm] = useState({ ...options });
@@ -17,7 +18,7 @@ export default function EditItemOptions({
   const [loading, setLoading] = useState(false);
 
   const fetchListBlock = () => {
-    brainList().then((l: any) => {
+    brainList(workspace).then((l: any) => {
       setBlocks(l.Blocks);
     });
   };

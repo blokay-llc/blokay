@@ -54,7 +54,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
   };
 
   const fetchListBlocks = () => {
-    brainList().then((l: any) => {
+    brainList(workspace).then((l: any) => {
       setBlocks(l.Blocks);
     });
   };
@@ -303,6 +303,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
         </div>
       </div>
       <ActionsEdit
+        workspace={workspace}
         view={view}
         viewItem={viewItem}
         clickBlock={clickBlock}

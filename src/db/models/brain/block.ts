@@ -87,6 +87,15 @@ const model = (sequelize: any, DataTypes: any) => {
     };
     return await Block.findOne(queryBuilder);
   };
+  Block.findByKeyWorkspace = async function (key: string, workspaceId: string) {
+    let queryBuilder: any = {
+      where: {
+        key,
+        workspaceId,
+      },
+    };
+    return await Block.findOne(queryBuilder);
+  };
 
   return Block;
 };

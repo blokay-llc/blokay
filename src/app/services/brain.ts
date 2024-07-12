@@ -143,13 +143,12 @@ export const getBlockAdmin = async function (blockId: number) {
   return result.data.Block;
 };
 
-export const brainList = async function (group: any = null) {
+export const brainList = async function (workspaceId: any = null) {
   let data = {
-    group,
+    workspaceId,
   };
 
   let result = await postRequest("brain/list", data);
-
   return result.data;
 };
 

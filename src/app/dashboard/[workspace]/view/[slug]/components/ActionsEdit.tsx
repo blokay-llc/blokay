@@ -5,7 +5,7 @@ import React, { useImperativeHandle } from "react";
 import EditItemOptions from "./EditItemOptions";
 
 function ActionsEdit(
-  { view, deleteFromLayout, viewItem, reload }: any,
+  { view, deleteFromLayout, viewItem, reload, workspace }: any,
   ref: any
 ) {
   const modalDeleteRef: any = useRef();
@@ -38,6 +38,7 @@ function ActionsEdit(
         ref={modalOptionsItem}
       >
         <EditItemOptions
+          workspace={workspace}
           viewId={view?.id}
           id={viewItem?.id}
           type={viewItem?.type}

@@ -41,10 +41,14 @@ function getSubBlocks(str: string, blockKeysMap: any[]) {
   });
 }
 
-export const POST = withAdmin(async function ({ user }: any) {
+export const POST = withAdmin(async function ({ user, req }: any) {
+  const body = await req.json();
+  const data = body.data;
+
   const result = await Block.findAll({
     where: {
       businessId: user.businessId,
+      workspaceId: data.workspaceId,
     },
   });
 

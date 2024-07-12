@@ -10,17 +10,25 @@ import {
 let db = new Models();
 const { Block, Workspace }: any = db;
 
-const schema = z.object({
-  name: z.string().min(3),
-  key: z.string().refine(async (e: string) => {
-    const currentBlock = await Block.findByKey(e);
-    return !currentBlock;
-  }, "The block already exists."),
-  workspaceId: z.string().refine(async (e: string) => {
-    const workspace = await Workspace.findById(e);
-    return workspace;
-  }, "The workspace doesn't exists."),
-});
+const schema = z
+  .object({
+    name: z.string().min(3),
+    key: z.string().min(1).max(100),
+    workspaceId: z.string().refine(async (e: string) => {
+      const workspace = await Workspace.findById(e);
+      return workspace;
+    }, "The workspace doesn't exists."),
+  })
+  .superRefine(async ({ key, workspaceId }, ctx) => {
+    const currentBlock = await Block.findByKeyWorkspace(key, workspaceId);
+    if (currentBlock) {
+      ctx.addIssue({
+        code: "custom",
+        message: "The block already exists.",
+        path: ["key"],
+      });
+    }
+  });
 
 function stringtoKey(str: string) {
   str = str.replace(/^\s+|\s+$/g, ""); // trim
