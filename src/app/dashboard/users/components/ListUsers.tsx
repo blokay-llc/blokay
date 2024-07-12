@@ -22,7 +22,7 @@ export default function ListUsers() {
   const [loadingUser, setLoadingUser] = useState(false);
 
   const listViews = () => {
-    viewList().then((result) => {
+    viewList(null).then((result) => {
       setViews(result.Views);
     });
   };

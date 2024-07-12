@@ -14,11 +14,15 @@ const getJWT = () => {
   );
 };
 
-export default function View({ params }: { params: { slug: string } }) {
+export default function View({
+  params,
+}: {
+  params: { slug: string; workspace: string };
+}) {
   return (
     <div className="min-h-screen h-full">
       <Providers>
-        <Page params={params} jwt={getJWT()} />
+        <Page slug={params.slug} workspace={params.workspace} jwt={getJWT()} />
       </Providers>
     </div>
   );

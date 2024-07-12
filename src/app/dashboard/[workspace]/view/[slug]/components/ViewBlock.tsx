@@ -12,9 +12,9 @@ import {
 } from "@/app/services/brain";
 import { DS, Block } from "@blokay/react";
 import { useScreen } from "@/hooks/useScreen";
-import Header from "@/app/dashboard/view/[slug]/components/Header";
+import Header from "@/app/dashboard/[workspace]/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
-import BlockAdmin from "../../../../components/BlockAdmin/Index";
+import BlockAdmin from "../../../../../components/BlockAdmin/Index";
 import { useSession } from "next-auth/react";
 import "./styles.css";
 import { uuidv4 } from "@/app/helpers/functions";
@@ -28,8 +28,9 @@ import { useRouter } from "next/navigation";
 interface ViewBlockProps {
   slug: string;
   jwt: string;
+  workspace: string;
 }
-const ViewBlock = ({ slug, jwt }: ViewBlockProps) => {
+const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
@@ -47,7 +48,7 @@ const ViewBlock = ({ slug, jwt }: ViewBlockProps) => {
   const { rowHeight } = useScreen();
 
   const listViews = () => {
-    viewList().then((result: any) => {
+    viewList(workspace).then((result: any) => {
       setViews(result.Views);
     });
   };
@@ -212,6 +213,7 @@ const ViewBlock = ({ slug, jwt }: ViewBlockProps) => {
         <div className="lg:flex-1 w-full pb-10">
           <div className="relative  ">
             <Header
+              workspace={workspace}
               view={view}
               save={saveView}
               refresh={refreshView}

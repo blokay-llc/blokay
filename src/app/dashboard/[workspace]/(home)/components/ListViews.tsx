@@ -8,7 +8,7 @@ import AddCreditCard from "@/app/components/UI/AddCreditCard";
 import { DS } from "@blokay/react";
 import { useApi } from "@/hooks/useApi";
 
-export default function ListViews() {
+export default function ListViews({ workspace }: any) {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
@@ -26,7 +26,7 @@ export default function ListViews() {
   }, []);
 
   const listViews = () => {
-    callApi().then((result) => {
+    callApi(workspace).then((result) => {
       setViews(result.Views);
     });
   };
@@ -36,7 +36,10 @@ export default function ListViews() {
   };
 
   const handleSaveView = () => {
-    callApiAdd(form).then((result) => {
+    callApiAdd({
+      ...form,
+      workspaceId: workspace,
+    }).then((result) => {
       modalRef.current.hideModal();
       listViews();
       setForm({ search: "" });
@@ -118,13 +121,11 @@ export default function ListViews() {
           <AvatarName name={session?.user?.name} />
         </div>
       </div>
-
       {!canCreateViews() && !session?.business?.addedCard && (
         <div className="mb-10 ">
           <AddCreditCard text="You need to add a credit card to continue building" />
         </div>
       )}
-
       <div className="flex flex-col gap-5 lg:gap-5 ">
         {viewsComputed.map((view: any) => (
           <div className="">
@@ -137,7 +138,7 @@ export default function ListViews() {
             <div className="dark:bg-transparent bg-white flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl">
               {view.Views.map((view: any) => (
                 <a
-                  href={"/dashboard/view/" + view.slug}
+                  href={`/dashboard/${workspace}/view/${view.slug}`}
                   key={view.id}
                   className=" shadow-sm  border-transparent 	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-3 lg:py-2 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/item transition-all"
                 >
@@ -178,7 +179,6 @@ export default function ListViews() {
           </div>
         ))}
       </div>
-
       {viewsCount() <= 3 && isAdmin && (
         <div className="mt-12">
           <AppVideoCard
@@ -191,7 +191,6 @@ export default function ListViews() {
           />
         </div>
       )}
-
       <DS.Modal
         title="Add new"
         footer={
@@ -236,7 +235,6 @@ export default function ListViews() {
           </div>
         )}
       </DS.Modal>
-
       <DS.Modal
         title="Delete view"
         footer={

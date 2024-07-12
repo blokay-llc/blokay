@@ -4,10 +4,12 @@ import { BlokayProvider } from "@blokay/react";
 import { useSession } from "next-auth/react";
 
 export default function Page({
-  params,
+  workspace,
+  slug,
   jwt,
 }: {
-  params: { slug: string };
+  slug: string;
+  workspace: string;
   jwt: string;
 }) {
   const { data: session }: any = useSession();
@@ -18,7 +20,7 @@ export default function Page({
         jwtToken={session?.jwtToken}
         endpoint={process.env.NEXT_PUBLIC_API || "https://app.blokay.com/api/"}
       >
-        <ViewBlock slug={params.slug} jwt={jwt} />
+        <ViewBlock slug={slug} workspace={workspace} jwt={jwt} />
       </BlokayProvider>
     </div>
   );

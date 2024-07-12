@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { DS } from "@blokay/react";
 import ShareView from "@/app/components/UI/ShareView";
 import { useScreenDetector } from "@/app/hooks/user-screen-detector";
-import AvatarName from "../../../../components/UI/AvatarName";
+import AvatarName from "../../../../../components/UI/AvatarName";
 import Toolbar from "./Toolbar";
 
 export default function Header({
@@ -14,6 +14,7 @@ export default function Header({
   refresh,
   editMode,
   setEditMode,
+  workspace,
 }: any) {
   const { isMobile } = useScreenDetector();
   const modalRef: any = useRef();
@@ -34,6 +35,7 @@ export default function Header({
       <div className="flex gap-3 items-center w-full">
         {isAdmin && !isMobile && (
           <Toolbar
+            workspace={workspace}
             onCreate={onCreate}
             refresh={refresh}
             title={title}

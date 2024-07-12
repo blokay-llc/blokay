@@ -8,7 +8,7 @@ import {
 } from "@/lib/response";
 
 let db = new Models();
-const { Block }: any = db;
+const { Block, Workspace }: any = db;
 
 const schema = z.object({
   name: z.string().min(3),
@@ -16,6 +16,10 @@ const schema = z.object({
     const currentBlock = await Block.findByKey(e);
     return !currentBlock;
   }, "The block already exists."),
+  workspaceId: z.string().refine(async (e: string) => {
+    const workspace = await Workspace.findById(e);
+    return workspace;
+  }, "The workspace doesn't exists."),
 });
 
 function stringtoKey(str: string) {
@@ -40,7 +44,7 @@ export const POST = withUser(async function ({ req, user }: any) {
 
   let key = stringtoKey(data.name);
   const { success, errors } = await isValidSchema(schema, {
-    name: data.name,
+    ...data,
     key,
   });
   if (!success) return sendDataValidationError(errors);
@@ -52,6 +56,7 @@ export const POST = withUser(async function ({ req, user }: any) {
     description: data.name,
     key,
     filters: {},
+    workspaceId: data.workspaceId,
     synapse:
       "const fn = async (req: Request, res: Response) => {\n\treturn null;\n}",
   });

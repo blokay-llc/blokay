@@ -5,6 +5,8 @@ let db = new Models();
 const { View, ViewGroup, ViewItem, UserPermission, Block, User }: any = db;
 
 export const POST = withUser(async function ({ req, user }: any) {
+  const body = await req.json();
+
   let queryBuilder = {
     include: [
       {
@@ -18,6 +20,7 @@ export const POST = withUser(async function ({ req, user }: any) {
     ],
     where: {
       businessId: user.businessId,
+      workspaceId: body.data.workspaceId,
     },
   };
   let result = await View.findAll(queryBuilder);

@@ -12,6 +12,7 @@ export default function Toolbar({
   onCreate = null,
   setEditMode,
   editMode,
+  workspace,
 }: any) {
   const modalRef: any = useRef();
   const [form, setForm]: any = useState({ type: "function" });
@@ -22,7 +23,7 @@ export default function Toolbar({
     modalRef.current.showModal();
   };
   const handleClickCreateNewBlock = () => {
-    callApi(form).then((block) => {
+    callApi({ ...form, workspaceId: workspace }).then((block) => {
       modalRef.current.hideModal();
       onCreate && onCreate({ block });
       setForm({});

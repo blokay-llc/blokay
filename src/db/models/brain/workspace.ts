@@ -16,6 +16,15 @@ const model = (sequelize: any, DataTypes: any) => {
     models.View.belongsTo(models.Business);
   };
 
+  Workspace.findById = async function (id: string) {
+    let queryBuilder: any = {
+      where: {
+        id,
+      },
+    };
+    return await Workspace.findOne(queryBuilder);
+  };
+
   return Workspace;
 };
 

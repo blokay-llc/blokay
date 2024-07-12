@@ -123,8 +123,10 @@ export const getBlockAdmin = async function (blockId: number) {
   return result.data.Block;
 };
 
-export const viewList = async function () {
-  let data = {};
+export const viewList = async function (workspaceId: string | null) {
+  let data = {
+    workspaceId,
+  };
 
   let result = await postRequest("brain/views/list", data);
 
