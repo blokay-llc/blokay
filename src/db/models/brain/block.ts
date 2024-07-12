@@ -11,6 +11,7 @@ const model = (sequelize: any, DataTypes: any) => {
       description: { type: DataTypes.STRING, allowNull: true },
       rolPrivilegeId: { type: DataTypes.INTEGER, allowNull: true },
       businessId: { type: DataTypes.INTEGER, allowNull: true },
+      workspaceId: { type: DataTypes.INTEGER, allowNull: true },
       filters: {
         type: DataTypes.TEXT,
         allowNull: true,

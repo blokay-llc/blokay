@@ -43,6 +43,7 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
   const datasource = await Datasource.findOne({
     where: {
       businessId: business.id,
+      workspaceId: block.workspaceId,
     },
   });
 

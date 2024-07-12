@@ -23,7 +23,7 @@ function getSubBlocks(str: string, blockKeysMap: any[]) {
   ocurrences = str.match(/\b(blockId).{0,60}/g) || [];
   blocks = [...blocks, ...ocurrences];
 
-  ocurrences = str.match(/\b(createButton).{0,60}/g) || [];
+  ocurrences = str.match(/\b(createButton).{0,100}/g) || [];
   if (ocurrences.length > 0) {
     ocurrences = ocurrences.map((item: any) => {
       return item.split(",")[1];

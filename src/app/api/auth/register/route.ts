@@ -10,7 +10,7 @@ import Email from "@/app/services/mail";
 import UserWelcome from "@/emails/UserWelcome";
 
 let db = new Models();
-const { User, Business }: any = db;
+const { User, Business, Workspace }: any = db;
 
 const schema = z.object({
   name: z.string().min(3),
@@ -48,6 +48,11 @@ export async function POST(req: any) {
     email,
     businessId: business.id,
     rol: "admin",
+  });
+
+  await Workspace.create({
+    name: "main",
+    businessId: business.id,
   });
 
   let emailSender = new Email();

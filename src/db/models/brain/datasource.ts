@@ -10,6 +10,7 @@ const model = (sequelize: any, DataTypes: any) => {
       name: { type: DataTypes.STRING, allowNull: true },
       businessId: { type: DataTypes.INTEGER, allowNull: true },
       lastUseAt: { type: DataTypes.DATE, allowNull: true },
+      workspaceId: { type: DataTypes.INTEGER, allowNull: true },
       config: {
         type: DataTypes.TEXT,
         allowNull: true,

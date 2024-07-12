@@ -1,5 +1,5 @@
 const colors = [
-  { bg: "bg-sky-500", text: "text-sky-900" },
+  { bg: "bg-sky-300", text: "text-sky-900" },
   { bg: "bg-green-500", text: "text-green-900" },
   { bg: "bg-indigo-500", text: "text-indigo-900" },
 

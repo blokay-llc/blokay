@@ -8,6 +8,7 @@ const model = (sequelize: any, DataTypes: any) => {
       businessId: { type: DataTypes.INTEGER, allowNull: true },
       userId: { type: DataTypes.INTEGER, allowNull: true },
       viewGroupId: { type: DataTypes.INTEGER, allowNull: true },
+      workspaceId: { type: DataTypes.INTEGER, allowNull: true },
     },
     {
       paranoid: true,
@@ -18,6 +19,7 @@ const model = (sequelize: any, DataTypes: any) => {
   View.associate = function (models: any) {
     models.View.belongsTo(models.ViewGroup);
     models.View.belongsTo(models.User);
+    models.View.belongsTo(models.Workspace);
   };
 
   return View;

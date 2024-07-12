@@ -8,6 +8,7 @@ import View from "./models/brain/view";
 import ViewItem from "./models/brain/view-item";
 import ViewGroup from "./models/brain/view-group";
 import Datasource from "./models/brain/datasource";
+import Workspace from "./models/brain/workspace";
 import Business from "./models/user/business";
 import User from "./models/user/user";
 import UserPermission from "./models/user/user-permission";
@@ -27,6 +28,7 @@ class DB {
     Business,
     User,
     UserPermission,
+    Workspace,
   };
 
   public sequelize: any = null;
