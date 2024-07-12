@@ -105,7 +105,7 @@ export default function Menu({
                 onChange={(s: string) => {
                   setSearch(s);
                 }}
-                autocomplete="off"
+                autoComplete="off"
               />
             </div>
           )}

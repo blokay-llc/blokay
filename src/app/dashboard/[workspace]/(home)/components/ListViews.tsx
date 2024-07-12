@@ -104,7 +104,7 @@ export default function ListViews({ workspace }: any) {
             icon="search"
             className="w-full"
             label="Search"
-            autocomplete="off"
+            autoComplete="off"
           />
         </div>
         {canCreateViews() && !loading && (
