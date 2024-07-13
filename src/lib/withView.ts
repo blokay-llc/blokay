@@ -14,9 +14,12 @@ export const withView = (cb: any) => {
     let queryBuilder: any = {
       where: {
         businessId: user.businessId,
-        workspaceId,
       },
     };
+
+    if (workspaceId) {
+      queryBuilder.where.workspaceId = workspaceId;
+    }
 
     if (!viewId && !slug) {
       return NextResponse.json(

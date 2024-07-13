@@ -98,6 +98,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
       saveLayoutApi({
         viewId: view.id,
         layout: view.ViewItems,
+        workspaceId: workspace,
       });
     }, 300);
 
