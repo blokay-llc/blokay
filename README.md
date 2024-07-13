@@ -21,6 +21,10 @@ Blokay is a powerful on-premise software solution designed to streamline your co
 2. Run `./install.sh` to install Blokay on your server.
 3. Follow the on-screen instructions for configuration.
 
+## Updates
+
+To update Blokay, run `./update.sh`.
+
 ## Usage
 
 1. Access Blokay through your web browser at `http://localhost:8000`.
