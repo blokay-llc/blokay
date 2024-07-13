@@ -94,7 +94,7 @@ export default function Menu({
             )} */}
           </div>
 
-          <Workspace workspace={session?.workspace} />
+          <Workspace workspace={workspace} />
 
           {view && !isMobile && (
             <div className="px-2">

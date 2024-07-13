@@ -138,7 +138,7 @@ export default function ListViews({ workspace }: any) {
                   </h2>
                 )}
 
-                <div className="dark:bg-transparent bg-white flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-xl">
+                <div className="dark:bg-transparent flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-lg">
                   {view.Views.map((view: any) => (
                     <a
                       href={`/dashboard/${workspace}/view/${view.slug}`}
