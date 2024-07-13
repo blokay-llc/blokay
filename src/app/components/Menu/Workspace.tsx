@@ -35,11 +35,10 @@ export default function Workspace({ workspace }: any) {
   }, [workspace]);
 
   const getWorkspaces = () => {
-    if (!workspace) return;
     callApi(workspace).then((result) => {
       setWorkspaces(result.Workspaces);
       setCurrent(result.CurrentWorkspace);
-      if (!result.CurrentWorkspace) {
+      if (!result.CurrentWorkspace && workspace) {
         router.push(`/dashboard`);
       }
     });
