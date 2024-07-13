@@ -9,11 +9,12 @@ export const withView = (cb: any) => {
   return withUser(async function ({ req, user }: any) {
     const body = await req.json();
 
-    let { slug, viewId } = body.data;
+    let { slug, viewId, workspaceId } = body.data;
 
     let queryBuilder: any = {
       where: {
         businessId: user.businessId,
+        workspaceId,
       },
     };
 

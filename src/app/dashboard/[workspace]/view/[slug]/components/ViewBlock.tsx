@@ -60,7 +60,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
   };
 
   const fetchView = () => {
-    viewGet(slug)
+    viewGet(slug, workspace)
       .then((r) => {
         setView(r.View);
       })

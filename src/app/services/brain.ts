@@ -1,8 +1,9 @@
 import { postRequest } from "./_base";
 
-export const viewGet = async function (slug: string) {
+export const viewGet = async function (slug: string, workspaceId: string) {
   let data = {
     slug,
+    workspaceId,
   };
 
   let result = await postRequest("views/get", data);

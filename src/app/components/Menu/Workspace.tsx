@@ -1,6 +1,8 @@
+"use client";
 import { useState, useEffect, useRef } from "react";
 import { DS } from "@blokay/react";
 import { fetchWorkspaces, fetchAddWorkspace } from "@/app/services/workspace";
+import { useRouter } from "next/navigation";
 import { useApi } from "@/hooks/useApi";
 import {
   DropdownMenu,
@@ -16,6 +18,7 @@ export default function Workspace({ workspace }: any) {
   const [form, setForm] = useState({ name: "" });
   const [current, setCurrent] = useState({ id: null, name: null });
   const modalAdd: any = useRef();
+  const router = useRouter();
   const { loading, callApi } = useApi(fetchWorkspaces);
   const {
     loading: loadingAdd,
@@ -36,6 +39,9 @@ export default function Workspace({ workspace }: any) {
     callApi(workspace).then((result) => {
       setWorkspaces(result.Workspaces);
       setCurrent(result.CurrentWorkspace);
+      if (!result.CurrentWorkspace) {
+        router.push(`/dashboard`);
+      }
     });
   };
 
