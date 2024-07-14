@@ -1,13 +1,13 @@
 const colors = [
-  { bg: "bg-sky-300", text: "text-sky-900" },
-  { bg: "bg-green-500", text: "text-green-900" },
-  { bg: "bg-indigo-500", text: "text-indigo-900" },
+  { bg: "bg-sky-600", text: "text-white" },
+  { bg: "bg-lime-600", text: "text-white" },
+  { bg: "bg-indigo-600", text: "text-white" },
 
-  { bg: "bg-rose-500", text: "text-rose-900" },
-  { bg: "bg-yellow-500", text: "text-yellow-900" },
-  { bg: "bg-pink-500", text: "text-pink-900" },
-  { bg: "bg-amber-500", text: "text-amber-900" },
-  { bg: "bg-cyan-500", text: "text-cyan-900" },
+  { bg: "bg-rose-600", text: "text-white" },
+  { bg: "bg-teal-600", text: "text-white" },
+  { bg: "bg-pink-600", text: "text-white" },
+  { bg: "bg-amber-600", text: "text-white" },
+  { bg: "bg-cyan-600", text: "text-white" },
 ];
 
 type AvatarNameProps = {

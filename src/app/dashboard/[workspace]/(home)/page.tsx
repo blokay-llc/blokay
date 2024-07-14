@@ -1,6 +1,7 @@
-import ListViews from "@/app/dashboard/[workspace]/(home)/components/ListViews";
 import Menu from "@/app/components/Menu/Menu";
 import Providers from "@/app/(auth)/login/components/Providers";
+import ListViews from "@/app/dashboard/[workspace]/(home)/components/ListViews";
+import Feedback from "@/app/dashboard/[workspace]/(home)/components/Feedback";
 
 export default async function Home({
   params,
@@ -13,6 +14,7 @@ export default async function Home({
         <div className="lg:flex lg:gap-10  mx-auto">
           <div className="lg:w-[18rem]">
             <Menu workspace={params.workspace} />
+            <Feedback />
           </div>
           <div className="lg:flex-1 relative pb-10 lg:max-w-[48rem] mx-auto">
             <ListViews workspace={params.workspace} />

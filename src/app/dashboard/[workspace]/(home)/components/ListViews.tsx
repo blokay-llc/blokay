@@ -112,7 +112,7 @@ export default function ListViews({ workspace }: any) {
             icon="wizard"
             text="Add new"
             onClick={() => handleClickCreateNew()}
-            variant="secondary"
+            variant="primary"
             size="lg"
             className="shrink-0"
           />
@@ -190,7 +190,7 @@ export default function ListViews({ workspace }: any) {
         {viewsCount() <= 3 && isAdmin && (
           <AppVideoCard
             previewImage="/founder.jpeg"
-            youtubeUrl="AwZzqjmr2n4"
+            youtubeUrl=""
             title="Quick intro"
             subtitle="Introduction by the Founder"
             name="Introduction"

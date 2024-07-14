@@ -55,7 +55,7 @@ export default function Workspace({ workspace }: any) {
       <DropdownMenu>
         <DropdownMenuTrigger className="select-none px-2 mb-3 pb-3 border-b border-neutral-300 dark:border-neutral-800 text-neutral-600 w-full focus:outline-none">
           <div className="hover:bg-neutral-100 rounded-xl px-3 py-2 flex items-center gap-3">
-            <div className="text-sm bg-neutral-200  rounded-lg px-3 py-1">
+            <div className="text-sm bg-neutral-300  rounded-lg px-3 py-1">
               Workspace
             </div>
             <div>{current?.name}</div>
@@ -70,7 +70,7 @@ export default function Workspace({ workspace }: any) {
             </div>
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-64 text-neutral-600 bg-white">
+        <DropdownMenuContent className="select-none w-64 text-neutral-600 bg-white">
           <DropdownMenuLabel>My workspaces</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {workspaces.map((workspace: any) => (
