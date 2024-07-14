@@ -53,6 +53,7 @@ export const POST = withView(async function ({ user, view }: any) {
       ac[u.id] = {
         id: u.id,
         name: u.name,
+        image: u.image,
       };
       return ac;
     }, {});

@@ -10,7 +10,11 @@ export default function ShareView({ SharedUsers }: any) {
       <div className="flex flex-col gap-0 divide-y divide-neutral-300 dark:divide-neutral-800">
         {SharedUsers.map((user: any, index: any) => (
           <div className="flex gap-3 items-center py-2" key={user.id}>
-            <AvatarName name={user.name} colorIndex={index} />
+            <AvatarName
+              name={user.name}
+              image={user.image}
+              colorIndex={index}
+            />
             <div className="font-light text-sm">{user.name}</div>
           </div>
         ))}
