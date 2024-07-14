@@ -105,9 +105,9 @@ export default function SettingsView({ workspace }: { workspace: string }) {
             )}
           </div>
 
-          <div className="flex-col flex gap-3 border-neutral-300 dark:border-neutral-800 border px-5 py-5 rounded-xl ">
+          <div className="flex-col flex gap-3 border-neutral-300 dark:border-neutral-800 border  rounded-xl ">
             {datasources.length == 0 && (
-              <div className="py-5">
+              <div className="py-10 px-5">
                 <h2 className="mb-5 text-lg font-bold text-neutral-700 dark:text-neutral-200">
                   You don't have any datasource created
                 </h2>
@@ -125,21 +125,21 @@ export default function SettingsView({ workspace }: { workspace: string }) {
                 {datasources.map((datasource: any) => (
                   <div
                     key={datasource.id}
-                    className="flex items-center gap-3 py-4"
+                    className="flex items-center gap-3 py-4 px-4 hover:bg-neutral-200"
                     onClick={() => {
                       setDatasource(datasource);
                     }}
                   >
-                    <div>
+                    <div className="bg-white  dark:bg-neutral-950 rounded-lg size-8 flex justify-center items-center">
                       <DS.IconTools
-                        className="size-10 fill-neutral-600"
+                        className="size-6 fill-neutral-600"
                         icon={datasource.type}
                       />
                     </div>
                     <div>
                       <div>{datasource.name}</div>
                       {datasource.lastUseAt && (
-                        <div className="text-sm font-light">
+                        <div className="text-sm font-light text-neutral-600">
                           Last use {datasource.lastUseAt}
                         </div>
                       )}

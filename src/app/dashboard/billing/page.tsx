@@ -6,14 +6,12 @@ export default function Billing() {
     <div className="min-h-screen  pt-8">
       <div className="mx-auto container">
         <Providers>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
-            <div className="md:col-span-3">
+          <div className="lg:flex lg:gap-10  mx-auto">
+            <div className="lg:w-[18rem]">
               <Menu workspace={null} />
             </div>
-            <div className="md:col-span-9 md:px-10">
-              <div className="relative pb-10">
-                <BillingView />
-              </div>
+            <div className="lg:flex-1 relative pb-10 lg:max-w-[48rem] mx-auto">
+              <BillingView />
             </div>
           </div>
         </Providers>

@@ -47,6 +47,7 @@ export default function Workspace({ workspace }: any) {
   const handleSubmit = () => {
     callApiAdd(form).then(() => {
       modalAdd.current.hideModal();
+      getWorkspaces();
     });
   };
 

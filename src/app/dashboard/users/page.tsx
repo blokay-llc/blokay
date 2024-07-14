@@ -11,9 +11,7 @@ export default function User() {
               <Menu workspace={null} />
             </div>
             <div className="lg:flex-1 relative pb-10 lg:max-w-[48rem] mx-auto">
-              <div className="relative pb-10">
-                <ListUsers />
-              </div>
+              <ListUsers />
             </div>
           </div>
         </Providers>

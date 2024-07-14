@@ -1,4 +1,12 @@
 const colors = [
+  { bg: "bg-neutral-400", text: "text-white", color: "text-neutral-900" },
+  { bg: "bg-neutral-400", text: "text-white", color: "text-neutral-900" },
+  { bg: "bg-neutral-400", text: "text-white", color: "text-neutral-900" },
+  { bg: "bg-neutral-400", text: "text-white", color: "text-neutral-900" },
+  { bg: "bg-neutral-400", text: "text-white", color: "text-neutral-900" },
+  { bg: "bg-neutral-400", text: "text-white", color: "text-neutral-900" },
+  { bg: "bg-neutral-400", text: "text-white", color: "text-neutral-900" },
+  { bg: "bg-neutral-400", text: "text-white", color: "text-neutral-900" },
   { bg: "bg-sky-600", text: "text-white" },
   { bg: "bg-lime-600", text: "text-white" },
   { bg: "bg-indigo-600", text: "text-white" },

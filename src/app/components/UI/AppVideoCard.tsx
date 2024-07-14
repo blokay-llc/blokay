@@ -14,7 +14,7 @@ export default function AppVideoCard({
   return (
     <>
       <div
-        className="border-glow px-5 group  transition  rounded-xl py-5 flex justify-between gap-5 items-center text-indigo-900 dark:text-white cursor-pointer select-none bg-gradient-to-r from-[#f4def6] to-[#d7ecf8] dark:from-neutral-800 dark:to-blue-950"
+        className="border-neutral-300 border px-5 group  transition  rounded-lg py-5 flex justify-between gap-5 items-center text-indigo-900 dark:text-white cursor-pointer select-none bg-gradient-to-r from-[#f4def6] to-[#d7ecf8] dark:from-neutral-800 dark:to-blue-950"
         onClick={() => modalRef.current.showModal()}
       >
         <div>

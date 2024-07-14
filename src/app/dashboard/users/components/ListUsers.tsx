@@ -124,7 +124,7 @@ export default function ListUsers() {
             <div
               onClick={() => handleClickUser(user)}
               key={user.id}
-              className="px-5 py-4  hover:bg-neutral-100 dark:hover:bg-black flex items-center gap-3"
+              className="px-5 py-3  hover:bg-neutral-100 dark:hover:bg-black flex items-center gap-3"
             >
               <AvatarName
                 name={user.name}
@@ -136,7 +136,10 @@ export default function ListUsers() {
                   {user.name}
                 </div>
                 <div className="font-light text-sm dark:text-neutral-400 text-neutral-700">
-                  {user.email} - {user.rol}
+                  <span className="text-xs font-light text-neutral-700 bg-neutral-200 px-2 py-0.5 rounded-xl mr-2">
+                    {user.rol}
+                  </span>
+                  <span>{user.email}</span>
                 </div>
               </div>
             </div>
