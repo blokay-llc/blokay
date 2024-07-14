@@ -28,8 +28,6 @@ export default function Header({
     modalRef.current.showModal();
   };
 
-  const names = view?.Users ? view.Users.map((u: any) => u.name) : [];
-
   return (
     <div className="flex justify-between items-center mb-8 lg:mb-16">
       <div className="flex gap-3 items-center w-full">
@@ -65,17 +63,20 @@ export default function Header({
       </div>
 
       <div className="hidden lg:flex gap-1 items-center select-none ">
-        <div className="flex items-center">
-          {names.map((name: string, index: any) => (
-            <AvatarName
-              key={"people-" + index}
-              className="-mx-1 border-4 border-neutral-100 dark:border-neutral-950"
-              name={name}
-              colorIndex={index}
-              size="lg"
-            />
-          ))}
-        </div>
+        {view?.Users?.length > 0 && (
+          <div className="flex items-center">
+            {view.Users.map((user: any, index: any) => (
+              <AvatarName
+                key={"people-" + index}
+                className="-mx-1 border-4 border-neutral-100 dark:border-neutral-950"
+                name={user.name}
+                image={user.image}
+                colorIndex={index}
+                size="lg"
+              />
+            ))}
+          </div>
+        )}
 
         <div
           onClick={clickShare}

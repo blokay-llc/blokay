@@ -92,6 +92,7 @@ export const POST = withView(async function ({ user, view }: any) {
         })),
         Users: users.map((user: any) => ({
           id: user.id,
+          image: user.image,
           name: user.name,
         })),
         SharedUsers: sharedUsers,

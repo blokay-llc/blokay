@@ -283,3 +283,7 @@ body {
 .bl-block-response.bl-response-line {
   @apply justify-center items-center flex;
 }
+
+.bl-block-response.bl-response-value {
+  @apply bg-white dark:bg-neutral-900;
+}
