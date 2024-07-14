@@ -55,3 +55,10 @@ export const updateBusiness = async function (form: any) {
 
   return result;
 };
+
+export const sendFeedback = async function (form: any) {
+  let data = { ...form };
+
+  let result = await postRequest("users/sendFeedback", data);
+  return result;
+};

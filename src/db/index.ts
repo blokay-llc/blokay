@@ -12,6 +12,7 @@ import Workspace from "./models/brain/workspace";
 import Business from "./models/user/business";
 import User from "./models/user/user";
 import UserPermission from "./models/user/user-permission";
+import Feedback from "./models/user/feedback";
 
 class DB {
   [index: string]: any; //index signature
@@ -29,6 +30,7 @@ class DB {
     User,
     UserPermission,
     Workspace,
+    Feedback,
   };
 
   public sequelize: any = null;
