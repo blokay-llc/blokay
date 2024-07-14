@@ -1,16 +1,31 @@
+import { z } from "zod";
 import { withAdmin } from "@/lib/withUser";
-import { NextResponse } from "next/server";
+import {
+  isValidSchema,
+  sendDataValidationError,
+  sendData,
+} from "@/lib/response";
 import Models from "@/db/index";
 
 let db = new Models();
 const { User, UserPermission, View }: any = db;
 
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(4).max(100),
+  name: z.string().min(1).max(100),
+});
+
 export const POST = withAdmin(async function ({ user, req }: any) {
   const body = await req.json();
   let permissions = body.data.permissions;
 
+  const { success, errors } = await isValidSchema(schema, {
+    ...body.data,
+  });
+  if (!success) return sendDataValidationError(errors);
+
   const userCreated = await User.create({
-    id: body.data.userId,
     email: body.data.email,
     password: body.data.password,
     name: body.data.name,
@@ -40,7 +55,5 @@ export const POST = withAdmin(async function ({ user, req }: any) {
     await UserPermission.bulkCreate(bulkCreate);
   }
 
-  return NextResponse.json({
-    data: {},
-  });
+  return sendData({});
 });

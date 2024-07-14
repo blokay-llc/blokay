@@ -11,6 +11,8 @@ import { useSession } from "next-auth/react";
 import AddCreditCard from "@/app/components/UI/AddCreditCard";
 import { DS } from "@blokay/react";
 import AvatarName from "@/app/components/UI/AvatarName";
+import { useApi } from "@/hooks/useApi";
+
 export default function ListUsers() {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
@@ -18,8 +20,19 @@ export default function ListUsers() {
   const [users, setUsers] = useState([]);
   const [views, setViews] = useState([]);
   const [form, setForm]: any = useState({ permissions: {}, rol: "admin" });
-  const [loading, setLoading] = useState(false);
   const [loadingUser, setLoadingUser] = useState(false);
+
+  const { loading: loadingUsers, callApi } = useApi(fetchUsers);
+  const {
+    loading: loadingAdd,
+    errors: errorsAdd,
+    callApi: callApiAdd,
+  } = useApi(fetchAddUser);
+  const {
+    loading: loadingUpdate,
+    errors: errorsUpdate,
+    callApi: callApiUpdate,
+  } = useApi(fetchUpdateUser);
 
   const listViews = () => {
     viewList(null).then((result) => {
@@ -29,41 +42,26 @@ export default function ListUsers() {
 
   const getUsers = () => {
     setUsers([]);
-    setLoading(true);
-    fetchUsers()
-      .then((result: any) => {
-        setUsers(result.Users);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    callApi().then((result: any) => {
+      setUsers(result.Users);
+    });
   };
 
   const handleClickSubmitNewUser = () => {
-    setLoading(true);
-    fetchAddUser(form)
-      .then((result: any) => {
-        modalRef.current.hideModal();
-        getUsers();
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    callApiAdd(form).then((result: any) => {
+      modalRef.current.hideModal();
+      getUsers();
+    });
   };
 
   const handleClickSubmitUpdateUser = () => {
-    setLoading(true);
-    fetchUpdateUser({
+    callApiUpdate({
       ...form,
       userId: form.id,
-    })
-      .then((result: any) => {
-        modalRef.current.hideModal();
-        getUsers();
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    }).then((result: any) => {
+      modalRef.current.hideModal();
+      getUsers();
+    });
   };
 
   const createNewUser = () => {
@@ -92,7 +90,7 @@ export default function ListUsers() {
 
   return (
     <div className="flex flex-col gap-5 relative">
-      {loading && (
+      {loadingUsers && (
         <div className="min-h-screen border border-neutral-300 dark:border-neutral-800 rounded-xl flex items-center justify-center absolute z-10 top-0 left-0 w-full h-full dark:bg-black/40 bg-neutral-200/40  backdrop-blur-sm ">
           <DS.Loader size="md" />
         </div>
@@ -106,7 +104,7 @@ export default function ListUsers() {
           </div>
         )}
 
-      {!loading &&
+      {!loadingUsers &&
         isAdmin &&
         (users.length < session?.business?.limitUsers ||
           session?.business?.addedCard) && (
@@ -159,18 +157,18 @@ export default function ListUsers() {
             variant="primary"
             className="w-full"
             size="md"
-            loading={loading}
+            loading={loadingAdd || loadingUpdate}
           />
         }
         size="sm"
         ref={modalRef}
       >
-        {loadingUser && (
+        {(loadingUser || loadingUpdate) && (
           <div className=" flex items-center justify-center">
             <DS.Loader size="md" />
           </div>
         )}
-        {!loadingUser && (
+        {!(loadingUser || loadingUpdate) && (
           <div className="flex gap-3 flex-col">
             {form.id && (
               <a
@@ -184,6 +182,7 @@ export default function ListUsers() {
 
             <DS.Select
               value={form.rol}
+              error={errorsAdd?.rol || errorsUpdate?.rol}
               label="Rol"
               onChange={(val: string) => {
                 setForm({ ...form, rol: val });
@@ -197,6 +196,7 @@ export default function ListUsers() {
             <DS.Input
               type="text"
               value={form.name}
+              error={errorsAdd?.name || errorsUpdate?.name}
               label="Name"
               onChange={(val: string) => {
                 setForm({ ...form, name: val });
@@ -206,6 +206,7 @@ export default function ListUsers() {
             {!form.id && (
               <>
                 <DS.Input
+                  error={errorsAdd?.email || errorsUpdate?.email}
                   type="text"
                   value={form.email}
                   label="Email"
@@ -215,6 +216,7 @@ export default function ListUsers() {
                 />
 
                 <DS.Input
+                  error={errorsAdd?.password || errorsUpdate?.password}
                   type="password"
                   value={form.password}
                   label="Password"
