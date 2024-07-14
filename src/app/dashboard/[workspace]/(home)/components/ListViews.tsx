@@ -118,7 +118,7 @@ export default function ListViews({ workspace }: any) {
           />
         )}
         <div className="shrink-0">
-          <AvatarName name={session?.user?.name} />
+          <AvatarName name={session?.user?.name} image={session?.user?.image} />
         </div>
       </div>
       {!canCreateViews() && !session?.business?.addedCard && (
@@ -145,10 +145,10 @@ export default function ListViews({ workspace }: any) {
                       key={view.id}
                       className=" shadow-sm  border-transparent 	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-3 lg:py-2 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/item transition-all"
                     >
-                      <div className="font-light group-hover/item:bg-sky-200 bg-neutral-100 size-7 flex items-center justify-center rounded-lg">
+                      <div className="font-light group-hover/item:bg-neutral-200 bg-neutral-100 size-7 flex items-center justify-center rounded-lg">
                         <DS.Icon
                           icon="layers"
-                          className="size-5 group-hover/item:fill-sky-600 fill-neutral-400 dark:fill-white"
+                          className="size-5 group-hover/item:fill-neutral-700 fill-neutral-400 dark:fill-white"
                         />
                       </div>
                       <div className="font-light mr-auto text-sm md:text-base ">
@@ -156,7 +156,11 @@ export default function ListViews({ workspace }: any) {
                       </div>
                       {view.User && (
                         <div className="flex items-center gap-2 ">
-                          <AvatarName name={view?.User?.name} size="sm" />
+                          <AvatarName
+                            name={view?.User?.name}
+                            image={view?.User?.image}
+                            size="sm"
+                          />
                           <div className="font-light text-xs truncate">
                             {view.User.name}
                           </div>

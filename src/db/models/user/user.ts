@@ -6,6 +6,7 @@ export default (sequelize: any, DataTypes: any) => {
     {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       name: { type: DataTypes.STRING, allowNull: true },
+      image: { type: DataTypes.STRING, allowNull: true },
       email: { type: DataTypes.STRING, allowNull: true },
       cellphone: { type: DataTypes.STRING, allowNull: true },
       rol: { type: DataTypes.STRING, allowNull: true },

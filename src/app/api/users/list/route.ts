@@ -15,6 +15,7 @@ export const POST = withAdmin(async function ({ user }: any) {
   const list = result.map((n: any) => ({
     id: n.id,
     name: n.name,
+    image: n.image,
     email: n.email,
     rol: n.rol,
   }));

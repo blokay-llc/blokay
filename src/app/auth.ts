@@ -76,6 +76,7 @@ export const authOptions: any = {
         id: userData.id,
         businessId: userData.businessId,
         name: userData.name,
+        image: userData.image,
         email: userData.email,
         rol: userData.rol,
         extra1: userData.extra1,

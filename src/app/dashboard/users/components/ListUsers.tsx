@@ -121,14 +121,18 @@ export default function ListUsers() {
         )}
 
       {users.length > 0 && (
-        <div className="bg-white dark:bg-neutral-950  flex flex-col  rounded-lg shadow-sm border border-neutral-300 dark:border-neutral-800 dark:divide-neutral-800 divide-y overflow-hidden">
+        <div className="bg-white dark:bg-neutral-950  flex flex-col  rounded-lg shadow-sm border border-neutral-300 dark:border-neutral-800 dark:divide-neutral-800 divide-y ">
           {users.map((user: any, index: number) => (
             <div
               onClick={() => handleClickUser(user)}
               key={user.id}
               className="px-5 py-4  hover:bg-neutral-100 dark:hover:bg-black flex items-center gap-3"
             >
-              <AvatarName name={user.name} colorIndex={index} />
+              <AvatarName
+                name={user.name}
+                image={user.image}
+                colorIndex={index}
+              />
               <div>
                 <div className="dark:text-white text-neutral-800">
                   {user.name}

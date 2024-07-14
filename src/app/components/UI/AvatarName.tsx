@@ -10,12 +10,20 @@ const colors = [
   { bg: "bg-cyan-500", text: "text-cyan-900" },
 ];
 
+type AvatarNameProps = {
+  name: string;
+  colorIndex?: number;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  image?: string | null;
+};
 export default function AvatarName({
   name,
   colorIndex = 0,
   size = "md",
   className = "",
-}: any) {
+  image = null,
+}: AvatarNameProps) {
   const getShort = () => {
     let n = name || "";
     let short = n.split(" ");
@@ -38,6 +46,13 @@ export default function AvatarName({
         colors[index].bg
       } ${colors[index].text} ${className}`}
     >
+      {image && (
+        <img
+          src={image}
+          alt="avatar"
+          className="rounded-full w-full h-full object-cover absolute top-0 left-0 z-10"
+        />
+      )}
       {getShort().toUpperCase()}
       <div className="group-hover:block absolute -bottom-7 left-0  w-26 text-center hidden  bg-neutral-900 text-neutral-100 rounded-sm py-1 px-2 text-xs z-10">
         <div className="truncate">{name}</div>

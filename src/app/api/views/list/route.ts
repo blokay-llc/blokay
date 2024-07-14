@@ -93,6 +93,7 @@ export const POST = withUser(async function ({ req, user }: any) {
         ? {
             id: v.User.id,
             name: v.User.name,
+            image: v.User.image,
           }
         : null,
     });
