@@ -25,6 +25,7 @@ export default function EditorApp({ block, reload }: Props) {
   function handleMount(editor: any) {
     editorRef.current = editor;
     editorRef.current.onDidChangeModelContent(handleChange);
+    editorRef.current.updateOptions({ tabSize: 4 });
   }
 
   function getTypes() {
@@ -98,6 +99,7 @@ export default function EditorApp({ block, reload }: Props) {
           minimap: {
             enabled: false,
           },
+
           wordWrap: "wordWrapColumn",
           wordWrapColumn: 70,
         }}

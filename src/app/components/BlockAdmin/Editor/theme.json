@@ -51,15 +51,15 @@
       "token": "entity.name.tag"
     },
     {
-      "foreground": "d73a49",
+      "foreground": "fd027d",
       "token": "keyword"
     },
     {
-      "foreground": "d73a49",
+      "foreground": "fd027d",
       "token": "storage"
     },
     {
-      "foreground": "d73a49",
+      "foreground": "fd027d",
       "token": "storage.type"
     },
     {
@@ -120,7 +120,7 @@
     },
     {
       "foreground": "fafbfc",
-      "background": "d73a49",
+      "background": "fd027d",
       "fontStyle": "italic underline",
       "token": "carriage-return"
     },
