@@ -59,7 +59,7 @@ export default function Workspace({ workspace }: any) {
             <div className="text-sm bg-neutral-300  rounded-lg px-3 py-1">
               Workspace
             </div>
-            <div>{current?.name}</div>
+            <div>{current?.name || "Select"}</div>
             <div className="ml-auto">
               {loading && <DS.Loader size="sm" className="mx-auto" />}
               {!loading && (
@@ -71,12 +71,14 @@ export default function Workspace({ workspace }: any) {
             </div>
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="select-none w-64 text-neutral-600 bg-white">
+        <DropdownMenuContent className=" w-64">
           <DropdownMenuLabel>My workspaces</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {workspaces.map((workspace: any) => (
             <DropdownMenuItem key={workspace.id}>
-              <a href={`/dashboard/${workspace.id}`}>{workspace.name}</a>
+              <a className="block w-full" href={`/dashboard/${workspace.id}`}>
+                {workspace.name}
+              </a>
             </DropdownMenuItem>
           ))}
           <DropdownMenuSeparator />

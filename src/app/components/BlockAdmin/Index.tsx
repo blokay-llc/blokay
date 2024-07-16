@@ -30,11 +30,12 @@ type Props = {
   reload: () => void;
   onClose: () => void;
   jwt: string;
+  defaultView?: string | null;
 };
 export default function BlockAdmin(props: Props) {
   const router = useRouter();
   const { data: session }: any = useSession();
-  const [view, setView] = useState("chat");
+  const [view, setView] = useState(props.defaultView || "chat");
   const [blockAdmin, setBlockAdmin] = useState(null);
   const [loading, setLoading] = useState(false);
   const isAdmin = session?.user?.rol == "admin";

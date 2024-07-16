@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import GridLayout from "react-grid-layout";
-import "/node_modules/react-grid-layout/css/styles.css";
 import {
   viewGet,
   saveView as saveViewApi,
@@ -10,20 +9,18 @@ import {
   viewList,
   deleteFromLayout as deleteFromLayoutApi,
 } from "@/app/services/brain";
-import { DS, Block } from "@blokay/react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { DS } from "@blokay/react";
 import { useScreen } from "@/hooks/useScreen";
 import Header from "@/app/dashboard/[workspace]/view/[slug]/components/Header";
 import Menu from "@/app/components/Menu/Menu";
-import BlockAdmin from "../../../../../components/BlockAdmin/Index";
-import { useSession } from "next-auth/react";
-import "./styles.css";
 import { uuidv4 } from "@/app/helpers/functions";
 import ActionsEdit from "./ActionsEdit";
-import Image from "./Types/Image";
-import Button from "./Types/Button";
-import Text from "./Types/Text";
-import ActionsEditButtons from "./ActionsEditButtons";
-import { useRouter } from "next/navigation";
+import ViewItem from "./ViewItem";
+import BlockAdmin from "../../../../../components/BlockAdmin/Index";
+import "/node_modules/react-grid-layout/css/styles.css";
+import "./styles.css";
 
 interface ViewBlockProps {
   slug: string;
@@ -45,6 +42,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
   const [block, setBlock]: any = useState(null);
   const [editMode, setEditMode] = useState("user");
   const [views, setViews] = useState([]);
+  const [blockView, setBlockView]: any = useState(null);
   const { rowHeight } = useScreen();
 
   const listViews = () => {
@@ -210,6 +208,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
             editMode={editMode}
             blocks={blocks}
             workspace={workspace}
+            setDefaultView={setBlockView}
           />
         </div>
         <div className="lg:flex-1 w-full pb-10">
@@ -248,9 +247,16 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
                   }}
                 >
                   {layout().map((vItem: any) => (
-                    <div
-                      className={`group `}
+                    <ViewItem
+                      setBlockView={setBlockView}
                       key={vItem.id}
+                      vItem={vItem}
+                      editMode={editMode}
+                      clickBlock={clickBlock}
+                      actionsEditRef={actionsEditRef}
+                      isAdmin={isAdmin}
+                      setViewItem={setViewItem}
+                      className="group"
                       data-grid={{
                         x: vItem.x,
                         y: vItem.y,
@@ -258,45 +264,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
                         h: vItem.h,
                         static: editMode === "user",
                       }}
-                    >
-                      {isAdmin && editMode === "edit" && (
-                        <ActionsEditButtons
-                          viewItem={vItem}
-                          setViewItem={setViewItem}
-                          clickBlock={clickBlock}
-                          onAction={(e: any, action: string) => {
-                            e.stopPropagation();
-                            if (action === "delete") {
-                              actionsEditRef.current.deleteFromView(e);
-                            } else if (action === "edit") {
-                              actionsEditRef.current.edit(e);
-                            }
-                          }}
-                        />
-                      )}
-                      {vItem.type == "block" && (
-                        <div
-                          className={`dark:border-white/10 border-neutral-300 border rounded-xl  overflow-y-auto max-h-full h-full flex justify-center bg-neutral-100 dark:bg-transparent ${
-                            editMode == "edit" ? "grayscale" : ""
-                          }`}
-                        >
-                          <Block blockId={vItem.blockId} defaultForm={{}} />
-                        </div>
-                      )}
-                      {vItem.type == "button" && (
-                        <div
-                          className={`${editMode == "edit" ? "grayscale" : ""}`}
-                        >
-                          <Button editMode={editMode} options={vItem.options} />
-                        </div>
-                      )}
-                      {vItem.type == "image" && (
-                        <Image editMode={editMode} options={vItem.options} />
-                      )}
-                      {vItem.type == "text" && (
-                        <Text editMode={editMode} options={vItem.options} />
-                      )}
-                    </div>
+                    />
                   ))}
                 </GridLayout>
               )}
@@ -320,6 +288,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
           <BlockAdmin
             jwt={jwt}
             views={views}
+            defaultView={blockView}
             reload={() => {
               fetchView();
               fetchListBlocks();

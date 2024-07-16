@@ -54,6 +54,7 @@ type MenuProps = {
   editMode?: any;
   blocks?: any[];
   workspace: string | null;
+  setDefaultView?: any;
 };
 export default function Menu({
   views = [],
@@ -62,6 +63,7 @@ export default function Menu({
   editMode = null,
   blocks = [],
   workspace,
+  setDefaultView,
 }: MenuProps) {
   const pathName = usePathname();
   const { isMobile } = useScreenDetector();
@@ -156,7 +158,10 @@ export default function Menu({
             {editMode && views?.length > 0 && (
               <Tree
                 views={views}
-                onClickBlock={onClickBlock}
+                onClickBlock={(arg: any) => {
+                  onClickBlock && onClickBlock(arg);
+                  setDefaultView && setDefaultView("chat");
+                }}
                 view={view}
                 search={search}
                 blocks={blocks}
