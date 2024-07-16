@@ -22,6 +22,8 @@ const getDefaultDateEnd = () => {
 };
 
 const Metrics = ({ block, reload, jwt }: MetricsProps) => {
+  if (!block?.id || !jwt) return null;
+
   const [form, setForm] = useState({
     id: block?.id,
     dateStart: getDefaultDateStart(),
