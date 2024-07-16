@@ -44,8 +44,9 @@ const ViewItem = forwardRef(
       },
       editOptions(e: any) {
         e.stopPropagation();
-        actionsEditRef.current.editOptions(e);
+        actionsEditRef.current.edit(e);
         setEditMode("edit");
+        setViewItem(vItem);
       },
       edit(e: any) {
         setBlockView("chat");
@@ -111,15 +112,9 @@ const ViewItem = forwardRef(
                 e.stopPropagation();
               }}
             >
-              <ContextMenuItem inset onClick={functions.reload}>
-                Reload
-              </ContextMenuItem>
               {vItem.blockId && (
-                <ContextMenuItem
-                  inset
-                  onClick={functions.editAndOpenView("general")}
-                >
-                  Edit
+                <ContextMenuItem inset onClick={functions.reload}>
+                  Reload
                 </ContextMenuItem>
               )}
 
@@ -129,55 +124,72 @@ const ViewItem = forwardRef(
                 </ContextMenuItem>
               )}
 
-              <ContextMenuItem
-                inset
-                onClick={functions.editAndOpenView("chat")}
-              >
-                Ask AI
-                <DS.Icon
-                  icon="wizard"
-                  className="size-4 fill-neutral-500 ml-auto"
-                />
-              </ContextMenuItem>
-
-              <ContextMenuItem
-                inset
-                onClick={functions.editAndOpenView("code")}
-              >
-                Code
-              </ContextMenuItem>
-
-              <ContextMenuSub>
-                <ContextMenuSubTrigger inset>
-                  Connect with
-                </ContextMenuSubTrigger>
-                <ContextMenuSubContent className="w-48 ">
-                  <ContextMenuItem onClick={functions.editAndOpenView("api")}>
-                    API
+              {vItem.blockId && (
+                <>
+                  <ContextMenuItem
+                    inset
+                    onClick={functions.editAndOpenView("general")}
+                  >
+                    Edit
                   </ContextMenuItem>
-                  <ContextMenuSeparator />
-                  <ContextMenuItem onClick={functions.editAndOpenView("api")}>
-                    React
+                  <ContextMenuItem
+                    inset
+                    onClick={functions.editAndOpenView("chat")}
+                  >
+                    Ask AI
+                    <DS.Icon
+                      icon="wizard"
+                      className="size-4 fill-neutral-500 ml-auto"
+                    />
                   </ContextMenuItem>
-                  <ContextMenuItem onClick={functions.editAndOpenView("api")}>
-                    Vue
-                  </ContextMenuItem>
-                  <ContextMenuItem onClick={functions.editAndOpenView("api")}>
-                    HTML
-                  </ContextMenuItem>
-                </ContextMenuSubContent>
-              </ContextMenuSub>
 
-              <ContextMenuItem
-                inset
-                onClick={functions.editAndOpenView("metrics")}
-              >
-                Analytics
-              </ContextMenuItem>
-              <ContextMenuItem inset onClick={functions.edit} disabled>
-                History
-              </ContextMenuItem>
+                  <ContextMenuItem
+                    inset
+                    onClick={functions.editAndOpenView("code")}
+                  >
+                    Code
+                  </ContextMenuItem>
 
+                  <ContextMenuSub>
+                    <ContextMenuSubTrigger inset>
+                      Connect with
+                    </ContextMenuSubTrigger>
+                    <ContextMenuSubContent className="w-48 ">
+                      <ContextMenuItem
+                        onClick={functions.editAndOpenView("api")}
+                      >
+                        API
+                      </ContextMenuItem>
+                      <ContextMenuSeparator />
+                      <ContextMenuItem
+                        onClick={functions.editAndOpenView("api")}
+                      >
+                        React
+                      </ContextMenuItem>
+                      <ContextMenuItem
+                        onClick={functions.editAndOpenView("api")}
+                      >
+                        Vue
+                      </ContextMenuItem>
+                      <ContextMenuItem
+                        onClick={functions.editAndOpenView("api")}
+                      >
+                        HTML
+                      </ContextMenuItem>
+                    </ContextMenuSubContent>
+                  </ContextMenuSub>
+
+                  <ContextMenuItem
+                    inset
+                    onClick={functions.editAndOpenView("metrics")}
+                  >
+                    Analytics
+                  </ContextMenuItem>
+                  <ContextMenuItem inset onClick={functions.edit} disabled>
+                    History
+                  </ContextMenuItem>
+                </>
+              )}
               <ContextMenuSeparator />
 
               <ContextMenuItem inset onClick={functions.delete}>
