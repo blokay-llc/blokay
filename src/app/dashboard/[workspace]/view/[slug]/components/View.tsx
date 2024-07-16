@@ -22,12 +22,12 @@ import BlockAdmin from "../../../../../components/BlockAdmin/Index";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "./styles.css";
 
-interface ViewBlockProps {
+interface ViewProps {
   slug: string;
   jwt: string;
   workspace: string;
 }
-const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
+const View = ({ slug, jwt, workspace }: ViewProps) => {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
 
@@ -198,77 +198,75 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
   };
 
   return (
-    <div className="lg:px-8 px-3 md:px-5 pt-8">
-      <div className="flex lg:gap-10">
-        <div className="lg:w-[18rem] ">
-          <Menu
-            views={views}
-            view={view}
-            onClickBlock={clickBlock}
-            editMode={editMode}
-            blocks={blocks}
+    <>
+      <div className="flex lg:gap-10 lg:px-8 px-3 md:px-5 pt-8">
+        <Menu
+          views={views}
+          view={view}
+          onClickBlock={clickBlock}
+          editMode={editMode}
+          blocks={blocks}
+          workspace={workspace}
+          setDefaultView={setBlockView}
+          className="lg:w-[18rem]"
+        />
+        <div className="lg:flex-1 w-full pb-10 relative">
+          <Header
             workspace={workspace}
-            setDefaultView={setBlockView}
+            view={view}
+            save={saveView}
+            refresh={refreshView}
+            onCreate={onCreateBlock}
+            isAdmin={isAdmin}
+            editMode={editMode}
+            setEditMode={setEditMode}
           />
-        </div>
-        <div className="lg:flex-1 w-full pb-10">
-          <div className="relative  ">
-            <Header
-              workspace={workspace}
-              view={view}
-              save={saveView}
-              refresh={refreshView}
-              onCreate={onCreateBlock}
-              isAdmin={isAdmin}
-              editMode={editMode}
-              setEditMode={setEditMode}
-            />
 
-            <div
-              className={`lg:mt-10 ${
-                editMode == "edit" ? "select-none edit-mode" : ""
-              }`}
-              ref={containerRef}
-            >
-              {containerWidth && (
-                <GridLayout
-                  className="relative"
-                  cols={24}
-                  style={{ minHeight: 600 }}
-                  rowHeight={rowHeight}
-                  width={containerWidth}
-                  droppingItem={{ i: "__dropping-elem__", h: 10, w: 12 }}
-                  margin={[20, 30]}
-                  containerPadding={[0, 0]}
-                  onDrop={onDrop}
-                  isDroppable={editMode === "edit"}
-                  onLayoutChange={(layout: any[]) => {
-                    saveLayout(layout);
-                  }}
-                >
-                  {layout().map((vItem: any) => (
-                    <ViewItem
-                      setBlockView={setBlockView}
-                      key={vItem.id}
-                      vItem={vItem}
-                      editMode={editMode}
-                      clickBlock={clickBlock}
-                      actionsEditRef={actionsEditRef}
-                      isAdmin={isAdmin}
-                      setViewItem={setViewItem}
-                      className="group"
-                      data-grid={{
-                        x: vItem.x,
-                        y: vItem.y,
-                        w: vItem.w,
-                        h: vItem.h,
-                        static: editMode === "user",
-                      }}
-                    />
-                  ))}
-                </GridLayout>
-              )}
-            </div>
+          <div
+            className={`lg:mt-10 ${
+              editMode == "edit" ? "select-none edit-mode" : ""
+            }`}
+            ref={containerRef}
+          >
+            {containerWidth && (
+              <GridLayout
+                className="relative"
+                cols={24}
+                style={{ minHeight: 600 }}
+                rowHeight={rowHeight}
+                width={containerWidth}
+                droppingItem={{ i: "__dropping-elem__", h: 10, w: 12 }}
+                margin={[20, 30]}
+                containerPadding={[0, 0]}
+                onDrop={onDrop}
+                isDroppable={editMode === "edit"}
+                onLayoutChange={(layout: any[]) => {
+                  saveLayout(layout);
+                }}
+              >
+                {layout().map((vItem: any) => (
+                  <ViewItem
+                    setBlockView={setBlockView}
+                    key={vItem.id}
+                    vItem={vItem}
+                    editMode={editMode}
+                    clickBlock={clickBlock}
+                    actionsEditRef={actionsEditRef}
+                    isAdmin={isAdmin}
+                    setViewItem={setViewItem}
+                    setEditMode={setEditMode}
+                    className="group"
+                    data-grid={{
+                      x: vItem.x,
+                      y: vItem.y,
+                      w: vItem.w,
+                      h: vItem.h,
+                      static: editMode === "user",
+                    }}
+                  />
+                ))}
+              </GridLayout>
+            )}
           </div>
         </div>
       </div>
@@ -303,7 +301,7 @@ const ViewBlock = ({ slug, jwt, workspace }: ViewBlockProps) => {
           />
         )}
       </DS.Modal>
-    </div>
+    </>
   );
 };
-export default ViewBlock;
+export default View;

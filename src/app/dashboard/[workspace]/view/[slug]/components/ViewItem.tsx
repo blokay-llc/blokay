@@ -26,6 +26,7 @@ const ViewItem = forwardRef(
       children,
       vItem,
       editMode,
+      setEditMode,
       clickBlock,
       actionsEditRef,
       isAdmin,
@@ -39,22 +40,26 @@ const ViewItem = forwardRef(
       delete(e: any) {
         e.stopPropagation();
         actionsEditRef.current.deleteFromView(e);
+        setEditMode("edit");
       },
       editOptions(e: any) {
         e.stopPropagation();
         actionsEditRef.current.editOptions(e);
+        setEditMode("edit");
       },
       edit(e: any) {
         setBlockView("chat");
         e.stopPropagation();
         setViewItem(vItem);
         clickBlock(vItem.blockId);
+        setEditMode("edit");
       },
       editAndOpenView: (v: string) => (e: any) => {
         setBlockView(v);
         e.stopPropagation();
         setViewItem(vItem);
         clickBlock(vItem.blockId);
+        setEditMode("edit");
       },
       reload(e: any) {
         e.stopPropagation();

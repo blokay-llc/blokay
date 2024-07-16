@@ -1,5 +1,5 @@
 "use client";
-import ViewBlock from "./ViewBlock";
+import View from "./View";
 import { BlokayProvider } from "@blokay/react";
 import { useSession } from "next-auth/react";
 
@@ -20,7 +20,7 @@ export default function Page({
         jwtToken={session?.jwtToken}
         endpoint={process.env.NEXT_PUBLIC_API || "https://app.blokay.com/api/"}
       >
-        <ViewBlock slug={slug} workspace={workspace} jwt={jwt} />
+        <View slug={slug} workspace={workspace} jwt={jwt} />
       </BlokayProvider>
     </div>
   );
