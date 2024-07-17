@@ -2,16 +2,15 @@
 import { useState } from "react";
 import { DS } from "@blokay/react";
 import Editor from "@monaco-editor/react";
+import theme from "./Editor/theme.json" assert { type: "json" };
 
 function BoxIntegration({ title, icon = "", iconTool = "", children }: any) {
   const [showing, setShowing] = useState(false);
   return (
     <div className="select-none">
       <div
-        className={`border-neutral-200  dark:border-neutral-800 border px-5 py-3 rounded-lg flex flex-col gap-5 ${
-          showing
-            ? "bg-neutral-200 dark:bg-[#21252b]"
-            : "dark:hover:bg-white/10"
+        className={`border-neutral-200  dark:border-neutral-800 border-2 px-5 py-3 rounded-lg flex flex-col gap-5 ${
+          showing ? "bg-white dark:bg-[#21252b]" : "dark:hover:bg-white/10"
         }`}
       >
         <div
@@ -71,8 +70,7 @@ export default function BlockAPIDoc({ block }: any) {
     form: form,
   };
 
-  const reactContent = `
-import { Block } from "@blokay/react";
+  const reactContent = `import { Block } from "@blokay/react";
 
 function Component() {
   const form = ${JSON.stringify(form, null, 4)};
@@ -83,8 +81,7 @@ function Component() {
         />
 }`;
 
-  const vueContent = `
-<template>
+  const vueContent = `<template>
   ...
   <Block
     block="${block.key}"
@@ -104,21 +101,8 @@ export default {
 `;
 
   function setEditorTheme(monaco: any) {
-    monaco.editor.defineTheme("onedark", {
-      base: "vs-dark",
-      inherit: true,
-      rules: [
-        {
-          token: "comment",
-          foreground: "#5d7988",
-          fontStyle: "italic",
-        },
-        { token: "constant", foreground: "#e06c75" },
-      ],
-      colors: {
-        "editor.background": "#21252b",
-      },
-    });
+    monaco.editor.defineTheme("themeEditor", theme);
+    monaco.editor.setTheme("themeEditor");
   }
 
   return (
@@ -138,15 +122,19 @@ export default {
             options={{
               insertSpaces: true,
               tabSize: 4,
-              fontSize: 16,
+              fontSize: 15,
+              lineHeight: 20,
+              fontWeight: "400",
+              fontFamily: "'JetBrains Mono', 'sans-serif', monospace",
               minimap: {
                 enabled: false,
               },
-              wordWrap: "on",
-              readOnly: true,
+
+              wordWrap: "wordWrapColumn",
+              wordWrapColumn: 70,
             }}
             beforeMount={setEditorTheme}
-            theme="onedark"
+            theme="themeEditor"
             height="200px"
             defaultLanguage="json"
             value={JSON.stringify(req, null, 2)}
@@ -159,15 +147,19 @@ export default {
             options={{
               insertSpaces: true,
               tabSize: 4,
-              fontSize: 14,
+              fontSize: 15,
+              lineHeight: 20,
+              fontWeight: "400",
+              fontFamily: "'JetBrains Mono', 'sans-serif', monospace",
               minimap: {
                 enabled: false,
               },
-              wordWrap: "on",
-              readOnly: true,
+
+              wordWrap: "wordWrapColumn",
+              wordWrapColumn: 70,
             }}
             beforeMount={setEditorTheme}
-            theme="onedark"
+            theme="themeEditor"
             height="100%"
             defaultLanguage="typescript"
             value={reactContent}
@@ -180,15 +172,19 @@ export default {
             options={{
               insertSpaces: true,
               tabSize: 4,
-              fontSize: 14,
+              fontSize: 15,
+              lineHeight: 20,
+              fontWeight: "400",
+              fontFamily: "'JetBrains Mono', 'sans-serif', monospace",
               minimap: {
                 enabled: false,
               },
-              wordWrap: "on",
-              readOnly: true,
+
+              wordWrap: "wordWrapColumn",
+              wordWrapColumn: 70,
             }}
             beforeMount={setEditorTheme}
-            theme="onedark"
+            theme="themeEditor"
             height="100%"
             defaultLanguage="html"
             value={vueContent}
