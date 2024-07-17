@@ -118,7 +118,11 @@ export default function ListViews({ workspace }: any) {
           />
         )}
         <div className="shrink-0">
-          <AvatarName name={session?.user?.name} image={session?.user?.image} />
+          <AvatarName
+            name={session?.user?.name}
+            image={session?.user?.image}
+            id={session?.user?.id}
+          />
         </div>
       </div>
       {!canCreateViews() && !session?.business?.addedCard && (
