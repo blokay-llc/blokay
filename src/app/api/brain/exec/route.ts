@@ -49,6 +49,26 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
 
   let response = await callContext(block, session, form, datasource);
 
+  if (datasource) {
+    datasource.update({ lastUseAt: Date.now() });
+  }
+  let timeMs = Date.now() - d1;
+  block.update({
+    executions: db.sequelize.literal(`executions + 1`),
+    timeMs: db.sequelize.literal(`timeMs + ${timeMs}`),
+  });
+
+  BlockExecution.create({
+    timeMs,
+    userId: session.id || session.userId || null,
+    dataSourceId: datasource?.id,
+    blockId: block.id,
+    businessId: business.id,
+    data: form,
+    finishAt: Date.now(),
+    error: response?.type == "exception" ? response.content?.name : null,
+  });
+
   if (format == "excel" && response?.type == "table") {
     let content = response.content;
     let dataExcel = [
@@ -83,26 +103,6 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
     );
     return nextResponse;
   }
-
-  if (datasource) {
-    datasource.update({ lastUseAt: Date.now() });
-  }
-  let timeMs = Date.now() - d1;
-  block.update({
-    executions: db.sequelize.literal(`executions + 1`),
-    timeMs: db.sequelize.literal(`timeMs + ${timeMs}`),
-  });
-
-  BlockExecution.create({
-    timeMs,
-    userId: session.id || session.userId || null,
-    dataSourceId: datasource?.id,
-    blockId: block.id,
-    businessId: business.id,
-    data: form,
-    finishAt: Date.now(),
-    error: response?.type == "exception" ? response.content?.name : null,
-  });
 
   return NextResponse.json({
     data: {
