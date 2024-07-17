@@ -39,6 +39,7 @@ const ViewItem = forwardRef(
     const functions: any = {
       delete(e: any) {
         e.stopPropagation();
+        setViewItem(vItem);
         actionsEditRef.current.deleteFromView(e);
         setEditMode("edit");
       },
