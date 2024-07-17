@@ -11,6 +11,7 @@ export default function ShareView({ SharedUsers }: any) {
         {SharedUsers.map((user: any, index: any) => (
           <div className="flex gap-3 items-center py-2" key={user.id}>
             <AvatarName
+              id={user.id}
               name={user.name}
               image={user.image}
               colorIndex={index}

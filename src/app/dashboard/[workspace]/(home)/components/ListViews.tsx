@@ -157,6 +157,7 @@ export default function ListViews({ workspace }: any) {
                       {view.User && (
                         <div className="flex items-center gap-2 ">
                           <AvatarName
+                            id={view?.User?.id}
                             name={view?.User?.name}
                             image={view?.User?.image}
                             size="sm"

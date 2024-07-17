@@ -71,6 +71,7 @@ export default function Header({
                 className="-mx-1 border-4 border-neutral-100 dark:border-neutral-950"
                 name={user.name}
                 image={user.image}
+                id={user.id}
                 colorIndex={index}
                 size="lg"
               />

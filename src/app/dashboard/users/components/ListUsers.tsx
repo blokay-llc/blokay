@@ -129,6 +129,7 @@ export default function ListUsers() {
               <AvatarName
                 name={user.name}
                 image={user.image}
+                id={user.id}
                 colorIndex={index}
               />
               <div>
