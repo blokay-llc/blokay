@@ -20,7 +20,7 @@ export const buildRequest = ({
     createButton(label: string, blockKey: string, form: any): any {
       return {
         html: `<button>${label}</button>`,
-        value: label,
+        text: label,
         click: "openBlock",
         args: {
           blockKey,
