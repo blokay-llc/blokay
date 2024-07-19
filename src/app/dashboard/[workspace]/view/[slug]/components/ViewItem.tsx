@@ -32,6 +32,7 @@ const ViewItem = forwardRef(
       isAdmin,
       setViewItem,
       setBlockView,
+      blocks,
     }: any,
     ref: any
   ) => {
@@ -60,13 +61,21 @@ const ViewItem = forwardRef(
         setBlockView(v);
         e.stopPropagation();
         setViewItem(vItem);
-        clickBlock(vItem.blockId);
+        clickBlock(getBlockId());
         setEditMode("edit");
       },
       reload(e: any) {
         e.stopPropagation();
         setSeed(Math.random());
       },
+    };
+
+    const getBlockId = () => {
+      if (vItem.blockId) {
+        return vItem.blockId;
+      }
+      let block = blocks.find((x: any) => x.key == vItem?.options?.blockKey);
+      return block?.id || null;
     };
     return (
       <div
@@ -121,9 +130,23 @@ const ViewItem = forwardRef(
             {isAdmin && (
               <>
                 {!vItem.blockId && (
-                  <ContextMenuItem inset onClick={functions.editOptions}>
-                    Edit options
-                  </ContextMenuItem>
+                  <>
+                    <ContextMenuItem inset onClick={functions.editOptions}>
+                      Edit options
+                    </ContextMenuItem>
+                    {getBlockId() && (
+                      <>
+                        <ContextMenuSeparator />
+                        <ContextMenuItem inset onClick={functions.edit}>
+                          Edit block
+                          <DS.Icon
+                            icon="component"
+                            className="size-4 fill-neutral-500 ml-auto"
+                          />
+                        </ContextMenuItem>
+                      </>
+                    )}
+                  </>
                 )}
 
                 {vItem.blockId && (

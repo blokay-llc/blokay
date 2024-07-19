@@ -255,6 +255,7 @@ const View = ({ slug, jwt, workspace }: ViewProps) => {
                     isAdmin={isAdmin}
                     setViewItem={setViewItem}
                     setEditMode={setEditMode}
+                    blocks={blocks}
                     className="group"
                     data-grid={{
                       x: vItem.x,
