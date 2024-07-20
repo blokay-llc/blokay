@@ -10,9 +10,16 @@ export function decodeJWT(token: string) {
 
 export const withJWT = (cb: any) => {
   return async function (req: NextRequest, res: NextRequest) {
-    const body = await req.json();
+    let body;
+    let token;
+    if (req.headers.get("content-type")?.includes("application/json")) {
+      body = await req.json();
+      token = body._token;
+    } else {
+      body = await req.formData();
+      token = body.get("_token");
+    }
 
-    let token = body._token;
     if (!token) {
       return NextResponse.json(
         {

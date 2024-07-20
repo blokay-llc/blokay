@@ -1,15 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
-import { withUser } from "@/lib/withUser";
 import { uploadFile } from "@/app/helpers/aws";
-export const POST = withUser(async function ({
-  req,
-  user,
-}: {
-  req: NextRequest;
-  user: any;
-}) {
-  const formData = await req.formData();
-  const file: any = formData.get("file");
+import { withJWT } from "@/lib/withJWT";
+export const POST = withJWT(async function ({ body }: any) {
+  const file: any = body.get("file");
   if (!file) {
     return NextResponse.json({ error: "No files received." }, { status: 400 });
   }
