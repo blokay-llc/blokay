@@ -29,10 +29,14 @@ export default class CronExecutor {
 
   async setCrons(newState: any) {
     for (let index in this.crons) {
-      let cron = this.crons[index];
-      let newItem = newState.find((item: any) => item.id === cron.id);
+      let newItem = newState.find(
+        (item: any) => item.id === this.crons[index].id
+      );
       // remove item
-      if (!newItem || newItem.cron != cron.cron) {
+      if (
+        this.crons[index] &&
+        (!newItem || newItem.cron != this.crons[index].cron)
+      ) {
         this.crons[index].job.stop();
         this.crons.splice(index, 1);
       }

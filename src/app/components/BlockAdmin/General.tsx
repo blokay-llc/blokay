@@ -339,6 +339,7 @@ const General = ({ block, reload, onClose }: Props) => {
                     setForm({ ...form, cron: val });
                   }}
                 >
+                  <option value="">Custom</option>
                   <option value="* * * * *">Every minute</option>
                   <option value="*/5 * * * *">Every 5 minutes</option>
                   <option value="*/10 * * * *">Every 10 minutes</option>
