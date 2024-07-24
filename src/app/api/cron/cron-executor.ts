@@ -10,11 +10,10 @@ const { Block, Datasource, BlockExecution }: any = db;
 
 export default class CronExecutor {
   private crons: any = [];
-  private lastCall = null;
+  private lastCall: number | null = null;
   private times = 0;
 
   constructor() {
-    this.getCrons();
     this.loop();
   }
   static sleep(ms: number) {
@@ -53,7 +52,10 @@ export default class CronExecutor {
       cron.args = buildArgs({ datasource: cron.datasource });
       cron.job = CronJob.from({
         cronTime: cron.cron,
-        onTick: () => CronExecutor.execute(cron),
+        onTick: () => {
+          this.lastCall = Date.now();
+          CronExecutor.execute(cron);
+        },
       });
       cron.job.start();
       this.crons.push(cron);
