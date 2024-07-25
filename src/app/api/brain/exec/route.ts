@@ -79,9 +79,7 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
           if (typeof col == "string" || typeof col == "number") {
             val = col;
           } else if (col?.text || col?.type) {
-            val = col.text;
-          } else {
-            console.log("TYPE not defined EXCEL GENERATION", col);
+            val = col.text || "";
           }
           return val;
         })
