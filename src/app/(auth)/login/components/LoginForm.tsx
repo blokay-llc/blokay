@@ -126,7 +126,7 @@ export default function LoginForm() {
       </div>
 
       <DS.Modal
-        title="Delete view"
+        title="Recover password"
         footer={
           <div className="flex items-center gap-5">
             <DS.Button
