@@ -12,8 +12,10 @@ import AddCreditCard from "@/app/components/UI/AddCreditCard";
 import { DS } from "@blokay/react";
 import AvatarName from "@/app/components/UI/AvatarName";
 import { useApi } from "@/hooks/useApi";
+import { fetchWorkspaces } from "@/app/services/workspace";
 
 export default function ListUsers() {
+  const [workspaces, setWorkspaces] = useState([]);
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
   const modalRef: any = useRef();
@@ -34,8 +36,13 @@ export default function ListUsers() {
     callApi: callApiUpdate,
   } = useApi(fetchUpdateUser);
 
-  const listViews = () => {
-    viewList(null).then((result) => {
+  const { callApi: callApiWorkspace } = useApi(fetchWorkspaces);
+
+  const { callApi: callApiViews, loading: loadingViews } = useApi(viewList);
+
+  const listViews = (workspaceId: string | null) => {
+    if (!workspaceId) return;
+    callApiViews(workspaceId).then((result) => {
       setViews(result.Views);
     });
   };
@@ -51,6 +58,12 @@ export default function ListUsers() {
     callApiAdd(form).then((result: any) => {
       modalRef.current.hideModal();
       getUsers();
+    });
+  };
+
+  const getWorkspaces = () => {
+    callApiWorkspace(null).then((result) => {
+      setWorkspaces(result.Workspaces);
     });
   };
 
@@ -85,8 +98,12 @@ export default function ListUsers() {
 
   useEffect(() => {
     getUsers();
-    listViews();
+    getWorkspaces();
   }, []);
+
+  useEffect(() => {
+    listViews(form.workspaceId);
+  }, [form.workspaceId]);
 
   return (
     <div className="flex flex-col gap-5 relative">
@@ -232,53 +249,79 @@ export default function ListUsers() {
             )}
 
             {form.rol != "admin" && (
-              <div className="gap-5 flex flex-col">
-                {views.map((c: any) => (
-                  <div>
-                    <div className="items-center gap-2 flex mb-3">
-                      <DS.Checkbox
-                        type="text"
-                        value={
-                          c.Views.length ==
-                          c.Views.filter((v: any) => !!form.permissions[v.id])
-                            .length
-                        }
-                        onChange={() => {
-                          let newForm: any = {};
-                          for (let index in c.Views) {
-                            let item: any = c.Views[index];
-                            newForm[item.id] = true;
-                          }
-                          setForm({
-                            ...form,
-                            permissions: { ...form.permissions, ...newForm },
-                          });
-                        }}
-                      />
-                      <h2>{c.name}</h2>
-                    </div>
-                    <div className="flex flex-col gap-1 pl-3">
-                      {c.Views.map((v: any) => (
-                        <div key={"view" + v.id}>
-                          <DS.Checkbox
-                            type="text"
-                            value={form.permissions[v.id]}
-                            label={v.name}
-                            onChange={() => {
-                              setForm({
-                                ...form,
-                                permissions: {
-                                  ...form.permissions,
-                                  [v.id]: !form.permissions[v.id],
-                                },
-                              });
-                            }}
-                          />
+              <div>
+                <DS.Select
+                  value={form.workspaceId}
+                  label="Workspace"
+                  onChange={(workspaceId: string) => {
+                    setForm({ ...form, workspaceId });
+                  }}
+                >
+                  <option value="">Select</option>
+                  {workspaces.map((workspace: any) => (
+                    <option key={workspace.id} value={workspace.id}>
+                      {workspace.name}
+                    </option>
+                  ))}
+                </DS.Select>
+
+                <div className="mt-5">
+                  {loadingViews && <DS.Loader size="md" className="mx-auto" />}
+                  {!loadingViews && (
+                    <div className="gap-5 flex flex-col">
+                      {views.map((c: any) => (
+                        <div>
+                          <div className="items-center gap-2 flex mb-3">
+                            <DS.Checkbox
+                              type="text"
+                              value={
+                                c.Views.length ==
+                                c.Views.filter(
+                                  (v: any) => !!form.permissions[v.id]
+                                ).length
+                              }
+                              onChange={() => {
+                                let newForm: any = {};
+                                for (let index in c.Views) {
+                                  let item: any = c.Views[index];
+                                  newForm[item.id] = true;
+                                }
+                                setForm({
+                                  ...form,
+                                  permissions: {
+                                    ...form.permissions,
+                                    ...newForm,
+                                  },
+                                });
+                              }}
+                            />
+                            <h2>{c.name}</h2>
+                          </div>
+                          <div className="flex flex-col gap-1 pl-3">
+                            {c.Views.map((v: any) => (
+                              <div key={"view" + v.id}>
+                                <DS.Checkbox
+                                  type="text"
+                                  value={form.permissions[v.id]}
+                                  label={v.name}
+                                  onChange={() => {
+                                    setForm({
+                                      ...form,
+                                      permissions: {
+                                        ...form.permissions,
+                                        [v.id]: !form.permissions[v.id],
+                                      },
+                                    });
+                                  }}
+                                />
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       ))}
                     </div>
-                  </div>
-                ))}
+                  )}
+                </div>
               </div>
             )}
           </div>
