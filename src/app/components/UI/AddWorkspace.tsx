@@ -7,7 +7,7 @@ export default function AddWorkspace() {
   const { currentWorkspace } = useContext(Context);
   const [show, setShow] = useState(true);
   const router = useRouter();
-  if (currentWorkspace.datasources == 1) return null;
+  if (currentWorkspace.datasources > 0) return null;
   if (!show) return null;
   return (
     <div className="top-0 left-0 absolute w-full h-full z-10 backdrop-blur-sm bg-neutral-100/60 border border-neutral-300 p-5 rounded-lg flex items-center justify-center">
