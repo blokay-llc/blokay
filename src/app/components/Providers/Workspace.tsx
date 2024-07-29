@@ -1,9 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-// import useSession from "../hooks/useSession";
-import { fetchWorkspaces, fetchAddWorkspace } from "@/app/services/workspace";
+import { fetchWorkspaces } from "@/app/services/workspace";
 import { useApi } from "@/hooks/useApi";
-import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 const contextDefaultValue: any = {
   session: null,
@@ -18,7 +16,10 @@ const WorkspaceProvider = ({ children }: WorkspaceProviderProps) => {
   const { workspace } = useParams<{ workspace: string }>();
   const { loading, callApi } = useApi(fetchWorkspaces);
   const [workspaces, setWorkspaces] = useState([]);
-  const [current, setCurrent] = useState({ id: null, name: null });
+  const [currentWorkspace, setCurrentWorkspace] = useState({
+    id: null,
+    name: null,
+  });
   const router = useRouter();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const WorkspaceProvider = ({ children }: WorkspaceProviderProps) => {
   const getWorkspaces = () => {
     callApi(workspace).then((result) => {
       setWorkspaces(result.Workspaces);
-      setCurrent(result.CurrentWorkspace);
+      setCurrentWorkspace(result.CurrentWorkspace);
       if (!result.CurrentWorkspace && workspace) {
         router.push(`/dashboard`);
       }
@@ -45,7 +46,7 @@ const WorkspaceProvider = ({ children }: WorkspaceProviderProps) => {
         workspaces,
         loading,
         getWorkspaces,
-        current,
+        currentWorkspace,
       }}
     >
       {children}

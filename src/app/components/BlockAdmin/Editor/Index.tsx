@@ -4,6 +4,7 @@ import Editor from "@monaco-editor/react";
 import { DS } from "@blokay/react";
 import { updateBlock } from "@/app/services/brain";
 import theme from "./theme.json" assert { type: "json" };
+import AddWorkspace from "../../UI/AddWorkspace";
 
 type Props = {
   block: any;
@@ -72,9 +73,11 @@ export default function EditorApp({ block, reload }: Props) {
 
   return (
     <div
-      className="  rounded-3xl overflow-hidde lg:h-[32rem]"
+      className="  rounded-3xl overflow-hidde lg:h-[32rem] relative"
       style={{ backgroundColor: "#fff" }}
     >
+      <AddWorkspace />
+
       {diagnostics.length > 0 && (
         <div>
           {diagnostics.map((d: any, k: number) => (

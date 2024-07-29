@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useRef, useContext } from "react";
 import { DS } from "@blokay/react";
 import { fetchAddWorkspace } from "@/app/services/workspace";
 import { useApi } from "@/hooks/useApi";
@@ -17,7 +17,8 @@ export default function Workspace({ workspace }: any) {
   const [form, setForm] = useState({ name: "" });
   const modalAdd: any = useRef();
 
-  const { loading, getWorkspaces, workspaces, current } = useContext(Context);
+  const { loading, getWorkspaces, workspaces, currentWorkspace } =
+    useContext(Context);
 
   const {
     loading: loadingAdd,
@@ -40,7 +41,7 @@ export default function Workspace({ workspace }: any) {
             <div className="text-sm bg-neutral-300 dark:bg-neutral-800  rounded-lg px-3 py-1">
               Workspace
             </div>
-            <div>{current?.name || "Select"}</div>
+            <div>{currentWorkspace?.name || "Select"}</div>
             <div className="ml-auto">
               {loading && <DS.Loader size="sm" className="mx-auto" />}
               {!loading && (
