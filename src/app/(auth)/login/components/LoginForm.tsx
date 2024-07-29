@@ -46,7 +46,7 @@ export default function LoginForm() {
           <img src="/logo.svg" className="h-10 mb-10 mx-auto dark:hidden" />
         </a>
 
-        <form action={login} className="flex flex-col gap-5">
+        <form action={login} className="flex flex-col gap-3">
           <DS.Input
             type="text"
             label="Email"
@@ -114,11 +114,11 @@ export default function LoginForm() {
         <div className=" mx-auto mt-10  ">
           <a
             href="/register"
-            className="border-neutral-300 dark:border-neutral-950 border-2 text-neutral-700 px-5 py-3 rounded-2xl shadow-2xl shadow-neutral-400 dark:shadow-black dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-950 flex items-center gap-5 bg-gradient-to-r from-white dark:from-black dark:to-blue-950 to-indigo-100"
+            className="border-neutral-300 dark:border-neutral-950 border-2 text-neutral-700 px-5 py-3 rounded-2xl shadow-2xl shadow-neutral-400 dark:shadow-black dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-950 flex items-center gap-5"
           >
-            <DS.Icon icon="account" className="size-10 fill-neutral-500" />
+            <DS.Icon icon="account" className="size-8 fill-neutral-500" />
             <div>
-              <span className="font-bold">Need a new workspace? </span>
+              <span className="font-bold">Don't have an account? </span>
               <div className="font-light text-sm">Sign up</div>
             </div>
           </a>

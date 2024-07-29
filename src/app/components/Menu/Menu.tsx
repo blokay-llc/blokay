@@ -136,7 +136,7 @@ export default function Menu({
           {isAdmin && workspace && (
             <MenuOption
               currentPath={pathName}
-              name="Settings"
+              name="Datasources"
               icon="config"
               href={`/dashboard/${workspace}/settings`}
             />

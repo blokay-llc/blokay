@@ -213,7 +213,7 @@ export default function DatasourceForm({
           ))}
         </div>
 
-        <div className="lg:w-1/3 w-full flex flex-col gap-5">
+        <div className="lg:w-96 w-full flex flex-col gap-5">
           <DS.Input
             type="text"
             value={form.name}

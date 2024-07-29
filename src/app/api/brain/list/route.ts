@@ -32,11 +32,12 @@ function getSubBlocks(str: string, blockKeysMap: any[]) {
   blocks = [...blocks, ...ocurrences];
 
   return blocks.map((n: any) => {
-    if (n.includes("blockId")) {
-      return stripText("blockId", n);
+    let toSearch = n || "";
+    if (toSearch.includes("blockId")) {
+      return stripText("blockId", toSearch);
     }
 
-    let blockKey: any = stripText("blockKey", n);
+    let blockKey: any = stripText("blockKey", toSearch);
     return blockKeysMap[blockKey];
   });
 }
