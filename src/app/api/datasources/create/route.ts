@@ -31,15 +31,19 @@ export const POST = withAdmin(async function ({ req, user }: any) {
   const { success, errors } = await isValidSchema(schema, body.data);
   if (!success) return sendDataValidationError(errors);
 
+  const workspace = await Workspace.findById(body.data.workspaceId);
+
   await Datasource.create({
     type: body.data.type,
     name: body.data.name,
     businessId: user.businessId,
-    workspaceId: body.data.workspaceId,
+    workspaceId: workspace.id,
     config: {
       database: body.data.config,
     },
   });
+
+  await workspace.increment("datasources", { by: 1 });
 
   return sendData({});
 });

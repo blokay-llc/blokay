@@ -1,8 +1,7 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { DS } from "@blokay/react";
-import { fetchWorkspaces, fetchAddWorkspace } from "@/app/services/workspace";
-import { useRouter } from "next/navigation";
+import { fetchAddWorkspace } from "@/app/services/workspace";
 import { useApi } from "@/hooks/useApi";
 import {
   DropdownMenu,
@@ -12,37 +11,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/app/components/UI/Dropdown";
+import { Context } from "../Providers/Workspace";
 
 export default function Workspace({ workspace }: any) {
-  const [workspaces, setWorkspaces] = useState([]);
   const [form, setForm] = useState({ name: "" });
-  const [current, setCurrent] = useState({ id: null, name: null });
   const modalAdd: any = useRef();
-  const router = useRouter();
-  const { loading, callApi } = useApi(fetchWorkspaces);
+
+  const { loading, getWorkspaces, workspaces, current } = useContext(Context);
+
   const {
     loading: loadingAdd,
     callApi: callApiAdd,
     errors,
   } = useApi(fetchAddWorkspace);
-
-  useEffect(() => {
-    getWorkspaces();
-  }, []);
-
-  useEffect(() => {
-    getWorkspaces();
-  }, [workspace]);
-
-  const getWorkspaces = () => {
-    callApi(workspace).then((result) => {
-      setWorkspaces(result.Workspaces);
-      setCurrent(result.CurrentWorkspace);
-      if (!result.CurrentWorkspace && workspace) {
-        router.push(`/dashboard`);
-      }
-    });
-  };
 
   const handleSubmit = () => {
     callApiAdd(form).then(() => {

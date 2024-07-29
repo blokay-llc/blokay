@@ -20,6 +20,7 @@ const model = (sequelize: any, DataTypes: any) => {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
       name: { type: DataTypes.STRING, allowNull: true },
       businessId: { type: DataTypes.INTEGER, allowNull: true },
+      datasources: { type: DataTypes.INTEGER, allowNull: true },
       slug: {
         type: DataTypes.STRING,
         allowNull: true,

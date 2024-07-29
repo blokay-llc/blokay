@@ -1,4 +1,4 @@
-import Providers from "@/app/(auth)/login/components/Providers";
+import Providers from "@/app/components/Providers/Providers";
 import ListUsers from "./components/ListUsers";
 import Menu from "@/app/components/Menu/Menu";
 export default function User() {

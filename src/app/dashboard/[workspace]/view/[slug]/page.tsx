@@ -1,5 +1,5 @@
 import Page from "./components/Page";
-import Providers from "@/app/(auth)/login/components/Providers";
+import Providers from "@/app/components/Providers/Providers";
 import jwt from "jsonwebtoken";
 
 const getJWT = () => {

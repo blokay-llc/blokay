@@ -1,5 +1,5 @@
 import Menu from "@/app/components/Menu/Menu";
-import Providers from "@/app/(auth)/login/components/Providers";
+import Providers from "@/app/components/Providers/Providers";
 import ListViews from "@/app/dashboard/[workspace]/(home)/components/ListViews";
 import Feedback from "@/app/dashboard/[workspace]/(home)/components/Feedback";
 
