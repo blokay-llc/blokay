@@ -76,8 +76,6 @@ export default function LoginForm() {
           />
         </form>
 
-        <div></div>
-
         <div className="mt-10 grid grid-cols-2 gap-3">
           {process.env.NEXT_PUBLIC_GOOGLE_LOGIN != "0" && (
             <div
