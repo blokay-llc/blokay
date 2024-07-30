@@ -7,8 +7,8 @@ import SignInButton from "./SignInButton";
 export default function SignUp() {
   const [step, setStep] = useState("providers");
   return (
-    <div className="container">
-      <div className="lg:max-w-96 mx-auto bg-white shadow-lg px-5 py-10 my-10 rounded-xl">
+    <div className="container relative ">
+      <div className="lg:max-w-96 mx-auto bg-white/80 shadow-lg px-5 py-10 my-10 rounded-xl">
         <a href="/" className="mb-5 block">
           <img
             src="/logo-white.svg"
