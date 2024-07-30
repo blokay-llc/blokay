@@ -22,7 +22,7 @@ export async function callContext(
   let response: BlockResponse;
   try {
     let req = buildRequest({ session, form, datasources });
-    let res = buildResponse({ session, form, datasources });
+    let res = buildResponse({ session, form });
 
     const contextifiedObject = vm.createContext({
       console: console,

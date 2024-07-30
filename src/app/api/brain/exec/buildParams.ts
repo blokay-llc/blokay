@@ -90,24 +90,24 @@ export const buildRequest = ({
       return await response.json();
     },
     query: async (sql: string, replacements: QueryReplacements = {}) => {
-      const conn: any = await getConnection(db, getDatasource(), "read");
+      const conn: any = await getConnection(db, getDatasource());
       return await conn.query(sql, { replacements, type: "SELECT" });
     },
     insert: async (sql: string, replacements: QueryReplacements = {}) => {
       const datasource = reqObj.defaultDatasource;
-      const conn: any = await getConnection(db, getDatasource(), "write");
+      const conn: any = await getConnection(db, getDatasource());
       return await conn.query(sql, { replacements, type: "INSERT" });
     },
     delete: async (sql: string, replacements: QueryReplacements = {}) => {
-      const conn: any = await getConnection(db, getDatasource(), "write");
+      const conn: any = await getConnection(db, getDatasource());
       return await conn.query(sql, { replacements, type: "DELETE" });
     },
     update: async (sql: string, replacements: QueryReplacements = {}) => {
-      const conn: any = await getConnection(db, getDatasource(), "write");
+      const conn: any = await getConnection(db, getDatasource());
       return await conn.query(sql, { replacements, type: "UPDATE" });
     },
     find: async (sql: string, replacements: QueryReplacements = {}) => {
-      const conn: any = await getConnection(db, getDatasource(), "read");
+      const conn: any = await getConnection(db, getDatasource());
       let rows = await conn.query(sql, { replacements, type: "SELECT" });
       if (rows && rows.length > 0) {
         return rows[0];

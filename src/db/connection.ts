@@ -13,7 +13,7 @@ const dialects: any = {
     module: require("mysql2"),
   },
 };
-export const getConnection = (db: any, datasource: any, profile: string) => {
+export const getConnection = (db: any, datasource: any) => {
   let dataSourceId = datasource.id;
   return new Promise((resolve, reject) => {
     if (connections[dataSourceId]) {

@@ -46,6 +46,7 @@ export interface Request {
   form?: Form; // values filled by the user
 
   // database methods
+  setDatasource: (datasourceName: any) => Request;
   find: (sql: string, replacements?: QueryReplacements) => Promise<Row>;
   query: (sql: string, replacements?: QueryReplacements) => Promise<Rows>;
   insert: (sql: string, replacements?: QueryReplacements) => Promise<void>;
