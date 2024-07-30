@@ -40,18 +40,18 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
 
   let d1 = Date.now();
 
-  const datasource = await Datasource.findOne({
+  const datasources = await Datasource.findAll({
     where: {
       businessId: business.id,
       workspaceId: block.workspaceId,
     },
   });
 
-  let response = await callContext(block, session, form, datasource);
+  let response = await callContext(block, session, form, datasources);
 
-  if (datasource) {
-    datasource.update({ lastUseAt: Date.now() });
-  }
+  // if (datasource) {
+  //   datasource.update({ lastUseAt: Date.now() });
+  // }
   let timeMs = Date.now() - d1;
   block.update({
     executions: db.sequelize.literal(`executions + 1`),
@@ -61,7 +61,7 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
   BlockExecution.create({
     timeMs,
     userId: session.id || session.userId || null,
-    dataSourceId: datasource?.id,
+    // dataSourceId: datasource?.id,
     blockId: block.id,
     businessId: business.id,
     data: form,

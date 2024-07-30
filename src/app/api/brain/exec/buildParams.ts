@@ -14,88 +14,110 @@ let db = new Models();
 export const buildRequest = ({
   session = null,
   form,
-  datasource,
-}: any): Request => ({
-  utils: {
-    createButton(label: string, blockKey: string, form: any): any {
-      return {
-        html: `<button>${label}</button>`,
-        text: label,
-        click: "openBlock",
-        args: {
-          blockKey,
-          form,
-        },
-      };
-    },
-  },
-  session: session
-    ? {
-        id: session.id,
-        name: session.name,
-        email: session.email,
-        extra1: session.extra1,
-        extra2: session.extra2,
-        extra3: session.extra3,
-      }
-    : null,
-  form: {
-    async getFile(file: string, parser: string): Promise<FieldForm> {
-      parser = parser.toLocaleLowerCase();
-      let url = form[file];
-      if (!url && file.includes("http")) {
-        url = file;
-      }
-
-      let res = await fetch(url);
-      let buffer = await res.blob();
-      let content = null;
-
-      let ext = url.split(/[#?]/)[0].split(".").pop().trim();
-
-      if (parser === "csv") {
-        let text = await buffer.text();
-        content = text.split(/\r\n|\n|\r/).map((row) => row.split(";"));
-      }
-
-      return {
-        fileName: "",
-        ext,
-        buffer,
-        content,
-      };
-    },
-    ...form,
-  },
-  fetch: async (endpoint: string, opts = {}) => {
-    let response = await fetch(endpoint, opts);
-    return await response.json();
-  },
-  query: async (sql: string, replacements: QueryReplacements = {}) => {
-    const conn: any = await getConnection(db, datasource, "read");
-    return await conn.query(sql, { replacements, type: "SELECT" });
-  },
-  insert: async (sql: string, replacements: QueryReplacements = {}) => {
-    const conn: any = await getConnection(db, datasource, "write");
-    return await conn.query(sql, { replacements, type: "INSERT" });
-  },
-  delete: async (sql: string, replacements: QueryReplacements = {}) => {
-    const conn: any = await getConnection(db, datasource, "write");
-    return await conn.query(sql, { replacements, type: "DELETE" });
-  },
-  update: async (sql: string, replacements: QueryReplacements = {}) => {
-    const conn: any = await getConnection(db, datasource, "write");
-    return await conn.query(sql, { replacements, type: "UPDATE" });
-  },
-  find: async (sql: string, replacements: QueryReplacements = {}) => {
-    const conn: any = await getConnection(db, datasource, "read");
-    let rows = await conn.query(sql, { replacements, type: "SELECT" });
-    if (rows && rows.length > 0) {
-      return rows[0];
+  datasources,
+}: any): Request => {
+  const getDatasource = () => {
+    const datasource = reqObj.defaultDatasource || datasources[0];
+    if (!datasource) {
+      throw new Error("No default datasource");
     }
-    return rows;
-  },
-});
+    return datasource;
+  };
+
+  const reqObj = {
+    defaultDatasource: null,
+    utils: {
+      createButton(label: string, blockKey: string, form: any): any {
+        return {
+          html: `<button>${label}</button>`,
+          text: label,
+          click: "openBlock",
+          args: {
+            blockKey,
+            form,
+          },
+        };
+      },
+    },
+    session: session
+      ? {
+          id: session.id,
+          name: session.name,
+          email: session.email,
+          extra1: session.extra1,
+          extra2: session.extra2,
+          extra3: session.extra3,
+        }
+      : null,
+    form: {
+      async getFile(file: string, parser: string): Promise<FieldForm> {
+        parser = parser.toLocaleLowerCase();
+        let url = form[file];
+        if (!url && file.includes("http")) {
+          url = file;
+        }
+
+        let res = await fetch(url);
+        let buffer = await res.blob();
+        let content = null;
+
+        let ext = url.split(/[#?]/)[0].split(".").pop().trim();
+
+        if (parser === "csv") {
+          let text = await buffer.text();
+          content = text.split(/\r\n|\n|\r/).map((row) => row.split(";"));
+        }
+
+        return {
+          fileName: "",
+          ext,
+          buffer,
+          content,
+        };
+      },
+      ...form,
+    },
+    setDatasource: (datasourceName: string) => {
+      let datasource = datasources.find((d: any) => d.name == datasourceName);
+      if (!datasource) {
+        throw new Error(`No datasource named ${datasourceName}`);
+      }
+      reqObj.defaultDatasource = datasource;
+      return reqObj;
+    },
+    fetch: async (endpoint: string, opts = {}) => {
+      let response = await fetch(endpoint, opts);
+      return await response.json();
+    },
+    query: async (sql: string, replacements: QueryReplacements = {}) => {
+      const conn: any = await getConnection(db, getDatasource(), "read");
+      return await conn.query(sql, { replacements, type: "SELECT" });
+    },
+    insert: async (sql: string, replacements: QueryReplacements = {}) => {
+      const datasource = reqObj.defaultDatasource;
+      const conn: any = await getConnection(db, getDatasource(), "write");
+      return await conn.query(sql, { replacements, type: "INSERT" });
+    },
+    delete: async (sql: string, replacements: QueryReplacements = {}) => {
+      const conn: any = await getConnection(db, getDatasource(), "write");
+      return await conn.query(sql, { replacements, type: "DELETE" });
+    },
+    update: async (sql: string, replacements: QueryReplacements = {}) => {
+      const conn: any = await getConnection(db, getDatasource(), "write");
+      return await conn.query(sql, { replacements, type: "UPDATE" });
+    },
+    find: async (sql: string, replacements: QueryReplacements = {}) => {
+      const conn: any = await getConnection(db, getDatasource(), "read");
+      let rows = await conn.query(sql, { replacements, type: "SELECT" });
+      if (rows && rows.length > 0) {
+        return rows[0];
+      }
+      return rows;
+    },
+  };
+
+  return reqObj;
+};
 
 export const buildResponse = ({}: any): Response => ({
   json: (json: Object): BlockResponse => {
@@ -173,14 +195,14 @@ export const buildResponse = ({}: any): Response => ({
 });
 
 export const buildArgs = ({
-  datasource,
+  datasources,
   user = null,
   form = null,
 }: any): Args => ({
   ...buildRequest({
     user,
     form,
-    datasource,
+    datasources,
   }),
   ...buildResponse({}),
 });

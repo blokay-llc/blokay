@@ -28,13 +28,13 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
   let business = await Business.findById(businessId);
   let d1 = Date.now();
 
-  const datasource = await Datasource.findOne({
+  const datasources = await Datasource.findAll({
     where: {
       businessId: business.id,
     },
   });
 
-  let response = await callContext(block, null, form, datasource);
+  let response = await callContext(block, null, form, datasources);
   if (!response?.content) {
     return NextResponse.json(
       {
@@ -46,7 +46,7 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
     );
   }
 
-  datasource.update({ lastUseAt: Date.now() });
+  // datasource.update({ lastUseAt: Date.now() });
   let timeMs = Date.now() - d1;
   block.update({
     executions: db.sequelize.literal(`executions + 1`),
@@ -56,7 +56,7 @@ export const POST = async function (req: NextRequest, res: NextRequest) {
   BlockExecution.create({
     timeMs,
     userId: null,
-    dataSourceId: datasource.id,
+    // dataSourceId: datasource.id,
     BlockId: block.id,
     businessId: businessId,
     data: form,

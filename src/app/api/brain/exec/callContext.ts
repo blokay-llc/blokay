@@ -6,7 +6,7 @@ export async function callContext(
   block: any,
   session: any,
   form: any,
-  datasource: any
+  datasources: any
 ): Promise<BlockResponse> {
   let content = `
     // declaration of the function
@@ -21,8 +21,8 @@ export async function callContext(
 
   let response: BlockResponse;
   try {
-    let req = buildRequest({ session, form, datasource });
-    let res = buildResponse({ session, form, datasource });
+    let req = buildRequest({ session, form, datasources });
+    let res = buildResponse({ session, form, datasources });
 
     const contextifiedObject = vm.createContext({
       console: console,
