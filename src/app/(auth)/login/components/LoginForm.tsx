@@ -37,13 +37,13 @@ export default function LoginForm() {
 
   return (
     <div className="container">
-      <div className="lg:max-w-96 mx-auto ">
-        <a href="/">
+      <div className="lg:max-w-96 mx-auto bg-white shadow-lg px-5 py-10 my-10 rounded-xl">
+        <a href="/" className="block mb-5">
           <img
             src="/logo-white.svg"
-            className="h-8 mb-10 mx-auto hidden dark:block"
+            className="h-8 mx-auto hidden dark:block"
           />
-          <img src="/logo.svg" className="h-10 mb-10 mx-auto dark:hidden" />
+          <img src="/logo.svg" className="h-10  mx-auto dark:hidden" />
         </a>
 
         <form action={login} className="flex flex-col gap-3">
@@ -76,7 +76,7 @@ export default function LoginForm() {
           />
         </form>
 
-        <div className="mt-10 grid grid-cols-2 gap-3">
+        <div className="mt-5 grid grid-cols-2 gap-3">
           {process.env.NEXT_PUBLIC_GOOGLE_LOGIN != "0" && (
             <div
               className="transition duration-100 border-2 border-neutral-300 dark:border-neutral-800 rounded-lg flex gap-3 items-center text-neutral-600 px-3 py-2 font-light hover:bg-neutral-300 dark:hover:bg-neutral-900 dark:text-neutral-400 cursor-pointer "
@@ -109,10 +109,12 @@ export default function LoginForm() {
           ¿Any problem to login?
         </div>
 
-        <div className=" mx-auto mt-10  ">
+        <div className="border-t border-neutral-300 dark:border-black my-6"></div>
+
+        <div className=" mx-auto ">
           <a
             href="/register"
-            className="border-neutral-300 dark:border-neutral-950 border-2 text-neutral-700 px-5 py-3 rounded-2xl shadow-2xl shadow-neutral-400 dark:shadow-black dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-950 flex items-center gap-5"
+            className="border-neutral-300 dark:border-neutral-950 border-2 text-neutral-700 px-5 py-3 rounded-lg shadow-neutral-400 dark:shadow-black dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-950 flex items-center gap-5"
           >
             <DS.Icon icon="account" className="size-8 fill-neutral-500" />
             <div>

@@ -25,41 +25,39 @@ export default function EmailProvider({ setStep }: { setStep: any }) {
 
   return (
     <form action={register} className="flex flex-col gap-3">
-      {/* <DS.Input
-            type="text"
-            value={form.companyName}
-            label="Company Name"
-            onChange={(companyName: string) =>
-              setForm({ ...form, companyName })
-            }
-            error={errors?.companyName}
-          /> */}
+      <DS.Input
+        type="text"
+        value={form.companyName}
+        label="Company Name"
+        onChange={(companyName: string) => setForm({ ...form, companyName })}
+        error={errors?.companyName}
+      />
 
-      {/* <DS.Select
-            value={form.companySize}
-            label="Company Size"
-            onChange={(val: string) => {
-              setForm({ ...form, companySize: val });
-            }}
-            error={errors?.companySize}
-          >
-            <option value="me">Only me</option>
-            <option value="1-5">1-5</option>
-            <option value="6-20">6-20</option>
-            <option value="21-100">21-100</option>
-            <option value="101-1000">101-1000</option>
-            <option value="1001-infinite">1001-Infinite</option>
-          </DS.Select> */}
+      <DS.Select
+        value={form.companySize}
+        label="Company Size"
+        onChange={(val: string) => {
+          setForm({ ...form, companySize: val });
+        }}
+        error={errors?.companySize}
+      >
+        <option value="me">Only me</option>
+        <option value="1-5">1-5</option>
+        <option value="6-20">6-20</option>
+        <option value="21-100">21-100</option>
+        <option value="101-1000">101-1000</option>
+        <option value="1001-infinite">1001-Infinite</option>
+      </DS.Select>
 
-      {/* <DS.Input
-            type="text"
-            value={form.name}
-            label="Your name"
-            onChange={(val: string) => {
-              setForm({ ...form, name: val });
-            }}
-            error={errors?.name}
-          /> */}
+      <DS.Input
+        type="text"
+        value={form.name}
+        label="Your name"
+        onChange={(val: string) => {
+          setForm({ ...form, name: val });
+        }}
+        error={errors?.name}
+      />
 
       <DS.Input
         type="text"

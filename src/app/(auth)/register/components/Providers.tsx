@@ -12,7 +12,7 @@ export default function Providers({ setStep }: { setStep: any }) {
   };
 
   return (
-    <div className="mt-10 grid grid-cols-1 gap-3">
+    <div className="grid grid-cols-1 gap-3">
       {process.env.NEXT_PUBLIC_GOOGLE_LOGIN != "0" && (
         <div
           className="transition duration-100 border-2 border-neutral-300 dark:border-neutral-800 rounded-lg flex gap-3 items-center text-neutral-600 px-3 py-2 font-light hover:bg-neutral-300 dark:hover:bg-neutral-900 dark:text-neutral-400 cursor-pointer "
