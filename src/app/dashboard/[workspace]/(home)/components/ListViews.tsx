@@ -101,7 +101,6 @@ export default function ListViews({ workspace }: any) {
             onChange={(val: string) => {
               setForm({ ...form, search: val });
             }}
-            size="md"
             icon="search"
             className="w-full"
             label="Search"
