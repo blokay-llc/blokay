@@ -20,7 +20,9 @@ const model = (sequelize: any, DataTypes: any) => {
           let encodedText = objThis.getDataValue("config");
           try {
             const key: string = process.env.ENCRYPTION_KEY || "";
+
             const algorithm = "aes256";
+
             const decipher = crypto.createDecipher(algorithm, key);
             const decrypted =
               decipher.update(encodedText, "hex", "utf8") +
@@ -29,6 +31,7 @@ const model = (sequelize: any, DataTypes: any) => {
             let json: any = decrypted || "{}";
             return JSON.parse(json);
           } catch (err) {
+            console.log(err);
             let json: any = objThis.getDataValue("config") || "{}";
             return JSON.parse(json);
           }
