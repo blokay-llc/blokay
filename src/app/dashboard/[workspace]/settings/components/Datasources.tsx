@@ -7,6 +7,7 @@ import {
 } from "@/app/services/datasource";
 import { DS } from "@blokay/react";
 import DatasourceForm from "./DatasourceForm";
+import NoDatasources from "./NoDatasources";
 import { useApi } from "@/hooks/useApi";
 
 export default function SettingsView({ workspace }: { workspace: string }) {
@@ -105,22 +106,12 @@ export default function SettingsView({ workspace }: { workspace: string }) {
             )}
           </div>
 
-          <div className="flex-col flex gap-3 border-neutral-300 dark:border-neutral-800 border  rounded-xl ">
-            {datasources.length == 0 && (
-              <div className="py-10 px-5">
-                <h2 className="mb-5 text-lg font-bold text-neutral-700 dark:text-neutral-200">
-                  You don't have any datasource created
-                </h2>
-                <DS.Button
-                  onClick={newDataSource}
-                  text="Create your first datasource"
-                  icon="add"
-                  variant="primary"
-                  loading={loading}
-                />
-              </div>
-            )}
-            {datasources.length > 0 && (
+          {datasources.length == 0 && (
+            <NoDatasources addNewDataSource={newDataSource} />
+          )}
+
+          {datasources.length > 0 && (
+            <div className="flex-col flex gap-3 border-neutral-300 dark:border-neutral-800 border  rounded-xl ">
               <div className="flex flex-col  divide-y divide-neutral-300">
                 {datasources.map((datasource: any) => (
                   <div
@@ -147,8 +138,8 @@ export default function SettingsView({ workspace }: { workspace: string }) {
                   </div>
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       )}
     </div>
