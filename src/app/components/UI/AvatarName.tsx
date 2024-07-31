@@ -22,7 +22,7 @@ type AvatarNameProps = {
   name: string;
   id?: string | number;
   colorIndex?: number;
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   className?: string;
   image?: string | null;
 };
@@ -43,6 +43,7 @@ export default function AvatarName({
   };
 
   const sizeClass = () => {
+    if (size == "xs") return "size-6 text-xs";
     if (size == "sm") return "size-8 text-xs";
     if (size == "md") return "size-10 text-sm";
     if (size == "lg") return "size-12 ";

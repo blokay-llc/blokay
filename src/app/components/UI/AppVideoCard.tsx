@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { DS } from "@blokay/react";
+import { cn } from "@/lib/utils";
 export default function AppVideoCard({
   duration,
   title,
@@ -14,7 +15,10 @@ export default function AppVideoCard({
   return (
     <>
       <div
-        className="border-neutral-300 border px-5 group  transition  rounded-lg py-5 flex justify-between gap-5 items-center text-indigo-900 dark:text-white cursor-pointer select-none bg-gradient-to-r from-[#f4def6] to-[#d7ecf8] dark:from-neutral-800 dark:to-blue-950"
+        className={cn(
+          "border px-5 group  transition  rounded-lg py-5 flex cursor-pointer select-none justify-between gap-5 items-center",
+          "border-neutral-300 text-neutral-900 dark:text-white  bg-gradient-to-r from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-950"
+        )}
         onClick={() => modalRef.current.showModal()}
       >
         <div>
@@ -24,7 +28,7 @@ export default function AppVideoCard({
         <div className="shadow-lg bg-white group-hover:bg-indigo-100 px-3 py-2 rounded-xl border-black/10 border flex gap-10 items-center">
           <div className="text-sm text-blue-950">
             <div>{name}</div>
-            <div className="text-blue-600">{duration}</div>
+            <div className="text-neutral-600">{duration}</div>
           </div>
 
           <div>

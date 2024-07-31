@@ -2,12 +2,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { viewList, addView, deleteView } from "@/app/services/brain";
-import AppVideoCard from "@/app/components/UI/AppVideoCard";
 import AvatarName from "@/app/components/UI/AvatarName";
 import AddCreditCard from "@/app/components/UI/AddCreditCard";
 import { DS } from "@blokay/react";
 import { useApi } from "@/hooks/useApi";
-
+import Feedback from "@/app/dashboard/[workspace]/(home)/components/Feedback";
+import NoViews from "@/app/dashboard/[workspace]/(home)/components/NoViews";
 export default function ListViews({ workspace }: any) {
   const { data: session }: any = useSession();
   const isAdmin = session?.user?.rol == "admin";
@@ -93,7 +93,7 @@ export default function ListViews({ workspace }: any) {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-5 mb-10">
+      <div className="flex items-center justify-between gap-3 mb-5">
         <div className="lg:w-full mr-auto">
           <DS.Input
             type="text"
@@ -101,38 +101,44 @@ export default function ListViews({ workspace }: any) {
             onChange={(val: string) => {
               setForm({ ...form, search: val });
             }}
+            size="md"
             icon="search"
             className="w-full"
             label="Search"
             autoComplete="off"
           />
         </div>
+
+        <Feedback />
+
         {canCreateViews() && !loading && (
           <DS.Button
             icon="wizard"
             text="Add new"
             onClick={() => handleClickCreateNew()}
             variant="primary"
-            size="lg"
+            size="md"
             className="shrink-0"
           />
         )}
+
         <div className="shrink-0">
           <AvatarName
             name={session?.user?.name}
             image={session?.user?.image}
             id={session?.user?.id}
+            size="sm"
           />
         </div>
       </div>
       {!canCreateViews() && !session?.business?.addedCard && (
-        <div className="mb-10 ">
+        <div className="mb-5 ">
           <AddCreditCard text="You need to add a credit card to continue building" />
         </div>
       )}
 
       <div className="flex flex-col gap-5 lg:gap-5 ">
-        {viewsComputed.length > 0 && (
+        {viewsCount() > 0 && (
           <div className="flex flex-col gap-5 lg:gap-5 ">
             {viewsComputed.map((view: any) => (
               <div className="">
@@ -142,12 +148,12 @@ export default function ListViews({ workspace }: any) {
                   </h2>
                 )}
 
-                <div className="dark:bg-transparent flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-lg">
+                <div className="dark:bg-transparent flex flex-col w-full divide-y dark:divide-neutral-800 border dark:border-neutral-800 divide-neutral-200 border-neutral-200 rounded-lg bg-neutral-50">
                   {view.Views.map((view: any) => (
                     <a
                       href={`/dashboard/${workspace}/view/${view.slug}`}
                       key={view.id}
-                      className=" shadow-sm  border-transparent 	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-3 lg:py-2 flex items-center gap-3 hover:bg-neutral-50 dark:hover:bg-neutral-800   duration-100 justify-between relative group/item transition-all"
+                      className=" shadow-sm  border-transparent 	   text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 p-3 lg:px-3 lg:py-2 flex items-center gap-3  dark:hover:bg-neutral-800   duration-100 justify-between relative group/item transition-all"
                     >
                       <div className="font-light group-hover/item:bg-neutral-200 bg-neutral-100 dark:bg-neutral-800 size-7 flex items-center justify-center rounded-lg">
                         <DS.Icon
@@ -164,7 +170,7 @@ export default function ListViews({ workspace }: any) {
                             id={view?.User?.id}
                             name={view?.User?.name}
                             image={view?.User?.image}
-                            size="sm"
+                            size="xs"
                           />
                           <div className="font-light text-xs truncate">
                             {view.User.name}
@@ -192,16 +198,8 @@ export default function ListViews({ workspace }: any) {
             ))}
           </div>
         )}
-        {viewsCount() <= 3 && isAdmin && (
-          <AppVideoCard
-            previewImage="/founder.jpeg"
-            youtubeUrl=""
-            title="Quick intro"
-            subtitle="Introduction by the Founder"
-            name="Introduction"
-            duration="1:09"
-          />
-        )}
+
+        {viewsCount() <= 0 && <NoViews addView={handleClickCreateNew} />}
       </div>
       <DS.Modal
         title="Add new"

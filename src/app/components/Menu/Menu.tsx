@@ -6,6 +6,7 @@ import Tree from "./Tree";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Workspace from "./Workspace";
+import Usage from "./Usage";
 
 type MenuOptionProps = {
   name: string;
@@ -165,6 +166,10 @@ export default function Menu({
             />
           )}
         </div>
+      </div>
+
+      <div className="mt-5">
+        <Usage />
       </div>
 
       <div className="text-xs text-neutral-400 mt-3 md:flex gap-3 px-2 hidden">
