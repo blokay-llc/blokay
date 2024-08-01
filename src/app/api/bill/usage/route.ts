@@ -22,9 +22,9 @@ export const POST = withUser(async function ({ user }: any) {
   return NextResponse.json({
     data: {
       billId: bill.id,
-      planName: "Free",
+      planName: business.plan,
       blockUsage: details.BLOCK_EXECUTIONS?.value || 0,
-      blockUsageLimit: 5000,
+      blockUsageLimit: business.blockUsageLimit,
     },
   });
 });

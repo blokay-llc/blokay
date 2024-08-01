@@ -5,6 +5,7 @@ export default (sequelize: any, DataTypes: any) => {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       ownerId: { type: DataTypes.INTEGER, allowNull: true },
       coreToken: { type: DataTypes.STRING, allowNull: true },
+      plan: { type: DataTypes.STRING, allowNull: true },
       logo: { type: DataTypes.STRING, allowNull: true },
       website: { type: DataTypes.STRING, allowNull: true },
       name: { type: DataTypes.STRING, allowNull: true },
@@ -12,6 +13,7 @@ export default (sequelize: any, DataTypes: any) => {
       billEmail: { type: DataTypes.STRING, allowNull: true },
       address: { type: DataTypes.STRING, allowNull: true },
       currentBillId: { type: DataTypes.INTEGER, allowNull: true },
+      blockUsageLimit: { type: DataTypes.INTEGER, allowNull: true },
     },
     {
       paranoid: true,

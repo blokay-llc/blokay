@@ -10,7 +10,7 @@ const formatUsage = (num: number, digits: number = 1) => {
     { value: 1, symbol: "" },
     { value: 1e3, symbol: "k" },
     { value: 1e6, symbol: "M" },
-    { value: 1e9, symbol: "MM" },
+    { value: 1e9, symbol: "G" },
     { value: 1e12, symbol: "T" },
     { value: 1e15, symbol: "P" },
     { value: 1e18, symbol: "E" },
@@ -50,7 +50,7 @@ export default function Usage() {
       <div className="text-sm">
         Plan usage
         <span className="ml-2 bg-neutral-100 rounded-lg px-3 py-1 text-xs font-light">
-          {bill?.planName || "Free"}
+          {bill?.planName}
         </span>
       </div>
 
