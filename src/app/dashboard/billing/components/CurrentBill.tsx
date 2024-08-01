@@ -27,13 +27,13 @@ const formatUsage = (num: number, digits: number = 1) => {
   return formattedVal;
 };
 
-const BillDetail = ({ label, detail = { value: 0 }, limit }: any) => {
+const BillDetail = ({ label, value = 0, limit }: any) => {
   return (
     <div className="py-2 flex items-center justify-between gap-2 font-light text-sm text-neutral-600 ">
       <div>{label}</div>
 
       <div className="flex items-center gap-1">
-        <span className="font-bold">{formatUsage(detail?.value || 0)}</span>
+        <span className="font-bold">{value}</span>
         {limit && (
           <>
             <span>/</span>
@@ -73,20 +73,29 @@ export default function CurrentBill() {
         </p>
 
         <div className="mt-5 flex flex-col divide-y divide-neutral-200">
+          <BillDetail label="Users" value={bill?.Details?.USERS?.value} />
+
           <BillDetail
             label="Block Executions"
-            detail={bill?.Details?.BLOCK_EXECUTIONS}
+            value={formatUsage(bill?.Details?.BLOCK_EXECUTIONS?.value || 0)}
             limit={bill?.blockUsageLimit}
           />
-          <BillDetail label="Block Time" detail={bill?.Details?.BLOCK_TIME} />
+
+          <BillDetail
+            label="Block Time"
+            value={
+              ((bill?.Details?.BLOCK_TIME?.value || 0) / 1000).toFixed() + "s"
+            }
+          />
 
           <BillDetail
             label="Network Input"
-            detail={bill?.Details?.NETWORK_INPUT}
+            value={bill?.Details?.NETWORK_INPUT?.value || 0}
           />
+
           <BillDetail
             label="Network Output"
-            detail={bill?.Details?.NETWORK_OUTPUT}
+            value={bill?.Details?.NETWORK_OUTPUT?.value || 0}
           />
         </div>
       </div>

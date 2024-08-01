@@ -17,6 +17,7 @@ export const POST = withUser(async function ({ user }: any) {
     "BLOCK_TIME",
     "NETWORK_INPUT",
     "NETWORK_OUTPUT",
+    "USERS",
   ]);
 
   return NextResponse.json({
