@@ -11,6 +11,9 @@ const model = (sequelize: any, DataTypes: any) => {
       error: { type: DataTypes.STRING, allowNull: true },
       finishAt: { type: DataTypes.DATE, allowNull: true },
 
+      inputSize: { type: DataTypes.INTEGER, allowNull: true },
+      outputSize: { type: DataTypes.INTEGER, allowNull: true },
+
       data: {
         type: DataTypes.TEXT,
         allowNull: true,

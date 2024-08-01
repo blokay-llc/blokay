@@ -67,6 +67,8 @@ export const POST = withJWT(async function ({ business, session, body }: any) {
     data: form,
     finishAt: Date.now(),
     error: response?.type == "exception" ? response.content?.name : null,
+    inputSize: Buffer.byteLength(JSON.stringify(form)),
+    outputSize: Buffer.byteLength(JSON.stringify(response)),
   });
 
   if (format == "excel" && response?.type == "table") {

@@ -8,8 +8,8 @@ export default function Usage() {
   return (
     <div className="text-neutral-950 bg-white border border-neutral-300 rounded-lg p-5 flex flex-col gap-3">
       <div className="text-sm">
-        Plan usage{" "}
-        <span className="ml-2 bg-neutral-100 rounded-lg px-3 py-1  font-light">
+        Plan usage
+        <span className="ml-2 bg-neutral-100 rounded-lg px-3 py-1 text-xs font-light">
           Free
         </span>
       </div>
