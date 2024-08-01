@@ -5,9 +5,18 @@ import { withUser } from "@/lib/withUser";
 let db = new Models();
 
 export const POST = withUser(async function ({ user }: any) {
+  const business = await db.Business.findOne({
+    where: {
+      id: user.businessId,
+    },
+  });
+
   const bills = await db.Bill.findAll({
     where: {
       businessId: user.businessId,
+      id: {
+        [db.Op.not]: business.currentBillId,
+      },
     },
     order: [["startBillingCycle", "DESC"]],
   });
