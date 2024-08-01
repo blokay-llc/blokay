@@ -10,7 +10,7 @@ import Email from "@/app/services/mail";
 import UserWelcome from "@/emails/UserWelcome";
 
 let db = new Models();
-const { User, Business, Workspace }: any = db;
+const { User, Business, Workspace, Bill }: any = db;
 
 const schema = z.object({
   name: z.string().min(3),
@@ -40,6 +40,17 @@ export async function POST(req: any) {
   const business = await Business.create({
     name: companyName,
     coreToken: result.coreToken,
+  });
+
+  const bill = await Bill.create({
+    businessId: business.id,
+    startBillingCycle: new Date(),
+    paid: false,
+    amount: 0,
+  });
+
+  await business.update({
+    billId: bill.id,
   });
 
   const user = await User.create({

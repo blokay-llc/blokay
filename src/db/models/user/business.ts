@@ -11,6 +11,7 @@ export default (sequelize: any, DataTypes: any) => {
       paymentProviderToken: { type: DataTypes.STRING, allowNull: true },
       billEmail: { type: DataTypes.STRING, allowNull: true },
       address: { type: DataTypes.STRING, allowNull: true },
+      currentBillId: { type: DataTypes.INTEGER, allowNull: true },
     },
     {
       paranoid: true,
@@ -22,6 +23,10 @@ export default (sequelize: any, DataTypes: any) => {
     models.Business.belongsTo(models.User, {
       foreignKey: "ownerId",
       as: "owner",
+    });
+    models.Business.belongsTo(models.Bill, {
+      foreignKey: "currentBillId",
+      as: "bill",
     });
   };
 

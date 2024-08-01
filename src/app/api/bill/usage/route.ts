@@ -1,0 +1,30 @@
+import { NextResponse } from "next/server";
+import Models from "@/db/index";
+import { withUser } from "@/lib/withUser";
+
+let db = new Models();
+
+export const POST = withUser(async function ({ user }: any) {
+  const business = await db.Business.findOne({
+    where: {
+      id: user.businessId,
+    },
+  });
+  const bill = await business.getBill();
+
+  const details = await bill.getDetailsByKeys([
+    "BLOCK_EXECUTIONS",
+    "BLOCK_TIME",
+    "NETWORK_INPUT",
+    "NETWORK_OUTPUT",
+  ]);
+
+  return NextResponse.json({
+    data: {
+      billId: bill.id,
+      planName: "Free",
+      blockUsage: details.BLOCK_EXECUTIONS?.value || 0,
+      blockUsageLimit: 5000,
+    },
+  });
+});

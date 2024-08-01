@@ -13,6 +13,8 @@ import Business from "./models/user/business";
 import User from "./models/user/user";
 import UserPermission from "./models/user/user-permission";
 import Feedback from "./models/user/feedback";
+import Bill from "./models/bill/bill";
+import BillDetail from "./models/bill/bill-detail";
 
 class DB {
   [index: string]: any; //index signature
@@ -31,6 +33,8 @@ class DB {
     UserPermission,
     Workspace,
     Feedback,
+    Bill,
+    BillDetail,
   };
 
   public sequelize: any = null;
