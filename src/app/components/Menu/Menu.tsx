@@ -128,7 +128,7 @@ export default function Menu({
           {isAdmin && (
             <MenuOption
               currentPath={pathName}
-              name="Billing"
+              name="Billing and Usage"
               icon="bill"
               href="/dashboard/billing"
             />

@@ -25,6 +25,7 @@ export const POST = withUser(async function ({ user }: any) {
       planName: business.plan,
       blockUsage: details.BLOCK_EXECUTIONS?.value || 0,
       blockUsageLimit: business.blockUsageLimit,
+      Details: details,
     },
   });
 });

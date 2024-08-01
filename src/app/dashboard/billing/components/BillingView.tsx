@@ -73,8 +73,6 @@ export default function BillingView() {
   return (
     <>
       <div className="flex flex-col gap-5">
-        <CurrentBill />
-
         {session?.business.addedCard && (
           <UpdateCard
             onClick={() => {
@@ -92,6 +90,8 @@ export default function BillingView() {
         )}
 
         <BusinessInfo session={session} />
+
+        <CurrentBill />
       </div>
 
       <DS.Modal
