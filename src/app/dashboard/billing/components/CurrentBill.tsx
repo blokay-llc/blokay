@@ -61,31 +61,34 @@ export default function CurrentBill() {
     });
   }, []);
   return (
-    <div className="text-neutral-800 dark:text-white border border-neutral-200 bg-white dark:bg-transparent dark:border-neutral-800 rounded-lg py-5 px-5">
-      <h2 className="font-bold text-xl mb-3">Current plan</h2>
-      <p className="text-sm font-light text-neutral-500">
-        You are currently on the
-        <span className="dark:text-neutral-200 font-bold ml-3">
-          {bill?.planName}
-        </span>
-      </p>
+    <div className="text-neutral-800 dark:text-white ">
+      <h2 className="font-bold text-lg mb-3">Current plan</h2>
 
-      <div className="mt-5 flex flex-col divide-y divide-neutral-200">
-        <BillDetail
-          label="Block Executions"
-          detail={bill?.Details?.BLOCK_EXECUTIONS}
-          limit={bill?.blockUsageLimit}
-        />
-        <BillDetail label="Block Time" detail={bill?.Details?.BLOCK_TIME} />
+      <div className="text-neutral-800 dark:text-white border border-neutral-200 bg-white dark:bg-transparent dark:border-neutral-800 rounded-lg py-5 px-5">
+        <p className="text-sm font-light text-neutral-500">
+          You are currently on the
+          <span className="dark:text-neutral-200 font-bold ml-3 bg-black text-white px-3 py-0.5 rounded-md">
+            {bill?.planName}
+          </span>
+        </p>
 
-        <BillDetail
-          label="Network Input"
-          detail={bill?.Details?.NETWORK_INPUT}
-        />
-        <BillDetail
-          label="Network Output"
-          detail={bill?.Details?.NETWORK_OUTPUT}
-        />
+        <div className="mt-5 flex flex-col divide-y divide-neutral-200">
+          <BillDetail
+            label="Block Executions"
+            detail={bill?.Details?.BLOCK_EXECUTIONS}
+            limit={bill?.blockUsageLimit}
+          />
+          <BillDetail label="Block Time" detail={bill?.Details?.BLOCK_TIME} />
+
+          <BillDetail
+            label="Network Input"
+            detail={bill?.Details?.NETWORK_INPUT}
+          />
+          <BillDetail
+            label="Network Output"
+            detail={bill?.Details?.NETWORK_OUTPUT}
+          />
+        </div>
       </div>
     </div>
   );
