@@ -14,7 +14,7 @@ const formatUsage = (num: number, digits: number = 1) => {
     { value: 1e18, symbol: "E" },
   ];
   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  var item = lookup
+  const item = lookup
     .slice()
     .reverse()
     .find(function (item) {
@@ -67,7 +67,7 @@ export default function CurrentBill() {
       <div className="text-neutral-800 dark:text-white border border-neutral-200 bg-white dark:bg-transparent dark:border-neutral-800 rounded-lg py-5 px-5">
         <p className="text-sm font-light text-neutral-500">
           You are currently on the
-          <span className="dark:text-neutral-200 font-bold ml-3 bg-black text-white px-3 py-0.5 rounded-md">
+          <span className="dark:text-neutral-200 font-medium ml-3 bg-neutral-200 text-neutral-600 px-3 py-0.5 rounded-md">
             {bill?.planName}
           </span>
         </p>
