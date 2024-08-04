@@ -10,7 +10,7 @@ import Email from "@/app/services/mail";
 import UserWelcome from "@/emails/UserWelcome";
 
 let db = new Models();
-const { User, Business, Workspace, Bill }: any = db;
+const { User }: any = db;
 
 const schema = z.object({
   name: z.string().min(3),
@@ -37,34 +37,15 @@ export async function POST(req: any) {
 
   let result = await coreApi.newBusiness(name, companyName, companySize, email);
 
-  const business = await Business.create({
-    name: companyName,
-    coreToken: result.coreToken,
-  });
-
-  const bill = await Bill.create({
-    businessId: business.id,
-    startBillingCycle: new Date(),
-    paid: false,
-    amount: 0,
-  });
-
-  await business.update({
-    billId: bill.id,
-  });
-
-  const user = await User.create({
-    name,
-    password,
+  const user = await User.createNew({
     email,
-    businessId: business.id,
-    rol: "admin",
+    password,
+    name,
+    image: null,
+    companyName,
   });
 
-  await Workspace.create({
-    name: "main",
-    businessId: business.id,
-  });
+  await user.Business.update({ coreToken: result.coreToken });
 
   let emailSender = new Email();
   emailSender.send(
@@ -73,10 +54,6 @@ export async function POST(req: any) {
     UserWelcome,
     { name }
   );
-
-  await business.update({
-    ownerId: user.id,
-  });
 
   return sendData({});
 }

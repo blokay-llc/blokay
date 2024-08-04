@@ -4,6 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Models from "@/db/index";
 import jwt from "jsonwebtoken";
+import CoreAPI from "@/app/services/core";
 
 let db = new Models();
 const { User, Session, Business }: any = db;
@@ -40,7 +41,7 @@ export const authOptions: any = {
     } as any),
   ],
   callbacks: {
-    async signIn({ user }: any) {
+    async signIn({ user, account, profile }: any) {
       let email = user.email;
       if (!email) return false;
 
@@ -52,8 +53,24 @@ export const authOptions: any = {
           },
         ],
       });
+
       if (!userData) {
-        return false;
+        if (["google", "github"].includes(account.provider)) {
+          let name = profile.given_name;
+          let coreApi = new CoreAPI("");
+          let result = await coreApi.newBusiness(name, name, "", user.email);
+          let userCreated = await User.createNew({
+            name,
+            companyName: "",
+            email: user.email,
+            image: profile.image,
+            emailVerified: true,
+          });
+
+          await userCreated.Business.update({ coreToken: result.coreToken });
+        } else {
+          return false;
+        }
       }
 
       return true;

@@ -14,11 +14,13 @@ export default (sequelize: any, DataTypes: any) => {
       currentViewId: { type: DataTypes.INTEGER, allowNull: true },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         set(password: string) {
-          let objThis: any = this;
-          let pass = bcrypt.hashSync(password, 10);
-          objThis.setDataValue("password", pass);
+          if (password) {
+            let objThis: any = this;
+            let pass = bcrypt.hashSync(password, 10);
+            objThis.setDataValue("password", pass);
+          }
         },
       },
       blockedAt: {
@@ -44,6 +46,7 @@ export default (sequelize: any, DataTypes: any) => {
       extra1: { type: DataTypes.STRING, allowNull: true },
       extra2: { type: DataTypes.STRING, allowNull: true },
       extra3: { type: DataTypes.STRING, allowNull: true },
+      emailVerified: { type: DataTypes.BOOLEAN, allowNull: true },
     },
     {
       paranoid: true,
@@ -143,6 +146,59 @@ export default (sequelize: any, DataTypes: any) => {
         email,
       },
     });
+    return user;
+  };
+  /**
+   *Find user by her email
+   *@return corresponfing user
+   */
+  User.createNew = async function ({
+    name,
+    email,
+    image,
+    companyName = "",
+    password = null,
+    emailVerified = false,
+  }: any) {
+    const { Bill, Business, Workspace, User } = sequelize.models;
+
+    const business = await Business.create({
+      plan: "free",
+      name: companyName,
+      billEmail: email,
+    });
+
+    const bill = await Bill.create({
+      businessId: business.id,
+      startBillingCycle: new Date(),
+      paid: false,
+      amount: 0,
+    });
+
+    await business.update({
+      currentBillId: bill.id,
+    });
+
+    const user = await User.create({
+      image,
+      name,
+      password,
+      email,
+      businessId: business.id,
+      rol: "admin",
+      emailVerified,
+    });
+
+    await Workspace.create({
+      name: "main",
+      businessId: business.id,
+    });
+
+    await business.update({
+      ownerId: user.id,
+    });
+
+    user.Business = business;
     return user;
   };
 
