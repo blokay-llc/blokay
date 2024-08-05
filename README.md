@@ -1,5 +1,5 @@
 <a href="https://blokay.com">
-  <img alt="Create dashboards and backoffices in seconds" src="https://github.com/blokay-llc/blokay/assets/13822089/ff3b3bf2-6b5e-45bc-b81c-75cbcf96d906">
+  <img alt="Create dashboards and backoffices in seconds" src="https://github.com/user-attachments/assets/c0304ecc-dbe1-4aa4-ae79-45e8bebb443e">
 </a>
 
 <br/>
@@ -8,8 +8,15 @@
 
 Blokay is a powerful on-premise software solution designed to streamline your company's operations.
 
+- Develop Anything in seconds
+- Prompt to features
+- Connect your favorite frontend framework
+- SQL to (React, Vue, etc) components
+- Generate Cron Job in seconds
+- Generate Charts, APIS, components
+
 <a href="https://blokay.com">
-  <img alt="SQL to React components" src="https://github.com/user-attachments/assets/62b14671-78fb-4cff-9f09-26ae8cdb17f7">
+  <img alt="SQL to React components" src="https://github.com/user-attachments/assets/280db866-5b98-4a8d-9eb9-18e0141e2e7d">
 </a>
 
 ## Features
