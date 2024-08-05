@@ -27,6 +27,30 @@ const formatUsage = (num: number, digits: number = 1) => {
   return formattedVal;
 };
 
+function humanFileSize(bytes: number, si = false, dp = 1) {
+  const thresh = si ? 1000 : 1024;
+
+  if (Math.abs(bytes) < thresh) {
+    return bytes + " B";
+  }
+
+  const units = si
+    ? ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+    : ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
+  let u = -1;
+  const r = 10 ** dp;
+
+  do {
+    bytes /= thresh;
+    ++u;
+  } while (
+    Math.round(Math.abs(bytes) * r) / r >= thresh &&
+    u < units.length - 1
+  );
+
+  return bytes.toFixed(dp) + " " + units[u];
+}
+
 const BillDetail = ({ label, value = 0, limit }: any) => {
   return (
     <div className="py-2 flex items-center justify-between gap-2 font-light text-sm text-neutral-600 ">
@@ -90,12 +114,18 @@ export default function CurrentBill() {
 
           <BillDetail
             label="Network Input"
-            value={bill?.Details?.NETWORK_INPUT?.value || 0}
+            value={humanFileSize(
+              bill?.Details?.NETWORK_INPUT?.value || 0,
+              true
+            )}
           />
 
           <BillDetail
             label="Network Output"
-            value={bill?.Details?.NETWORK_OUTPUT?.value || 0}
+            value={humanFileSize(
+              bill?.Details?.NETWORK_OUTPUT?.value || 0,
+              true
+            )}
           />
         </div>
       </div>
