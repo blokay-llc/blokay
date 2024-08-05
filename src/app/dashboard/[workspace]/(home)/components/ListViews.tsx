@@ -178,7 +178,7 @@ export default function ListViews({ workspace }: any) {
                       )}
 
                       <div
-                        className="ml-3 opacity-0 group-hover/item:opacity-100 transition-all p-2 rounded-lg dark:hover:bg-white/10 hover:bg-black/10"
+                        className="ml-3 opacity-0 group-hover/item:opacity-100 transition-all p-2 rounded-lg dark:hover:bg-white/10 hover:bg-black/10 md:block hidden"
                         onClick={(event) => {
                           event.preventDefault();
                           modalDeleteRef.current.showModal();
