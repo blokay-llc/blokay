@@ -8,6 +8,10 @@
 
 Blokay is a powerful on-premise software solution designed to streamline your company's operations.
 
+<a href="https://blokay.com">
+  <img alt="SQL to React components" src="https://github.com/user-attachments/assets/62b14671-78fb-4cff-9f09-26ae8cdb17f7">
+</a>
+
 ## Features
 
 - **Efficiency**: Boost productivity with our streamlined workflows.
