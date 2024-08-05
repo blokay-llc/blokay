@@ -26,6 +26,10 @@ Blokay is a powerful on-premise software solution designed to streamline your co
 - **Customization**: Tailor Blokay to fit your specific needs with customizable features.
 - **Integration**: Seamlessly integrate Blokay with your existing systems.
 
+<a href="https://blokay.com">
+  <img alt="SQL to React components" src="https://github.com/user-attachments/assets/2ca75181-2f2b-4c5e-a70b-7608fe58ffd6">
+</a>
+
 ## Installation
 
 1. Clone this repository.
