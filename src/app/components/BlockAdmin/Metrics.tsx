@@ -39,8 +39,8 @@ const Metrics = ({ block, reload, jwt }: MetricsProps) => {
   }, [block]);
 
   return (
-    <div className="flex flex-col gap-4 lg:w-2/3 mx-auto">
-      <div className="flex gap-5 items-center">
+    <div className="flex flex-col gap-4 ">
+      <div className="flex gap-2 items-center">
         <DS.Input
           label="Date start"
           type="date"
@@ -59,7 +59,7 @@ const Metrics = ({ block, reload, jwt }: MetricsProps) => {
         />
       </div>
 
-      <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg ">
+      <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden">
         <Block
           block="block.executions"
           defaultForm={form}
@@ -67,14 +67,24 @@ const Metrics = ({ block, reload, jwt }: MetricsProps) => {
           jwt={jwt}
         />
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg ">
+          <Block
+            jwt={jwt}
+            block="block.chart.exections"
+            defaultForm={form}
+            autoExecute={true}
+          />
+        </div>
 
-      <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 ">
-        <Block
-          jwt={jwt}
-          block="block.chart.exections"
-          defaultForm={form}
-          autoExecute={true}
-        />
+        <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg ">
+          <Block
+            jwt={jwt}
+            block="block.chart.network"
+            defaultForm={form}
+            autoExecute={true}
+          />
+        </div>
       </div>
     </div>
   );

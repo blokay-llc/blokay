@@ -7,7 +7,11 @@ const getJWT = () => {
     {
       data: { session: {} },
       businessId: process.env.BUSINESS_CORE_ID,
-      blocks: ["block.executions", "block.chart.exections"],
+      blocks: [
+        "block.executions",
+        "block.chart.exections",
+        "block.chart.network",
+      ],
     },
     process.env.BUSINESS_CORE_TOKEN || "",
     {}
