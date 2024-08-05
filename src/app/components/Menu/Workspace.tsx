@@ -36,7 +36,7 @@ export default function Workspace({ workspace }: any) {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger className="select-none px-2 mb-3 pb-3 border-b border-neutral-300 dark:border-neutral-800 text-neutral-600 w-full focus:outline-none">
+        <DropdownMenuTrigger className="select-none px-2 md:mb-3 md:pb-3 md:border-b border-neutral-300 dark:border-neutral-800 text-neutral-600 w-full focus:outline-none">
           <div className="hover:bg-neutral-100 rounded-xl px-3 py-2 flex items-center gap-3">
             <div className="text-sm bg-neutral-300 dark:bg-neutral-800  rounded-lg px-3 py-1">
               Workspace

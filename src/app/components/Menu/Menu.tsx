@@ -76,105 +76,103 @@ export default function Menu({
   const isAdmin = session?.user?.rol == "admin";
 
   return (
-    <div
-      className={
-        "pt-16 lg:static pb-3 lg:px-0 px-3 lg:pt-0 fixed z-10 left-0 top-0 w-full " +
-        className
-      }
-    >
-      <div className="border   bg-white dark:bg-black backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-800  rounded-lg text-sm  py-2  text-neutral-600 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
-        <div className="px-4 flex items-center gap-5  py-3 lg:pt-5">
-          <a href={workspace ? `/dashboard/${workspace}` : "/dashboard"}>
-            <img src="/logo.svg" className=" h-8 shrink-0 dark:hidden block" />
-            <img
-              src="/logo-white.svg"
-              className=" h-6 shrink-0 dark:block hidden"
-            />
-          </a>
-        </div>
-
-        <Workspace workspace={workspace} />
-
-        {view && !isMobile && (
-          <div className="px-2">
-            <DS.Input
-              type="text"
-              value={search}
-              label="Search action"
-              onChange={(s: string) => {
-                setSearch(s);
-              }}
-              autoComplete="off"
-            />
+    <div className="md:pt-0 pt-16">
+      <div
+        className={
+          "lg:static pb-3 lg:px-0 px-3 fixed z-20 left-0 top-0 pt-2 w-full " +
+          className
+        }
+      >
+        <div className="border   bg-white dark:bg-black backdrop-blur-md  font-light border-neutral-300 dark:border-neutral-800  rounded-lg text-sm  py-2  text-neutral-600 dark:text-neutral-200 w-full lg:block flex items-center gap-5 lg:px-0 px-3">
+          <div className="px-4 flex items-center gap-5  py-3 lg:pt-5">
+            <a href={workspace ? `/dashboard/${workspace}` : "/dashboard"}>
+              <img src="/logo.svg" className=" h-8 shrink-0 hidden md:block" />
+            </a>
           </div>
-        )}
-        <ul className="py-3 px-2 lg:block hidden ">
-          <MenuOption
-            currentPath={pathName}
-            name="Home"
-            icon="home"
-            href={workspace ? `/dashboard/${workspace}` : "/dashboard"}
-          />
 
-          {isAdmin && (
+          <Workspace workspace={workspace} />
+
+          {view && !isMobile && (
+            <div className="px-2">
+              <DS.Input
+                type="text"
+                value={search}
+                label="Search action"
+                onChange={(s: string) => {
+                  setSearch(s);
+                }}
+                autoComplete="off"
+              />
+            </div>
+          )}
+          <ul className="py-3 px-2 lg:block hidden ">
             <MenuOption
               currentPath={pathName}
-              name="Users"
-              icon="account"
-              href="/dashboard/users"
+              name="Home"
+              icon="home"
+              href={workspace ? `/dashboard/${workspace}` : "/dashboard"}
             />
-          )}
 
-          {isAdmin && (
+            {isAdmin && (
+              <MenuOption
+                currentPath={pathName}
+                name="Users"
+                icon="account"
+                href="/dashboard/users"
+              />
+            )}
+
+            {isAdmin && (
+              <MenuOption
+                currentPath={pathName}
+                name="Billing and Usage"
+                icon="bill"
+                href="/dashboard/billing"
+              />
+            )}
+
+            {isAdmin && workspace && (
+              <MenuOption
+                currentPath={pathName}
+                name="Datasources"
+                icon="config"
+                href={`/dashboard/${workspace}/settings`}
+              />
+            )}
+
             <MenuOption
               currentPath={pathName}
-              name="Billing and Usage"
-              icon="bill"
-              href="/dashboard/billing"
+              name="Logout"
+              icon="security"
+              href="/logout"
             />
-          )}
+          </ul>
 
-          {isAdmin && workspace && (
-            <MenuOption
-              currentPath={pathName}
-              name="Datasources"
-              icon="config"
-              href={`/dashboard/${workspace}/settings`}
-            />
-          )}
-
-          <MenuOption
-            currentPath={pathName}
-            name="Logout"
-            icon="security"
-            href="/logout"
-          />
-        </ul>
-
-        <div className="lg:block hidden">
-          {editMode && views?.length > 0 && (
-            <Tree
-              views={views}
-              onClickBlock={(arg: any) => {
-                onClickBlock && onClickBlock(arg);
-                setDefaultView && setDefaultView("chat");
-              }}
-              view={view}
-              search={search}
-              blocks={blocks}
-              editMode={editMode}
-            />
-          )}
+          <div className="lg:block hidden">
+            {editMode && views?.length > 0 && (
+              <Tree
+                views={views}
+                onClickBlock={(arg: any) => {
+                  onClickBlock && onClickBlock(arg);
+                  setDefaultView && setDefaultView("chat");
+                }}
+                view={view}
+                search={search}
+                blocks={blocks}
+                editMode={editMode}
+              />
+            )}
+          </div>
         </div>
-      </div>
 
-      <div className="mt-5">
-        <Usage />
-      </div>
+        <div className="mt-5 md:block hidden">
+          <Usage />
+        </div>
 
-      <div className="text-xs text-neutral-400 mt-3 md:flex gap-3 px-2 hidden">
-        <a href="https://blokay.com/contact">Contact</a>
-        <a href="https://blokay.com/privacy">Privacy policy</a>
+        <div className="text-xs text-neutral-400 mt-3 md:flex gap-3 px-2 hidden">
+          <a href="https://blokay.com/contact">Contact</a>
+          <a href="https://blokay.com/privacy">Privacy policy</a>
+        </div>
       </div>
     </div>
   );

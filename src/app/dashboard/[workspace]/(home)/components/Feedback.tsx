@@ -3,10 +3,11 @@ import { useRef, useState } from "react";
 import { DS } from "@blokay/react";
 import { useApi } from "@/hooks/useApi";
 import { sendFeedback } from "@/app/services/users";
-
+import { useScreenDetector } from "@/app/hooks/user-screen-detector";
 export default function Feedback() {
   const [form, setForm]: any = useState({});
   const modalFeedback: any = useRef();
+  const { isMobile } = useScreenDetector();
 
   const { loading, errors, callApi } = useApi(sendFeedback);
 
@@ -19,7 +20,7 @@ export default function Feedback() {
   return (
     <>
       <DS.Button
-        text="Feedback"
+        text={isMobile ? "" : "Feedback"}
         icon="feedback"
         variant="secondary"
         size="md"
