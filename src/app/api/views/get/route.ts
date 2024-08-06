@@ -1,4 +1,4 @@
-import { withView } from "@/lib/withView";
+import { withViewJWT } from "@/lib/withView";
 import { NextResponse } from "next/server";
 import Models from "@/db/index";
 
@@ -6,7 +6,7 @@ let db = new Models();
 
 const { User, UserPermission, ViewItem, Block }: any = db;
 
-export const POST = withView(async function ({ user, view }: any) {
+export const POST = withViewJWT(async function ({ user, view }: any) {
   // set currentId
   await User.update(
     {
