@@ -53,7 +53,7 @@ export default class CronExecutor {
         continue;
       }
 
-      cron.args = buildArgs({ datasource: cron.datasource });
+      cron.args = buildArgs({ datasources: cron.datasources });
       cron.job = CronJob.from({
         cronTime: cron.cron,
         onTick: () => {
@@ -113,7 +113,7 @@ export default class CronExecutor {
       }
     }
 
-    cron.datasource.update({ lastUseAt: Date.now() });
+    // cron.datasource.update({ lastUseAt: Date.now() });
     let timeMs = Date.now() - d1;
     cron.update({
       executions: db.sequelize.literal(`executions + 1`),
@@ -122,7 +122,7 @@ export default class CronExecutor {
 
     BlockExecution.create({
       timeMs,
-      dataSourceId: cron.datasource.id,
+      // dataSourceId: cron.datasource.id,
       blockId: cron.id,
       businessId: cron.businessId,
       data: null,
@@ -139,12 +139,11 @@ export default class CronExecutor {
     };
     let cronsDb: any = await Block.findAll(queryBuilder);
     for (let index in cronsDb) {
-      const datasource = await Datasource.findOne({
+      cronsDb[index].datasources = await Datasource.findAll({
         where: {
           businessId: cronsDb[index].businessId,
         },
       });
-      cronsDb[index].datasource = datasource;
     }
     this.setCrons(cronsDb);
   }
