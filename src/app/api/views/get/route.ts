@@ -8,16 +8,19 @@ const { User, UserPermission, ViewItem, Block }: any = db;
 
 export const POST = withViewJWT(async function ({ user, view }: any) {
   // set currentId
-  await User.update(
-    {
-      currentViewId: view.id,
-    },
-    {
-      where: {
-        id: user.id,
+
+  if (user?.id) {
+    await User.update(
+      {
+        currentViewId: view.id,
       },
-    }
-  );
+      {
+        where: {
+          id: user.id,
+        },
+      }
+    );
+  }
 
   let users = await User.findAll({
     where: {
@@ -27,7 +30,7 @@ export const POST = withViewJWT(async function ({ user, view }: any) {
   });
 
   let sharedUsers: any = [];
-  if (user.rol == "admin") {
+  if (user?.rol && user.rol == "admin") {
     let results = await UserPermission.findAll({
       include: [
         {

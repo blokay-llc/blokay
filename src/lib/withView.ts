@@ -52,7 +52,7 @@ export const withViewJWT = (cb: any) => {
     }
 
     // check if the user has the permission
-    if (user.rol != "admin") {
+    if (user?.rol && user.rol != "admin") {
       let queryBuilderPermissions = {
         where: {
           userId: user.id,
