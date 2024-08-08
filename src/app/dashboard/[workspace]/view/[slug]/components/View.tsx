@@ -29,6 +29,7 @@ interface ViewProps {
 }
 const View = ({ slug, jwt, workspace }: ViewProps) => {
   const { data: session }: any = useSession();
+
   const isAdmin = session?.user?.rol == "admin";
 
   const router = useRouter();
@@ -58,7 +59,8 @@ const View = ({ slug, jwt, workspace }: ViewProps) => {
   };
 
   const fetchView = () => {
-    viewGet(slug, workspace)
+    if (!session?.jwtToken) return;
+    viewGet(slug, workspace, session?.jwtToken)
       .then((r) => {
         setView(r.View);
       })
@@ -77,6 +79,10 @@ const View = ({ slug, jwt, workspace }: ViewProps) => {
     fetchView();
     fetchListBlocks();
   }, []);
+
+  useEffect(() => {
+    fetchView();
+  }, [session]);
 
   const saveView = (form: any) => {
     setView({

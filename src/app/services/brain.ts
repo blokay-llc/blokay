@@ -1,12 +1,18 @@
 import { postRequest } from "./_base";
 
-export const viewGet = async function (slug: string, workspaceId: string) {
+export const viewGet = async function (
+  slug: string,
+  workspaceId: string,
+  jwt: string
+) {
   let data = {
     slug,
     workspaceId,
   };
 
-  let result = await postRequest("views/get", data);
+  let result = await postRequest("views/get", data, {
+    token: jwt,
+  });
 
   return result.data;
 };
